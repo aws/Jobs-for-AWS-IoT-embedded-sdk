@@ -61,6 +61,114 @@ static const size_t apiTopicLength[] =
 };
 
 /**
+ * @brief Predicate returns true for a valid thing name or job ID character
+ *
+ * @param[in] a  character to check
+ * @param[in] allowColon  set to true for thing names
+ *
+ * @return true if the character is valid;
+ * false otherwise
+ */
+static bool_ isValidChar( char a,
+                          bool_ allowColon )
+{
+    bool_ ret;
+
+    if( ( a == '-' ) || ( a == '_' ) )
+    {
+        ret = true;
+    }
+    else if( ( a >= '0' ) && ( a <= '9' ) )
+    {
+        ret = true;
+    }
+    else if( ( a >= 'A' ) && ( a <= 'Z' ) )
+    {
+        ret = true;
+    }
+    else if( ( a >= 'a' ) && ( a <= 'z' ) )
+    {
+        ret = true;
+    }
+    else if( ( a == ':' ) && ( allowColon == true ) )
+    {
+        ret = true;
+    }
+    else
+    {
+        ret = false;
+    }
+
+    return ret;
+}
+
+/**
+ * @brief Predicate returns true for a valid thing name string
+ *
+ * @param[in] thingName  character sequence to check
+ * @param[in] thingNameLength  length of the character sequence
+ *
+ * @return true if the thing name is valid;
+ * false otherwise
+ */
+static bool_ isValidThingName( const char * thingName,
+                               uint16_t thingNameLength )
+{
+    bool_ ret = false;
+
+    if( ( thingName != NULL ) && ( thingNameLength > 0U ) &&
+        ( thingNameLength <= JOBS_THINGNAME_MAX_LENGTH ) )
+    {
+        size_t i;
+
+        for( i = 0; i < thingNameLength; i++ )
+        {
+            if( isValidChar( thingName[ i ], true ) == false )
+            {
+                break;
+            }
+        }
+
+        ret = ( i == thingNameLength ) ? true : false;
+    }
+
+    return ret;
+}
+
+/**
+ * @brief Predicate returns true for a valid job ID string
+ *
+ * @param[in] jobId  character sequence to check
+ * @param[in] jobIdLength  length of the character sequence
+ *
+ * @return true if the job ID is valid;
+ * false otherwise
+ */
+static bool_ isValidJobId( const char * jobId,
+                           uint16_t jobIdLength )
+{
+    bool_ ret = false;
+
+    if( ( jobId != NULL ) && ( jobIdLength > 0U ) &&
+        ( jobIdLength <= JOBS_JOBID_MAX_LENGTH ) )
+    {
+        size_t i;
+
+        for( i = 0; i < jobIdLength; i++ )
+        {
+            if( isValidChar( jobId[ i ], false ) == false )
+            {
+                break;
+            }
+        }
+
+        ret = ( i == jobIdLength ) ? true : false;
+    }
+
+    return ret;
+}
+
+/**
  * @brief A strncpy replacement based on lengths only
  *
  * @param[in] buffer  The buffer to be written.
@@ -118,9 +226,8 @@ static void writePreamble( char * buffer,
                          JOBS_API_BRIDGE, JOBS_API_BRIDGE_LENGTH );
 }
 
-#define checkThingParams()                                 \
-    ( ( thingName != NULL ) && ( thingNameLength > 0U ) && \
-      ( thingNameLength <= JOBS_THINGNAME_MAX_LENGTH ) )
+#define checkThingParams()                                     \
+    ( isValidThingName( thingName, thingNameLength ) == true )
 
 #define checkCommonParams()                    \
     ( ( buffer != NULL ) && ( length > 0U ) && \
@@ -215,75 +322,6 @@ static JobsStatus_t strnnEq( const char * a,
     if( aLength == bLength )
     {
         ret = strnEq( a, b, aLength );
-    }
-
-    return ret;
-}
-
-/**
- * @brief Predicate returns true for a valid job ID character
- *
- * @param[in] a  character to check
- *
- * @return true if the character is valid;
- * false otherwise
- */
-static bool_ isJobIdChar( char a )
-{
-    bool_ ret;
-
-    if( ( a == '-' ) || ( a == '_' ) )
-    {
-        ret = true;
-    }
-    else if( ( a >= '0' ) && ( a <= '9' ) )
-    {
-        ret = true;
-    }
-    else if( ( a >= 'A' ) && ( a <= 'Z' ) )
-    {
-        ret = true;
-    }
-    else if( ( a >= 'a' ) && ( a <= 'z' ) )
-    {
-        ret = true;
-    }
-    else
-    {
-        ret = false;
-    }
-
-    return ret;
-}
-
-/**
- * @brief Predicate returns true for a valid job ID string
- *
- * @param[in] jobId  character sequence to check
- * @param[in] jobIdLength  length of the character sequence
- *
- * @return true if the job ID is valid;
- * false otherwise
- */
-static bool_ isValidJobId( const char * jobId,
-                           uint16_t jobIdLength )
-{
-    bool_ ret = false;
-
-    if( ( jobId != NULL ) && ( jobIdLength > 0U ) &&
-        ( jobIdLength <= JOBS_JOBID_MAX_LENGTH ) )
-    {
-        size_t i;
-
-        for( i = 0; i < jobIdLength; i++ )
-        {
-            if( isJobIdChar( jobId[ i ] ) == false )
-            {
-                break;
-            }
-        }
-
-        ret = ( i == jobIdLength ) ? true : false;
     }
 
     return ret;
