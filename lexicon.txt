@@ -1,12 +1,15 @@
 alength
+allowcolon
 api
 apis
 aws
 blength
 com
+coverity
 describejobexecution
 developerguide
 endif
+enum
 getpendingjobexecutions
 html
 https
@@ -19,6 +22,7 @@ jobids
 jobsbadparameter
 jobsbuffertoosmall
 jobsinvalidtopic
+jobsmaxtopic
 jobsnextjobchanged
 jobsnomatch
 jobssuccess

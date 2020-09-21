@@ -19,6 +19,8 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <assert.h>
+
 #include "jobs.h"
 
 typedef enum
@@ -191,11 +193,17 @@ static JobsStatus_t strnAppend( char * buffer,
                                 const char * value,
                                 size_t valueLength )
 {
-    size_t i = *start, j;
+    size_t i, j = 0;
 
-    for( j = 0U; ( i < max ) && ( j < valueLength ); i++, j++ )
+    assert( ( buffer != NULL ) && ( start != NULL ) && ( value != NULL ) );
+
+    i = *start;
+
+    while( ( i < max ) && ( j < valueLength ) )
     {
         buffer[ i ] = value[ j ];
+        i++;
+        j++;
     }
 
     *start = i;
@@ -226,7 +234,7 @@ static void writePreamble( char * buffer,
                          JOBS_API_BRIDGE, JOBS_API_BRIDGE_LENGTH );
 }
 
-#define checkThingParams()                                     \
+#define checkThingParams() \
     ( isValidThingName( thingName, thingNameLength ) == true )
 
 #define checkCommonParams()                    \
@@ -290,6 +298,8 @@ static JobsStatus_t strnEq( const char * a,
 {
     size_t i;
 
+    assert( ( a != NULL ) && ( b != NULL ) );
+
     for( i = 0U; i < n; i++ )
     {
         if( a[ i ] != b[ i ] )
@@ -340,7 +350,7 @@ static JobsStatus_t strnnEq( const char * a,
  * #JobsNoMatch if a matching topic was NOT found
  *   (parameter outApi gets #JobsInvalidTopic ).
  */
-static JobsStatus_t matchIdApi( const char * topic,
+static JobsStatus_t matchIdApi( char * topic,
                                 size_t topicLength,
                                 JobsTopic_t * outApi,
                                 char ** outJobId,
@@ -348,10 +358,13 @@ static JobsStatus_t matchIdApi( const char * topic,
 {
     JobsStatus_t ret = JobsNoMatch;
     size_t i;
-    const char * p = topic;
+    char * p = topic;
     size_t length = topicLength;
-    const char * jobId = NULL;
+    char * jobId = NULL;
     uint16_t jobIdLength = 0U;
+
+    assert( ( topic != NULL ) && ( outApi != NULL ) &&
+            ( outJobId != NULL ) && ( outJobIdLength != NULL ) );
 
     for( i = 0U; i < length; i++ )
     {
@@ -360,19 +373,21 @@ static JobsStatus_t matchIdApi( const char * topic,
             /* Save the leading job ID and its length. */
             jobId = p;
             jobIdLength = ( uint16_t ) i;
-
-            /* Advance p to after the '/' and reduce buffer length
-             * for the remaining API search. */
-            p = &p[ i + 1U ];
-            length = length - i - 1U;
             break;
         }
     }
+
+    /* Advance p to after the '/' and reduce buffer length
+     * for the remaining API search. */
+    p = &p[ jobIdLength + 1U ];
+    length = length - jobIdLength - 1U;
 
     if( isValidJobId( jobId, jobIdLength ) == true )
     {
         JobsTopic_t api;
 
+        /* api is bounded within contiguous values of the enum type. */
+        /* coverity[misra_c_2012_rule_10_1_violation] */
         for( api = JobsDescribeSuccess; api < JobsMaxTopic; api++ )
         {
             ret = strnnEq( p, length, apiTopic[ api ], apiTopicLength[ api ] );
@@ -380,7 +395,7 @@ static JobsStatus_t matchIdApi( const char * topic,
             if( ret == JobsSuccess )
             {
                 *outApi = api;
-                *outJobId = ( char * ) jobId;
+                *outJobId = jobId;
                 *outJobIdLength = jobIdLength;
                 break;
             }
@@ -403,7 +418,7 @@ static JobsStatus_t matchIdApi( const char * topic,
  * #JobsNoMatch if a matching topic was NOT found
  *   (parameter outApi gets #JobsInvalidTopic ).
  */
-static JobsStatus_t matchApi( const char * topic,
+static JobsStatus_t matchApi( char * topic,
                               size_t topicLength,
                               JobsTopic_t * outApi,
                               char ** outJobId,
@@ -412,7 +427,12 @@ static JobsStatus_t matchApi( const char * topic,
     JobsStatus_t ret = JobsNoMatch;
     JobsTopic_t api;
 
+    assert( ( topic != NULL ) && ( outApi != NULL ) &&
+            ( outJobId != NULL ) && ( outJobIdLength != NULL ) );
+
     /* The first set of APIs do not have job IDs. */
+    /* api is bounded within contiguous values of the enum type. */
+    /* coverity[misra_c_2012_rule_10_1_violation] */
     for( api = JobsJobsChanged; api < JobsDescribeSuccess; api++ )
     {
         ret = strnnEq( topic, topicLength, apiTopic[ api ], apiTopicLength[ api ] );
@@ -438,7 +458,7 @@ static JobsStatus_t matchApi( const char * topic,
  *
  * @brief Output a topic value if a Jobs API topic string is present.
  */
-JobsStatus_t Jobs_MatchTopic( const char * topic,
+JobsStatus_t Jobs_MatchTopic( char * topic,
                               size_t length,
                               const char * thingName,
                               uint16_t thingNameLength,
@@ -454,9 +474,9 @@ JobsStatus_t Jobs_MatchTopic( const char * topic,
     if( ( topic != NULL ) && ( length > 0U ) && checkThingParams() &&
         ( outApi != NULL ) )
     {
-        const char * prefix = topic;
-        const char * name = &prefix[ JOBS_API_PREFIX_LENGTH ];
-        const char * bridge = &name[ thingNameLength ];
+        char * prefix = topic;
+        char * name = &prefix[ JOBS_API_PREFIX_LENGTH ];
+        char * bridge = &name[ thingNameLength ];
 
         ret = JobsNoMatch;
 
@@ -466,7 +486,7 @@ JobsStatus_t Jobs_MatchTopic( const char * topic,
             ( strnEq( prefix, JOBS_API_PREFIX, JOBS_API_PREFIX_LENGTH ) == JobsSuccess ) &&
             ( strnEq( name, thingName, thingNameLength ) == JobsSuccess ) )
         {
-            const char * tail = &bridge[ JOBS_API_BRIDGE_LENGTH ];
+            char * tail = &bridge[ JOBS_API_BRIDGE_LENGTH ];
             size_t tailLength = length - JOBS_API_COMMON_LENGTH( thingNameLength );
 
             ret = matchApi( tail, tailLength, &api, &jobId, &jobIdLength );
