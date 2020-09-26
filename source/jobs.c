@@ -92,9 +92,9 @@ static bool_ isValidChar( char a,
     {
         ret = true;
     }
-    else if( ( a == ':' ) && ( allowColon == true ) )
+    else if( a == ':' )
     {
-        ret = true;
+        ret = allowColon;
     }
     else
     {
@@ -103,6 +103,46 @@ static bool_ isValidChar( char a,
 
     return ret;
 }
+
+/**
+ * @brief Predicate returns true for a valid identifier
+ *
+ * The identifier may be a thing name or a job ID.
+ *
+ * @param[in] id  character sequence to check
+ * @param[in] length  length of the character sequence
+ * @param[in] max  maximum length of a valid identifier
+ * @param[in] allowColon  set to true for thing names
+ *
+ * @return true if the identifier is valid;
+ * false otherwise
+ */
+static bool_ isValidID( const char * id,
+                        uint16_t length,
+                        uint16_t max,
+                        bool_ allowColon )
+{
+    bool_ ret = false;
+
+    if( ( id != NULL ) && ( length > 0U ) &&
+        ( length <= max ) )
+    {
+        size_t i;
+
+        for( i = 0; i < length; i++ )
+        {
+            if( isValidChar( id[ i ], allowColon ) == false )
+            {
+                break;
+            }
+        }
+
+        ret = ( i == length ) ? true : false;
+    }
+
+    return ret;
+}
+
 
 /**
  * @brief Predicate returns true for a valid thing name string
@@ -116,25 +156,8 @@ static bool_ isValidChar( char a,
 static bool_ isValidThingName( const char * thingName,
                                uint16_t thingNameLength )
 {
-    bool_ ret = false;
-
-    if( ( thingName != NULL ) && ( thingNameLength > 0U ) &&
-        ( thingNameLength <= JOBS_THINGNAME_MAX_LENGTH ) )
-    {
-        size_t i;
-
-        for( i = 0; i < thingNameLength; i++ )
-        {
-            if( isValidChar( thingName[ i ], true ) == false )
-            {
-                break;
-            }
-        }
-
-        ret = ( i == thingNameLength ) ? true : false;
-    }
-
-    return ret;
+    return isValidID( thingName, thingNameLength,
+                      JOBS_THINGNAME_MAX_LENGTH, true );
 }
 
 /**
@@ -149,25 +172,8 @@ static bool_ isValidThingName( const char * thingName,
 static bool_ isValidJobId( const char * jobId,
                            uint16_t jobIdLength )
 {
-    bool_ ret = false;
-
-    if( ( jobId != NULL ) && ( jobIdLength > 0U ) &&
-        ( jobIdLength <= JOBS_JOBID_MAX_LENGTH ) )
-    {
-        size_t i;
-
-        for( i = 0; i < jobIdLength; i++ )
-        {
-            if( isValidChar( jobId[ i ], false ) == false )
-            {
-                break;
-            }
-        }
-
-        ret = ( i == jobIdLength ) ? true : false;
-    }
-
-    return ret;
+    return isValidID( jobId, jobIdLength,
+                      JOBS_JOBID_MAX_LENGTH, false );
 }
 
 /**
@@ -386,7 +392,7 @@ static JobsStatus_t matchIdApi( char * topic,
     {
         JobsTopic_t api;
 
-        /* api is bounded within contiguous values of the enum type. */
+        /* The api variable is bounded within contiguous values of the enum type. */
         /* coverity[misra_c_2012_rule_10_1_violation] */
         for( api = JobsDescribeSuccess; api < JobsMaxTopic; api++ )
         {
@@ -431,7 +437,7 @@ static JobsStatus_t matchApi( char * topic,
             ( outJobId != NULL ) && ( outJobIdLength != NULL ) );
 
     /* The first set of APIs do not have job IDs. */
-    /* api is bounded within contiguous values of the enum type. */
+    /* The api variable is bounded within contiguous values of the enum type. */
     /* coverity[misra_c_2012_rule_10_1_violation] */
     for( api = JobsJobsChanged; api < JobsDescribeSuccess; api++ )
     {
