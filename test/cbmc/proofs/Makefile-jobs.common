@@ -24,6 +24,8 @@ CHECKFLAGS += --pointer-primitive-check
 
 include ../Makefile.common
 
+# remove static constraints to facilitate proofs
+# replace some functions with stubs by renaming originals (see SED_EXPR in proof Makefiles)
 $(PROOFDIR)/jobs.c: $(SRCDIR)/jobs.c
 	sed -E '1s/^/#include "jobs_annex.h" /; s/^static //; $(SED_EXPR)' $< > $@
 

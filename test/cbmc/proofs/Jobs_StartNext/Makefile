@@ -1,7 +1,7 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: Apache-2.0
 
-HARNESS_FILE=Jobs_GetTopic_harness
+HARNESS_FILE=Jobs_StartNext_harness
 
 # Limit thing name maximum to reduce unwindings.
 THINGNAME_MAX_LENGTH=4

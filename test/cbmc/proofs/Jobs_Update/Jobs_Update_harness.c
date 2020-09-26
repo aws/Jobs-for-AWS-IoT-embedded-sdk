@@ -20,8 +20,8 @@
  */
 
 /**
- * @file Jobs_GetTopic_harness.c
- * @brief Implements the proof harness for Jobs_GetTopic function.
+ * @file Jobs_Update_harness.c
+ * @brief Implements the proof harness for Jobs_Update function.
  */
 
 #include "jobs_annex.h"
@@ -33,7 +33,8 @@ void harness()
     size_t bufferLength;
     const char * thingName;
     uint16_t thingNameLength;
-    JobsTopic_t api;
+    const char * jobId;
+    uint16_t jobIdLength;
     size_t * outLength;
     JobsStatus_t ret;
 
@@ -45,16 +46,21 @@ void harness()
     __CPROVER_assume( thingNameLength <= THINGNAME_MAX_LENGTH );
     thingName = mallocCanFail( thingNameLength );
 
+    /* The job ID length must not exceed unwindings. */
+    __CPROVER_assume( jobIdLength <= JOBID_MAX_LENGTH );
+    jobId = mallocCanFail( jobIdLength );
+
     outLength = mallocCanFail( sizeof( *outLength ) );
 
-    ret = Jobs_GetTopic( buffer,
-                         bufferLength,
-                         thingName,
-                         thingNameLength,
-                         api,
-                         outLength );
+    ret = Jobs_Update( buffer,
+                       bufferLength,
+                       thingName,
+                       thingNameLength,
+                       jobId,
+                       jobIdLength,
+                       outLength );
 
-    __CPROVER_assert( jobsGetTopicEnum( ret ), "The return value is a subset of JobsStatus_t." );
+    __CPROVER_assert( jobsUpdateEnum( ret ), "The return value is a subset of JobsStatus_t." );
 
     if( ( ret != JobsBadParameter ) && ( outLength != NULL ) )
     {

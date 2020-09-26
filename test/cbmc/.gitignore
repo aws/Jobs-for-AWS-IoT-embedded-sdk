@@ -13,4 +13,4 @@ arpa-validation-logs/
 Makefile.arpa
 
 # These files should be overwritten whenever prepare.py runs
-#cbmc-batch.yaml
+cbmc-batch.yaml

@@ -20,8 +20,8 @@
  */
 
 /**
- * @file Jobs_GetTopic_harness.c
- * @brief Implements the proof harness for Jobs_GetTopic function.
+ * @file Jobs_StartNext_harness.c
+ * @brief Implements the proof harness for Jobs_StartNext function.
  */
 
 #include "jobs_annex.h"
@@ -33,7 +33,6 @@ void harness()
     size_t bufferLength;
     const char * thingName;
     uint16_t thingNameLength;
-    JobsTopic_t api;
     size_t * outLength;
     JobsStatus_t ret;
 
@@ -47,14 +46,13 @@ void harness()
 
     outLength = mallocCanFail( sizeof( *outLength ) );
 
-    ret = Jobs_GetTopic( buffer,
-                         bufferLength,
-                         thingName,
-                         thingNameLength,
-                         api,
-                         outLength );
+    ret = Jobs_StartNext( buffer,
+                          bufferLength,
+                          thingName,
+                          thingNameLength,
+                          outLength );
 
-    __CPROVER_assert( jobsGetTopicEnum( ret ), "The return value is a subset of JobsStatus_t." );
+    __CPROVER_assert( jobsStartNextEnum( ret ), "The return value is a subset of JobsStatus_t." );
 
     if( ( ret != JobsBadParameter ) && ( outLength != NULL ) )
     {

@@ -24,17 +24,20 @@
 
 #include "jobs.h"
 
-#define parameterEnum( x ) \
-    ( x == JobsBadParameter )
+#define jobsTopicEnum( x )         ( ( x >= JobsInvalidTopic ) && ( x < JobsMaxTopic ) )
 
-#define strnAppendFailEnum( x ) \
-    ( x == JobsBufferTooSmall )
-
-#define strnAppendEnum( x ) \
-    ( ( x == JobsSuccess ) || strnAppendFailEnum( x ) )
-
-#define jobsGetTopicEnum( x ) \
-    ( parameterEnum( x ) || strnAppendEnum( x ) )
+#define parameterEnum( x )         ( x == JobsBadParameter )
+#define strnAppendFailEnum( x )    ( x == JobsBufferTooSmall )
+#define strnAppendEnum( x )        ( ( x == JobsSuccess ) || strnAppendFailEnum( x ) )
+#define jobsCommonEnum( x )        ( parameterEnum( x ) || strnAppendEnum( x ) )
+#define jobsGetTopicEnum( x )      jobsCommonEnum( x )
+#define jobsGetPendingEnum( x )    jobsCommonEnum( x )
+#define jobsStartNextEnum( x )     jobsCommonEnum( x )
+#define jobsDescribeEnum( x )      jobsCommonEnum( x )
+#define jobsUpdateEnum( x )        jobsCommonEnum( x )
+#define strnEqFailEnum( x )        ( x == JobsNoMatch )
+#define strnEqEnum( x )            ( ( x == JobsSuccess ) || strnEqFailEnum( x ) )
+#define jobsMatchTopicEnum( x )    ( parameterEnum( x ) || strnEqEnum( x ) )
 
 /*
  * These are declarations for the (normally) static functions from jobs.c.
@@ -46,5 +49,9 @@ JobsStatus_t strnAppend( char * buffer,
                          size_t max,
                          const char * value,
                          size_t valueLength );
+
+JobsStatus_t strnEq( const char * a,
+                     const char * b,
+                     size_t n );
 
 #endif /* ifndef JOBS_ANNEX_H_ */
