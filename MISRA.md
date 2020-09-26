@@ -19,4 +19,4 @@ Deviations from the MISRA standard are listed below:
 ### Suppressed with Coverity Comments
 | Deviation | Category | Justification |
 | :-: | :-: | :-: |
-| Rule 10.1 | Required | An variable of an enum type is used to iterate over contiguous values. |
+| Rule 10.1 | Required | A variable of an enum type is used to iterate over contiguous values. |
