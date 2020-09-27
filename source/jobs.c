@@ -477,8 +477,7 @@ JobsStatus_t Jobs_MatchTopic( char * topic,
     char * jobId = NULL;
     uint16_t jobIdLength = 0U;
 
-    if( ( topic != NULL ) && ( length > 0U ) && checkThingParams() &&
-        ( outApi != NULL ) )
+    if( ( topic != NULL ) && ( outApi != NULL ) && checkThingParams() && ( length > 0U ) )
     {
         char * prefix = topic;
         char * name = &prefix[ JOBS_API_PREFIX_LENGTH ];
@@ -488,6 +487,7 @@ JobsStatus_t Jobs_MatchTopic( char * topic,
 
         /* check the shortest match first */
         if( ( length > JOBS_API_COMMON_LENGTH( thingNameLength ) ) &&
+            ( length < JOBS_API_MAX_LENGTH( thingNameLength ) ) &&
             ( strnEq( bridge, JOBS_API_BRIDGE, JOBS_API_BRIDGE_LENGTH ) == JobsSuccess ) &&
             ( strnEq( prefix, JOBS_API_PREFIX, JOBS_API_PREFIX_LENGTH ) == JobsSuccess ) &&
             ( strnEq( name, thingName, thingNameLength ) == JobsSuccess ) )
