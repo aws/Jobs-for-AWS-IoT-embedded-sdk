@@ -89,6 +89,12 @@ typedef enum
 /**
  * @brief Topic values for subscription requests.
  *
+ * @note The enum values for valid topics must be contiguous,
+ * starting with 0.  The last valid topic must be followed
+ * by JobsMaxTopic.  This arrangement is necessary since the
+ * enum values are used as indexes to arrays of topic strings
+ * and lengths.
+ *
  * @note The ordering is important, providing a means
  * to divide topics into those that use a job ID
  * and those that do not.
@@ -161,7 +167,7 @@ JobsStatus_t Jobs_GetTopic( char * buffer,
  * NULL and 0 are output when no jobID is present.
  * The parameters jobId and jobIdLength may be NULL to ignore jobIDs.
  */
-JobsStatus_t Jobs_MatchTopic( const char * topic,
+JobsStatus_t Jobs_MatchTopic( char * topic,
                               size_t length,
                               const char * thingName,
                               uint16_t thingNameLength,
