@@ -33,8 +33,24 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#define JOBS_THINGNAME_MAX_LENGTH         128U /* per AWS IoT API Reference */
-#define JOBS_JOBID_MAX_LENGTH             64U  /* per AWS IoT API Reference */
+#define JOBS_THINGNAME_MAX_LENGTH    128U      /* per AWS IoT API Reference */
+#define JOBS_JOBID_MAX_LENGTH        64U       /* per AWS IoT API Reference */
+
+#ifndef THINGNAME_MAX_LENGTH
+    #define THINGNAME_MAX_LENGTH     JOBS_THINGNAME_MAX_LENGTH
+#endif
+
+#ifndef JOBID_MAX_LENGTH
+    #define JOBID_MAX_LENGTH    JOBS_JOBID_MAX_LENGTH
+#endif
+
+#if ( THINGNAME_MAX_LENGTH > JOBS_THINGNAME_MAX_LENGTH )
+    #error "The value of THINGNAME_MAX_LENGTH exceeds the AWS IoT Jobs Service limit."
+#endif
+
+#if ( JOBID_MAX_LENGTH > JOBS_JOBID_MAX_LENGTH )
+    #error "The value of JOBID_MAX_LENGTH exceeds the AWS IoT Jobs Service limit."
+#endif
 
 #define JOBS_API_PREFIX                   "$aws/things/"
 #define JOBS_API_PREFIX_LENGTH            ( sizeof( JOBS_API_PREFIX ) - 1U )
@@ -66,10 +82,11 @@
 #define JOBS_API_UPDATE                   "update"
 #define JOBS_API_UPDATE_LENGTH            ( sizeof( JOBS_API_UPDATE ) - 1U )
 
-#define JOBS_API_MAX_LENGTH( thingNameLength )                         \
-    ( JOBS_API_PREFIX_LENGTH + ( thingNameLength ) +                   \
-      JOBS_API_BRIDGE_LENGTH + JOBS_JOBID_MAX_LENGTH + sizeof( '/' ) + \
-      JOBS_API_UPDATE_LENGTH + JOBS_API_SUCCESS_LENGTH + 1 )
+/* NB. This includes a terminating NUL character. */
+#define JOBS_API_MAX_LENGTH( thingNameLength )                    \
+    ( JOBS_API_PREFIX_LENGTH + ( thingNameLength ) +              \
+      JOBS_API_BRIDGE_LENGTH + JOBID_MAX_LENGTH + sizeof( '/' ) + \
+      JOBS_API_UPDATE_LENGTH + JOBS_API_SUCCESS_LENGTH + 1U )
 
 #define JOBS_API_COMMON_LENGTH( thingNameLength ) \
     ( JOBS_API_PREFIX_LENGTH + ( thingNameLength ) + JOBS_API_BRIDGE_LENGTH )
