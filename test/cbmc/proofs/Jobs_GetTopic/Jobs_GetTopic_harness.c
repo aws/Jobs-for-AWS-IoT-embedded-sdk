@@ -37,7 +37,7 @@ void harness()
     size_t * outLength;
     JobsStatus_t ret;
 
-    /* The buffer length must not exceed unwindings. */
+    /* The buffer length must not exceed the maximum object size supported by CBMC. */
     __CPROVER_assume( bufferLength < CBMC_MAX_OBJECT_SIZE );
     buffer = mallocCanFail( bufferLength );
 

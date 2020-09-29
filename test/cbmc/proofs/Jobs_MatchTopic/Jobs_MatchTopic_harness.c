@@ -38,7 +38,7 @@ void harness()
     uint16_t * outJobIdLength;
     JobsStatus_t ret;
 
-    /* The topic length must not exceed unwindings. */
+    /* The buffer length must not exceed the maximum object size supported by CBMC. */
     __CPROVER_assume( topicLength < CBMC_MAX_BUFSIZE );
     topic = mallocCanFail( topicLength );
 

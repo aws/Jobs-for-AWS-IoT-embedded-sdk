@@ -6,6 +6,9 @@ ascii
 aws
 blength
 buf
+buffera
+bufferb
+cbmc
 com
 coverity
 describejobexecution
