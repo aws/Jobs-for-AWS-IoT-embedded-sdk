@@ -24,6 +24,8 @@
  * @brief Unit tests for the jobs library.
  */
 
+#include <ctype.h>
+
 #include "unity.h"
 #include "catch_assert.h"
 
@@ -104,7 +106,6 @@ void test_Jobs_topics_are_contiguous( void )
  */
 void test_Jobs_bad_parameters( void )
 {
-    JobsStatus_t ret;
     char buf[ JOBS_API_MAX_LENGTH( nameLength_ ) ];
     JobsTopic_t outApi;
     char * outJobId;
@@ -240,7 +241,7 @@ void test_Jobs_buffer_lengths( void )
     char buf[ JOBS_API_MAX_LENGTH( nameLength_ ) ];
     JobsStatus_t ret;
     size_t len;
-    int i = 0;
+    unsigned i = 0;
     char expected1[] = JOBS_API_PREFIX name_ JOBS_API_BRIDGE JOBS_API_JOBSCHANGED;
     char expected2[] = JOBS_API_PREFIX name_ JOBS_API_BRIDGE "+/" JOBS_API_UPDATE JOBS_API_SUCCESS;
 
@@ -268,25 +269,26 @@ void test_Jobs_buffer_lengths( void )
  */
 void test_Jobs_happy_path( void )
 {
-    JobsStatus_t ret;
     char buf[ JOBS_API_MAX_LENGTH( nameLength_ ) ];
     size_t outLength;
 
 #define PREFIX    JOBS_API_PREFIX name_ JOBS_API_BRIDGE
     char prefix[] = PREFIX;
 
-#define TEST_SUCCESS( x )  do {                         \
-        TEST_ASSERT_EQUAL( JobsSuccess, ( x ) );        \
-        TEST_ASSERT_EQUAL_STRING( expected, buf );      \
-    } while ( 0 )
+#define TEST_SUCCESS( x )                          \
+    do {                                           \
+        TEST_ASSERT_EQUAL( JobsSuccess, ( x ) );   \
+        TEST_ASSERT_EQUAL_STRING( expected, buf ); \
+    } while( 0 )
 
-#define TEST_TOO_SMALL( x )  do {                       \
+#define TEST_TOO_SMALL( x )                             \
+    do {                                                \
         TEST_ASSERT_EQUAL( JobsBufferTooSmall, ( x ) ); \
         TEST_ASSERT_EQUAL_STRING( prefix, buf );        \
-    } while ( 0 )
+    } while( 0 )
 
 #define TEST_OUTLENGTH( x ) \
-        TEST_ASSERT_EQUAL( ( sizeof( x ) - 1 ), outLength )
+    TEST_ASSERT_EQUAL( ( sizeof( x ) - 1 ), outLength )
 
     {
         char expected[] = PREFIX JOBS_API_GETPENDING;
@@ -348,11 +350,11 @@ void test_Jobs_match_topic( void )
     char * topic, * jobId;
     size_t topicLength, jobIdLength;
     JobsTopic_t api, outApi;
-    JobsStatus_t ret;
     char * outJobId;
     uint16_t outJobIdLength;
 
-#define setVars( x, y, z )  do {                               \
+#define setVars( x, y, z )                                     \
+    do {                                                       \
         api = ( x );                                           \
         topic = ( y );                                         \
         topicLength = sizeof( y ) - 1;                         \
@@ -360,17 +362,20 @@ void test_Jobs_match_topic( void )
         jobIdLength = ( ( z ) == NULL ) ? 0 : sizeof( z ) - 1; \
     } while( 0 )
 
-#define TEST_SUCCESS( x )  do {                  \
+#define TEST_SUCCESS( x )                        \
+    do {                                         \
         TEST_ASSERT_EQUAL( JobsSuccess, ( x ) ); \
         TEST_ASSERT_EQUAL( api, outApi );        \
-    } while ( 0 )
+    } while( 0 )
 
-#define TEST_NOMATCH( x )  do {                  \
+#define TEST_NOMATCH( x )                        \
+    do {                                         \
         TEST_ASSERT_EQUAL( JobsNoMatch, ( x ) ); \
         TEST_ASSERT_EQUAL( api, outApi );        \
-    } while ( 0 )
+    } while( 0 )
 
-#define TEST_JOBID()  do {                                            \
+#define TEST_JOBID()                                                  \
+    do {                                                              \
         TEST_ASSERT_EQUAL( jobIdLength, outJobIdLength );             \
         if( jobId == NULL ) {                                         \
             TEST_ASSERT_EQUAL( outJobId, NULL );                      \
@@ -379,7 +384,7 @@ void test_Jobs_match_topic( void )
         {                                                             \
             TEST_ASSERT_EQUAL_MEMORY( jobId, outJobId, jobIdLength ); \
         }                                                             \
-    } while ( 0 )
+    } while( 0 )
 
     setVars( JobsJobsChanged, PREFIX "notify", NULL );
     TEST_SUCCESS( Jobs_MatchTopic( topic, topicLength, name_, nameLength_, &outApi, NULL, NULL ) );
@@ -474,8 +479,8 @@ void test_Jobs_match_topic( void )
 void test_Jobs_asserts( void )
 {
     char bufA[ 1 ], bufB[ 1 ], * p;
-    size_t x, y, z;
-    uint16_t j;
+    size_t x = 1, y = 1, z = 1;
+    uint16_t j = 1;
     JobsTopic_t api;
 
     catch_assert( strnAppend( NULL, &x, y, bufB, z ) );
