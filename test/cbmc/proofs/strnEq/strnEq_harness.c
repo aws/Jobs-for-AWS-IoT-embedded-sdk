@@ -38,9 +38,11 @@ void harness()
 
     /* bufferA must not be NULL. */
     bufferA = malloc( length );
+    __CPROVER_assume( buf != NULL );
 
     /* bufferB must not be NULL. */
     bufferB = malloc( length );
+    __CPROVER_assume( buf != NULL );
 
     ret = strnEq( bufferA,
                   bufferB,

@@ -38,12 +38,14 @@ void harness()
 
     /* destination buffer must not be NULL. */
     dest = malloc( max );
+    __CPROVER_assume( buf != NULL );
 
     /* length is the source buffer length which must not exceed unwindings. */
     __CPROVER_assume( length < CBMC_MAX_BUFSIZE );
 
     /* source buffer must not be NULL. */
     src = malloc( length );
+    __CPROVER_assume( buf != NULL );
 
     ret = strnAppend( dest,
                       &start,
