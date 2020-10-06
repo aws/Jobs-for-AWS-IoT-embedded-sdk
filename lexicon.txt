@@ -2,14 +2,18 @@ alength
 allowcolon
 api
 apis
+ascii
 aws
 blength
+buf
 com
 coverity
 describejobexecution
 developerguide
 endif
 enum
+enums
+fd
 getpendingjobexecutions
 html
 https
@@ -28,7 +32,9 @@ jobsnomatch
 jobssuccess
 jobstopic
 jobsupdatesuccess
+longjmp
 mqtt
+nb
 noninfringement
 nul
 outapi
@@ -37,6 +43,7 @@ outjobidlength
 outlength
 param
 startnextpendingjobexecution
+stderr
 strnappend
 strncpy
 strneq

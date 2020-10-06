@@ -157,7 +157,7 @@ static bool_ isValidThingName( const char * thingName,
                                uint16_t thingNameLength )
 {
     return isValidID( thingName, thingNameLength,
-                      JOBS_THINGNAME_MAX_LENGTH, true );
+                      THINGNAME_MAX_LENGTH, true );
 }
 
 /**
@@ -173,7 +173,7 @@ static bool_ isValidJobId( const char * jobId,
                            uint16_t jobIdLength )
 {
     return isValidID( jobId, jobIdLength,
-                      JOBS_JOBID_MAX_LENGTH, false );
+                      JOBID_MAX_LENGTH, false );
 }
 
 /**
@@ -243,9 +243,8 @@ static void writePreamble( char * buffer,
 #define checkThingParams() \
     ( isValidThingName( thingName, thingNameLength ) == true )
 
-#define checkCommonParams()                    \
-    ( ( buffer != NULL ) && ( length > 0U ) && \
-      checkThingParams() && ( outLength != NULL ) )
+#define checkCommonParams() \
+    ( ( buffer != NULL ) && ( length > 0U ) && checkThingParams() )
 
 /**
  * See jobs.h for docs.
@@ -282,7 +281,11 @@ JobsStatus_t Jobs_GetTopic( char * buffer,
         }
 
         buffer[ start ] = '\0';
-        *outLength = start;
+
+        if( outLength != NULL )
+        {
+            *outLength = start;
+        }
     }
 
     return ret;
@@ -477,8 +480,7 @@ JobsStatus_t Jobs_MatchTopic( char * topic,
     char * jobId = NULL;
     uint16_t jobIdLength = 0U;
 
-    if( ( topic != NULL ) && ( length > 0U ) && checkThingParams() &&
-        ( outApi != NULL ) )
+    if( ( topic != NULL ) && ( outApi != NULL ) && checkThingParams() && ( length > 0U ) )
     {
         char * prefix = topic;
         char * name = &prefix[ JOBS_API_PREFIX_LENGTH ];
@@ -488,6 +490,7 @@ JobsStatus_t Jobs_MatchTopic( char * topic,
 
         /* check the shortest match first */
         if( ( length > JOBS_API_COMMON_LENGTH( thingNameLength ) ) &&
+            ( length < JOBS_API_MAX_LENGTH( thingNameLength ) ) &&
             ( strnEq( bridge, JOBS_API_BRIDGE, JOBS_API_BRIDGE_LENGTH ) == JobsSuccess ) &&
             ( strnEq( prefix, JOBS_API_PREFIX, JOBS_API_PREFIX_LENGTH ) == JobsSuccess ) &&
             ( strnEq( name, thingName, thingNameLength ) == JobsSuccess ) )
@@ -540,7 +543,11 @@ JobsStatus_t Jobs_GetPending( char * buffer,
 
         start = ( start >= length ) ? ( length - 1U ) : start;
         buffer[ start ] = '\0';
-        *outLength = start;
+
+        if( outLength != NULL )
+        {
+            *outLength = start;
+        }
     }
 
     return ret;
@@ -569,7 +576,11 @@ JobsStatus_t Jobs_StartNext( char * buffer,
 
         start = ( start >= length ) ? ( length - 1U ) : start;
         buffer[ start ] = '\0';
-        *outLength = start;
+
+        if( outLength != NULL )
+        {
+            *outLength = start;
+        }
     }
 
     return ret;
@@ -605,7 +616,11 @@ JobsStatus_t Jobs_Describe( char * buffer,
 
         start = ( start >= length ) ? ( length - 1U ) : start;
         buffer[ start ] = '\0';
-        *outLength = start;
+
+        if( outLength != NULL )
+        {
+            *outLength = start;
+        }
     }
 
     return ret;
@@ -641,7 +656,11 @@ JobsStatus_t Jobs_Update( char * buffer,
 
         start = ( start >= length ) ? ( length - 1U ) : start;
         buffer[ start ] = '\0';
-        *outLength = start;
+
+        if( outLength != NULL )
+        {
+            *outLength = start;
+        }
     }
 
     return ret;
