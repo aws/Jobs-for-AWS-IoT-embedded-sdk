@@ -20,8 +20,7 @@ from mandatory rules in the [MISRA coding standard
 Deviations from the MISRA C:2012 guidelines are documented under [MISRA
 Deviations](MISRA.md). This library has also undergone both static code
 analysis from [Coverity](https://scan.coverity.com/), and validation of
-memory safety and data structure invariance through the [CBMC automated
-reasoning tool](https://www.cprover.org/cbmc/).
+memory safety with the [CBMC bounded model checker](https://www.cprover.org/cbmc/).
 
 ## Building the jobs library
 
