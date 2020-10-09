@@ -19,9 +19,16 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+/**
+ * @file jobs.c
+ * @brief Implementation of the APIs from jobs.h
+ */
+
 #include <assert.h>
 
 #include "jobs.h"
+
+/** @cond DO_NOT_DOCUMENT */
 
 typedef enum
 {
@@ -246,6 +253,8 @@ static void writePreamble( char * buffer,
 #define checkCommonParams() \
     ( ( buffer != NULL ) && ( length > 0U ) && checkThingParams() )
 
+/** @endcond */
+
 /**
  * See jobs.h for docs.
  *
@@ -290,6 +299,8 @@ JobsStatus_t Jobs_GetTopic( char * buffer,
 
     return ret;
 }
+
+/** @cond DO_NOT_DOCUMENT */
 
 /**
  * @brief Compare the leading n bytes of two character sequences.
@@ -461,6 +472,8 @@ static JobsStatus_t matchApi( char * topic,
 
     return ret;
 }
+
+/** @endcond */
 
 /**
  * See jobs.h for docs.

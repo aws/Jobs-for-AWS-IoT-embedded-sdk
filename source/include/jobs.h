@@ -19,7 +19,6 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-
 /**
  * @file jobs.h
  * @brief Integration for the AWS IoT jobs APIs
@@ -33,14 +32,29 @@
 #include <stddef.h>
 #include <stdint.h>
 
+/**
+ * @brief maximum length of a thing name for the AWS IoT Jobs Service
+ */
 #define JOBS_THINGNAME_MAX_LENGTH    128U      /* per AWS IoT API Reference */
+
+/**
+ * @brief maximum length of a job ID for the AWS IoT Jobs Service
+ */
 #define JOBS_JOBID_MAX_LENGTH        64U       /* per AWS IoT API Reference */
 
 #ifndef THINGNAME_MAX_LENGTH
-    #define THINGNAME_MAX_LENGTH     JOBS_THINGNAME_MAX_LENGTH
+
+/**
+ * @brief user defined maximum length of a thing name for the application
+ */
+    #define THINGNAME_MAX_LENGTH    JOBS_THINGNAME_MAX_LENGTH
 #endif
 
 #ifndef JOBID_MAX_LENGTH
+
+/**
+ * @brief user defined maximum length of a job ID for the application
+ */
     #define JOBID_MAX_LENGTH    JOBS_JOBID_MAX_LENGTH
 #endif
 
@@ -51,6 +65,8 @@
 #if ( JOBID_MAX_LENGTH > JOBS_JOBID_MAX_LENGTH )
     #error "The value of JOBID_MAX_LENGTH exceeds the AWS IoT Jobs Service limit."
 #endif
+
+/** @cond DO_NOT_DOCUMENT */
 
 #define JOBS_API_PREFIX                   "$aws/things/"
 #define JOBS_API_PREFIX_LENGTH            ( sizeof( JOBS_API_PREFIX ) - 1U )
@@ -82,14 +98,19 @@
 #define JOBS_API_UPDATE                   "update"
 #define JOBS_API_UPDATE_LENGTH            ( sizeof( JOBS_API_UPDATE ) - 1U )
 
-/* NB. This includes a terminating NUL character. */
-#define JOBS_API_MAX_LENGTH( thingNameLength )                    \
-    ( JOBS_API_PREFIX_LENGTH + ( thingNameLength ) +              \
-      JOBS_API_BRIDGE_LENGTH + JOBID_MAX_LENGTH + sizeof( '/' ) + \
-      JOBS_API_UPDATE_LENGTH + JOBS_API_SUCCESS_LENGTH + 1U )
-
 #define JOBS_API_COMMON_LENGTH( thingNameLength ) \
     ( JOBS_API_PREFIX_LENGTH + ( thingNameLength ) + JOBS_API_BRIDGE_LENGTH )
+
+/** @endcond */
+
+/**
+ * @brief the size needed to hold the longest topic for a given thing name length
+ * @note This includes space for a terminating NUL character.
+ */
+#define JOBS_API_MAX_LENGTH( thingNameLength )                    \
+    ( JOBS_API_COMMON_LENGTH( thingNameLength ) +                 \
+      JOBID_MAX_LENGTH + sizeof( '/' ) + JOBS_API_UPDATE_LENGTH + \
+      JOBS_API_SUCCESS_LENGTH + 1U )
 
 /**
  * @brief Return codes from jobs functions.
@@ -97,10 +118,10 @@
 typedef enum
 {
     JobsError = 0,
-    JobsSuccess,
-    JobsNoMatch,
-    JobsBadParameter,
-    JobsBufferTooSmall
+    JobsSuccess,       /**< @brief The buffer was properly written or a match was found. */
+    JobsNoMatch,       /**< @brief The buffer does not contain a jobs topic. */
+    JobsBadParameter,  /**< @brief A function parameter was NULL or has an illegal value. */
+    JobsBufferTooSmall /**< @brief The buffer write was truncated. */
 } JobsStatus_t;
 
 /**
@@ -115,6 +136,8 @@ typedef enum
  * @note The ordering is important, providing a means
  * to divide topics into those that use a job ID
  * and those that do not.
+ *
+ * @note These constraints are enforced by a unit test.
  */
 typedef enum
 {
@@ -169,20 +192,20 @@ JobsStatus_t Jobs_GetTopic( char * buffer,
  * @param[in] length  The length of the topic string.
  * @param[in] thingName  The device's thingName as registered with AWS IoT.
  * @param[in] thingNameLength  The length of the thingName.
- * @param[out] outApi  The jobs topic API value if present, e.g., #JobsUpdateSuccess.
+ * @param[out] outApi  The jobs topic API value if present, e.g., JobsUpdateSuccess.
  * @param[out] outJobId  The beginning of the jobID in the topic string.
  * @param[out] outJobIdLength  The length of the jobID in the topic string.
  *
  * @return #JobsSuccess if a matching topic was found;
  * #JobsNoMatch if a matching topic was NOT found
- *   (parameter outApi gets #JobsInvalidTopic );
+ *   (parameter outApi gets JobsInvalidTopic );
  * #JobsBadParameter if invalid parameters are passed.
  *
  * @note The topic and thingName parameters do not need a NULL terminator.
  *
  * @note Not all Jobs APIs have jobIDs within the topic string.
  * NULL and 0 are output when no jobID is present.
- * The parameters jobId and jobIdLength may be NULL to ignore jobIDs.
+ * The parameters jobId and jobIdLength may be NULL.
  */
 JobsStatus_t Jobs_MatchTopic( char * topic,
                               size_t length,
