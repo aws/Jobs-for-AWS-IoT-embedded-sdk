@@ -21,7 +21,7 @@
 
 /**
  * @file jobs.h
- * @brief Integration for the AWS IoT jobs APIs
+ * @brief Client library APIs for the AWS IoT Jobs service.
  *
  * https://docs.aws.amazon.com/iot/latest/developerguide/jobs-api.html#jobs-mqtt-api
  */

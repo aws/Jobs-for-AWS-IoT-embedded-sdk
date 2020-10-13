@@ -8,7 +8,7 @@ Guide](https://docs.aws.amazon.com/iot/latest/developerguide/iot-jobs.html).
 Interactions with the jobs service use MQTT, a lightweight
 publish-subscribe protocol.  This library provides a convenience API to
 compose and recognize the MQTT topic strings used by the jobs service.
-The library is written in C compliant with ISO C90 and MISRA C,
+The library is written in C compliant with ISO C90 and MISRA C:2012,
 and is distributed under the [MIT Open Source License](LICENSE).
 
 This library has gone through code quality checks
@@ -24,7 +24,7 @@ memory safety with the [CBMC bounded model checker](https://www.cprover.org/cbmc
 
 ## Building the jobs library
 
-A compiler that supports **C89 or later** such as *gcc* is required to build the library.
+A compiler that supports **C90 or later** such as *gcc* is required to build the library.
 
 Given an application in a file named `example.c`, *gcc* can be used like so:
 ```bash
