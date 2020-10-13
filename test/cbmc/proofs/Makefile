@@ -1,3 +1,6 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: MIT
+
 SHELL := /bin/bash
 DIRS := strnAppend
 DIRS += Jobs_Describe Jobs_GetPending Jobs_StartNext Jobs_Update Jobs_GetTopic

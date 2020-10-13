@@ -24,8 +24,15 @@
 
 #include "jobs.h"
 
+/**
+ * @brief check that an enum belongs to JobsTopic_t
+ */
 #define jobsTopicEnum( x )         ( ( x >= JobsInvalidTopic ) && ( x < JobsMaxTopic ) )
 
+/**
+ * @brief check that an enum belongs to a subset of JobsStatus_t
+ * returned by the named function
+ */
 #define parameterEnum( x )         ( x == JobsBadParameter )
 #define strnAppendFailEnum( x )    ( x == JobsBufferTooSmall )
 #define strnAppendEnum( x )        ( ( x == JobsSuccess ) || strnAppendFailEnum( x ) )

@@ -1,5 +1,5 @@
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
-# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: MIT
 
 HARNESS_ENTRY=harness
 
@@ -17,10 +17,7 @@ INCLUDES += -I$(CBMC_ROOT)/include
 INCLUDES += -I$(SRCDIR)/include
 
 PROOF_SOURCES += $(PROOFDIR)/$(HARNESS_FILE).c
-PROOF_SOURCES += $(PROOF_SOURCE)/mallocCanFail.c
 PROJECT_SOURCES += $(PROOFDIR)/jobs.c
-
-CHECKFLAGS += --pointer-primitive-check
 
 include ../Makefile.common
 

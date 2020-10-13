@@ -24,8 +24,8 @@
  * @brief Implements the proof harness for Jobs_MatchTopic function.
  */
 
+#include <stdlib.h>
 #include "jobs_annex.h"
-#include "mallocCanFail.h"
 
 void harness()
 {
@@ -40,15 +40,15 @@ void harness()
 
     /* The buffer length must not exceed the maximum object size supported by CBMC. */
     __CPROVER_assume( topicLength < CBMC_MAX_BUFSIZE );
-    topic = mallocCanFail( topicLength );
+    topic = malloc( topicLength );
 
     /* The thing name length must not exceed unwindings. */
     __CPROVER_assume( thingNameLength <= THINGNAME_MAX_LENGTH );
-    thingName = mallocCanFail( thingNameLength );
+    thingName = malloc( thingNameLength );
 
-    outApi = mallocCanFail( sizeof( *outApi ) );
-    outJobId = mallocCanFail( sizeof( *outJobId ) );
-    outJobIdLength = mallocCanFail( sizeof( *outJobIdLength ) );
+    outApi = malloc( sizeof( *outApi ) );
+    outJobId = malloc( sizeof( *outJobId ) );
+    outJobIdLength = malloc( sizeof( *outJobIdLength ) );
 
     ret = Jobs_MatchTopic( topic,
                            topicLength,
