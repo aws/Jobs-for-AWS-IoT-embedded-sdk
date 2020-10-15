@@ -40,7 +40,7 @@ Jobs Library Features
 
 <h3>Memory Usage</h3>
 <p>
-All functions in the jobs library operate only on the buffers provided and use only
+All functions in the jobs library operate only on the buffers provided, and use only
 local variables on the stack.
 </p>
 
