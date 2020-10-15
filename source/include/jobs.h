@@ -33,19 +33,19 @@
 #include <stdint.h>
 
 /**
- * @brief maximum length of a thing name for the AWS IoT Jobs Service
+ * @brief Maximum length of a thing name for the AWS IoT Jobs Service.
  */
 #define JOBS_THINGNAME_MAX_LENGTH    128U      /* per AWS IoT API Reference */
 
 /**
- * @brief maximum length of a job ID for the AWS IoT Jobs Service
+ * @brief Maximum length of a job ID for the AWS IoT Jobs Service.
  */
 #define JOBS_JOBID_MAX_LENGTH        64U       /* per AWS IoT API Reference */
 
 #ifndef THINGNAME_MAX_LENGTH
 
 /**
- * @brief user defined maximum length of a thing name for the application
+ * @brief User defined maximum length of a thing name for the application.
  */
     #define THINGNAME_MAX_LENGTH    JOBS_THINGNAME_MAX_LENGTH
 #endif
@@ -53,7 +53,7 @@
 #ifndef JOBID_MAX_LENGTH
 
 /**
- * @brief user defined maximum length of a job ID for the application
+ * @brief User defined maximum length of a job ID for the application.
  */
     #define JOBID_MAX_LENGTH    JOBS_JOBID_MAX_LENGTH
 #endif
@@ -104,7 +104,7 @@
 /** @endcond */
 
 /**
- * @brief the size needed to hold the longest topic for a given thing name length
+ * @brief The size needed to hold the longest topic for a given thing name length.
  * @note This includes space for a terminating NUL character.
  */
 #define JOBS_API_MAX_LENGTH( thingNameLength )                    \
