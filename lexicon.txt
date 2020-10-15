@@ -6,6 +6,9 @@ ascii
 aws
 blength
 buf
+buffera
+bufferb
+cbmc
 com
 coverity
 describejobexecution
@@ -33,6 +36,7 @@ jobssuccess
 jobstopic
 jobsupdatesuccess
 longjmp
+malloc
 mqtt
 nb
 noninfringement
@@ -42,6 +46,7 @@ outjobid
 outjobidlength
 outlength
 param
+spdx
 startnextpendingjobexecution
 stderr
 strnappend
@@ -51,5 +56,6 @@ sublicense
 thingname
 thingnamelength
 topiclength
+unwindings
 updatejobexecution
 valuelength
