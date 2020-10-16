@@ -19,9 +19,16 @@
  * CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+/**
+ * @file jobs.c
+ * @brief Implementation of the APIs from jobs.h.
+ */
+
 #include <assert.h>
 
 #include "jobs.h"
+
+/** @cond DO_NOT_DOCUMENT */
 
 typedef enum
 {
@@ -29,7 +36,7 @@ typedef enum
 } bool_;
 
 /**
- * @brief Table of topic API strings in JobsTopic_t order
+ * @brief Table of topic API strings in JobsTopic_t order.
  */
 static const char * const apiTopic[] =
 {
@@ -46,7 +53,7 @@ static const char * const apiTopic[] =
 };
 
 /**
- * @brief Table of topic API string lengths in JobsTopic_t order
+ * @brief Table of topic API string lengths in JobsTopic_t order.
  */
 static const size_t apiTopicLength[] =
 {
@@ -63,7 +70,7 @@ static const size_t apiTopicLength[] =
 };
 
 /**
- * @brief Predicate returns true for a valid thing name or job ID character
+ * @brief Predicate returns true for a valid thing name or job ID character.
  *
  * @param[in] a  character to check
  * @param[in] allowColon  set to true for thing names
@@ -105,7 +112,7 @@ static bool_ isValidChar( char a,
 }
 
 /**
- * @brief Predicate returns true for a valid identifier
+ * @brief Predicate returns true for a valid identifier.
  *
  * The identifier may be a thing name or a job ID.
  *
@@ -145,7 +152,7 @@ static bool_ isValidID( const char * id,
 
 
 /**
- * @brief Predicate returns true for a valid thing name string
+ * @brief Predicate returns true for a valid thing name string.
  *
  * @param[in] thingName  character sequence to check
  * @param[in] thingNameLength  length of the character sequence
@@ -161,7 +168,7 @@ static bool_ isValidThingName( const char * thingName,
 }
 
 /**
- * @brief Predicate returns true for a valid job ID string
+ * @brief Predicate returns true for a valid job ID string.
  *
  * @param[in] jobId  character sequence to check
  * @param[in] jobIdLength  length of the character sequence
@@ -177,7 +184,7 @@ static bool_ isValidJobId( const char * jobId,
 }
 
 /**
- * @brief A strncpy replacement based on lengths only
+ * @brief A strncpy replacement based on lengths only.
  *
  * @param[in] buffer  The buffer to be written.
  * @param[in,out] start  The index at which to begin.
@@ -246,6 +253,8 @@ static void writePreamble( char * buffer,
 #define checkCommonParams() \
     ( ( buffer != NULL ) && ( length > 0U ) && checkThingParams() )
 
+/** @endcond */
+
 /**
  * See jobs.h for docs.
  *
@@ -290,6 +299,8 @@ JobsStatus_t Jobs_GetTopic( char * buffer,
 
     return ret;
 }
+
+/** @cond DO_NOT_DOCUMENT */
 
 /**
  * @brief Compare the leading n bytes of two character sequences.
@@ -347,7 +358,7 @@ static JobsStatus_t strnnEq( const char * a,
 }
 
 /**
- * @brief Parse a job ID and search for the API portion of a topic string in a table
+ * @brief Parse a job ID and search for the API portion of a topic string in a table.
  *
  * @param[in] topic  The topic string to check.
  * @param[in] topicLength  The length of the topic string.
@@ -415,7 +426,7 @@ static JobsStatus_t matchIdApi( char * topic,
 }
 
 /**
- * @brief Search for the API portion of a topic string in a table
+ * @brief Search for the API portion of a topic string in a table.
  *
  * @param[in] topic  The topic string to check.
  * @param[in] topicLength  The length of the topic string.
@@ -461,6 +472,8 @@ static JobsStatus_t matchApi( char * topic,
 
     return ret;
 }
+
+/** @endcond */
 
 /**
  * See jobs.h for docs.

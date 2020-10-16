@@ -10,9 +10,11 @@ buffera
 bufferb
 cbmc
 com
+cond
 coverity
 describejobexecution
 developerguide
+endcond
 endif
 enum
 enums
