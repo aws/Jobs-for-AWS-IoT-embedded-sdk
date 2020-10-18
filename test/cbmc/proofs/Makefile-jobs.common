@@ -14,7 +14,7 @@ ifdef JOBID_MAX_LENGTH
 endif
 
 INCLUDES += -I$(CBMC_ROOT)/include
-INCLUDES += -I$(SRCDIR)/include
+INCLUDES += -I$(SRCDIR)/source/include
 
 PROOF_SOURCES += $(PROOFDIR)/$(HARNESS_FILE).c
 PROJECT_SOURCES += $(PROOFDIR)/jobs.c
@@ -23,7 +23,7 @@ include ../Makefile.common
 
 # remove static constraints to facilitate proofs
 # replace some functions with stubs by renaming originals (see SED_EXPR in proof Makefiles)
-$(PROOFDIR)/jobs.c: $(SRCDIR)/jobs.c
+$(PROOFDIR)/jobs.c: $(SRCDIR)/source/jobs.c
 	sed -E '1s/^/#include "jobs_annex.h" /; s/^static //; $(SED_EXPR)' $< > $@
 
 cleanclean: veryclean
