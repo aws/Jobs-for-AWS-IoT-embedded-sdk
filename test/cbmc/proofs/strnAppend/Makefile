@@ -11,3 +11,4 @@ REMOVE_FUNCTION_BODY +=
 UNWINDSET += strnAppend.0:$(CBMC_MAX_BUFSIZE)
 
 include ../Makefile-jobs.common
+PROOF_UID=strnAppend

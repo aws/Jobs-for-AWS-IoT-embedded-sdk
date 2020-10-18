@@ -20,3 +20,4 @@ PROOF_SOURCES += $(PROOF_STUB)/strnAppend.c
 SED_EXPR = s/JobsStatus_t strnAppend\b/&_/
 
 include ../Makefile-jobs.common
+PROOF_UID=Jobs_Describe

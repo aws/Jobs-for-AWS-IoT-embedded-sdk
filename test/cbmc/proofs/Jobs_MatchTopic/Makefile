@@ -31,3 +31,4 @@ PROOF_SOURCES += $(PROOF_STUB)/strnEq.c
 SED_EXPR = s/JobsStatus_t strnEq\b/&_/
 
 include ../Makefile-jobs.common
+PROOF_UID=Jobs_MatchTopic
