@@ -22,9 +22,23 @@ PROJECT_SOURCES += $(PROOFDIR)/jobs.c
 include ../Makefile.common
 
 # remove static constraints to facilitate proofs
-# replace some functions with stubs by renaming originals (see SED_EXPR in proof Makefiles)
+# replace some functions with stubs by renaming originals
+# (see SED_EXPR in proof Makefiles)
+
+# Command to pass to sed to patch jobs.c.
+# The characters " and # must be escaped with backslash.
+JOBS_SED_EXPR = 1s/^/\#include \"jobs_annex.h\" /; s/^static //; $(SED_EXPR)
+
 $(PROOFDIR)/jobs.c: $(SRCDIR)/source/jobs.c
-	sed -E '1s/^/#include "jobs_annex.h" /; s/^static //; $(SED_EXPR)' $< > $@
+	$(LITANI) add-job \
+	  --command \
+	    "sed -E '$(JOBS_SED_EXPR)' $^ > $@" \
+	  --inputs $^ \
+	  --outputs $@ \
+	  --stdout-file $(LOGDIR)/jobs-log.txt \
+	  --ci-stage build \
+	  --pipeline-name "$(PROOF_UID)" \
+	  --description "$(PROOF_UID): patching jobs.c"
 
 cleanclean: veryclean
 	-$(RM) $(PROOFDIR)/jobs.c
