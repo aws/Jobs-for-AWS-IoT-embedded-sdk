@@ -1,8 +1,4 @@
 /*
-<<<<<<< HEAD
-=======
- * AWS IoT Jobs v1.0.0
->>>>>>> b392520... Add CMake files to build unit tests with Unity
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -25,7 +21,6 @@
 
 /**
  * @file jobs_utest.c
-<<<<<<< HEAD
  * @brief Unit tests for the jobs library.
  */
 
@@ -504,25 +499,4 @@ void test_Jobs_asserts( void )
     catch_assert( matchApi( bufA, x, NULL, &p, &j ) );
     catch_assert( matchApi( bufA, x, &api, NULL, &j ) );
     catch_assert( matchApi( bufA, x, &api, &p, NULL ) );
-=======
- * @brief Unit tests for the AWS IoT Jobs library.
- */
-
-#include "unity.h"
-
-/* Include paths for public enums, structures, and macros. */
-#include "jobs.h"
-
-/**
- * @brief Test that Jobs_MatchTopic is able to classify any null or bad parameters.
- */
-void test_Jobs_MatchTopic_Invalid_Params( void )
-{
-    JobsStatus_t jobsStatus;
-    char * outJobId;
-    uint16_t outJobIdLength;
-
-    jobsStatus = Jobs_MatchTopic( NULL, 0, NULL, 0, NULL, &outJobId, &outJobIdLength );
-    TEST_ASSERT_EQUAL( JobsBadParameter, jobsStatus );
->>>>>>> b392520... Add CMake files to build unit tests with Unity
 }
