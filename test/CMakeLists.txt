@@ -63,10 +63,10 @@ endif()
 # defining test targets with add_test()
 enable_testing()
 
-# Add build targets for Unity, required for unit testing.
+# Add build target for Unity, required for unit testing.
 add_unity_targets()
 
-# Add function to enable Unity based tests and coverage.
+# Add functions to enable Unity based tests and coverage.
 include( ${MODULE_ROOT_DIR}/tools/unity/create_test.cmake )
 
 # Include build configuration for unit tests.
