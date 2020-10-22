@@ -19,7 +19,7 @@
 #
 # 	  make PROJECT_NAME="FreeRTOS MQTT" report
 #
-PROJECT_NAME = "FreeRTOS coreJobs"
+PROJECT_NAME = "FreeRTOS Jobs library"
 
 # Path to litani executable, relative to the root of the repository.
 # This applies even for projects with multiple proof roots.
