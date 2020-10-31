@@ -1,13 +1,13 @@
 ## AWS IoT Jobs client library
 *(part of the AWS IoT Device SDK for Embedded C)*
 
-AWS IoT jobs can be used to define a set of remote operations that
+AWS IoT Jobs can be used to define a set of remote operations that
 are sent to and executed on one or more devices connected to AWS IoT.
 For documentation of the service, please see the [AWS Iot Developer
 Guide](https://docs.aws.amazon.com/iot/latest/developerguide/iot-jobs.html).
 Interactions with the jobs service use MQTT, a lightweight
 publish-subscribe protocol.  This library provides a convenience API to
-compose and recognize the MQTT topic strings used by the jobs service.
+compose and recognize the MQTT topic strings used by the Jobs service.
 The library is written in C compliant with ISO C90 and MISRA C:2012,
 and is distributed under the [MIT Open Source License](LICENSE).
 
@@ -22,18 +22,18 @@ Deviations](MISRA.md). This library has also undergone both static code
 analysis from [Coverity](https://scan.coverity.com/), and validation of
 memory safety with the [CBMC bounded model checker](https://www.cprover.org/cbmc/).
 
-## Building the jobs library
+## Building the Jobs library
 
 A compiler that supports **C90 or later** such as *gcc* is required to build the library.
 
 Given an application in a file named `example.c`, *gcc* can be used like so:
 ```bash
-gcc -I source/include example.c source/core_json.c -o example
+gcc -I source/include example.c source/jobs.c -o example
 ```
 
 *gcc* can also produce an object file to be linked later:
 ```bash
-gcc -I source/include -c source/core_json.c
+gcc -I source/include -c source/jobs.c
 ```
 
 ## Reference example
