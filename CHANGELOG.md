@@ -1,4 +1,4 @@
-# Change Log for AWS IoT Device Defender Client Library
+# Change Log for AWS IoT Jobs Library
 
 ## v1.0.0 (November 2020)
 
