@@ -1,11 +1,14 @@
 ## AWS IoT Jobs client library
 *(part of the AWS IoT Device SDK for Embedded C)*
 
-AWS IoT Jobs can be used to define a set of remote operations that
-are sent to and executed on one or more devices connected to AWS IoT.
-For documentation of the service, please see the [AWS Iot Developer
+AWS IoT Jobs is a service that notifies one or more connected devices of a 
+pending “Job”.  A Job can be used to manage your fleet of devices, update 
+firmware and security certificates on your devices, or perform administrative 
+tasks such as restarting devices and performing diagnostics.For documentation
+of the service, please see the [AWS Iot Developer
 Guide](https://docs.aws.amazon.com/iot/latest/developerguide/iot-jobs.html).
-Interactions with the jobs service use MQTT, a lightweight
+
+Interactions with the Jobs service use MQTT, a lightweight
 publish-subscribe protocol.  This library provides a convenience API to
 compose and recognize the MQTT topic strings used by the Jobs service.
 The library is written in C compliant with ISO C90 and MISRA C:2012,
