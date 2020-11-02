@@ -2,12 +2,8 @@
 *(part of the AWS IoT Device SDK for Embedded C)*
 
 AWS IoT Jobs is a service that notifies one or more connected devices of a 
-pending “Job”.  A Job can be used to manage your fleet of devices, update 
-firmware and security certificates on your devices, or perform administrative 
-tasks such as restarting devices and performing diagnostics.For documentation
-of the service, please see the [AWS Iot Developer
+pending “Job”.  A Job can be used to manage your fleet of devices, update firmware and security certificates on your devices, or perform administrative tasks such as restarting devices and performing diagnostics. For documentation of the service, please see the [AWS Iot Developer
 Guide](https://docs.aws.amazon.com/iot/latest/developerguide/iot-jobs.html).
-
 Interactions with the Jobs service use MQTT, a lightweight
 publish-subscribe protocol.  This library provides a convenience API to
 compose and recognize the MQTT topic strings used by the Jobs service.
