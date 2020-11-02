@@ -1,4 +1,4 @@
-## AWS IoT Jobs client library
+## AWS IoT Jobs Client library
 *(part of the AWS IoT Device SDK for Embedded C)*
 
 AWS IoT Jobs is a service that notifies one or more connected devices of a
