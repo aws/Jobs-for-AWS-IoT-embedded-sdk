@@ -1,4 +1,4 @@
-# Change Log for AWS IoT Jobs Library
+# Changelog for AWS IoT Jobs Library
 
 ## v1.0.0 (November 2020)
 
