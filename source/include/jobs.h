@@ -34,11 +34,13 @@
 #include <stdint.h>
 
 /**
+ * @ingroup jobs_constants
  * @brief Maximum length of a thing name for the AWS IoT Jobs Service.
  */
 #define JOBS_THINGNAME_MAX_LENGTH    128U      /* per AWS IoT API Reference */
 
 /**
+ * @ingroup jobs_constants
  * @brief Maximum length of a job ID for the AWS IoT Jobs Service.
  */
 #define JOBS_JOBID_MAX_LENGTH        64U       /* per AWS IoT API Reference */
@@ -47,6 +49,8 @@
 
 /**
  * @brief User defined maximum length of a thing name for the application.
+ *
+ * <br><b>Default value</b>: @ref JOBS_THINGNAME_MAX_LENGTH
  */
     #define THINGNAME_MAX_LENGTH    JOBS_THINGNAME_MAX_LENGTH
 #endif
@@ -55,6 +59,8 @@
 
 /**
  * @brief User defined maximum length of a job ID for the application.
+ *
+ * <br><b>Default value</b>: @ref JOBS_JOBID_MAX_LENGTH
  */
     #define JOBID_MAX_LENGTH    JOBS_JOBID_MAX_LENGTH
 #endif
@@ -105,6 +111,7 @@
 /** @endcond */
 
 /**
+ * @ingroup jobs_constants
  * @brief The size needed to hold the longest topic for a given thing name length.
  * @note This includes space for a terminating NUL character.
  */
@@ -114,6 +121,7 @@
       JOBS_API_SUCCESS_LENGTH + 1U )
 
 /**
+ * @ingroup jobs_enum_types
  * @brief Return codes from jobs functions.
  */
 typedef enum
@@ -126,6 +134,7 @@ typedef enum
 } JobsStatus_t;
 
 /**
+ * @ingroup jobs_enum_types
  * @brief Topic values for subscription requests.
  *
  * @note The enum values for valid topics must be contiguous,
@@ -177,12 +186,14 @@ typedef enum
  *
  * @note The thingName parameter does not need a NULL terminator.
  */
+/* @[declare_jobs_gettopic] */
 JobsStatus_t Jobs_GetTopic( char * buffer,
                             size_t length,
                             const char * thingName,
                             uint16_t thingNameLength,
                             JobsTopic_t api,
                             size_t * outLength );
+/* @[declare_jobs_gettopic] */
 
 /**
  * @brief Output a topic value if a Jobs API topic string is present.
@@ -208,6 +219,7 @@ JobsStatus_t Jobs_GetTopic( char * buffer,
  * NULL and 0 are output when no jobID is present.
  * The parameters jobId and jobIdLength may be NULL.
  */
+/* @[declare_jobs_matchtopic] */
 JobsStatus_t Jobs_MatchTopic( char * topic,
                               size_t length,
                               const char * thingName,
@@ -215,6 +227,7 @@ JobsStatus_t Jobs_MatchTopic( char * topic,
                               JobsTopic_t * outApi,
                               char ** outJobId,
                               uint16_t * outJobIdLength );
+/* @[declare_jobs_matchtopic] */
 
 /**
  * @brief Populate a topic string for a GetPendingJobExecutions request.
@@ -235,11 +248,13 @@ JobsStatus_t Jobs_MatchTopic( char * topic,
  *
  * @note The thingName parameter does not need a NULL terminator.
  */
+/* @[declare_jobs_getpending] */
 JobsStatus_t Jobs_GetPending( char * buffer,
                               size_t length,
                               const char * thingName,
                               uint16_t thingNameLength,
                               size_t * outLength );
+/* @[declare_jobs_getpending] */
 
 /**
  * @brief Populate a topic string for a StartNextPendingJobExecution request.
@@ -260,11 +275,13 @@ JobsStatus_t Jobs_GetPending( char * buffer,
  *
  * @note The thingName parameter does not need a NULL terminator.
  */
+/* @[declare_jobs_startnext] */
 JobsStatus_t Jobs_StartNext( char * buffer,
                              size_t length,
                              const char * thingName,
                              uint16_t thingNameLength,
                              size_t * outLength );
+/* @[declare_jobs_startnext] */
 
 /**
  * @brief Populate a topic string for a DescribeJobExecution request.
@@ -287,6 +304,7 @@ JobsStatus_t Jobs_StartNext( char * buffer,
  *
  * @note The thingName and jobId parameters do not need a NULL terminator.
  */
+/* @[declare_jobs_describe] */
 JobsStatus_t Jobs_Describe( char * buffer,
                             size_t length,
                             const char * thingName,
@@ -294,6 +312,7 @@ JobsStatus_t Jobs_Describe( char * buffer,
                             const char * jobId,
                             uint16_t jobIdLength,
                             size_t * outLength );
+/* @[declare_jobs_describe] */
 
 /**
  * @brief Populate a topic string for an UpdateJobExecution request.
@@ -316,6 +335,7 @@ JobsStatus_t Jobs_Describe( char * buffer,
  *
  * @note The thingName and jobId parameters do not need a NULL terminator.
  */
+/* @[declare_jobs_update] */
 JobsStatus_t Jobs_Update( char * buffer,
                           size_t length,
                           const char * thingName,
@@ -323,5 +343,6 @@ JobsStatus_t Jobs_Update( char * buffer,
                           const char * jobId,
                           uint16_t jobIdLength,
                           size_t * outLength );
+/* @[declare_jobs_update] */
 
 #endif /* ifndef JOBS_H_ */

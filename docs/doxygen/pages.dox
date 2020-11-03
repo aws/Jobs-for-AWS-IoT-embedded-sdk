@@ -51,3 +51,63 @@ All functions are written to have minimal complexity.
 Unit tests and [CBMC](https://www.cprover.org/cbmc/) proofs are written to cover every path of execution and achieve 100% branch coverage.
 </p>
 */
+
+/**
+@page jobs_config Configurations
+@brief Configurations of the Jobs Library.
+<!-- @par configpagestyle allows the @section titles to be styled according to style.css -->
+@par configpagestyle
+
+These configuration settings are C pre-processor constants they are set using a compiler option such as -D in gcc.
+
+@section THINGNAME_MAX_LENGTH
+@copydoc THINGNAME_MAX_LENGTH
+
+@section JOBID_MAX_LENGTH
+@copydoc JOBID_MAX_LENGTH
+*/
+
+/**
+@page jobs_functions Functions
+@brief Primary functions of the Jobs library:<br><br>
+@subpage jobs_gettopic_function <br>
+@subpage jobs_matchtopic_function <br>
+@subpage jobs_getpending_function <br>
+@subpage jobs_startnext_function <br>
+@subpage jobs_describe_function <br>
+@subpage jobs_startnext_function <br>
+
+@page jobs_gettopic_function Jobs_GetTopic
+@snippet jobs.h declare_jobs_gettopic
+@copydoc Jobs_GetTopic
+
+@page jobs_matchtopic_function Jobs_MatchTopic
+@snippet jobs.h declare_jobs_matchtopic
+@copydoc Jobs_MatchTopic
+
+@page jobs_getpending_function Jobs_GetPending
+@snippet jobs.h declare_jobs_getpending
+@copydoc Jobs_GetPending
+
+@page jobs_startnext_function Jobs_StartNext
+@snippet jobs.h declare_jobs_startnext
+@copydoc Jobs_StartNext
+
+@page jobs_describe_function Jobs_Describe
+@snippet jobs.h declare_jobs_describe
+@copydoc Jobs_Describe
+
+@page jobs_update_function Jobs_Update
+@snippet jobs.h declare_jobs_update
+@copydoc Jobs_Update
+*/
+
+/**
+@defgroup jobs_enum_types Enumerated Types
+@brief Enumerated types of the Jobs library
+*/
+
+/**
+@defgroup jobs_constants Constants
+@brief Constants defined in the Jobs library
+*/
