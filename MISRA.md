@@ -14,7 +14,9 @@ Deviations from the MISRA standard are listed below:
 | Rule 20.12 | Required | Allow use of `assert()`, which uses a parameter in both expanded and raw forms. |
 
 ### Flagged by Coverity
-*None.*
+| Deviation | Category | Justification |
+| :-: | :-: | :-: |
+| Rule 8.7 | Advisory | API functions are not used by the library; however, they must be externally visible in order to be used by an application. |
 
 ### Suppressed with Coverity Comments
 | Deviation | Category | Justification |
