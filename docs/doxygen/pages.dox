@@ -58,7 +58,7 @@ Unit tests and [CBMC](https://www.cprover.org/cbmc/) proofs are written to cover
 <!-- @par configpagestyle allows the @section titles to be styled according to style.css -->
 @par configpagestyle
 
-Some configuration settings are C pre-processor constants they are set using a compiler option such as -D in gcc.
+These configuration settings are C pre-processor constants they are set using a compiler option such as -D in gcc.
 
 @section THINGNAME_MAX_LENGTH
 @copydoc THINGNAME_MAX_LENGTH
