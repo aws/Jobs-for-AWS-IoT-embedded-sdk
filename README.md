@@ -24,6 +24,8 @@ Deviations](MISRA.md). This library has also undergone both static code
 analysis from [Coverity](https://scan.coverity.com/), and validation of
 memory safety with the [CBMC bounded model checker](https://www.cprover.org/cbmc/).
 
+See memory requirements for this library [here](https://docs.aws.amazon.com/embedded-csdk/202011.00/lib-ref/libraries/aws/jobs-for-aws-iot-embedded-sdk/docs/doxygen/output/html/index.html#jobs_memory_requirements).
+
 ## Building the Jobs library
 
 A compiler that supports **C90 or later** such as *gcc* is required to build the library.
