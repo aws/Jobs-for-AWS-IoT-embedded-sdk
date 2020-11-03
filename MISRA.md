@@ -6,7 +6,6 @@ guidelines, with some noted exceptions. Compliance is checked with Coverity stat
 Deviations from the MISRA standard are listed below:
 
 ### Ignored by [Coverity Configuration](tools/coverity/misra.config)
-
 | Deviation | Category | Justification |
 | :-: | :-: | :-: |
 | Directive 4.9 | Advisory | Allow inclusion of function like macros. |
