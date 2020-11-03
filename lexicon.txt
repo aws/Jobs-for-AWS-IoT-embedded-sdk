@@ -5,6 +5,7 @@ apis
 ascii
 aws
 blength
+br
 buf
 buffera
 bufferb
@@ -24,6 +25,7 @@ html
 https
 ifndef
 inc
+ingroup
 iot
 jobid
 jobidlength
@@ -48,6 +50,7 @@ outjobid
 outjobidlength
 outlength
 param
+ref
 spdx
 startnextpendingjobexecution
 stderr
