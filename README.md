@@ -44,7 +44,7 @@ gcc -I source/include -c source/jobs.c
 
 The AWS IoT Device SDK for Embedded C repository contains a demo using
 the jobs library on a POSIX platform.
-https://github.com/aws/aws-iot-device-sdk-embedded-C/tree/master/demos/jobs/jobs_demo_mosquitto
+https://github.com/aws/aws-iot-device-sdk-embedded-C/tree/main/demos/jobs/jobs_demo_mosquitto
 
 ## Generating documentation
 
