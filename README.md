@@ -93,3 +93,7 @@ sure that the **Unity** submodule is cloned as described
 1. The generated test executables will be present in `build/bin/tests` folder.
 
 1. Run `ctest` to execute all tests and view the test run summary.
+
+## Contributing
+
+See [CONTRIBUTING.md](./.github/CONTRIBUTING.md) for information on contributing.
