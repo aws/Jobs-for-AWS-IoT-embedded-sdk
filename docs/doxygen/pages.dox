@@ -31,8 +31,8 @@ It has proofs showing safe memory use and no heap allocation, making it suitable
     </tr>
     <tr>
         <td><b>Total estimate</b></td>
-        <td><center>1.7K</center></td>
-        <td><center>1.4K</center></td>
+        <td><center><b>1.7K</b></center></td>
+        <td><center><b>1.4K</b></center></td>
     </tr>
 </table>
  */
