@@ -105,6 +105,9 @@
 #define JOBS_API_UPDATE                   "update"
 #define JOBS_API_UPDATE_LENGTH            ( sizeof( JOBS_API_UPDATE ) - 1U )
 
+#define JOBS_API_JOBID_NEXT               "$next"
+#define JOBS_API_JOBID_NEXT_LENGTH        ( sizeof( JOBS_API_JOBID_NEXT ) - 1U )
+
 #define JOBS_API_COMMON_LENGTH( thingNameLength ) \
     ( JOBS_API_PREFIX_LENGTH + ( thingNameLength ) + JOBS_API_BRIDGE_LENGTH )
 
@@ -301,6 +304,9 @@ JobsStatus_t Jobs_StartNext( char * buffer,
  * When all parameters are valid, the topic string is written to
  * the buffer up to one less than the buffer size.  The topic is
  * ended with a NUL character.
+ *
+ * @note A jobId consisting of the string, "$next", is supported to generate
+ * a topic string to request the next pending job.
  *
  * @note The thingName and jobId parameters do not need a NULL terminator.
  */

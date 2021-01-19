@@ -162,6 +162,10 @@ void test_Jobs_bad_parameters( void )
     TEST_BAD_PARAMETER( Jobs_Describe( buf, sizeof( buf ), name_, ( THINGNAME_MAX_LENGTH + 1 ), jobId_, jobIdLength_, &outLength ) );
     TEST_BAD_PARAMETER( Jobs_Update( buf, sizeof( buf ), name_, ( THINGNAME_MAX_LENGTH + 1 ), jobId_, jobIdLength_, &outLength ) );
 
+    /* job ID is NULL */
+    TEST_BAD_PARAMETER( Jobs_Describe( buf, sizeof( buf ), name_, nameLength_, NULL, jobIdLength_, &outLength ) );
+    TEST_BAD_PARAMETER( Jobs_Update( buf, sizeof( buf ), name_, nameLength_, NULL, jobIdLength_, &outLength ) );
+
     /* bad job ID - variations tested separately */
     TEST_BAD_PARAMETER( Jobs_Describe( buf, sizeof( buf ), name_, nameLength_, "!", jobIdLength_, &outLength ) );
     TEST_BAD_PARAMETER( Jobs_Update( buf, sizeof( buf ), name_, nameLength_, "!", jobIdLength_, &outLength ) );
@@ -229,6 +233,10 @@ void test_Jobs_valid_identifiers( void )
             TEST_ASSERT_EQUAL( JobsBadParameter, ret );
         }
     }
+
+    /* Test additional valid jobId, $next */
+    ret = Jobs_Describe( buf, sizeof( buf ), name_, nameLength_, JOBS_API_JOBID_NEXT, JOBS_API_JOBID_NEXT_LENGTH, &outLength );
+    TEST_ASSERT_EQUAL( JobsSuccess, ret );
 }
 
 /**

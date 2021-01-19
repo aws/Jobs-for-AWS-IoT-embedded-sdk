@@ -601,6 +601,29 @@ JobsStatus_t Jobs_StartNext( char * buffer,
 }
 
 /**
+ * @brief Predicate returns true for a match to JOBS_API_JOBID_NEXT
+ *
+ * @param[in] jobId  character sequence to check
+ * @param[in] jobIdLength  length of the character sequence
+ *
+ * @return true if the job ID matches;
+ * false otherwise
+ */
+static bool_ isNextJobId( const char * jobId,
+                          uint16_t jobIdLength )
+{
+    bool_ ret = false;
+
+    if( ( jobId != NULL ) &&
+        ( strnnEq( JOBS_API_JOBID_NEXT, JOBS_API_JOBID_NEXT_LENGTH, jobId, jobIdLength ) == JobsSuccess ) )
+    {
+        ret = true;
+    }
+
+    return ret;
+}
+
+/**
  * See jobs.h for docs.
  *
  * @brief Populate a topic string for a DescribeJobExecution request.
@@ -617,7 +640,8 @@ JobsStatus_t Jobs_Describe( char * buffer,
     size_t start = 0U;
 
     if( checkCommonParams() &&
-        ( isValidJobId( jobId, jobIdLength ) == true ) )
+        ( ( isNextJobId( jobId, jobIdLength ) == true ) ||
+          ( isValidJobId( jobId, jobIdLength ) == true ) ) )
     {
         writePreamble( buffer, &start, length, thingName, thingNameLength );
 
