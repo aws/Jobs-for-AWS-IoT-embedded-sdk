@@ -15,26 +15,7 @@ It has proofs showing safe memory use and no heap allocation, making it suitable
 @section jobs_memory_requirements Memory Requirements
 @brief Memory requirements of the jobs library.
 
-<table>
-    <tr>
-        <td colspan="3"><center><b>Code size of AWS IoT Jobs (example generated with GCC for ARM Cortex-M)</b></center></td>
-    </tr>
-    <tr>
-        <td><b>File</b></td>
-        <td><center><b>With -O1 Optimization</b></center></td>
-        <td><center><b>With -Os Optimization</b></center></td>
-    </tr>
-    <tr>
-        <td>jobs.c</td>
-        <td><center>1.7K</center></td>
-        <td><center>1.4K</center></td>
-    </tr>
-    <tr>
-        <td><b>Total estimate</b></td>
-        <td><center><b>1.7K</b></center></td>
-        <td><center><b>1.4K</b></center></td>
-    </tr>
-</table>
+@include{doc} size_table.html
  */
 
 /**
