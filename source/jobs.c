@@ -427,8 +427,8 @@ static JobsStatus_t matchIdApi( char * topic,
     p = &p[ jobIdLength + 1U ];
     length = length - jobIdLength - 1U;
 
-    if ( ( isNextJobId( jobId, jobIdLength ) == true ) ||
-          ( isValidJobId( jobId, jobIdLength ) == true ) )
+    if( ( isNextJobId( jobId, jobIdLength ) == true ) ||
+        ( isValidJobId( jobId, jobIdLength ) == true ) )
     {
         JobsTopic_t api;
 
