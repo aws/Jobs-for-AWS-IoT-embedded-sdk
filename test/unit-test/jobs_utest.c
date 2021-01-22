@@ -435,6 +435,16 @@ void test_Jobs_match_topic( void )
     TEST_SUCCESS( Jobs_MatchTopic( topic, topicLength, name_, nameLength_, &outApi, &outJobId, &outJobIdLength ) );
     TEST_JOBID();
 
+    setVars( JobsDescribeSuccess, PREFIX "$next/get/accepted", "$next" );
+    TEST_SUCCESS( Jobs_MatchTopic( topic, topicLength, name_, nameLength_, &outApi, NULL, NULL ) );
+    TEST_SUCCESS( Jobs_MatchTopic( topic, topicLength, name_, nameLength_, &outApi, &outJobId, &outJobIdLength ) );
+    TEST_JOBID();
+
+    setVars( JobsDescribeFailed, PREFIX "$next/get/rejected", "$next" );
+    TEST_SUCCESS( Jobs_MatchTopic( topic, topicLength, name_, nameLength_, &outApi, NULL, NULL ) );
+    TEST_SUCCESS( Jobs_MatchTopic( topic, topicLength, name_, nameLength_, &outApi, &outJobId, &outJobIdLength ) );
+    TEST_JOBID();
+
     setVars( JobsUpdateSuccess, PREFIX "12345/update/accepted", "12345" );
     TEST_SUCCESS( Jobs_MatchTopic( topic, topicLength, name_, nameLength_, &outApi, NULL, NULL ) );
     TEST_SUCCESS( Jobs_MatchTopic( topic, topicLength, name_, nameLength_, &outApi, &outJobId, &outJobIdLength ) );
