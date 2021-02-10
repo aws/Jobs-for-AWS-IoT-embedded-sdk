@@ -96,8 +96,8 @@ jobsdescribesuccess
 jobsdescribefailed
 jobsupdatesuccess
 jobsupdatefailed
-nextjobexecutionchanged 
+nextjobexecutionchanged
 pincomingtopic
-pjobid 
+pjobid
 sizeof
 topicbuffer

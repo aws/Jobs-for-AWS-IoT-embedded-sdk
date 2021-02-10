@@ -204,10 +204,10 @@ typedef enum
  * #define THING_NAME           "11223445566"
  * #define THING_NAME_LENGTH    ( sizeof( THING_NAME ) - 1U )
  *
- * // This example allocated buffer of maximum length for a Jobs topic
+ * // This example allocates a buffer of maximum length for a Jobs topic
  * // possible for the thing name using the JOBS_API_MAX_LENGTH macro.
  * char topicBuffer[ JOBS_API_MAX_LENGTH( THING_NAME_LENGTH ) ] = { 0 };
- * uint16_t topicLength = 0;
+ * uint16_t topicLength = 0U;
  * JobsStatus_t status = JobsSuccess;
  * status = Jobs_GetTopic( topicBuffer,
  *                         sizeof( topicBuffer ),
@@ -300,7 +300,7 @@ JobsStatus_t Jobs_GetTopic( char * buffer,
  *     }
  *
  *     else if( api == JobsNextJobChanged )
- *     { // Message from  NextJobExecutionChanged API.
+ *     { // Message from NextJobExecutionChanged API.
  *     }
  *
  *     else if( api == JobsGetPendingSuccess )
@@ -382,10 +382,10 @@ JobsStatus_t Jobs_MatchTopic( char * topic,
  * #define THING_NAME           "11223445566"
  * #define THING_NAME_LENGTH    ( sizeof( THING_NAME ) - 1U )
  *
- * // This example allocated buffer of maximum length for a Jobs topic
+ * // This example allocates a buffer of maximum length for a Jobs topic
  * // possible for the thing name using the JOBS_API_MAX_LENGTH macro.
  * char topicBuffer[ JOBS_API_MAX_LENGTH( THING_NAME_LENGTH ) ] = { 0 };
- * uint16_t topicLength = 0;
+ * uint16_t topicLength = 0U;
  * JobsStatus_t status = JobsSuccess;
  * status = Jobs_GetPending( topicBuffer,
  *                           sizeof( topicBuffer ),
@@ -440,16 +440,16 @@ JobsStatus_t Jobs_GetPending( char * buffer,
  * #define THING_NAME           "11223445566"
  * #define THING_NAME_LENGTH    ( sizeof( THING_NAME ) - 1U )
  *
- * // This example allocated buffer of maximum length for a Jobs topic
+ * // This example allocates a buffer of maximum length for a Jobs topic
  * // possible for the thing name using the JOBS_API_MAX_LENGTH macro.
  * char topicBuffer[ JOBS_API_MAX_LENGTH( THING_NAME_LENGTH ) ] = { 0 };
- * uint16_t topicLength = 0;
+ * uint16_t topicLength = 0U;
  * JobsStatus_t status = JobsSuccess;
  * status = Jobs_StartNext( topicBuffer,
- *                         sizeof( topicBuffer ),
- *                         THING_NAME,
- *                         THING_NAME_LENGTH,
- *                         &( topicLength ) );
+ *                          sizeof( topicBuffer ),
+ *                          THING_NAME,
+ *                          THING_NAME_LENGTH,
+ *                          &( topicLength ) );
  *
  * if( status == JobsSuccess )
  * {
@@ -508,17 +508,17 @@ JobsStatus_t Jobs_StartNext( char * buffer,
  * #define JOB_ID               "My_Job"
  * #define JOB_ID_LENGTH        ( sizeof( JOB_ID ) - 1U )
  *
- * // This example allocated buffer of maximum length for a Jobs topic
+ * // This example allocates a buffer of maximum length for a Jobs topic
  * // possible for the thing name using the JOBS_API_MAX_LENGTH macro.
  * char topicBuffer[ JOBS_API_MAX_LENGTH( THING_NAME_LENGTH ) ] = { 0 };
- * uint16_t topicLength = 0;
+ * uint16_t topicLength = 0U;
  * JobsStatus_t status = JobsSuccess;
  * status = Jobs_Describe( topicBuffer,
  *                         sizeof( topicBuffer ),
  *                         THING_NAME,
  *                         THING_NAME_LENGTH,
- *                         pJobId,
- *                         jobIdLength,
+ *                         JOB_ID,
+ *                         JOB_ID_LENGTH,
  *                         &( topicLength ) );
  *
  * if( status == JobsSuccess )
@@ -577,17 +577,17 @@ JobsStatus_t Jobs_Describe( char * buffer,
  * #define JOB_ID               "My_Job"
  * #define JOB_ID_LENGTH        ( sizeof( JOB_ID ) - 1U )
  *
- * // This example allocated buffer of maximum length for a Jobs topic
+ * // This example allocates a buffer of maximum length for a Jobs topic
  * // possible for the thing name using the JOBS_API_MAX_LENGTH macro.
  * char topicBuffer[ JOBS_API_MAX_LENGTH( THING_NAME_LENGTH ) ] = { 0 };
- * uint16_t topicLength = 0;
+ * uint16_t topicLength = 0U;
  * JobsStatus_t status = JobsSuccess;
  * status = Jobs_Update( topicBuffer,
  *                         sizeof( topicBuffer ),
  *                         THING_NAME,
  *                         THING_NAME_LENGTH,
- *                         pJobId,
- *                         jobIdLength,
+ *                         JOB_ID,
+ *                         JOB_ID_LENGTH,
  *                         &( topicLength ) );
  *
  * if( status == JobsSuccess )
