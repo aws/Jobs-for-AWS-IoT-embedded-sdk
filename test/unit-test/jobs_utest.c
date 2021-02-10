@@ -42,6 +42,9 @@
 #define jobId_          "1234"
 #define jobIdLength_    ( sizeof( jobId_ ) - 1 )
 
+/* Common prefix of Jobs topics. */
+#define PREFIX          JOBS_API_PREFIX name_ JOBS_API_BRIDGE
+
 /* ============================   UNITY FIXTURES ============================ */
 
 /* Called before each test method. */
@@ -251,7 +254,7 @@ void test_Jobs_buffer_lengths( void )
     JobsStatus_t ret;
     size_t len;
     unsigned i = 0;
-    char expected1[] = JOBS_API_PREFIX name_ JOBS_API_BRIDGE JOBS_API_JOBSCHANGED;
+    char expected1[] = JOBS_TOPIC_JOBSCHANGED_API( name_ );
     char expected2[] = JOBS_API_PREFIX name_ JOBS_API_BRIDGE "+/" JOBS_API_UPDATE JOBS_API_SUCCESS;
 
     ret = Jobs_GetTopic( buf, sizeof( buf ), name_, nameLength_, JobsJobsChanged, NULL );
@@ -281,7 +284,6 @@ void test_Jobs_happy_path( void )
     char buf[ JOBS_API_MAX_LENGTH( nameLength_ ) ];
     size_t outLength;
 
-#define PREFIX    JOBS_API_PREFIX name_ JOBS_API_BRIDGE
     char prefix[] = PREFIX;
 
 #define TEST_SUCCESS( x )                          \
@@ -300,7 +302,7 @@ void test_Jobs_happy_path( void )
     TEST_ASSERT_EQUAL( ( sizeof( x ) - 1 ), outLength )
 
     {
-        char expected[] = PREFIX JOBS_API_GETPENDING;
+        char expected[] = JOBS_TOPIC_GETPENDING_API( name_ );
 
         TEST_SUCCESS( Jobs_GetPending( buf, sizeof( buf ), name_, nameLength_, NULL ) );
         TEST_SUCCESS( Jobs_GetPending( buf, sizeof( buf ), name_, nameLength_, &outLength ) );
@@ -312,7 +314,7 @@ void test_Jobs_happy_path( void )
     }
 
     {
-        char expected[] = PREFIX JOBS_API_STARTNEXT;
+        char expected[] = JOBS_TOPIC_STARTNEXT_API( name_ );
 
         TEST_SUCCESS( Jobs_StartNext( buf, sizeof( buf ), name_, nameLength_, NULL ) );
         TEST_SUCCESS( Jobs_StartNext( buf, sizeof( buf ), name_, nameLength_, &outLength ) );
@@ -324,7 +326,7 @@ void test_Jobs_happy_path( void )
     }
 
     {
-        char expected[] = PREFIX jobId_ "/" JOBS_API_DESCRIBE;
+        char expected[] = JOBS_TOPIC_DESCRIBEJOB_API( name_, jobId_ );
 
         TEST_SUCCESS( Jobs_Describe( buf, sizeof( buf ), name_, nameLength_, jobId_, jobIdLength_, NULL ) );
         TEST_SUCCESS( Jobs_Describe( buf, sizeof( buf ), name_, nameLength_, jobId_, jobIdLength_, &outLength ) );
@@ -336,7 +338,7 @@ void test_Jobs_happy_path( void )
     }
 
     {
-        char expected[] = PREFIX jobId_ "/" JOBS_API_UPDATE;
+        char expected[] = JOBS_TOPIC_UPDATEJOB_API( name_, jobId_ );
 
         TEST_SUCCESS( Jobs_Update( buf, sizeof( buf ), name_, nameLength_, jobId_, jobIdLength_, NULL ) );
         TEST_SUCCESS( Jobs_Update( buf, sizeof( buf ), name_, nameLength_, jobId_, jobIdLength_, &outLength ) );

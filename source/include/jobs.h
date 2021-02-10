@@ -108,10 +108,104 @@
 #define JOBS_API_JOBID_NEXT               "$next"
 #define JOBS_API_JOBID_NEXT_LENGTH        ( sizeof( JOBS_API_JOBID_NEXT ) - 1U )
 
+#define JOBS_API_JOBID_NULL               ""
+#define JOBS_API_LEVEL_SEPARATOR          "/"
+
 #define JOBS_API_COMMON_LENGTH( thingNameLength ) \
     ( JOBS_API_PREFIX_LENGTH + ( thingNameLength ) + JOBS_API_BRIDGE_LENGTH )
 
 /** @endcond */
+
+
+/**
+ * @cond DOXYGEN_IGNORE
+ * Doxygen should ignore this macro as it is private.
+ */
+
+/* AWS IoT Jobs API topics. */
+#define JOBS_TOPIC_COMMON( thingName, jobId, jobsApi ) \
+    ( JOBS_API_PREFIX                                  \
+      thingName                                        \
+      JOBS_API_BRIDGE                                  \
+      jobId                                            \
+      jobsApi )
+/** @endcond */
+
+/**
+ * @brief Topic string for subscribing to the NextJobExecutionChanged API.
+ *
+ * This macro should be used when the thing name is known at the compile time.
+ * If the thing name is not known at compile time, the #Jobs_GetTopic API
+ * should be used instead.
+ *
+ * @param thingName The thing name as registered with AWS IoT Core.
+ */
+#define JOBS_TOPIC_NEXTJOBCHANGED_API( thingName ) \
+    JOBS_TOPIC_COMMON( thingName, JOBS_API_JOBID_NULL, JOBS_API_NEXTJOBCHANGED )
+
+/**
+ * @brief Topic string for subscribing to the JobExecutionsChanged API.
+ *
+ * This macro should be used when the thing name is known at the compile time.
+ * If the thing name is not known at compile time, the #Jobs_GetTopic API
+ * should be used instead.
+ *
+ * @param thingName The thing name as registered with AWS IoT Core.
+ */
+#define JOBS_TOPIC_JOBSCHANGED_API( thingName ) \
+    JOBS_TOPIC_COMMON( thingName, JOBS_API_JOBID_NULL, JOBS_API_JOBSCHANGED )
+
+/**
+ * @brief Topic string for publishing to the StartNextPendingJob API.
+ *
+ * This macro should be used when the thing name is known at the compile time.
+ * If the thing name is not known at compile time, the #Jobs_StartNext API
+ * should be used instead.
+ *
+ * @param thingName The thing name as registered with AWS IoT Core.
+ */
+#define JOBS_TOPIC_STARTNEXT_API( thingName ) \
+    JOBS_TOPIC_COMMON( thingName, JOBS_API_JOBID_NULL, JOBS_API_STARTNEXT )
+
+/**
+ * @brief Topic string for publishing to the GetPendingJobExecutions API.
+ *
+ * This macro should be used when the thing name is known at the compile time.
+ * If the thing name is not known at compile time, the #Jobs_GetPending API
+ * should be used instead.
+ *
+ * @param thingName The thing name as registered with AWS IoT Core.
+ */
+#define JOBS_TOPIC_GETPENDING_API( thingName ) \
+    JOBS_TOPIC_COMMON( thingName, JOBS_API_JOBID_NULL, JOBS_API_GETPENDING )
+
+/**
+ * @brief Topic string for publishing to the DescribeJobExecution API.
+ *
+ * This macro should be used when the thing name and jobID are known at the
+ * compile time. If next pending job is being queried, use $next as job ID.
+ * If the thing name or job ID are not known at compile time, the #Jobs_Describe API
+ * should be used instead.
+ *
+ * @param thingName The thing name as registered with AWS IoT Core.
+ * @param jobId The job ID that will be queried.
+ */
+#define JOBS_TOPIC_DESCRIBEJOB_API( thingName, jobId ) \
+    JOBS_TOPIC_COMMON( thingName, jobId JOBS_API_LEVEL_SEPARATOR, JOBS_API_DESCRIBE )
+
+/**
+ * @brief Topic string for publishing to the UpdateJobExecution API.
+ *
+ * This macro should be used when the thing name and jobID are known at the
+ * compile time. If next pending job is being queried, use $next as job ID.
+ * If the thing name or job ID are not known at compile time, the #Jobs_Update API
+ * should be used instead.
+ *
+ * @param thingName The thing name as registered with AWS IoT Core.
+ * @param jobId The job ID that will be queried.
+ */
+#define JOBS_TOPIC_UPDATEJOB_API( thingName, jobId ) \
+    JOBS_TOPIC_COMMON( thingName, jobId JOBS_API_LEVEL_SEPARATOR, JOBS_API_UPDATE )
 
 /**
  * @ingroup jobs_constants
