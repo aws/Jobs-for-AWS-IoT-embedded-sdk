@@ -85,7 +85,7 @@ void test_JobsPUBLISH__API_macros_are_v( void )
     expectedTopic = PREFIX JOBS_API_JOBSCHANGED;
     TEST_ASSERT_EQUAL_STRING( expectedTopic, JOBS_API_SUBSCRIBE_JOBSCHANGED( name_ ) );
 
-    /* Test for StartNextPendingJob API topic. */
+    /* Test for StartNextPendingJobExecution API topic. */
     expectedTopic = PREFIX JOBS_API_STARTNEXT;
     TEST_ASSERT_EQUAL_STRING( expectedTopic, JOBS_API_PUBLISH_STARTNEXT( name_ ) );
 

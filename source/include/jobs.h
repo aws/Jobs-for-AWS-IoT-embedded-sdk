@@ -162,7 +162,7 @@
 
 /**
  * @ingroup jobs_constants
- * @brief Topic string for publishing to the StartNextPendingJob API.
+ * @brief Topic string for publishing to the StartNextPendingJobExecution API.
  *
  * This macro should be used when the thing name is known at the compile time.
  * If the thing name is not known at compile time, the #Jobs_StartNext API
