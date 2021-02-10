@@ -71,6 +71,43 @@ int suiteTearDown( int numFailures )
 /* ========================================================================== */
 
 /**
+ * @brief Test that the topic generating macros are valid.
+ */
+void test_JobsPUBLISH__API_macros_are_v( void )
+{
+    char * expectedTopic = NULL;
+
+    /* Test for NextJobExecutionChanged API topic. */
+    expectedTopic = PREFIX JOBS_API_NEXTJOBCHANGED;
+    TEST_ASSERT_EQUAL_STRING( expectedTopic, JOBS_API_SUBSCRIBE_NEXTJOBCHANGED( name_ ) );
+
+    /* Test for JobExecutionsChanged API topic. */
+    expectedTopic = PREFIX JOBS_API_JOBSCHANGED;
+    TEST_ASSERT_EQUAL_STRING( expectedTopic, JOBS_API_SUBSCRIBE_JOBSCHANGED( name_ ) );
+
+    /* Test for StartNextPendingJob API topic. */
+    expectedTopic = PREFIX JOBS_API_STARTNEXT;
+    TEST_ASSERT_EQUAL_STRING( expectedTopic, JOBS_API_PUBLISH_STARTNEXT( name_ ) );
+
+    /* Test for GetPendingJobExecutions API topic. */
+    expectedTopic = PREFIX JOBS_API_GETPENDING;
+    TEST_ASSERT_EQUAL_STRING( expectedTopic, JOBS_API_PUBLISH_GETPENDING( name_ ) );
+
+    /* Test for DescribeJobExecution API topics. */
+    expectedTopic = PREFIX JOBS_API_JOBID_NEXT "/" JOBS_API_DESCRIBE;
+    TEST_ASSERT_EQUAL_STRING( expectedTopic, JOBS_API_PUBLISH_DESCRIBEJOB( name_, JOBS_API_JOBID_NEXT ) );
+    expectedTopic = PREFIX jobId_ "/" JOBS_API_DESCRIBE;
+    TEST_ASSERT_EQUAL_STRING( expectedTopic, JOBS_API_PUBLISH_DESCRIBEJOB( name_, jobId_ ) );
+
+    /* Test for UpdateJobExecution API topics. */
+    expectedTopic = PREFIX JOBS_API_JOBID_NEXT "/" JOBS_API_UPDATE;
+    TEST_ASSERT_EQUAL_STRING( expectedTopic, JOBS_API_PUBLISH_UPDATEJOB( name_, JOBS_API_JOBID_NEXT ) );
+    expectedTopic = PREFIX jobId_ "/" JOBS_API_UPDATE;
+    TEST_ASSERT_EQUAL_STRING( expectedTopic, JOBS_API_PUBLISH_UPDATEJOB( name_, jobId_ ) );
+}
+
+
+/**
  * @brief Test that all topic enums are contiguous
  *
  * In the library, a variable of type JobsTopic_t is used for iteration.
@@ -254,7 +291,7 @@ void test_Jobs_buffer_lengths( void )
     JobsStatus_t ret;
     size_t len;
     unsigned i = 0;
-    char expected1[] = JOBS_TOPIC_JOBSCHANGED_API( name_ );
+    char expected1[] = JOBS_API_SUBSCRIBE_JOBSCHANGED( name_ );
     char expected2[] = JOBS_API_PREFIX name_ JOBS_API_BRIDGE "+/" JOBS_API_UPDATE JOBS_API_SUCCESS;
 
     ret = Jobs_GetTopic( buf, sizeof( buf ), name_, nameLength_, JobsJobsChanged, NULL );
@@ -302,7 +339,7 @@ void test_Jobs_happy_path( void )
     TEST_ASSERT_EQUAL( ( sizeof( x ) - 1 ), outLength )
 
     {
-        char expected[] = JOBS_TOPIC_GETPENDING_API( name_ );
+        char expected[] = JOBS_API_PUBLISH_GETPENDING( name_ );
 
         TEST_SUCCESS( Jobs_GetPending( buf, sizeof( buf ), name_, nameLength_, NULL ) );
         TEST_SUCCESS( Jobs_GetPending( buf, sizeof( buf ), name_, nameLength_, &outLength ) );
@@ -314,7 +351,7 @@ void test_Jobs_happy_path( void )
     }
 
     {
-        char expected[] = JOBS_TOPIC_STARTNEXT_API( name_ );
+        char expected[] = JOBS_API_PUBLISH_STARTNEXT( name_ );
 
         TEST_SUCCESS( Jobs_StartNext( buf, sizeof( buf ), name_, nameLength_, NULL ) );
         TEST_SUCCESS( Jobs_StartNext( buf, sizeof( buf ), name_, nameLength_, &outLength ) );
@@ -326,7 +363,7 @@ void test_Jobs_happy_path( void )
     }
 
     {
-        char expected[] = JOBS_TOPIC_DESCRIBEJOB_API( name_, jobId_ );
+        char expected[] = JOBS_API_PUBLISH_DESCRIBEJOB( name_, jobId_ );
 
         TEST_SUCCESS( Jobs_Describe( buf, sizeof( buf ), name_, nameLength_, jobId_, jobIdLength_, NULL ) );
         TEST_SUCCESS( Jobs_Describe( buf, sizeof( buf ), name_, nameLength_, jobId_, jobIdLength_, &outLength ) );
@@ -338,7 +375,7 @@ void test_Jobs_happy_path( void )
     }
 
     {
-        char expected[] = JOBS_TOPIC_UPDATEJOB_API( name_, jobId_ );
+        char expected[] = JOBS_API_PUBLISH_UPDATEJOB( name_, jobId_ );
 
         TEST_SUCCESS( Jobs_Update( buf, sizeof( buf ), name_, nameLength_, jobId_, jobIdLength_, NULL ) );
         TEST_SUCCESS( Jobs_Update( buf, sizeof( buf ), name_, nameLength_, jobId_, jobIdLength_, &outLength ) );
