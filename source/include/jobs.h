@@ -111,10 +111,95 @@
 #define JOBS_API_JOBID_NEXT               "$next"
 #define JOBS_API_JOBID_NEXT_LENGTH        ( sizeof( JOBS_API_JOBID_NEXT ) - 1U )
 
+#define JOBS_API_JOBID_NULL               ""
+#define JOBS_API_LEVEL_SEPARATOR          "/"
+
 #define JOBS_API_COMMON_LENGTH( thingNameLength ) \
     ( JOBS_API_PREFIX_LENGTH + ( thingNameLength ) + JOBS_API_BRIDGE_LENGTH )
 
 /** @endcond */
+
+
+/**
+ * @cond DOXYGEN_IGNORE
+ * Doxygen should ignore this macro as it is private.
+ */
+
+/* AWS IoT Jobs API topics. */
+#define JOBS_TOPIC_COMMON( thingName, jobId, jobsApi ) \
+    ( JOBS_API_PREFIX                                  \
+      thingName                                        \
+      JOBS_API_BRIDGE                                  \
+      jobId                                            \
+      jobsApi )
+/** @endcond */
+
+/**
+ * @ingroup jobs_constants
+ * @brief Topic string for subscribing to the NextJobExecutionChanged API.
+ *
+ * This macro should be used when the thing name is known at the compile time.
+ * If the thing name is not known at compile time, the #Jobs_GetTopic API
+ * should be used instead.
+ *
+ * @param thingName The thing name as registered with AWS IoT Core.
+ */
+#define JOBS_API_SUBSCRIBE_NEXTJOBCHANGED( thingName ) \
+    JOBS_TOPIC_COMMON( thingName, JOBS_API_JOBID_NULL, JOBS_API_NEXTJOBCHANGED )
+
+/**
+ * @ingroup jobs_constants
+ * @brief Topic string for subscribing to the JobExecutionsChanged API.
+ *
+ * This macro should be used when the thing name is known at the compile time.
+ * If the thing name is not known at compile time, the #Jobs_GetTopic API
+ * should be used instead.
+ *
+ * @param thingName The thing name as registered with AWS IoT Core.
+ */
+#define JOBS_API_SUBSCRIBE_JOBSCHANGED( thingName ) \
+    JOBS_TOPIC_COMMON( thingName, JOBS_API_JOBID_NULL, JOBS_API_JOBSCHANGED )
+
+/**
+ * @ingroup jobs_constants
+ * @brief Topic string for publishing to the StartNextPendingJobExecution API.
+ *
+ * This macro should be used when the thing name is known at the compile time.
+ * If the thing name is not known at compile time, the #Jobs_StartNext API
+ * should be used instead.
+ *
+ * @param thingName The thing name as registered with AWS IoT Core.
+ */
+#define JOBS_API_PUBLISH_STARTNEXT( thingName ) \
+    JOBS_TOPIC_COMMON( thingName, JOBS_API_JOBID_NULL, JOBS_API_STARTNEXT )
+
+/**
+ * @ingroup jobs_constants
+ * @brief Topic string for publishing to the GetPendingJobExecutions API.
+ *
+ * This macro should be used when the thing name is known at the compile time.
+ * If the thing name is not known at compile time, the #Jobs_GetPending API
+ * should be used instead.
+ *
+ * @param thingName The thing name as registered with AWS IoT Core.
+ */
+#define JOBS_API_PUBLISH_GETPENDING( thingName ) \
+    JOBS_TOPIC_COMMON( thingName, JOBS_API_JOBID_NULL, JOBS_API_GETPENDING )
+
+/**
+ * @ingroup jobs_constants
+ * @brief Topic string for querying the next pending job from the
+ * DescribeJobExecution API.
+ *
+ * This macro should be used when the thing name and jobID are known at the
+ * compile time. If next pending job is being queried, use $next as job ID.
+ * If the thing name or job ID are not known at compile time, the #Jobs_Describe API
+ * should be used instead.
+ *
+ * @param thingName The thing name as registered with AWS IoT Core.
+ */
+#define JOBS_API_PUBLISH_DESCRIBENEXTJOB( thingName ) \
+    JOBS_TOPIC_COMMON( thingName, JOBS_API_JOBID_NEXT JOBS_API_LEVEL_SEPARATOR, JOBS_API_DESCRIBE )
 
 /**
  * @ingroup jobs_constants
@@ -191,6 +276,13 @@ typedef enum
  * ended with a NUL character.
  *
  * @note The thingName parameter does not need a NUL terminator.
+ *
+ * @note The AWS IoT Jobs service does not require clients to subscribe
+ * to the "/accepted" and "/rejected" response topics for the APIs that
+ * accept requests on PUBLISH topics. The Jobs service will send responses
+ * to requests from clients irrespective of whether they have subscribed to
+ * response topics or not. For more information, refer to the AWS docs here:
+ * https://docs.aws.amazon.com/iot/latest/developerguide/jobs-mqtt-api.html
  *
  * <b>Example</b>
  * @code{c}
@@ -370,6 +462,14 @@ JobsStatus_t Jobs_MatchTopic( char * topic,
  *
  * @note The thingName parameter does not need a NUL terminator.
  *
+ * @note The AWS IoT Jobs service does not require clients to subscribe
+ * to the "/accepted" and "/rejected" response topics of the
+ * GetPendingJobExecutions API.
+ * The Jobs service will send responses to requests published to the API
+ * from clients irrespective of whether they have subscribed to response topics
+ * or not. For more information, refer to the AWS docs here:
+ * https://docs.aws.amazon.com/iot/latest/developerguide/jobs-mqtt-api.html
+ *
  * <b>Example</b>
  * @code{c}
  *
@@ -427,6 +527,14 @@ JobsStatus_t Jobs_GetPending( char * buffer,
  * ended with a NUL character.
  *
  * @note The thingName parameter does not need a NUL terminator.
+ *
+ * @note The AWS IoT Jobs service does not require clients to subscribe
+ * to the "/accepted" and "/rejected" response topics of the
+ * StartNextPendingJobExecution API.
+ * The Jobs service will send responses to requests published to the API
+ * from clients irrespective of whether they have subscribed to response topics
+ * or not. For more information, refer to the AWS docs here:
+ * https://docs.aws.amazon.com/iot/latest/developerguide/jobs-mqtt-api.html
  *
  * <b>Example</b>
  * @code{c}
@@ -490,6 +598,14 @@ JobsStatus_t Jobs_StartNext( char * buffer,
  * a topic string to request the next pending job.
  *
  * @note The thingName and jobId parameters do not need a NUL terminator.
+ *
+ * @note The AWS IoT Jobs service does not require clients to subscribe
+ * to the "/accepted" and "/rejected" response topics of the
+ * DescribeJobExecution API.
+ * The Jobs service will send responses to requests published to the API
+ * from clients irrespective of whether they have subscribed to response topics
+ * or not. For more information, refer to the AWS docs here:
+ * https://docs.aws.amazon.com/iot/latest/developerguide/jobs-mqtt-api.html
  *
  * <b>Example</b>
  * @code{c}
@@ -559,6 +675,14 @@ JobsStatus_t Jobs_Describe( char * buffer,
  * ended with a NUL character.
  *
  * @note The thingName and jobId parameters do not need a NUL terminator.
+ *
+ * @note The AWS IoT Jobs service does not require clients to subscribe
+ * to the "/accepted" and "/rejected" response topics of the
+ * UpdateJobExecution API.
+ * The Jobs service will send responses to requests published to the API
+ * from clients irrespective of whether they have subscribed to response topics
+ * or not. For more information, refer to the AWS docs here:
+ * https://docs.aws.amazon.com/iot/latest/developerguide/jobs-mqtt-api.html
  *
  * <b>Example</b>
  * @code{c}
