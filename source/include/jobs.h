@@ -188,7 +188,8 @@
 
 /**
  * @ingroup jobs_constants
- * @brief Topic string for publishing to the DescribeJobExecution API.
+ * @brief Topic string for querying the next pending job from the
+ * DescribeJobExecution API.
  *
  * This macro should be used when the thing name and jobID are known at the
  * compile time. If next pending job is being queried, use $next as job ID.
@@ -198,23 +199,8 @@
  * @param thingName The thing name as registered with AWS IoT Core.
  * @param jobId The job ID that will be queried.
  */
-#define JOBS_API_PUBLISH_DESCRIBEJOB( thingName, jobId ) \
-    JOBS_TOPIC_COMMON( thingName, jobId JOBS_API_LEVEL_SEPARATOR, JOBS_API_DESCRIBE )
-
-/**
- * @ingroup jobs_constants
- * @brief Topic string for publishing to the UpdateJobExecution API.
- *
- * This macro should be used when the thing name and jobID are known at the
- * compile time. If next pending job is being queried, use $next as job ID.
- * If the thing name or job ID are not known at compile time, the #Jobs_Update API
- * should be used instead.
- *
- * @param thingName The thing name as registered with AWS IoT Core.
- * @param jobId The job ID that will be queried.
- */
-#define JOBS_API_PUBLISH_UPDATEJOB( thingName, jobId ) \
-    JOBS_TOPIC_COMMON( thingName, jobId JOBS_API_LEVEL_SEPARATOR, JOBS_API_UPDATE )
+#define JOBS_API_PUBLISH_DESCRIBENEXTJOB( thingName ) \
+    JOBS_TOPIC_COMMON( thingName, JOBS_API_JOBID_NEXT JOBS_API_LEVEL_SEPARATOR, JOBS_API_DESCRIBE )
 
 /**
  * @ingroup jobs_constants
@@ -294,9 +280,9 @@ typedef enum
  *
  * @note The AWS IoT Jobs service does not require clients to subscribe
  * to the "/accepted" and "/rejected" response topics for the APIs that
- * accept PUBLISH requests. The Jobs service will send responses to requests
- * from clients irrespective of whether they have subscribed to response
- * topics or not. For more information, refer to the AWS docs here:
+ * accept requests on PUBLISH topics. The Jobs service will send responses
+ * to requests from clients irrespective of whether they have subscribed to
+ * response topics or not. For more information, refer to the AWS docs here:
  * https://docs.aws.amazon.com/iot/latest/developerguide/jobs-mqtt-api.html
  *
  * <b>Example</b>

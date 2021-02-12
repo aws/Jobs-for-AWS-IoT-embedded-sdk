@@ -93,17 +93,9 @@ void test_JobsPUBLISH__API_macros_are_v( void )
     expectedTopic = PREFIX JOBS_API_GETPENDING;
     TEST_ASSERT_EQUAL_STRING( expectedTopic, JOBS_API_PUBLISH_GETPENDING( name_ ) );
 
-    /* Test for DescribeJobExecution API topics. */
+    /* Test for DescribeJobExecution API topic for the "$next" job ID. */
     expectedTopic = PREFIX JOBS_API_JOBID_NEXT "/" JOBS_API_DESCRIBE;
-    TEST_ASSERT_EQUAL_STRING( expectedTopic, JOBS_API_PUBLISH_DESCRIBEJOB( name_, JOBS_API_JOBID_NEXT ) );
-    expectedTopic = PREFIX jobId_ "/" JOBS_API_DESCRIBE;
-    TEST_ASSERT_EQUAL_STRING( expectedTopic, JOBS_API_PUBLISH_DESCRIBEJOB( name_, jobId_ ) );
-
-    /* Test for UpdateJobExecution API topics. */
-    expectedTopic = PREFIX JOBS_API_JOBID_NEXT "/" JOBS_API_UPDATE;
-    TEST_ASSERT_EQUAL_STRING( expectedTopic, JOBS_API_PUBLISH_UPDATEJOB( name_, JOBS_API_JOBID_NEXT ) );
-    expectedTopic = PREFIX jobId_ "/" JOBS_API_UPDATE;
-    TEST_ASSERT_EQUAL_STRING( expectedTopic, JOBS_API_PUBLISH_UPDATEJOB( name_, jobId_ ) );
+    TEST_ASSERT_EQUAL_STRING( expectedTopic, JOBS_API_PUBLISH_DESCRIBENEXTJOB( name_ ) );
 }
 
 
@@ -363,7 +355,7 @@ void test_Jobs_happy_path( void )
     }
 
     {
-        char expected[] = JOBS_API_PUBLISH_DESCRIBEJOB( name_, jobId_ );
+        char expected[] = PREFIX jobId_ "/" JOBS_API_DESCRIBE;
 
         TEST_SUCCESS( Jobs_Describe( buf, sizeof( buf ), name_, nameLength_, jobId_, jobIdLength_, NULL ) );
         TEST_SUCCESS( Jobs_Describe( buf, sizeof( buf ), name_, nameLength_, jobId_, jobIdLength_, &outLength ) );
@@ -375,7 +367,7 @@ void test_Jobs_happy_path( void )
     }
 
     {
-        char expected[] = JOBS_API_PUBLISH_UPDATEJOB( name_, jobId_ );
+        char expected[] = PREFIX jobId_ "/" JOBS_API_UPDATE;
 
         TEST_SUCCESS( Jobs_Update( buf, sizeof( buf ), name_, nameLength_, jobId_, jobIdLength_, NULL ) );
         TEST_SUCCESS( Jobs_Update( buf, sizeof( buf ), name_, nameLength_, jobId_, jobIdLength_, &outLength ) );
