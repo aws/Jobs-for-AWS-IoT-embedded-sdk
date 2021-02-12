@@ -197,7 +197,6 @@
  * should be used instead.
  *
  * @param thingName The thing name as registered with AWS IoT Core.
- * @param jobId The job ID that will be queried.
  */
 #define JOBS_API_PUBLISH_DESCRIBENEXTJOB( thingName ) \
     JOBS_TOPIC_COMMON( thingName, JOBS_API_JOBID_NEXT JOBS_API_LEVEL_SEPARATOR, JOBS_API_DESCRIBE )
