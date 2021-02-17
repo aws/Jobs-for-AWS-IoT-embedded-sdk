@@ -14,6 +14,7 @@ colspan
 com
 cond
 configpagestyle
+configurably
 copydoc
 coverity
 cprover
