@@ -30,6 +30,7 @@ enums
 fd
 gcc
 getpendingjobexecutions
+github
 html
 https
 ifndef
@@ -72,6 +73,7 @@ noninfringement
 nul
 org
 os
+ota
 outapi
 outjobid
 outjobidlength
