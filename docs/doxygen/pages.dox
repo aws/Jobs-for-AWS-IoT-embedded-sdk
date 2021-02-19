@@ -12,6 +12,11 @@ The library is written in C and designed to be compliant with ISO C90 and MISRA 
 It has proofs showing safe memory use and no heap allocation, making it suitable for IoT microcontrollers, but also fully portable to other platforms.
 </p>
 
+> **NOTE**:
+> If your application uses both AWS IoT Jobs library and [OTA library](https://github.com/aws/ota-for-aws-iot-embedded-sdk) to communicate with AWS IoT through a shared MQTT connection, we suggest that you keep the application logic that uses these libraries within a single task/thread.
+> As the OTA agent also makes calls to the AWS IoT Jobs service, keeping the use of libraries within the same thread context will avoid complexity of synchronizing communication with AWS IoT Jobs topics between multiple tasks/threads.
+> However, if you choose to use different tasks/threads for calling these libraries, please be aware that the OTA library will subscribe and configurably, unsubscribe from AWS IoT Jobs topics, and also attempt to send status updates for incoming non-OTA jobs, if your application configures the OTA library to handle custom jobs.
+
 @section jobs_memory_requirements Memory Requirements
 @brief Memory requirements of the jobs library.
 

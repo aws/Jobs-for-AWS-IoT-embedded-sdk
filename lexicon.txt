@@ -14,6 +14,7 @@ colspan
 com
 cond
 configpagestyle
+configurably
 copydoc
 coverity
 cprover
@@ -30,6 +31,7 @@ enums
 fd
 gcc
 getpendingjobexecutions
+github
 html
 https
 ifndef
@@ -72,6 +74,7 @@ noninfringement
 nul
 org
 os
+ota
 outapi
 outjobid
 outjobidlength
