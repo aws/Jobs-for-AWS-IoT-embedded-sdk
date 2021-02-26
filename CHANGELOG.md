@@ -8,6 +8,7 @@
 
 ### Other Updates:
 - [#37](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/37) Add code examples in documentation of API functions.
+- [#43](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/37) Add MISRA rule 2.5 in list of ignored violations in MISRA.md file.
 
 ## v1.0.0 (November 2020)
 
