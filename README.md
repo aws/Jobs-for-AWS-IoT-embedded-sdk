@@ -26,6 +26,8 @@ memory safety with the [CBMC bounded model checker](https://www.cprover.org/cbmc
 
 See memory requirements for this library [here](https://docs.aws.amazon.com/embedded-csdk/202012.00/lib-ref/libraries/aws/jobs-for-aws-iot-embedded-sdk/docs/doxygen/output/html/index.html#jobs_memory_requirements).
 
+**AWS IoT Jobs  v1.1.0 [source code](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/tree/v1.1.0/source) is part of the [FreeRTOS 202012.01 LTS](https://github.com/FreeRTOS/FreeRTOS-LTS/tree/202012.01-LTS) release.**
+
 ## Building the Jobs library
 
 A compiler that supports **C90 or later** such as *gcc* is required to build the library.
