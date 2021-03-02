@@ -257,6 +257,8 @@ typedef enum
     JobsMaxTopic
 } JobsTopic_t;
 
+/*-----------------------------------------------------------*/
+
 /**
  * @brief Populate a topic string for a subscription request.
  *
