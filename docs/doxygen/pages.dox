@@ -64,7 +64,6 @@ These configuration settings are C pre-processor constants they are set using a 
 @subpage jobs_getpending_function <br>
 @subpage jobs_startnext_function <br>
 @subpage jobs_describe_function <br>
-@subpage jobs_startnext_function <br>
 @subpage jobs_update_function <br>
 
 @page jobs_gettopic_function Jobs_GetTopic
