@@ -16,7 +16,7 @@ all: precheck clean
 	for d in $(DIRS); do \
 		echo -n $$d; \
 		time make -C $$d 2>&1 | mawk -W interactive 'NR % 30 == 0 {printf "."}'; echo; \
-		w3m -cols 120 -dump $$d/html/index.html | sed 's/^/        /'; \
+		w3m -cols 120 -dump $$d/html/html/index.html | sed 's/^/        /'; \
 	done
 
 clean:

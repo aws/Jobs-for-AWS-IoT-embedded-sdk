@@ -521,23 +521,25 @@ JobsStatus_t Jobs_MatchTopic( char * topic,
 
     if( ( topic != NULL ) && ( outApi != NULL ) && checkThingParams() && ( length > 0U ) )
     {
-        char * prefix = topic;
-        char * name = &prefix[ JOBS_API_PREFIX_LENGTH ];
-        char * bridge = &name[ thingNameLength ];
-
         ret = JobsNoMatch;
 
-        /* check the shortest match first */
         if( ( length > JOBS_API_COMMON_LENGTH( thingNameLength ) ) &&
-            ( length < JOBS_API_MAX_LENGTH( thingNameLength ) ) &&
-            ( strnEq( bridge, JOBS_API_BRIDGE, JOBS_API_BRIDGE_LENGTH ) == JobsSuccess ) &&
-            ( strnEq( prefix, JOBS_API_PREFIX, JOBS_API_PREFIX_LENGTH ) == JobsSuccess ) &&
-            ( strnEq( name, thingName, thingNameLength ) == JobsSuccess ) )
+            ( length < JOBS_API_MAX_LENGTH( thingNameLength ) ) )
         {
-            char * tail = &bridge[ JOBS_API_BRIDGE_LENGTH ];
-            size_t tailLength = length - JOBS_API_COMMON_LENGTH( thingNameLength );
+            char * prefix = topic;
+            char * name = &prefix[ JOBS_API_PREFIX_LENGTH ];
+            char * bridge = &name[ thingNameLength ];
 
-            ret = matchApi( tail, tailLength, &api, &jobId, &jobIdLength );
+            /* check the shortest match first */
+            if( ( strnEq( bridge, JOBS_API_BRIDGE, JOBS_API_BRIDGE_LENGTH ) == JobsSuccess ) &&
+                ( strnEq( prefix, JOBS_API_PREFIX, JOBS_API_PREFIX_LENGTH ) == JobsSuccess ) &&
+                ( strnEq( name, thingName, thingNameLength ) == JobsSuccess ) )
+            {
+                char * tail = &bridge[ JOBS_API_BRIDGE_LENGTH ];
+                size_t tailLength = length - JOBS_API_COMMON_LENGTH( thingNameLength );
+
+                ret = matchApi( tail, tailLength, &api, &jobId, &jobIdLength );
+            }
         }
     }
 
