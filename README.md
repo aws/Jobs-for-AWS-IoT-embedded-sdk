@@ -16,7 +16,7 @@ including verification that no function has a [GNU Complexity
 ](https://www.gnu.org/software/complexity/manual/complexity.html)
 score over 8, and checks against deviations
 from mandatory rules in the [MISRA coding standard
-](https://www.misra.org.uk/MISRAHome/MISRAC2012/tabid/196/Default.aspx).
+](https://www.misra.org.uk).
 Deviations from the MISRA C:2012 guidelines are documented under [MISRA
 Deviations](MISRA.md). This library has also undergone both static code
 analysis from [Coverity](https://scan.coverity.com/), and validation of
