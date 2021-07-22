@@ -1,5 +1,5 @@
 /*
- * AWS IoT Jobs v1.1.0
+ * AWS IoT Jobs v1.1.1
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -32,6 +32,12 @@
 
 #include <stddef.h>
 #include <stdint.h>
+
+/* *INDENT-OFF* */
+#ifdef __cplusplus
+    extern "C" {
+#endif
+/* *INDENT-ON* */
 
 /**
  * @ingroup jobs_constants
@@ -733,5 +739,11 @@ JobsStatus_t Jobs_Update( char * buffer,
                           uint16_t jobIdLength,
                           size_t * outLength );
 /* @[declare_jobs_update] */
+
+/* *INDENT-OFF* */
+#ifdef __cplusplus
+    }
+#endif
+/* *INDENT-ON* */
 
 #endif /* ifndef JOBS_H_ */

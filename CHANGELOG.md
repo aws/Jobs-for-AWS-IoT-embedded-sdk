@@ -1,5 +1,10 @@
 # Changelog for AWS IoT Jobs Library
 
+## v1.1.1 (July 2021)
+
+### API Changes:
+- [#50](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/50) Move declaration of temporary variables after length check
+
 ## v1.1.0 (March 2021)
 
 ### API Changes:

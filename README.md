@@ -22,7 +22,7 @@ Deviations](MISRA.md). This library has also undergone both static code
 analysis from [Coverity](https://scan.coverity.com/), and validation of
 memory safety with the [CBMC bounded model checker](https://www.cprover.org/cbmc/).
 
-See memory requirements for this library [here](https://docs.aws.amazon.com/embedded-csdk/202103.00/lib-ref/libraries/aws/jobs-for-aws-iot-embedded-sdk/docs/doxygen/output/html/index.html#jobs_memory_requirements).
+See memory requirements for this library [here](./docs/doxygen/include/size_table.md).
 
 **AWS IoT Jobs  v1.1.0 [source code](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/tree/v1.1.0/source) is part of the [FreeRTOS 202012.01 LTS](https://github.com/FreeRTOS/FreeRTOS-LTS/tree/202012.01-LTS) release.**
 
@@ -46,8 +46,19 @@ The AWS IoT Device SDK for Embedded C repository contains a demo using
 the jobs library on a POSIX platform.
 https://github.com/aws/aws-iot-device-sdk-embedded-C/tree/main/demos/jobs/jobs_demo_mosquitto
 
-## Generating documentation
+## Documentation
 
+### Existing Documentation
+For pre-generated documentation, please see the documentation linked in the locations below:
+
+| Location |
+| :-: |
+| [AWS IoT Device SDK for Embedded C](https://github.com/aws/aws-iot-device-sdk-embedded-C#releases-and-documentation) |
+| [FreeRTOS.org](https://freertos.org/Documentation/api-ref/jobs-for-aws-iot-embedded-sdk/docs/doxygen/output/html/index.html) |
+
+Note that the latest included version of the AWS IoT Jobs library may differ across repositories.
+
+### Generating Documentation
 The Doxygen references were created using Doxygen version 1.8.20. To generate the
 Doxygen pages, please run the following command from the root of this repository:
 

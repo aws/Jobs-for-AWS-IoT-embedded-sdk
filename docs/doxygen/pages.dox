@@ -20,7 +20,7 @@ It has proofs showing safe memory use and no heap allocation, making it suitable
 @section jobs_memory_requirements Memory Requirements
 @brief Memory requirements of the jobs library.
 
-@include{doc} size_table.html
+@include{doc} size_table.md
  */
 
 /**
