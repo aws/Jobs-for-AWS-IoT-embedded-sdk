@@ -13,6 +13,7 @@ cbmc
 colspan
 com
 cond
+config
 configpagestyle
 configurably
 copydoc
