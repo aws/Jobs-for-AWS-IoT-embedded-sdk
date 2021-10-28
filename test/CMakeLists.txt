@@ -39,7 +39,10 @@ include( ${MODULE_ROOT_DIR}/jobsFilePaths.cmake )
 add_library( coverity_analysis
              ${JOBS_SOURCES} )
 # JOBS public include path.
-target_include_directories( coverity_analysis PUBLIC ${JOBS_INCLUDE_PUBLIC_DIRS} )
+target_include_directories( coverity_analysis
+                            PUBLIC
+                            ${JOBS_INCLUDE_PUBLIC_DIRS}
+                            "${CMAKE_CURRENT_LIST_DIR}/include" )
 
 #  ====================================  Test Configuration ========================================
 

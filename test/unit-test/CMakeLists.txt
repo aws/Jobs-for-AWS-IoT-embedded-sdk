@@ -30,6 +30,7 @@ list(APPEND real_source_files
 # list the directories the module under test includes
 list(APPEND real_include_directories
             ${JOBS_INCLUDE_PUBLIC_DIRS}
+            "${CMAKE_CURRENT_LIST_DIR}/../include"
         )
 
 # =====================  Create UnitTest Code here (edit)  =====================

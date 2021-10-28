@@ -38,6 +38,7 @@ COMPILE_FLAGS = -ansi
 # include directories in your project.
 #
 # INCLUDES =
+INCLUDES += -I$(SRCDIR)/test/include
 
 # Preprocessor definitions -D...
 # DEFINES =
