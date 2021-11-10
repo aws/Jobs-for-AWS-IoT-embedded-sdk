@@ -1,5 +1,12 @@
 # Changelog for AWS IoT Jobs Library
 
+## v1.2.0
+
+### Other Updates:
+- [#57](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/57) Update litani and template submodules for cbmc
+- [#55](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/55) Update Doxygen version to 1.9.2
+- [#54](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/54) Updated aws-templates-for-cbmc-proofs submodule
+
 ## v1.1.1 (July 2021)
 
 ### API Changes:
@@ -13,7 +20,7 @@
 
 ### Other Updates:
 - [#37](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/37) Add code examples in documentation of API functions.
-- [#43](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/37) Add MISRA rule 2.5 in list of ignored violations in MISRA.md file.
+- [#43](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/43) Add MISRA rule 2.5 in list of ignored violations in MISRA.md file.
 
 ## v1.0.0 (November 2020)
 
