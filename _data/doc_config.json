@@ -1,6 +1,11 @@
 {
-  "name": "Jobs-for-AWS-IoT-embedded-sdk",
-  "releases": [],
+  "name": "AWS IoT Jobs Library",
+  "releases": [
+    "v1.2.0",
+    "v1.1.1",
+    "v1.1.0",
+    "v1.0.0"
+  ],
   "branches": [
     "main"
   ]
