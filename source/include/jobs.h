@@ -234,10 +234,10 @@ typedef enum
  * @ingroup jobs_enum_types
  * @brief Topic values for subscription requests.
  *
- * @note The enum values for valid topics must be contiguous,
+ * @note The values for valid topics must be contiguous,
  * starting with 0.  The last valid topic must be followed
  * by JobsMaxTopic.  This arrangement is necessary since the
- * enum values are used as indexes to arrays of topic strings
+ * values are used as indexes to arrays of topic strings
  * and lengths.
  *
  * @note The ordering is important, providing a means
@@ -246,22 +246,21 @@ typedef enum
  *
  * @note These constraints are enforced by a unit test.
  */
-typedef enum
-{
-    JobsInvalidTopic = -1,
-    JobsJobsChanged,
-    JobsNextJobChanged,
-    JobsGetPendingSuccess,
-    JobsGetPendingFailed,
-    JobsStartNextSuccess,
-    JobsStartNextFailed,
+
+#define    JobsInvalidTopic         -1
+#define    JobsJobsChanged          0
+#define    JobsNextJobChanged       1
+#define    JobsGetPendingSuccess    2
+#define    JobsGetPendingFailed     3
+#define    JobsStartNextSuccess     4
+#define    JobsStartNextFailed      5
     /* Topics below use a job ID. */
-    JobsDescribeSuccess,
-    JobsDescribeFailed,
-    JobsUpdateSuccess,
-    JobsUpdateFailed,
-    JobsMaxTopic
-} JobsTopic_t;
+#define    JobsDescribeSuccess      6
+#define    JobsDescribeFailed       7
+#define    JobsUpdateSuccess        8
+#define    JobsUpdateFailed         9
+#define    JobsMaxTopic             10
+typedef int32_t JobsTopic_t;
 
 /*-----------------------------------------------------------*/
 

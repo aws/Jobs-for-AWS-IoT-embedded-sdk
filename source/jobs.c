@@ -25,7 +25,11 @@
  * @brief Implementation of the APIs from jobs.h.
  */
 
-#include <assert.h>
+#ifdef DISABLE_LOGGING
+	#define assert( x )
+#else
+	#include <assert.h>
+#endif
 
 #include "jobs.h"
 
@@ -433,7 +437,6 @@ static JobsStatus_t matchIdApi( char * topic,
         JobsTopic_t api;
 
         /* The api variable is bounded within contiguous values of the enum type. */
-        /* coverity[misra_c_2012_rule_10_1_violation] */
         for( api = JobsDescribeSuccess; api < JobsMaxTopic; api++ )
         {
             ret = strnnEq( p, length, apiTopic[ api ], apiTopicLength[ api ] );
@@ -478,7 +481,6 @@ static JobsStatus_t matchApi( char * topic,
 
     /* The first set of APIs do not have job IDs. */
     /* The api variable is bounded within contiguous values of the enum type. */
-    /* coverity[misra_c_2012_rule_10_1_violation] */
     for( api = JobsJobsChanged; api < JobsDescribeSuccess; api++ )
     {
         ret = strnnEq( topic, topicLength, apiTopic[ api ], apiTopicLength[ api ] );
