@@ -42,7 +42,7 @@ add_library( coverity_analysis
 target_include_directories( coverity_analysis PUBLIC ${JOBS_INCLUDE_PUBLIC_DIRS} )
 
 # Build HTTP library target without logging
-target_compile_options(coverity_analysis PUBLIC -DDISABLE_ASSERT )
+target_compile_options(coverity_analysis PUBLIC -DNDEBUG )
 #  ====================================  Test Configuration ========================================
 
 # Include Unity build configuration.

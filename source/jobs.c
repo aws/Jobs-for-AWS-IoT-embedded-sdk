@@ -25,11 +25,7 @@
  * @brief Implementation of the APIs from jobs.h.
  */
 
-#ifdef DISABLE_ASSERT
-	#define assert( x )
-#else
-	#include <assert.h>
-#endif
+#include <assert.h>
 
 #include "jobs.h"
 
