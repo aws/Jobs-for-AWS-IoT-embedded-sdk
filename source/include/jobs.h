@@ -231,7 +231,7 @@ typedef enum
 } JobsStatus_t;
 
 /**
- * @ingroup jobs_enum_types
+ * @ingroup jobs_constants
  * @brief Topic values for subscription requests.
  *
  * @note The values for valid topics must be contiguous,
@@ -246,7 +246,6 @@ typedef enum
  *
  * @note These constraints are enforced by a unit test.
  */
-
 #define    JobsInvalidTopic         -1
 #define    JobsJobsChanged          0
 #define    JobsNextJobChanged       1
@@ -254,7 +253,7 @@ typedef enum
 #define    JobsGetPendingFailed     3
 #define    JobsStartNextSuccess     4
 #define    JobsStartNextFailed      5
-    /* Topics below use a job ID. */
+/* Topics below use a job ID. */
 #define    JobsDescribeSuccess      6
 #define    JobsDescribeFailed       7
 #define    JobsUpdateSuccess        8
