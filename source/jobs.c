@@ -382,7 +382,6 @@ static bool_ isNextJobId( const char * jobId,
 }
 
 
-
 /**
  * @brief Parse a job ID and search for the API portion of a topic string in a table.
  *
@@ -431,41 +430,39 @@ static JobsStatus_t matchIdApi( char * topic,
     if( ( isNextJobId( jobId, jobIdLength ) == true ) ||
         ( isValidJobId( jobId, jobIdLength ) == true ) )
     {
-        int32_t api;
-
-        /* The api variable is bounded within contiguous values of the enum type. */
-        for( api = ( int32_t ) JobsDescribeSuccess; api < ( int32_t ) JobsMaxTopic; api++ )
+        if( JobsSuccess == strnnEq( p, length, apiTopic[ JobsDescribeSuccess ], apiTopicLength[ JobsDescribeSuccess ] ) )
         {
-            ret = strnnEq( p, length, apiTopic[ api ], apiTopicLength[ api ] );
+            ret = JobsSuccess;
+            *outApi = JobsDescribeSuccess;
+        }
+        else if( JobsSuccess == strnnEq( p, length, apiTopic[ JobsDescribeFailed ], apiTopicLength[ JobsDescribeFailed ] ) )
+        {
+            ret = JobsSuccess;
+            *outApi = JobsDescribeFailed;
+        }
+        else if( JobsSuccess == strnnEq( p, length, apiTopic[ JobsUpdateSuccess ], apiTopicLength[ JobsUpdateSuccess ] ) )
+        {
+            ret = JobsSuccess;
+            *outApi = JobsUpdateSuccess;
+        }
+        else if( JobsSuccess == strnnEq( p, length, apiTopic[ JobsUpdateFailed ], apiTopicLength[ JobsUpdateFailed ] ) )
+        {
+            ret = JobsSuccess;
+            *outApi = JobsUpdateFailed;
+        }
+        else
+        {
+            /* MISRA Empty Body */
+        }
 
-            if( ret == JobsSuccess )
-            {
-                *outJobId = jobId;
-                *outJobIdLength = jobIdLength;
-
-                /* It is a MISRA violation to cast an int32_t to an enum, so switch statement the return */
-                switch( api )
-                {
-                    case ( int32_t ) JobsDescribeSuccess:
-                        *outApi = JobsDescribeSuccess;
-                        break;
-
-                    case ( int32_t ) JobsDescribeFailed:
-                        *outApi = JobsDescribeFailed;
-                        break;
-
-                    case ( int32_t ) JobsUpdateSuccess:
-                        *outApi = JobsUpdateSuccess;
-                        break;
-
-                    default:
-                        /* This is the last possible value */
-                        *outApi = JobsUpdateFailed;
-                        break;
-                }
-
-                break;
-            }
+        if( ret == JobsSuccess )
+        {
+            *outJobId = jobId;
+            *outJobIdLength = jobIdLength;
+        }
+        else
+        {
+            /* MISRA Empty Body */
         }
     }
 
@@ -492,50 +489,44 @@ static JobsStatus_t matchApi( char * topic,
                               uint16_t * outJobIdLength )
 {
     JobsStatus_t ret = JobsNoMatch;
-    int32_t api;
 
     assert( ( topic != NULL ) && ( outApi != NULL ) &&
             ( outJobId != NULL ) && ( outJobIdLength != NULL ) );
 
     /* The first set of APIs do not have job IDs. */
-    /* The api variable is bounded within contiguous values of the enum type. */
-    for( api = ( int32_t ) JobsJobsChanged; api < ( int32_t ) JobsDescribeSuccess; api++ )
+    if( JobsSuccess == strnnEq( topic, topicLength, apiTopic[ JobsJobsChanged ], apiTopicLength[ JobsJobsChanged ] ) )
     {
-        ret = strnnEq( topic, topicLength, apiTopic[ api ], apiTopicLength[ api ] );
-
-        if( ret == JobsSuccess )
-        {
-            /* It is a MISRA violation to cast an int32_t to an enum, so switch statement the return */
-            switch( api )
-            {
-                case ( int32_t ) JobsJobsChanged:
-                    *outApi = JobsJobsChanged;
-                    break;
-
-                case ( int32_t ) JobsNextJobChanged:
-                    *outApi = JobsNextJobChanged;
-                    break;
-
-                case ( int32_t ) JobsGetPendingSuccess:
-                    *outApi = JobsGetPendingSuccess;
-                    break;
-
-                case ( int32_t ) JobsGetPendingFailed:
-                    *outApi = JobsGetPendingFailed;
-                    break;
-
-                case ( int32_t ) JobsStartNextSuccess:
-                    *outApi = JobsStartNextSuccess;
-                    break;
-
-                default:
-                    /* This is the last possible value */
-                    *outApi = JobsStartNextFailed;
-                    break;
-            }
-
-            break;
-        }
+        ret = JobsSuccess;
+        *outApi = JobsJobsChanged;
+    }
+    else if( JobsSuccess == strnnEq( topic, topicLength, apiTopic[ JobsNextJobChanged ], apiTopicLength[ JobsNextJobChanged ] ) )
+    {
+        ret = JobsSuccess;
+        *outApi = JobsNextJobChanged;
+    }
+    else if( JobsSuccess == strnnEq( topic, topicLength, apiTopic[ JobsGetPendingSuccess ], apiTopicLength[ JobsGetPendingSuccess ] ) )
+    {
+        ret = JobsSuccess;
+        *outApi = JobsGetPendingSuccess;
+    }
+    else if( JobsSuccess == strnnEq( topic, topicLength, apiTopic[ JobsGetPendingFailed ], apiTopicLength[ JobsGetPendingFailed ] ) )
+    {
+        ret = JobsSuccess;
+        *outApi = JobsGetPendingFailed;
+    }
+    else if( JobsSuccess == strnnEq( topic, topicLength, apiTopic[ JobsStartNextSuccess ], apiTopicLength[ JobsStartNextSuccess ] ) )
+    {
+        ret = JobsSuccess;
+        *outApi = JobsStartNextSuccess;
+    }
+    else if( JobsSuccess == strnnEq( topic, topicLength, apiTopic[ JobsStartNextFailed ], apiTopicLength[ JobsStartNextFailed ] ) )
+    {
+        ret = JobsSuccess;
+        *outApi = JobsStartNextFailed;
+    }
+    else
+    {
+        /* MISRA Empty Body */
     }
 
     /* The remaining APIs must have a job ID. */
