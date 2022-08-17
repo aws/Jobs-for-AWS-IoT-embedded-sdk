@@ -458,12 +458,9 @@ static JobsStatus_t matchIdApi( char * topic,
                         *outApi = JobsUpdateSuccess;
                         break;
 
-                    case ( int32_t ) JobsUpdateFailed:
-                        *outApi = JobsUpdateFailed;
-                        break;
-
                     default:
-                        /* MISRA Non-Empty body */
+                        /* This is the last possible value */
+                        *outApi = JobsUpdateFailed;
                         break;
                 }
 
