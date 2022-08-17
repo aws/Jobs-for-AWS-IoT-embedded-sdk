@@ -460,10 +460,6 @@ static JobsStatus_t matchIdApi( char * topic,
             *outJobId = jobId;
             *outJobIdLength = jobIdLength;
         }
-        else
-        {
-            /* MISRA Empty Body */
-        }
     }
 
     return ret;
