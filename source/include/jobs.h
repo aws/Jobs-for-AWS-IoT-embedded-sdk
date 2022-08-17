@@ -231,13 +231,13 @@ typedef enum
 } JobsStatus_t;
 
 /**
- * @ingroup jobs_constants
+ * @ingroup jobs_enum_types
  * @brief Topic values for subscription requests.
  *
- * @note The values for valid topics must be contiguous,
+ * @note The enum values for valid topics must be contiguous,
  * starting with 0.  The last valid topic must be followed
  * by JobsMaxTopic.  This arrangement is necessary since the
- * values are used as indexes to arrays of topic strings
+ * enum values are used as indexes to arrays of topic strings
  * and lengths.
  *
  * @note The ordering is important, providing a means
@@ -246,225 +246,22 @@ typedef enum
  *
  * @note These constraints are enforced by a unit test.
  */
-#define    JobsInvalidTopic         -1
-
-/**
- * @ingroup jobs_constants
- * @brief Topic values for subscription requests.
- *
- * @note The values for valid topics must be contiguous,
- * starting with 0.  The last valid topic must be followed
- * by JobsMaxTopic.  This arrangement is necessary since the
- * values are used as indexes to arrays of topic strings
- * and lengths.
- *
- * @note The ordering is important, providing a means
- * to divide topics into those that use a job ID
- * and those that do not.
- *
- * @note These constraints are enforced by a unit test.
- */
-#define    JobsJobsChanged          0
-
-/**
- * @ingroup jobs_constants
- * @brief Topic values for subscription requests.
- *
- * @note The values for valid topics must be contiguous,
- * starting with 0.  The last valid topic must be followed
- * by JobsMaxTopic.  This arrangement is necessary since the
- * values are used as indexes to arrays of topic strings
- * and lengths.
- *
- * @note The ordering is important, providing a means
- * to divide topics into those that use a job ID
- * and those that do not.
- *
- * @note These constraints are enforced by a unit test.
- */
-#define    JobsNextJobChanged       1
-
-/**
- * @ingroup jobs_constants
- * @brief Topic values for subscription requests.
- *
- * @note The values for valid topics must be contiguous,
- * starting with 0.  The last valid topic must be followed
- * by JobsMaxTopic.  This arrangement is necessary since the
- * values are used as indexes to arrays of topic strings
- * and lengths.
- *
- * @note The ordering is important, providing a means
- * to divide topics into those that use a job ID
- * and those that do not.
- *
- * @note These constraints are enforced by a unit test.
- */
-#define    JobsGetPendingSuccess    2
-
-/**
- * @ingroup jobs_constants
- * @brief Topic values for subscription requests.
- *
- * @note The values for valid topics must be contiguous,
- * starting with 0.  The last valid topic must be followed
- * by JobsMaxTopic.  This arrangement is necessary since the
- * values are used as indexes to arrays of topic strings
- * and lengths.
- *
- * @note The ordering is important, providing a means
- * to divide topics into those that use a job ID
- * and those that do not.
- *
- * @note These constraints are enforced by a unit test.
- */
-#define    JobsGetPendingFailed     3
-
-/**
- * @ingroup jobs_constants
- * @brief Topic values for subscription requests.
- *
- * @note The values for valid topics must be contiguous,
- * starting with 0.  The last valid topic must be followed
- * by JobsMaxTopic.  This arrangement is necessary since the
- * values are used as indexes to arrays of topic strings
- * and lengths.
- *
- * @note The ordering is important, providing a means
- * to divide topics into those that use a job ID
- * and those that do not.
- *
- * @note These constraints are enforced by a unit test.
- */
-#define    JobsStartNextSuccess     4
-
-/**
- * @ingroup jobs_constants
- * @brief Topic values for subscription requests.
- *
- * @note The values for valid topics must be contiguous,
- * starting with 0.  The last valid topic must be followed
- * by JobsMaxTopic.  This arrangement is necessary since the
- * values are used as indexes to arrays of topic strings
- * and lengths.
- *
- * @note The ordering is important, providing a means
- * to divide topics into those that use a job ID
- * and those that do not.
- *
- * @note These constraints are enforced by a unit test.
- */
-#define    JobsStartNextFailed      5
-
-/* Topics below use a job ID. */
-/**
- * @ingroup jobs_constants
- * @brief Topic values for subscription requests.
- *
- * @note The values for valid topics must be contiguous,
- * starting with 0.  The last valid topic must be followed
- * by JobsMaxTopic.  This arrangement is necessary since the
- * values are used as indexes to arrays of topic strings
- * and lengths.
- *
- * @note The ordering is important, providing a means
- * to divide topics into those that use a job ID
- * and those that do not.
- *
- * @note These constraints are enforced by a unit test.
- */
-#define    JobsDescribeSuccess      6
-
-/**
- * @ingroup jobs_constants
- * @brief Topic values for subscription requests.
- *
- * @note The values for valid topics must be contiguous,
- * starting with 0.  The last valid topic must be followed
- * by JobsMaxTopic.  This arrangement is necessary since the
- * values are used as indexes to arrays of topic strings
- * and lengths.
- *
- * @note The ordering is important, providing a means
- * to divide topics into those that use a job ID
- * and those that do not.
- *
- * @note These constraints are enforced by a unit test.
- */
-#define    JobsDescribeFailed       7
-
-/**
- * @ingroup jobs_constants
- * @brief Topic values for subscription requests.
- *
- * @note The values for valid topics must be contiguous,
- * starting with 0.  The last valid topic must be followed
- * by JobsMaxTopic.  This arrangement is necessary since the
- * values are used as indexes to arrays of topic strings
- * and lengths.
- *
- * @note The ordering is important, providing a means
- * to divide topics into those that use a job ID
- * and those that do not.
- *
- * @note These constraints are enforced by a unit test.
- */
-#define    JobsUpdateSuccess        8
-
-/**
- * @ingroup jobs_constants
- * @brief Topic values for subscription requests.
- *
- * @note The values for valid topics must be contiguous,
- * starting with 0.  The last valid topic must be followed
- * by JobsMaxTopic.  This arrangement is necessary since the
- * values are used as indexes to arrays of topic strings
- * and lengths.
- *
- * @note The ordering is important, providing a means
- * to divide topics into those that use a job ID
- * and those that do not.
- *
- * @note These constraints are enforced by a unit test.
- */
-#define    JobsUpdateFailed         9
-
-/**
- * @ingroup jobs_constants
- * @brief Topic values for subscription requests.
- *
- * @note The values for valid topics must be contiguous,
- * starting with 0.  The last valid topic must be followed
- * by JobsMaxTopic.  This arrangement is necessary since the
- * values are used as indexes to arrays of topic strings
- * and lengths.
- *
- * @note The ordering is important, providing a means
- * to divide topics into those that use a job ID
- * and those that do not.
- *
- * @note These constraints are enforced by a unit test.
- */
-#define    JobsMaxTopic             10
-
-/**
- * @ingroup jobs_constants
- * @brief This was an enum in versions before 1.3, it is now being declared
- * as a int32_t for MISRA compliance
- *
- * @note The values for valid topics must be contiguous,
- * starting with 0.  The last valid topic must be followed
- * by JobsMaxTopic.  This arrangement is necessary since the
- * values are used as indexes to arrays of topic strings
- * and lengths.
- *
- * @note The ordering is important, providing a means
- * to divide topics into those that use a job ID
- * and those that do not.
- *
- * @note These constraints are enforced by a unit test.
- */
-typedef int32_t JobsTopic_t;
+typedef enum
+{
+    JobsInvalidTopic = -1,
+    JobsJobsChanged,
+    JobsNextJobChanged,
+    JobsGetPendingSuccess,
+    JobsGetPendingFailed,
+    JobsStartNextSuccess,
+    JobsStartNextFailed,
+    /* Topics below use a job ID. */
+    JobsDescribeSuccess,
+    JobsDescribeFailed,
+    JobsUpdateSuccess,
+    JobsUpdateFailed,
+    JobsMaxTopic
+} JobsTopic_t;
 
 /*-----------------------------------------------------------*/
 

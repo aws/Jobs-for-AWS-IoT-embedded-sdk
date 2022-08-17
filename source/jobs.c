@@ -382,6 +382,7 @@ static bool_ isNextJobId( const char * jobId,
 }
 
 
+
 /**
  * @brief Parse a job ID and search for the API portion of a topic string in a table.
  *
@@ -430,18 +431,42 @@ static JobsStatus_t matchIdApi( char * topic,
     if( ( isNextJobId( jobId, jobIdLength ) == true ) ||
         ( isValidJobId( jobId, jobIdLength ) == true ) )
     {
-        JobsTopic_t api;
+        int32_t api;
 
         /* The api variable is bounded within contiguous values of the enum type. */
-        for( api = JobsDescribeSuccess; api < JobsMaxTopic; api++ )
+        for( api = ( int32_t ) JobsDescribeSuccess; api < ( int32_t ) JobsMaxTopic; api++ )
         {
             ret = strnnEq( p, length, apiTopic[ api ], apiTopicLength[ api ] );
 
             if( ret == JobsSuccess )
             {
-                *outApi = api;
                 *outJobId = jobId;
                 *outJobIdLength = jobIdLength;
+
+                /* It is a MISRA violation to cast an int32_t to an enum, so switch statement the return */
+                switch( api )
+                {
+                    case ( int32_t ) JobsDescribeSuccess:
+                        *outApi = JobsDescribeSuccess;
+                        break;
+
+                    case ( int32_t ) JobsDescribeFailed:
+                        *outApi = JobsDescribeFailed;
+                        break;
+
+                    case ( int32_t ) JobsUpdateSuccess:
+                        *outApi = JobsUpdateSuccess;
+                        break;
+
+                    case ( int32_t ) JobsUpdateFailed:
+                        *outApi = JobsUpdateFailed;
+                        break;
+
+                    default:
+                        /* MISRA Non-Empty body */
+                        break;
+                }
+
                 break;
             }
         }
@@ -470,20 +495,48 @@ static JobsStatus_t matchApi( char * topic,
                               uint16_t * outJobIdLength )
 {
     JobsStatus_t ret = JobsNoMatch;
-    JobsTopic_t api;
+    int32_t api;
 
     assert( ( topic != NULL ) && ( outApi != NULL ) &&
             ( outJobId != NULL ) && ( outJobIdLength != NULL ) );
 
     /* The first set of APIs do not have job IDs. */
     /* The api variable is bounded within contiguous values of the enum type. */
-    for( api = JobsJobsChanged; api < JobsDescribeSuccess; api++ )
+    for( api = ( int32_t ) JobsJobsChanged; api < ( int32_t ) JobsDescribeSuccess; api++ )
     {
         ret = strnnEq( topic, topicLength, apiTopic[ api ], apiTopicLength[ api ] );
 
         if( ret == JobsSuccess )
         {
-            *outApi = api;
+            /* It is a MISRA violation to cast an int32_t to an enum, so switch statement the return */
+            switch( api )
+            {
+                case ( int32_t ) JobsJobsChanged:
+                    *outApi = JobsJobsChanged;
+                    break;
+
+                case ( int32_t ) JobsNextJobChanged:
+                    *outApi = JobsNextJobChanged;
+                    break;
+
+                case ( int32_t ) JobsGetPendingSuccess:
+                    *outApi = JobsGetPendingSuccess;
+                    break;
+
+                case ( int32_t ) JobsGetPendingFailed:
+                    *outApi = JobsGetPendingFailed;
+                    break;
+
+                case ( int32_t ) JobsStartNextSuccess:
+                    *outApi = JobsStartNextSuccess;
+                    break;
+
+                default:
+                    /* This is the last possible value */
+                    *outApi = JobsStartNextFailed;
+                    break;
+            }
+
             break;
         }
     }
