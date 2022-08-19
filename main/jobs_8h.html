@@ -493,7 +493,7 @@ Not all Jobs APIs have jobIDs within the topic string. NULL and 0 are output whe
 <div class="line">    }</div>
 <div class="line">}</div>
 <div class="ttc" id="agroup__jobs__enum__types_html_ga315af209e86f50615c9e76948cf268ac"><div class="ttname"><a href="group__jobs__enum__types.html#ga315af209e86f50615c9e76948cf268ac">JobsTopic_t</a></div><div class="ttdeci">JobsTopic_t</div><div class="ttdoc">Topic values for subscription requests.</div><div class="ttdef"><b>Definition:</b> jobs.h:250</div></div>
-<div class="ttc" id="ajobs_8h_html_ae3e1205f419d335dcf9b338f0db19815"><div class="ttname"><a href="jobs_8h.html#ae3e1205f419d335dcf9b338f0db19815">Jobs_MatchTopic</a></div><div class="ttdeci">JobsStatus_t Jobs_MatchTopic(char *topic, size_t length, const char *thingName, uint16_t thingNameLength, JobsTopic_t *outApi, char **outJobId, uint16_t *outJobIdLength)</div><div class="ttdoc">Output a topic value if a Jobs API topic string is present. Optionally, output a pointer to a jobID w...</div><div class="ttdef"><b>Definition:</b> jobs.c:509</div></div>
+<div class="ttc" id="ajobs_8h_html_ae3e1205f419d335dcf9b338f0db19815"><div class="ttname"><a href="jobs_8h.html#ae3e1205f419d335dcf9b338f0db19815">Jobs_MatchTopic</a></div><div class="ttdeci">JobsStatus_t Jobs_MatchTopic(char *topic, size_t length, const char *thingName, uint16_t thingNameLength, JobsTopic_t *outApi, char **outJobId, uint16_t *outJobIdLength)</div><div class="ttdoc">Output a topic value if a Jobs API topic string is present. Optionally, output a pointer to a jobID w...</div><div class="ttdef"><b>Definition:</b> jobs.c:544</div></div>
 </div><!-- fragment --><p >Output a topic value if a Jobs API topic string is present. Optionally, output a pointer to a jobID within the topic and its length.</p>
 <p >See <a class="el" href="jobs_8h.html" title="Client library APIs for the AWS IoT Jobs service.">jobs.h</a> for docs. </p>
 
@@ -585,7 +585,7 @@ The AWS IoT Jobs service does not require clients to subscribe to the "/accepted
 <div class="line">    <span class="comment">// generated in the buffer, topicBuffer, for the GetPendingJobExecutions API.</span></div>
 <div class="line">    <span class="comment">// Publish to this topic using an MQTT client of your choice.</span></div>
 <div class="line">}</div>
-<div class="ttc" id="ajobs_8h_html_a5b4fd584f0400e51b1d29189b24c91a5"><div class="ttname"><a href="jobs_8h.html#a5b4fd584f0400e51b1d29189b24c91a5">Jobs_GetPending</a></div><div class="ttdeci">JobsStatus_t Jobs_GetPending(char *buffer, size_t length, const char *thingName, uint16_t thingNameLength, size_t *outLength)</div><div class="ttdoc">Populate a topic string for a GetPendingJobExecutions request.</div><div class="ttdef"><b>Definition:</b> jobs.c:569</div></div>
+<div class="ttc" id="ajobs_8h_html_a5b4fd584f0400e51b1d29189b24c91a5"><div class="ttname"><a href="jobs_8h.html#a5b4fd584f0400e51b1d29189b24c91a5">Jobs_GetPending</a></div><div class="ttdeci">JobsStatus_t Jobs_GetPending(char *buffer, size_t length, const char *thingName, uint16_t thingNameLength, size_t *outLength)</div><div class="ttdoc">Populate a topic string for a GetPendingJobExecutions request.</div><div class="ttdef"><b>Definition:</b> jobs.c:604</div></div>
 </div><!-- fragment --><p >See <a class="el" href="jobs_8h.html" title="Client library APIs for the AWS IoT Jobs service.">jobs.h</a> for docs. </p>
 
 </div>
@@ -676,7 +676,7 @@ The AWS IoT Jobs service does not require clients to subscribe to the "/accepted
 <div class="line">    <span class="comment">// the buffer, topicBuffer, for the StartNextPendingJobExecution API.</span></div>
 <div class="line">    <span class="comment">// Publish to this topic using an MQTT client of your choice.</span></div>
 <div class="line">}</div>
-<div class="ttc" id="ajobs_8h_html_ad69cddd288dd61b3716021478725c174"><div class="ttname"><a href="jobs_8h.html#ad69cddd288dd61b3716021478725c174">Jobs_StartNext</a></div><div class="ttdeci">JobsStatus_t Jobs_StartNext(char *buffer, size_t length, const char *thingName, uint16_t thingNameLength, size_t *outLength)</div><div class="ttdoc">Populate a topic string for a StartNextPendingJobExecution request.</div><div class="ttdef"><b>Definition:</b> jobs.c:602</div></div>
+<div class="ttc" id="ajobs_8h_html_ad69cddd288dd61b3716021478725c174"><div class="ttname"><a href="jobs_8h.html#ad69cddd288dd61b3716021478725c174">Jobs_StartNext</a></div><div class="ttdeci">JobsStatus_t Jobs_StartNext(char *buffer, size_t length, const char *thingName, uint16_t thingNameLength, size_t *outLength)</div><div class="ttdoc">Populate a topic string for a StartNextPendingJobExecution request.</div><div class="ttdef"><b>Definition:</b> jobs.c:637</div></div>
 </div><!-- fragment --><p >See <a class="el" href="jobs_8h.html" title="Client library APIs for the AWS IoT Jobs service.">jobs.h</a> for docs. </p>
 
 </div>
@@ -790,7 +790,7 @@ The AWS IoT Jobs service does not require clients to subscribe to the "/accepted
 <div class="line">    <span class="comment">// the buffer, topicBuffer, for the DescribeJobExecution API.</span></div>
 <div class="line">    <span class="comment">// Publish to this topic using an MQTT client of your choice.</span></div>
 <div class="line">}</div>
-<div class="ttc" id="ajobs_8h_html_adfdc2db49fa5102fdb0e0b826e86b150"><div class="ttname"><a href="jobs_8h.html#adfdc2db49fa5102fdb0e0b826e86b150">Jobs_Describe</a></div><div class="ttdeci">JobsStatus_t Jobs_Describe(char *buffer, size_t length, const char *thingName, uint16_t thingNameLength, const char *jobId, uint16_t jobIdLength, size_t *outLength)</div><div class="ttdoc">Populate a topic string for a DescribeJobExecution request.</div><div class="ttdef"><b>Definition:</b> jobs.c:636</div></div>
+<div class="ttc" id="ajobs_8h_html_adfdc2db49fa5102fdb0e0b826e86b150"><div class="ttname"><a href="jobs_8h.html#adfdc2db49fa5102fdb0e0b826e86b150">Jobs_Describe</a></div><div class="ttdeci">JobsStatus_t Jobs_Describe(char *buffer, size_t length, const char *thingName, uint16_t thingNameLength, const char *jobId, uint16_t jobIdLength, size_t *outLength)</div><div class="ttdoc">Populate a topic string for a DescribeJobExecution request.</div><div class="ttdef"><b>Definition:</b> jobs.c:671</div></div>
 </div><!-- fragment --><p >See <a class="el" href="jobs_8h.html" title="Client library APIs for the AWS IoT Jobs service.">jobs.h</a> for docs. </p>
 
 </div>
@@ -902,7 +902,7 @@ The AWS IoT Jobs service does not require clients to subscribe to the "/accepted
 <div class="line">    <span class="comment">// generated in the buffer, topicBuffer, for the UpdateJobExecution API.</span></div>
 <div class="line">    <span class="comment">// Publish to this topic using an MQTT client of your choice.</span></div>
 <div class="line">}</div>
-<div class="ttc" id="ajobs_8h_html_a4ab3fd29173814ab73d764d123e9f400"><div class="ttname"><a href="jobs_8h.html#a4ab3fd29173814ab73d764d123e9f400">Jobs_Update</a></div><div class="ttdeci">JobsStatus_t Jobs_Update(char *buffer, size_t length, const char *thingName, uint16_t thingNameLength, const char *jobId, uint16_t jobIdLength, size_t *outLength)</div><div class="ttdoc">Populate a topic string for an UpdateJobExecution request.</div><div class="ttdef"><b>Definition:</b> jobs.c:677</div></div>
+<div class="ttc" id="ajobs_8h_html_a4ab3fd29173814ab73d764d123e9f400"><div class="ttname"><a href="jobs_8h.html#a4ab3fd29173814ab73d764d123e9f400">Jobs_Update</a></div><div class="ttdeci">JobsStatus_t Jobs_Update(char *buffer, size_t length, const char *thingName, uint16_t thingNameLength, const char *jobId, uint16_t jobIdLength, size_t *outLength)</div><div class="ttdoc">Populate a topic string for an UpdateJobExecution request.</div><div class="ttdef"><b>Definition:</b> jobs.c:712</div></div>
 </div><!-- fragment --><p >See <a class="el" href="jobs_8h.html" title="Client library APIs for the AWS IoT Jobs service.">jobs.h</a> for docs. </p>
 
 </div>
