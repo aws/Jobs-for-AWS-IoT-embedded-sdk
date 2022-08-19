@@ -430,21 +430,35 @@ static JobsStatus_t matchIdApi( char * topic,
     if( ( isNextJobId( jobId, jobIdLength ) == true ) ||
         ( isValidJobId( jobId, jobIdLength ) == true ) )
     {
-        JobsTopic_t api;
-
-        /* The api variable is bounded within contiguous values of the enum type. */
-        /* coverity[misra_c_2012_rule_10_1_violation] */
-        for( api = JobsDescribeSuccess; api < JobsMaxTopic; api++ )
+        if( JobsSuccess == strnnEq( p, length, apiTopic[ JobsDescribeSuccess ], apiTopicLength[ JobsDescribeSuccess ] ) )
         {
-            ret = strnnEq( p, length, apiTopic[ api ], apiTopicLength[ api ] );
+            ret = JobsSuccess;
+            *outApi = JobsDescribeSuccess;
+        }
+        else if( JobsSuccess == strnnEq( p, length, apiTopic[ JobsDescribeFailed ], apiTopicLength[ JobsDescribeFailed ] ) )
+        {
+            ret = JobsSuccess;
+            *outApi = JobsDescribeFailed;
+        }
+        else if( JobsSuccess == strnnEq( p, length, apiTopic[ JobsUpdateSuccess ], apiTopicLength[ JobsUpdateSuccess ] ) )
+        {
+            ret = JobsSuccess;
+            *outApi = JobsUpdateSuccess;
+        }
+        else if( JobsSuccess == strnnEq( p, length, apiTopic[ JobsUpdateFailed ], apiTopicLength[ JobsUpdateFailed ] ) )
+        {
+            ret = JobsSuccess;
+            *outApi = JobsUpdateFailed;
+        }
+        else
+        {
+            /* MISRA Empty Body */
+        }
 
-            if( ret == JobsSuccess )
-            {
-                *outApi = api;
-                *outJobId = jobId;
-                *outJobIdLength = jobIdLength;
-                break;
-            }
+        if( ret == JobsSuccess )
+        {
+            *outJobId = jobId;
+            *outJobIdLength = jobIdLength;
         }
     }
 
@@ -471,23 +485,44 @@ static JobsStatus_t matchApi( char * topic,
                               uint16_t * outJobIdLength )
 {
     JobsStatus_t ret = JobsNoMatch;
-    JobsTopic_t api;
 
     assert( ( topic != NULL ) && ( outApi != NULL ) &&
             ( outJobId != NULL ) && ( outJobIdLength != NULL ) );
 
     /* The first set of APIs do not have job IDs. */
-    /* The api variable is bounded within contiguous values of the enum type. */
-    /* coverity[misra_c_2012_rule_10_1_violation] */
-    for( api = JobsJobsChanged; api < JobsDescribeSuccess; api++ )
+    if( JobsSuccess == strnnEq( topic, topicLength, apiTopic[ JobsJobsChanged ], apiTopicLength[ JobsJobsChanged ] ) )
     {
-        ret = strnnEq( topic, topicLength, apiTopic[ api ], apiTopicLength[ api ] );
-
-        if( ret == JobsSuccess )
-        {
-            *outApi = api;
-            break;
-        }
+        ret = JobsSuccess;
+        *outApi = JobsJobsChanged;
+    }
+    else if( JobsSuccess == strnnEq( topic, topicLength, apiTopic[ JobsNextJobChanged ], apiTopicLength[ JobsNextJobChanged ] ) )
+    {
+        ret = JobsSuccess;
+        *outApi = JobsNextJobChanged;
+    }
+    else if( JobsSuccess == strnnEq( topic, topicLength, apiTopic[ JobsGetPendingSuccess ], apiTopicLength[ JobsGetPendingSuccess ] ) )
+    {
+        ret = JobsSuccess;
+        *outApi = JobsGetPendingSuccess;
+    }
+    else if( JobsSuccess == strnnEq( topic, topicLength, apiTopic[ JobsGetPendingFailed ], apiTopicLength[ JobsGetPendingFailed ] ) )
+    {
+        ret = JobsSuccess;
+        *outApi = JobsGetPendingFailed;
+    }
+    else if( JobsSuccess == strnnEq( topic, topicLength, apiTopic[ JobsStartNextSuccess ], apiTopicLength[ JobsStartNextSuccess ] ) )
+    {
+        ret = JobsSuccess;
+        *outApi = JobsStartNextSuccess;
+    }
+    else if( JobsSuccess == strnnEq( topic, topicLength, apiTopic[ JobsStartNextFailed ], apiTopicLength[ JobsStartNextFailed ] ) )
+    {
+        ret = JobsSuccess;
+        *outApi = JobsStartNextFailed;
+    }
+    else
+    {
+        /* MISRA Empty Body */
     }
 
     /* The remaining APIs must have a job ID. */
