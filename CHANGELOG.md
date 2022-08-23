@@ -1,6 +1,13 @@
 # Changelog for AWS IoT Jobs Library
 
-## v1.2.0
+## v1.2.1 (August 2022)
+
+### Other Updates:
+- [#67](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/67) MISRA C:2012 Compliance update
+- [#65](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/65) Update CBMC starter kit
+- [#61](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/61) Loop invariant update
+
+## v1.2.0 (November 2021)
 
 ### Other Updates:
 - [#57](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/57) Update litani and template submodules for cbmc
