@@ -1,6 +1,6 @@
 # Changelog for AWS IoT Jobs Library
 
-## v1.2.1 (August 2022)
+## v1.3.0 (September 2022)
 
 ### Other Updates:
 - [#67](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/67) MISRA C:2012 Compliance update
