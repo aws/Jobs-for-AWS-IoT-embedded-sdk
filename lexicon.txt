@@ -68,6 +68,7 @@ malloc
 md
 microcontrollers
 misra
+mit
 mqtt
 nb
 nextjobexecutionchanged
