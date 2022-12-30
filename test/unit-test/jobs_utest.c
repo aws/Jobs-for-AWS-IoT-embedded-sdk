@@ -47,6 +47,8 @@
 /* Common prefix of Jobs topics. */
 #define PREFIX          JOBS_API_PREFIX name_ JOBS_API_BRIDGE
 
+jmp_buf CATCH_JMPBUF;
+
 /* ============================   UNITY FIXTURES ============================ */
 
 /* Called before each test method. */

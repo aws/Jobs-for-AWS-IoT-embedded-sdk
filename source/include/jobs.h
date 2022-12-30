@@ -58,7 +58,7 @@
 /**
  * @brief User defined maximum length of a thing name for the application.
  *
- * <br><b>Default value</b>: @ref JOBS_THINGNAME_MAX_LENGTH
+ * <br><b>Default value</b>: @ref JOBS_THINGNAME_MAX_LENGTH "JOBS_THINGNAME_MAX_LENGTH"
  */
     #define THINGNAME_MAX_LENGTH    JOBS_THINGNAME_MAX_LENGTH
 #endif
@@ -68,7 +68,7 @@
 /**
  * @brief User defined maximum length of a job ID for the application.
  *
- * <br><b>Default value</b>: @ref JOBS_JOBID_MAX_LENGTH
+ * <br><b>Default value</b>: @ref JOBS_JOBID_MAX_LENGTH "JOBS_JOBID_MAX_LENGTH"
  */
     #define JOBID_MAX_LENGTH    JOBS_JOBID_MAX_LENGTH
 #endif
