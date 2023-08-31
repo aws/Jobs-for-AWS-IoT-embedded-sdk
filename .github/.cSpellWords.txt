@@ -1,4 +1,3 @@
-ABCDEFGHIJKLMNOPQRSTUVWYXZ
 CBMC
 CBOR
 CMOCK
@@ -11,7 +10,6 @@ MISRA
 MQTT
 Misra
 Wunused
-abcdefghijklmnopqrstuvwyxz
 cbmc
 cbor
 cmock
