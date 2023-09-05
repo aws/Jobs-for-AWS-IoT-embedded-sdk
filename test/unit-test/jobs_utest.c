@@ -234,8 +234,8 @@ void test_Jobs_valid_identifiers( void )
 
 #define commonChars                      \
     "-" "_" "0123456789"                 \
-            "ABCDEFGHIJKLMNOPQRSTUVWYXZ" \
-            "abcdefghijklmnopqrstuvwyxz"
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZ" \
+            "abcdefghijklmnopqrstuvwxyz"
 
     char testChars[] = commonChars;
 
