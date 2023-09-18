@@ -6,9 +6,11 @@ project( "Jobs unit test"
 # Allow the project to be organized into folders.
 set_property( GLOBAL PROPERTY USE_FOLDERS ON )
 
-# Use C90.
-set( CMAKE_C_STANDARD 90 )
+# Use C99.
+set( CMAKE_C_STANDARD 99 )
 set( CMAKE_C_STANDARD_REQUIRED ON )
+
+include(FetchContent)
 
 # Do not allow in-source build.
 if( ${PROJECT_SOURCE_DIR} STREQUAL ${PROJECT_BINARY_DIR} )
@@ -44,6 +46,21 @@ target_include_directories( coverity_analysis PUBLIC ${JOBS_INCLUDE_PUBLIC_DIRS}
 # Build HTTP library target without logging
 target_compile_options(coverity_analysis PUBLIC -DNDEBUG )
 #  ====================================  Test Configuration ========================================
+
+FetchContent_Declare(
+  coreJSON
+  # hash: sha256-r0lJff61NK2rPtO7Wr6RudFNQiLt1D4M30V7/p60Zi0=
+  GIT_REPOSITORY https://github.com/FreeRTOS/coreJSON.git
+  GIT_TAG a0cd6122745a879225bf459dd257e79bdd63d37a)
+
+FetchContent_MakeAvailable(coreJSON)
+
+# coreJSON
+include("${corejson_SOURCE_DIR}/jsonFilePaths.cmake")
+add_library(coreJSON ${JSON_SOURCES})
+target_include_directories(coreJSON PUBLIC ${JSON_INCLUDE_PUBLIC_DIRS})
+target_link_libraries(coverity_analysis PUBLIC coreJSON)
+
 
 # Include Unity build configuration.
 include( unit-test/unity_build.cmake )

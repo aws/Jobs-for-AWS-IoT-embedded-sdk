@@ -32,6 +32,7 @@
 #ifndef JOBS_H_
 #define JOBS_H_
 
+#include <stdbool.h> 
 #include <stddef.h>
 #include <stdint.h>
 
@@ -233,6 +234,27 @@ typedef enum
 } JobsStatus_t;
 
 /**
+ * @brief Status codes for jobs
+ */
+typedef enum JobCurrentStatus
+{
+    Queued,
+    InProgress,
+    Failed,
+    Succeeded,
+    Rejected
+} JobCurrentStatus_t; 
+
+/**
+ * TODO: update comment  
+ */
+typedef enum JobUpdateStatus
+{
+    JobUpdateStatus_Accepted,
+    JobUpdateStatus_Rejected
+} JobUpdateStatus_t;
+
+/**
  * @ingroup jobs_enum_types
  * @brief Topic values for subscription requests.
  *
@@ -264,6 +286,11 @@ typedef enum
     JobsUpdateFailed,
     JobsMaxTopic
 } JobsTopic_t;
+
+typedef bool ( *IncomingJobDocHandler_t )( const char * jobId,
+                                           const size_t jobIdLength,
+                                           const char * jobDoc,
+                                           const size_t jobDocLength );
 
 /*-----------------------------------------------------------*/
 
@@ -741,6 +768,59 @@ JobsStatus_t Jobs_Update( char * buffer,
                           uint16_t jobIdLength,
                           size_t * outLength );
 /* @[declare_jobs_update] */
+
+/* ------------------------ Jobs API Functions -------------------------- */
+/* Called by downstream users of Jobs (e.g. the OTA library) */
+
+bool Jobs_sendStatusUpdate( const char * jobId, const size_t jobIdLength );
+
+bool Jobs_checkForJobs();
+
+/**
+ * @brief Retrieves the job ID from a given message (if applicable)
+ * 
+ * @param message [In] A JSON formatted message which
+ * @param messageLength [In] The length of the message
+ * @param jobId [Out] The job ID
+ * @return size_t The job ID length
+ */
+size_t Jobs_getJobId(const char * message, size_t messageLength, char ** jobId);
+
+/**
+ * @brief Retrieves the job document from a given message (if applicable)
+ * 
+ * @param message [In] A JSON formatted message which
+ * @param messageLength [In] The length of the message
+ * @param jobDoc [Out] The job document
+ * @return size_t The length of the job document
+ */
+size_t Jobs_getJobDocument(const char * message, size_t messageLength, char ** jobDoc);
+
+size_t getStartNextPendingJobExecutionTopic( const char * thingname,
+                                             size_t thingnameLength,
+                                             char * buffer,
+                                             size_t bufferSize );
+
+
+size_t getStartNextPendingJobExecutionMsg( const char * clientToken,
+                                           size_t clientTokenLength,
+                                           char * buffer,
+                                           size_t bufferSize );
+
+
+size_t getUpdateJobExecutionTopic( char * thingname,
+                                   size_t thingnameLength,
+                                   char * jobId,
+                                   size_t jobIdLength,
+                                   char * buffer,
+                                   size_t bufferSize );
+
+
+size_t getUpdateJobExecutionMsg( JobCurrentStatus_t status,
+                                 char * expectedVersion,
+                                 size_t expectedVersionLength,
+                                 char * buffer,
+                                 size_t bufferSize );
 
 /* *INDENT-OFF* */
 #ifdef __cplusplus
