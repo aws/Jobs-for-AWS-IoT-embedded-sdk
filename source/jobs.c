@@ -212,38 +212,6 @@ static bool isValidJobId( const char * jobId,
                       JOBID_MAX_LENGTH, false );
 }
 
-/**
- * @brief Checks if a message comes from the start-next/accepted reserved topic
- * 
- * @param topic The topic to check against
- * @param topicLength The expected topic length 
- * @return true If the topic is the start-next/accepted topic
- * @return false If the topic is not the start-next/accepted topic
- */
-static bool Jobs_isStartNextAccepted( const char * topic,
-                               const size_t topicLength,
-                               const char * thingName,
-                               const size_t thingNameLength );
-
-/**
- * @brief Checks if a message comes from the update/accepted reserved topic
- * 
- * @param topic The topic to check against
- * @param topicLength The expected topic length 
- * @param jobId Corresponding Job ID which the update was accepted for
- * @param jobIdLength The Job ID length
- * @param expectedStatus The job update status reported by AWS IoT Jobs
- * @return true If the topic is the update/<expectedStatus> topic
- * @return false If the topic is not the update/<expectedStatus> topic
- */
-static bool Jobs_isJobUpdateStatus(const char * topic,
-                                const size_t topicLength,
-                                const char * jobId,
-                                const size_t jobIdLength,
-                                JobUpdateStatus_t expectedStatus,
-                                const char * thingName,
-                                const size_t thingNameLength );
-
 //TODO: Add description
 static bool isThingnameTopicMatch(const char * topic,
                            const size_t topicLength,
@@ -602,41 +570,6 @@ static JobsStatus_t matchApi( char * topic,
     return ret;
 }
 
-static bool Jobs_isStartNextAccepted( const char * topic,
-                               const size_t topicLength,
-                               const char* thingName,
-                               const size_t thingNameLength )
-{
-    return isThingnameTopicMatch(topic, topicLength, "/jobs/start-next/accepted", strlen("/jobs/start-next/accepted"), thingName , thingNameLength );
-}
-
-static bool Jobs_isJobUpdateStatus( const char * topic,
-                                const size_t topicLength,
-                                const char * jobId,
-                                const size_t jobIdLength,
-                                JobUpdateStatus_t expectedStatus,
-                                const char * thingName,
-                                const size_t thingNameLength )
-{
-    /* Max suffix size = max topic size - "$aws/<thingname>" prefix */
-    char suffixBuffer[ TOPIC_BUFFER_SIZE - MAX_THING_NAME_LENGTH - 4U] = { 0 };
-    char jobIdTerminated[ JOBS_JOBID_MAX_LENGTH + 1 ] = { 0 };
-    char updateStatusString[ UPDATE_JOB_STATUS_MAX_LENGTH + 1 ] = { 0 };
-
-    memcpy(&jobIdTerminated, jobId, jobIdLength);
-    memcpy(&updateStatusString, jobUpdateStatusString[ expectedStatus ], jobUpdateStatusStringLengths[ expectedStatus ]);
-
-    snprintf( suffixBuffer,
-              TOPIC_BUFFER_SIZE - MAX_THING_NAME_LENGTH - 4U,
-              "%s%s%s%s",
-              "/jobs/",
-              jobIdTerminated,
-              "/update/",
-              updateStatusString );
-
-    return isThingnameTopicMatch(topic, topicLength, suffixBuffer, strnlen(suffixBuffer, TOPIC_BUFFER_SIZE - MAX_THING_NAME_LENGTH - 4U), thingName , thingNameLength );
-}
-
 static bool isThingnameTopicMatch(const char * topic,
                                     const size_t topicLength,
                                     const char * topicSuffix,
@@ -886,6 +819,41 @@ JobsStatus_t Jobs_Update( char * buffer,
     return ret;
 }
 
+bool Jobs_isStartNextAccepted( const char * topic,
+                               const size_t topicLength,
+                               const char* thingName,
+                               const size_t thingNameLength )
+{
+    return isThingnameTopicMatch(topic, topicLength, "/jobs/start-next/accepted", strlen("/jobs/start-next/accepted"), thingName , thingNameLength );
+}
+
+bool Jobs_isJobUpdateStatus( const char * topic,
+                                const size_t topicLength,
+                                const char * jobId,
+                                const size_t jobIdLength,
+                                JobUpdateStatus_t expectedStatus,
+                                const char * thingName,
+                                const size_t thingNameLength )
+{
+    /* Max suffix size = max topic size - "$aws/<thingname>" prefix */
+    char suffixBuffer[ TOPIC_BUFFER_SIZE - MAX_THING_NAME_LENGTH - 4U] = { 0 };
+    char jobIdTerminated[ JOBS_JOBID_MAX_LENGTH + 1 ] = { 0 };
+    char updateStatusString[ UPDATE_JOB_STATUS_MAX_LENGTH + 1 ] = { 0 };
+
+    memcpy(&jobIdTerminated, jobId, jobIdLength);
+    memcpy(&updateStatusString, jobUpdateStatusString[ expectedStatus ], jobUpdateStatusStringLengths[ expectedStatus ]);
+
+    snprintf( suffixBuffer,
+              TOPIC_BUFFER_SIZE - MAX_THING_NAME_LENGTH - 4U,
+              "%s%s%s%s",
+              "/jobs/",
+              jobIdTerminated,
+              "/update/",
+              updateStatusString );
+
+    return isThingnameTopicMatch(topic, topicLength, suffixBuffer, strnlen(suffixBuffer, TOPIC_BUFFER_SIZE - MAX_THING_NAME_LENGTH - 4U), thingName , thingNameLength );
+}
+
 size_t Jobs_getJobId(const char * message, size_t messageLength, char ** jobId)
 {
     size_t jobIdLength = 0U;
@@ -921,8 +889,7 @@ size_t Jobs_getJobDocument(const char * message, size_t messageLength, char ** j
     return jobDocLength;
 }
 
-//TODO: Update names of API's below.
-size_t getStartNextPendingJobExecutionTopic( const char * thingname,
+size_t Jobs_getStartNextPendingJobExecutionTopic( const char * thingname,
                                                     size_t thingnameLength,
                                                     char * buffer,
                                                     size_t bufferSize )
@@ -944,7 +911,7 @@ size_t getStartNextPendingJobExecutionTopic( const char * thingname,
     return topicLength;
 }
 
-size_t getStartNextPendingJobExecutionMsg( const char * clientToken,
+size_t Jobs_getStartNextPendingJobExecutionMsg( const char * clientToken,
                                                   size_t clientTokenLength,
                                                   char * buffer,
                                                   size_t bufferSize )
@@ -966,7 +933,7 @@ size_t getStartNextPendingJobExecutionMsg( const char * clientToken,
     return messageLength;
 }
 
-size_t getUpdateJobExecutionTopic( char * thingname,
+size_t Jobs_getUpdateJobExecutionTopic( char * thingname,
                                           size_t thingnameLength,
                                           char * jobId,
                                           size_t jobIdLength,
@@ -992,7 +959,7 @@ size_t getUpdateJobExecutionTopic( char * thingname,
     return topicLength;
 }
 
-size_t getUpdateJobExecutionMsg( JobCurrentStatus_t status,
+size_t Jobs_getUpdateJobExecutionMsg( JobCurrentStatus_t status,
                                         char * expectedVersion,
                                         size_t expectedVersionLength,
                                         char * buffer,
