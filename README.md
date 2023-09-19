@@ -40,7 +40,7 @@ release.**
 
 ## Building the Jobs library
 
-A compiler that supports **C90 or later** such as _gcc_ is required to build the
+A compiler that supports **C99 or later** such as _gcc_ is required to build the
 library.
 
 Given an application in a file named `example.c`, _gcc_ can be used like so:
@@ -115,7 +115,7 @@ git submodule update --checkout --init --recursive --test/unit-test/Unity
 ### Platform Prerequisites
 
 - For running unit tests
-  - C90 compiler like gcc
+  - C99 compiler like gcc
   - CMake 3.13.0 or later
   - Ruby 2.0.0 or later is additionally required for the Unity test framework
     (that we use).
