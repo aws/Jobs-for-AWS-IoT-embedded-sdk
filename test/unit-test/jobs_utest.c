@@ -882,6 +882,7 @@ void test_isJobUpdateStatus_hasZeroThingNameLength( void )
     TEST_ASSERT_FALSE(result);
 }
 
+//Tests for getStartNextPendingJobExecutionTopic
 void test_getStartNextPendingJobExecutionTopic_hasNullThingName( void )
 {
     char * topicBuffer[TOPIC_BUFFER_SIZE + 1] = {0};
@@ -923,6 +924,7 @@ void test_getStartNextPendingExecutionTopic_withValidParameters( void ){
     TEST_ASSERT_EQUAL(37, result);
 }
 
+//Tests for getStartNextPendingJobExecutionMsg
 void test_getStartNextPendingJobExecutionMsg_hasNullClientToken( void )
 {
     char * buffer[TOPIC_BUFFER_SIZE + 1] = {0};
@@ -961,9 +963,10 @@ void test_getStartNextPendingJobExecutionMsg_hasValidParameters( void )
 
     size_t result = getStartNextPendingJobExecutionMsg(clientToken, clientTokenLength, buffer, TOPIC_BUFFER_SIZE);
 
-    TEST_ASSERT_EQUAL(0, result); 
+    TEST_ASSERT_EQUAL(23, result); 
 }
 
+//Tests for getUpdateJobExecutionTopic
 void test_getUpdateJobExecutionTopic_hasNullThingName ( void )
 {
     char * jobId = "jobID";
@@ -1036,3 +1039,58 @@ void test_getUpdateJobExecutionTopic_hasValidParameters ( void )
     TEST_ASSERT_EQUAL(39,result);
 }
 
+//Tests for getUpdateJobExecutionMsg
+void test_getUpdateJobExecutionMsg_hasNullExpectedVersion( void )
+{
+    JobCurrentStatus_t status = Queued; 
+    char * buffer[TOPIC_BUFFER_SIZE + 1] = {0};
+
+    size_t result = getUpdateJobExecutionMsg(status, NULL, 1U, buffer, TOPIC_BUFFER_SIZE);
+
+    TEST_ASSERT_EQUALS(0,result);
+} 
+
+void test_getUpdateJobExecutionMsg_hasNullExpectedVersion( void )
+{
+    JobCurrentStatus_t status = Queued; 
+    char * buffer[TOPIC_BUFFER_SIZE + 1] = {0};
+
+    size_t result = getUpdateJobExecutionMsg(status, NULL, 1U, buffer, TOPIC_BUFFER_SIZE);
+
+    TEST_ASSERT_EQUALS(0,result);
+} 
+
+void test_getUpdateJobExecutionMsg_hasZeroLengthExpectedVersion( void )
+{
+    char * version = "1.0.1";
+    JobCurrentStatus_t status = Queued; 
+    char * buffer[TOPIC_BUFFER_SIZE + 1] = {0};
+
+    size_t result = getUpdateJobExecutionMsg(status, version, 0U, buffer, TOPIC_BUFFER_SIZE);
+
+    TEST_ASSERT_EQUALS(0,result);
+} 
+
+void test_getUpdateJobExecutionMsg_hasTooSmallBufferSize( void )
+{
+    char * version = "1.0.1";
+    size_t versionLength = strlen(version);
+    JobCurrentStatus_t status = Queued; 
+    char * buffer[2] = {0};
+
+    size_t result = getUpdateJobExecutionMsg(status, version, versionLength, buffer, 1);
+
+    TEST_ASSERT_EQUALS(0,result);
+} 
+
+void test_getUpdateJobExecutionMsg_hasValidParameters( void )
+{
+    char * version = "1.0.1";
+    size_t versionLength = strlen(version);
+    JobCurrentStatus_t status = Queued; 
+    char * buffer[TOPIC_BUFFER_SIZE + 1] = {0};
+
+    size_t result = getUpdateJobExecutionMsg(status, version, versionLength, buffer, TOPIC_BUFFER_SIZE);
+
+    TEST_ASSERT_EQUALS(45,result);
+}
