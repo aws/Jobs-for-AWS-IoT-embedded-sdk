@@ -653,7 +653,10 @@ static bool isThingnameTopicMatch(const char * topic,
     if ( topic == NULL || topicLength == 0 )
     {
         isMatch = false;
-    } 
+    } else if ( thingName == NULL || thingNameLength == 0)
+    {
+        isMatch = false;
+    }
 
     if ( isMatch )
     {
