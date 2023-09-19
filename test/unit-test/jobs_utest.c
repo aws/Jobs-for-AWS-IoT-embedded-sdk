@@ -1050,16 +1050,6 @@ void test_getUpdateJobExecutionMsg_hasNullExpectedVersion( void )
     TEST_ASSERT_EQUALS(0,result);
 } 
 
-void test_getUpdateJobExecutionMsg_hasNullExpectedVersion( void )
-{
-    JobCurrentStatus_t status = Queued; 
-    char * buffer[TOPIC_BUFFER_SIZE + 1] = {0};
-
-    size_t result = getUpdateJobExecutionMsg(status, NULL, 1U, buffer, TOPIC_BUFFER_SIZE);
-
-    TEST_ASSERT_EQUALS(0,result);
-} 
-
 void test_getUpdateJobExecutionMsg_hasZeroLengthExpectedVersion( void )
 {
     char * version = "1.0.1";
