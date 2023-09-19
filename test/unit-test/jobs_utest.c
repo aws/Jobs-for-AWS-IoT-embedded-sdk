@@ -1047,7 +1047,7 @@ void test_getUpdateJobExecutionMsg_hasNullExpectedVersion( void )
 
     size_t result = getUpdateJobExecutionMsg(status, NULL, 1U, buffer, TOPIC_BUFFER_SIZE);
 
-    TEST_ASSERT_EQUALS(0,result);
+    TEST_ASSERT_EQUAL(0,result);
 } 
 
 void test_getUpdateJobExecutionMsg_hasZeroLengthExpectedVersion( void )
@@ -1058,7 +1058,7 @@ void test_getUpdateJobExecutionMsg_hasZeroLengthExpectedVersion( void )
 
     size_t result = getUpdateJobExecutionMsg(status, version, 0U, buffer, TOPIC_BUFFER_SIZE);
 
-    TEST_ASSERT_EQUALS(0,result);
+    TEST_ASSERT_EQUAL(0,result);
 } 
 
 void test_getUpdateJobExecutionMsg_hasTooSmallBufferSize( void )
@@ -1070,7 +1070,7 @@ void test_getUpdateJobExecutionMsg_hasTooSmallBufferSize( void )
 
     size_t result = getUpdateJobExecutionMsg(status, version, versionLength, buffer, 1);
 
-    TEST_ASSERT_EQUALS(0,result);
+    TEST_ASSERT_EQUAL(0,result);
 } 
 
 void test_getUpdateJobExecutionMsg_hasValidParameters( void )
@@ -1082,5 +1082,5 @@ void test_getUpdateJobExecutionMsg_hasValidParameters( void )
 
     size_t result = getUpdateJobExecutionMsg(status, version, versionLength, buffer, TOPIC_BUFFER_SIZE);
 
-    TEST_ASSERT_EQUALS(45,result);
+    TEST_ASSERT_EQUAL(45,result);
 }
