@@ -28,6 +28,7 @@
  */
 
 #include <ctype.h>
+#include <string.h>
 
 #include "unity.h"
 #include "catch_assert.h"
@@ -553,4 +554,280 @@ void test_Jobs_asserts( void )
     catch_assert( matchApi( bufA, x, NULL, &p, &j ) );
     catch_assert( matchApi( bufA, x, &api, NULL, &j ) );
     catch_assert( matchApi( bufA, x, &api, &p, NULL ) );
+}
+
+//Tests for Jobs_isStartNextAccepted
+void test_isStartNextAccepted_isStartNextMsg( void )
+{
+    char * thingName = "thingname";
+    char topic[] = "$aws/things/thingname/jobs/start-next/accepted";
+    size_t topicLength = strlen(topic);
+    size_t thingNameLength = strlen(thingName);
+
+    bool result = Jobs_isStartNextAccepted(topic, topicLength,thingName, thingNameLength);
+
+    TEST_ASSERT_TRUE(result);
+
+}
+
+void test_isStartNextAccepted_isNotStartNextMsg( void )
+{
+    char * thingName = "thingname";
+    char topic[] = "thingname/random/topic";
+    size_t topicLength = strlen(topic);
+    size_t thingNameLength = strlen(thingName);
+    
+
+    bool result = Jobs_isStartNextAccepted(topic, topicLength, thingName, thingNameLength);
+
+    TEST_ASSERT_FALSE(result);
+}
+
+void test_isStartNextAccepted_isStartNextMsgForAnotherThing( void )
+{
+    char * thingName = "thingname";
+    char topic[] = "$aws/things/differntThignName/jobs/start-next/accepted";
+    size_t topicLength = strlen(topic);
+    size_t thingNameLength = strlen(thingName);
+
+    bool result = Jobs_isStartNextAccepted(topic, topicLength, thingName, thingNameLength);
+
+    TEST_ASSERT_FALSE(result);
+}
+
+void test_isStartNextAccepted_isStartNextMsgForSameLengthThing( void )
+{
+    char * thingName = "thingname";
+    char topic[] = "$aws/things/different/jobs/start-next/accepted";
+    size_t topicLength = strlen(topic);
+    size_t thingNameLength = strlen(thingName);
+
+    bool result = Jobs_isStartNextAccepted(topic, topicLength,thingName, thingNameLength);
+
+    TEST_ASSERT_FALSE(result);
+}
+
+void test_isStartNextAccepted_nullTopic( void )
+{
+    char * thingName = "thingname";
+    size_t thingNameLength = strlen(thingName);
+
+    bool result = Jobs_isStartNextAccepted(NULL, 1U, thingName, thingNameLength);
+
+    TEST_ASSERT_FALSE(result);
+}
+
+void test_isStartNextAccepted_zeroTopicLength( void )
+{
+    char * thingName = "thingname";
+    char topic[] = "$aws/things/differntThignName/jobs/start-next/accepted";
+    size_t thingNameLength = strlen(thingName);
+
+    bool result = Jobs_isStartNextAccepted(topic, 0U, thingName, thingNameLength);
+
+    TEST_ASSERT_FALSE(result);
+}
+
+//Tests for Jobs_getJobID()
+
+void test_getJobId_returnsJobId( void )
+{
+    char * message = "{\"execution\":{\"jobId\":\"identification\",\"jobDocument\":\"document\"}}";
+    char * jobId = NULL;
+
+    size_t result = Jobs_getJobId(message, strlen(message), &jobId);
+
+    TEST_ASSERT_EQUAL(strlen("identification"), result);
+    TEST_ASSERT_EQUAL_MEMORY("identification", jobId, result);
+}
+
+void test_getJobId_cannotFindJobId( void )
+{
+    char * message = "{\"execution\":{\"jobDocument\":\"document\"}}";
+    char * jobId = NULL;
+
+    size_t result = Jobs_getJobId(message, strlen(message), &jobId);
+
+    TEST_ASSERT_EQUAL(0U, result);
+    TEST_ASSERT_NULL(jobId);
+}
+
+void test_getJobId_malformedJson( void )
+{
+    char * message = "clearlyNotJson";
+    char * jobId = NULL;
+
+    size_t result = Jobs_getJobId(message, strlen(message), &jobId);
+
+TEST_ASSERT_EQUAL(0U, result);
+    TEST_ASSERT_NULL(jobId);
+}
+
+void test_getJobId_returnsZeroLengthJob_givenNullMessage( void )
+{
+    char * jobId = NULL;
+
+    size_t result = Jobs_getJobId(NULL, 10U, &jobId);
+
+    TEST_ASSERT_EQUAL(0U, result);
+    TEST_ASSERT_NULL(jobId);
+
+}
+
+void test_getJobId_returnsZeroLengthJob_givenZeroMessageLength( void )
+{
+    char * message = "{\"execution\":{\"jobId\":\"identification\",\"jobDocument\":\"document\"}}";
+    char * jobId = NULL;
+
+    size_t result = Jobs_getJobId(message, 0U, &jobId);
+
+    TEST_ASSERT_EQUAL(0U, result);
+    TEST_ASSERT_NULL(jobId);
+}
+
+//Tests for Jobs_getJobDocument
+
+void test_getJobDocument_returnsDoc( void )
+{
+    char * message = "{\"execution\":{\"jobId\":\"identification\",\"jobDocument\":\"document\"}}";
+    char * jobDocument = NULL;
+
+    size_t result = Jobs_getJobDocument(message, strlen(message), &jobDocument);
+
+    TEST_ASSERT_EQUAL(strlen("document"), result);
+    TEST_ASSERT_EQUAL_MEMORY("document", jobDocument, result);
+}
+
+void test_getJobDocument_cannotFindDoc( void )
+{
+    char * message = "{\"execution\":{\"jobId\":\"identification\"}}";
+    char * jobDocument = NULL;
+
+    size_t result = Jobs_getJobDocument(message, strlen(message), &jobDocument);
+
+    TEST_ASSERT_EQUAL(0U, result);
+    TEST_ASSERT_NULL(jobDocument);
+}
+
+void test_getJobDocument_malformedJson( void )
+{
+    char * message = "clearlyNotJson";
+    char * jobDocument = NULL;
+
+    size_t result = Jobs_getJobDocument(message, strlen(message), &jobDocument);
+
+    TEST_ASSERT_EQUAL(0U, result);
+    TEST_ASSERT_NULL(jobDocument);
+}
+
+void test_getJobDocument_returnsZeroLengthJob_givenNullMessage( void )
+{
+    char * jobDocument = NULL;
+
+    size_t result = Jobs_getJobDocument(NULL, 10U, &jobDocument);
+
+    TEST_ASSERT_EQUAL(0U, result);
+    TEST_ASSERT_NULL(jobDocument);
+}
+
+void test_getJobDocument_returnsZeroLengthJob_givenZeroMessageLength( void )
+{
+    char * message = "{\"execution\":{\"jobId\":\"identification\",\"jobDocument\":\"document\"}}";
+    char * jobDocument = NULL;
+
+    size_t result = Jobs_getJobDocument(message, 0U, &jobDocument);
+
+    TEST_ASSERT_EQUAL(0U, result);
+    TEST_ASSERT_NULL(jobDocument);
+}
+
+//Tests for Jobs_isJobUpdateStatus
+
+void test_isJobUpdateStatus_isUpdateAcceptedMsg()
+{
+    char * thingName = "thingname";
+    size_t thingNameLength = strlen(thingName);
+    char * jobId = "job-id";
+    size_t jobIdLength = strlen("job-id");
+    char topic[] = "$aws/things/thingname/jobs/job-id/update/accepted";
+    size_t topicLength = strlen(topic);
+
+    bool result = Jobs_isJobUpdateStatus(topic, topicLength, jobId, jobIdLength, JobUpdateStatus_Accepted, thingName, thingNameLength);
+
+    TEST_ASSERT_TRUE(result);
+}
+
+void test_isJobUpdateStatus_isUpdateRejectedMsg()
+{
+    char * thingName = "thingname";
+    size_t thingNameLength = strlen(thingName);
+    char * jobId = "job-id";
+    size_t jobIdLength = strlen("job-id");
+    char topic[] = "$aws/things/thingname/jobs/job-id/update/rejected";
+    size_t topicLength = strlen(topic);
+
+    bool result = Jobs_isJobUpdateStatus(topic, topicLength, jobId, jobIdLength, JobUpdateStatus_Rejected, thingName, thingNameLength);
+
+    TEST_ASSERT_TRUE(result);
+}
+
+void test_isJobUpdateStatus_isUpdateMsg_notForCurrentJob()
+{
+    char * thingName = "thingname";
+    size_t thingNameLength = strlen(thingName);
+    char * jobId = "job-id";
+    size_t jobIdLength = strlen("job-id");
+    /* Note: topic length remains the same length */
+    char topic[100] = "$aws/things/thingname/jobs/jobtwo/update/accepted";
+    size_t topicLength = strlen(topic);
+
+    bool result = Jobs_isJobUpdateStatus(topic, topicLength, jobId, jobIdLength, JobUpdateStatus_Accepted, thingName, thingNameLength);
+
+    TEST_ASSERT_FALSE(result);
+
+    strcpy(topic, "$aws/things/thingname/jobs/different-length/update/accepted");
+    topicLength = strlen(topic);
+
+    result = Jobs_isJobUpdateStatus(topic, topicLength, jobId, jobIdLength, JobUpdateStatus_Accepted, thingName, thingNameLength);
+
+    TEST_ASSERT_FALSE(result);
+}
+
+void test_isJobUpdateStatus_isNotUpdateAcceptedMsg()
+{
+    char * thingName = "thingname";
+    size_t thingNameLength = strlen(thingName);
+    char * jobId = "job-id";
+    size_t jobIdLength = strlen("job-id");
+    char topic[] = "$aws/things/thingname/jobs/some-other-topic";
+    size_t topicLength = strlen(topic);
+
+    bool result = Jobs_isJobUpdateStatus(topic, topicLength, jobId, jobIdLength, JobUpdateStatus_Accepted, thingName, thingNameLength);
+
+    TEST_ASSERT_FALSE(result);
+}
+
+void test_isJobUpdateStatus_hasNullTopic()
+{
+    char * thingName = "thingname";
+    size_t thingNameLength = strlen(thingName);
+    char * jobId = "job-id";
+    size_t jobIdLength = strlen("job-id");
+
+    bool result = Jobs_isJobUpdateStatus(NULL, 1U, jobId, jobIdLength, JobUpdateStatus_Accepted, thingName, thingNameLength);
+
+    TEST_ASSERT_FALSE(result);
+}
+
+void test_isJobUpdateStatus_hasZeroTopicLength()
+{
+    char * thingName = "thingname";
+    size_t thingNameLength = strlen(thingName);
+    char * jobId = "job-id";
+    size_t jobIdLength = strlen("job-id");
+
+    bool result = Jobs_isJobUpdateStatus("$aws/things/thingname/jobs/start-next/accepted", 0U, jobId, jobIdLength, JobUpdateStatus_Accepted, thingName, thingNameLength);
+
+    TEST_ASSERT_FALSE(result);
+    
 }
