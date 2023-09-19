@@ -912,7 +912,7 @@ void test_getStartNextPendingJobExecutionTopic_bufferSizeTooSmall( void )
     TEST_ASSERT_EQUAL(0, result);
 }
 
-void test_getStartNextPendingExecutionTopic_validParameters( void ){
+void test_getStartNextPendingExecutionTopic_withValidParameters( void ){
     char * thingName = "thingname";
     size_t thingNameLength = strlen(thingName);
     char * topicBuffer[TOPIC_BUFFER_SIZE + 1] = {0};
@@ -922,3 +922,117 @@ void test_getStartNextPendingExecutionTopic_validParameters( void ){
     //thingNameLength + rest of topicLength == 37
     TEST_ASSERT_EQUAL(37, result);
 }
+
+void test_getStartNextPendingJobExecutionMsg_hasNullClientToken( void )
+{
+    char * buffer[TOPIC_BUFFER_SIZE + 1] = {0};
+
+    size_t result = getStartNextPendingJobExecutionMsg(NULL, 1U, buffer, TOPIC_BUFFER_SIZE);
+
+    TEST_ASSERT_EQUAL(0, result); 
+}
+
+void test_getStartNextPendingJobExecutionMsg_hasZeroLengthClientToken( void )
+{
+    char * clientToken = "token";
+    char * buffer[TOPIC_BUFFER_SIZE + 1] = {0};
+
+    size_t result = getStartNextPendingJobExecutionMsg(clientToken, 0U, buffer, TOPIC_BUFFER_SIZE);
+
+    TEST_ASSERT_EQUAL(0, result); 
+}
+
+void test_getStartNextPendingJobExecutionMsg_hasTooSmallBuffer( void )
+{
+    char * clientToken = "token";
+    size_t clientTokenLength = strlen(clientToken);
+    char * buffer[2] = {0};
+
+    size_t result = getStartNextPendingJobExecutionMsg(clientToken, clientTokenLength, buffer, 1);
+
+    TEST_ASSERT_EQUAL(0, result); 
+}
+
+void test_getStartNextPendingJobExecutionMsg_hasValidParameters( void )
+{
+    char * clientToken = "token";
+    size_t clientTokenLength = strlen(clientToken);
+    char * buffer[TOPIC_BUFFER_SIZE + 1] = {0};
+
+    size_t result = getStartNextPendingJobExecutionMsg(clientToken, clientTokenLength, buffer, TOPIC_BUFFER_SIZE);
+
+    TEST_ASSERT_EQUAL(0, result); 
+}
+
+void test_getUpdateJobExecutionTopic_hasNullThingName ( void )
+{
+    char * jobId = "jobID";
+    size_t jobIdLength = strlen(jobId);
+    char * buffer[TOPIC_BUFFER_SIZE + 1] = {0};
+
+    size_t result = getUpdateJobExecutionTopic(NULL, 1U, jobId, jobIdLength, buffer, TOPIC_BUFFER_SIZE);
+
+    TEST_ASSERT_EQUAL(0,result);
+}
+
+void test_getUpdateJobExecutionTopic_hasZeroLengthThingName ( void )
+{
+    char * thingName = "thingname";
+    char * jobId = "jobID";
+    size_t jobIdLength = strlen(jobId);
+    char * buffer[TOPIC_BUFFER_SIZE + 1] = {0};
+
+    size_t result = getUpdateJobExecutionTopic(thingName, 0U, jobId, jobIdLength, buffer, TOPIC_BUFFER_SIZE);
+
+    TEST_ASSERT_EQUAL(0,result);
+}
+
+void test_getUpdateJobExecutionTopic_hasNullJobId ( void )
+{
+    char * thingName = "thingname";
+    size_t thingNameLength = strlen(thingName);
+    char * buffer[TOPIC_BUFFER_SIZE + 1] = {0};
+
+    size_t result = getUpdateJobExecutionTopic(thingName, thingNameLength, NULL, 1U, buffer, TOPIC_BUFFER_SIZE);
+
+    TEST_ASSERT_EQUAL(0,result);
+}
+
+void test_getUpdateJobExecutionTopic_hasZeroLengthJobId ( void )
+{
+    char * thingName = "thingname";
+    size_t thingNameLength = strlen(thingName);
+    char * jobId = "jobID";
+    char * buffer[TOPIC_BUFFER_SIZE + 1] = {0};
+
+    size_t result = getUpdateJobExecutionTopic(thingName, thingNameLength, jobId, 0U, buffer, TOPIC_BUFFER_SIZE);
+
+    TEST_ASSERT_EQUAL(0,result);
+}
+
+void test_getUpdateJobExecutionTopic_hasTooSmallBufferSize ( void )
+{
+    char * thingName = "thingname";
+    size_t thingNameLength = strlen(thingName);
+    char * jobId = "jobID";
+    size_t jobIdLength = strlen(jobId);
+    char * buffer[2] = {0};
+
+    size_t result = getUpdateJobExecutionTopic(thingName, thingNameLength, jobId, jobIdLength, buffer, 1);
+
+    TEST_ASSERT_EQUAL(0,result);
+}
+
+void test_getUpdateJobExecutionTopic_hasValidParameters ( void )
+{
+    char * thingName = "thingname";
+    size_t thingNameLength = strlen(thingName);
+    char * jobId = "jobID";
+    size_t jobIdLength = strlen(jobId);
+    char * buffer[TOPIC_BUFFER_SIZE + 1] = {0};
+
+    size_t result = getUpdateJobExecutionTopic(thingName, thingNameLength, jobId, jobIdLength, buffer, TOPIC_BUFFER_SIZE);
+
+    TEST_ASSERT_EQUAL(39,result);
+}
+
