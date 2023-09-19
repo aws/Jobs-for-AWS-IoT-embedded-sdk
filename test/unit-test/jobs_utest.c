@@ -563,7 +563,7 @@ void test_Jobs_asserts( void )
 //Tests for Jobs_isStartNextAccepted
 void test_isStartNextAccepted_isStartNextMsg( void )
 {
-    char topic[] = "$aws/things/thingname/jobs/start-next/accepted";
+    char topic[] = "$aws/things/foobar/jobs/start-next/accepted";
     size_t topicLength = strlen(topic);
 
     bool result = Jobs_isStartNextAccepted(topic, topicLength, name_, nameLength_);
@@ -765,7 +765,7 @@ void test_isJobUpdateStatus_isUpdateAcceptedMsg()
 
 void test_isJobUpdateStatus_isUpdateRejectedMsg()
 {
-    char topic[] = "$aws/things/foobar/jobs/1234/update/accepted";
+    char topic[] = "$aws/things/foobar/jobs/1234/update/rejected";
     size_t topicLength = strlen(topic);
 
     bool result = Jobs_isJobUpdateStatus(topic, topicLength, jobId_, jobIdLength_, JobUpdateStatus_Rejected, name_, nameLength_);
@@ -793,7 +793,7 @@ void test_isJobUpdateStatus_isUpdateMsg_notForCurrentJob()
 
 void test_isJobUpdateStatus_isNotUpdateAcceptedMsg()
 {
-    char topic[] = "$aws/things/foobar/jobs/1234/update/accepted";
+    char topic[] = "$aws/things/foobar/jobs/1234/update/rejected";
     size_t topicLength = strlen(topic);
 
     bool result = Jobs_isJobUpdateStatus(topic, topicLength, jobId_, jobIdLength_, JobUpdateStatus_Accepted, name_, nameLength_);
@@ -868,8 +868,8 @@ void test_getStartNextPendingExecutionTopic_withValidParameters( void ){
 
     size_t result = getStartNextPendingJobExecutionTopic( name_, nameLength_, topicBuffer, TOPIC_BUFFER_SIZE);
 
-    //thingNameLength + rest of topicLength == 37
-    TEST_ASSERT_EQUAL(37, result);
+    //thingNameLength + rest of topicLength == 34
+    TEST_ASSERT_EQUAL(34, result);
 }
 
 //Tests for getStartNextPendingJobExecutionMsg
@@ -966,7 +966,7 @@ void test_getUpdateJobExecutionTopic_hasValidParameters ( void )
 
     size_t result = getUpdateJobExecutionTopic(name_, nameLength_, jobId_, jobIdLength_, buffer, TOPIC_BUFFER_SIZE);
 
-    TEST_ASSERT_EQUAL(39,result);
+    TEST_ASSERT_EQUAL(35,result);
 }
 
 //Tests for getUpdateJobExecutionMsg
