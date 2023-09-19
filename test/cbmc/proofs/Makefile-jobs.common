@@ -15,9 +15,11 @@ endif
 
 INCLUDES += -I$(CBMC_ROOT)/include
 INCLUDES += -I$(SRCDIR)/source/include
+INCLUDES += $(shell curl https://raw.githubusercontent.com/FreeRTOS/coreJSON/main/source/include/core_json.h > core_json.h)
 
 PROOF_SOURCES += $(PROOFDIR)/$(HARNESS_FILE).c
 PROJECT_SOURCES += $(PROOFDIR)/jobs.c
+PROJECT_SOURCES += $(shell curl https://raw.githubusercontent.com/FreeRTOS/coreJSON/main/source/core_json.c > core_json.c)
 
 include ../Makefile.common
 
