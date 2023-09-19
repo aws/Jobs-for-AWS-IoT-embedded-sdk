@@ -50,6 +50,10 @@
 
 jmp_buf CATCH_JMPBUF;
 
+/* ============================   TEST GLOBALS   =============================*/
+
+#define TOPIC_BUFFER_SIZE    256U
+
 /* ============================   UNITY FIXTURES ============================ */
 
 /* Called before each test method. */
@@ -876,4 +880,45 @@ void test_isJobUpdateStatus_hasZeroThingNameLength( void )
     bool result = Jobs_isJobUpdateStatus(topic, topicLength, jobId, jobIdLength, JobUpdateStatus_Accepted, thingName, 0U);
 
     TEST_ASSERT_FALSE(result);
+}
+
+void test_getStartNextPendingJobExecutionTopic_hasNullThingName( void )
+{
+    char * topicBuffer[TOPIC_BUFFER_SIZE + 1] = {0};
+    
+    size_t result = getStartNextPendingJobExecutionTopic(NULL, 1U, topicBuffer, TOPIC_BUFFER_SIZE);
+
+    TEST_ASSERT_EQUAL(0, result);
+}
+
+void test_getStartNextPendingJobExecutionTopic_hasZeroThingNameLength( void )
+{
+    char * topicBuffer[TOPIC_BUFFER_SIZE + 1] = {0};
+    char * thingName = "thingname";
+
+    size_t result = getStartNextPendingJobExecutionTopic(thingName, 0U, topicBuffer, TOPIC_BUFFER_SIZE);
+
+    TEST_ASSERT_EQUAL(0, result);    
+}
+
+void test_getStartNextPendingJobExecutionTopic_bufferSizeTooSmall( void )
+{
+    char * thingName = "thingname";
+    size_t thingNameLength = strlen(thingName);
+    char * topicBuffer[2] = {0};
+    
+    size_t result = getStartNextPendingJobExecutionTopic(thingName, thingNameLength, topicBuffer, 1);
+
+    TEST_ASSERT_EQUAL(0, result);
+}
+
+void test_getStartNextPendingExecutionTopic_validParameters( void ){
+    char * thingName = "thingname";
+    size_t thingNameLength = strlen(thingName);
+    char * topicBuffer[TOPIC_BUFFER_SIZE + 1] = {0};
+
+    size_t result = getStartNextPendingJobExecutionTopic(thingName, thingNameLength, topicBuffer, TOPIC_BUFFER_SIZE);
+
+    //thingNameLength + rest of topicLength == 37
+    TEST_ASSERT_EQUAL(37, result);
 }
