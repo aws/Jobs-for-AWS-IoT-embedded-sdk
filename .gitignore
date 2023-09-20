@@ -11,6 +11,3 @@ build/
 *.gcda
 *.gcno
 *.gcov
-
-#Ignore core_json.c and core_json.h in cbmc proof dirs
-core_json.*
