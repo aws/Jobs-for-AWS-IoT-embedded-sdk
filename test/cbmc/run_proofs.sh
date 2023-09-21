@@ -2,7 +2,7 @@
 
 coreJSONDir="coreJSON"
 
-UNWIND_COUNT=${UNWIND_COUNT:-20}
+UNWIND_COUNT=${UNWIND_COUNT:-10}
 
 #If coreJSON not found, clone it
 if [ ! -d "$coreJSONDir" ]; then
