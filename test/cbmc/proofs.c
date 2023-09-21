@@ -163,7 +163,7 @@ void proof_Jobs_GetTopic( void )
     size_t bufferLength;
     const char * thingName;
     uint16_t thingNameLength;
-    JobsTopic_t api;
+    JobsTopic_t api = 0;
     size_t * outLength;
     JobsStatus_t ret;
 
@@ -176,6 +176,8 @@ void proof_Jobs_GetTopic( void )
     thingName = malloc( thingNameLength );
 
     outLength = malloc( sizeof( *outLength ) );
+
+    __CPROVER_assume(api>=-1 && api<=10);
 
     ret = Jobs_GetTopic( buffer,
                          bufferLength,
