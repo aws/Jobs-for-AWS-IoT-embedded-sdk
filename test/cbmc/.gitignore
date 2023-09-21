@@ -5,6 +5,7 @@ proofs/**/report
 proofs/**/html
 proofs/**/jobs.c
 proofs/output
+coreJSON
 
 # Emitted by CBMC Viewer
 TAGS-*
