@@ -584,7 +584,7 @@ void test_isStartNextAccepted_isNotStartNextMsg( void )
 
 void test_isStartNextAccepted_isStartNextMsgForAnotherThing( void )
 {
-    char topic[] = "$aws/things/differntThingName/jobs/start-next/accepted";
+    char topic[] = "$aws/things/differentThingName/jobs/start-next/accepted";
     size_t topicLength = strlen(topic);
 
     bool result = Jobs_isStartNextAccepted(topic, topicLength, name_, nameLength_);
@@ -611,7 +611,7 @@ void test_isStartNextAccepted_nullTopic( void )
 
 void test_isStartNextAccepted_zeroTopicLength( void )
 {
-    char topic[] = "$aws/things/differntThignName/jobs/start-next/accepted";
+    char topic[] = "$aws/things/differentThingName/jobs/start-next/accepted";
 
     bool result = Jobs_isStartNextAccepted(topic, 0U, name_, nameLength_);
 
@@ -838,7 +838,7 @@ void test_isJobUpdateStatus_hasZeroThingNameLength( void )
 //Tests for getStartNextPendingJobExecutionTopic
 void test_getStartNextPendingJobExecutionTopic_hasNullThingName( void )
 {
-    char * topicBuffer[TOPIC_BUFFER_SIZE + 1] = {0};
+    char topicBuffer[TOPIC_BUFFER_SIZE + 1] = {0};
     
     size_t result = Jobs_getStartNextPendingJobExecutionTopic(NULL, 1U, topicBuffer, TOPIC_BUFFER_SIZE);
 
@@ -847,7 +847,7 @@ void test_getStartNextPendingJobExecutionTopic_hasNullThingName( void )
 
 void test_getStartNextPendingJobExecutionTopic_hasZeroThingNameLength( void )
 {
-    char * topicBuffer[TOPIC_BUFFER_SIZE + 1] = {0};
+    char topicBuffer[TOPIC_BUFFER_SIZE + 1] = {0};
 
     size_t result = Jobs_getStartNextPendingJobExecutionTopic( name_, 0U, topicBuffer, TOPIC_BUFFER_SIZE);
 
@@ -856,7 +856,7 @@ void test_getStartNextPendingJobExecutionTopic_hasZeroThingNameLength( void )
 
 void test_getStartNextPendingJobExecutionTopic_bufferSizeTooSmall( void )
 {
-    char * topicBuffer[2] = {0};
+    char topicBuffer[2] = {0};
     
     size_t result = Jobs_getStartNextPendingJobExecutionTopic(name_, nameLength_, topicBuffer, 1);
 
@@ -864,7 +864,7 @@ void test_getStartNextPendingJobExecutionTopic_bufferSizeTooSmall( void )
 }
 
 void test_getStartNextPendingExecutionTopic_withValidParameters( void ){
-    char * topicBuffer[TOPIC_BUFFER_SIZE + 1] = {0};
+    char topicBuffer[TOPIC_BUFFER_SIZE + 1] = {0};
 
     size_t result = Jobs_getStartNextPendingJobExecutionTopic( name_, nameLength_, topicBuffer, TOPIC_BUFFER_SIZE);
 
@@ -874,7 +874,7 @@ void test_getStartNextPendingExecutionTopic_withValidParameters( void ){
 //Tests for getStartNextPendingJobExecutionMsg
 void test_getStartNextPendingJobExecutionMsg_hasNullClientToken( void )
 {
-    char * buffer[TOPIC_BUFFER_SIZE + 1] = {0};
+    char buffer[TOPIC_BUFFER_SIZE + 1] = {0};
 
     size_t result = Jobs_getStartNextPendingJobExecutionMsg(NULL, 1U, buffer, TOPIC_BUFFER_SIZE);
 
@@ -884,7 +884,7 @@ void test_getStartNextPendingJobExecutionMsg_hasNullClientToken( void )
 void test_getStartNextPendingJobExecutionMsg_hasZeroLengthClientToken( void )
 {
     char * clientToken = "token";
-    char * buffer[TOPIC_BUFFER_SIZE + 1] = {0};
+    char buffer[TOPIC_BUFFER_SIZE + 1] = {0};
 
     size_t result = Jobs_getStartNextPendingJobExecutionMsg(clientToken, 0U, buffer, TOPIC_BUFFER_SIZE);
 
@@ -895,7 +895,7 @@ void test_getStartNextPendingJobExecutionMsg_hasTooSmallBuffer( void )
 {
     char * clientToken = "token";
     size_t clientTokenLength = strlen(clientToken);
-    char * buffer[2] = {0};
+    char buffer[2] = {0};
 
     size_t result = Jobs_getStartNextPendingJobExecutionMsg(clientToken, clientTokenLength, buffer, 1);
 
@@ -906,7 +906,7 @@ void test_getStartNextPendingJobExecutionMsg_hasValidParameters( void )
 {
     char * clientToken = "token";
     size_t clientTokenLength = strlen(clientToken);
-    char * buffer[TOPIC_BUFFER_SIZE + 1] = {0};
+    char buffer[TOPIC_BUFFER_SIZE + 1] = {0};
 
     size_t result = Jobs_getStartNextPendingJobExecutionMsg(clientToken, clientTokenLength, buffer, TOPIC_BUFFER_SIZE);
 
@@ -916,7 +916,7 @@ void test_getStartNextPendingJobExecutionMsg_hasValidParameters( void )
 //Tests for getUpdateJobExecutionTopic
 void test_getUpdateJobExecutionTopic_hasNullThingName ( void )
 {
-    char * buffer[TOPIC_BUFFER_SIZE + 1] = {0};
+    char buffer[TOPIC_BUFFER_SIZE + 1] = {0};
 
     size_t result = Jobs_getUpdateJobExecutionTopic(NULL, 1U, jobId_, jobIdLength_, buffer, TOPIC_BUFFER_SIZE);
 
@@ -925,7 +925,7 @@ void test_getUpdateJobExecutionTopic_hasNullThingName ( void )
 
 void test_getUpdateJobExecutionTopic_hasZeroLengthThingName ( void )
 {
-    char * buffer[TOPIC_BUFFER_SIZE + 1] = {0};
+    char buffer[TOPIC_BUFFER_SIZE + 1] = {0};
 
     size_t result = Jobs_getUpdateJobExecutionTopic(name_, 0U, jobId_, jobIdLength_, buffer, TOPIC_BUFFER_SIZE);
 
@@ -934,7 +934,7 @@ void test_getUpdateJobExecutionTopic_hasZeroLengthThingName ( void )
 
 void test_getUpdateJobExecutionTopic_hasNullJobId ( void )
 {
-    char * buffer[TOPIC_BUFFER_SIZE + 1] = {0};
+    char buffer[TOPIC_BUFFER_SIZE + 1] = {0};
 
     size_t result = Jobs_getUpdateJobExecutionTopic(name_, nameLength_, NULL, 1U, buffer, TOPIC_BUFFER_SIZE);
 
@@ -943,7 +943,7 @@ void test_getUpdateJobExecutionTopic_hasNullJobId ( void )
 
 void test_getUpdateJobExecutionTopic_hasZeroLengthJobId ( void )
 {
-    char * buffer[TOPIC_BUFFER_SIZE + 1] = {0};
+    char buffer[TOPIC_BUFFER_SIZE + 1] = {0};
 
     size_t result = Jobs_getUpdateJobExecutionTopic( name_, nameLength_, jobId_, 0U, buffer, TOPIC_BUFFER_SIZE);
 
@@ -952,7 +952,7 @@ void test_getUpdateJobExecutionTopic_hasZeroLengthJobId ( void )
 
 void test_getUpdateJobExecutionTopic_hasTooSmallBufferSize ( void )
 {
-    char * buffer[2] = {0};
+    char buffer[2] = {0};
 
     size_t result = Jobs_getUpdateJobExecutionTopic(name_, nameLength_, jobId_, jobIdLength_, buffer, 1);
 
@@ -961,7 +961,7 @@ void test_getUpdateJobExecutionTopic_hasTooSmallBufferSize ( void )
 
 void test_getUpdateJobExecutionTopic_hasValidParameters ( void )
 {
-    char * buffer[TOPIC_BUFFER_SIZE + 1] = {0};
+    char buffer[TOPIC_BUFFER_SIZE + 1] = {0};
 
     size_t result = Jobs_getUpdateJobExecutionTopic(name_, nameLength_, jobId_, jobIdLength_, buffer, TOPIC_BUFFER_SIZE);
 
@@ -972,7 +972,7 @@ void test_getUpdateJobExecutionTopic_hasValidParameters ( void )
 void test_getUpdateJobExecutionMsg_hasNullExpectedVersion( void )
 {
     JobCurrentStatus_t status = Queued; 
-    char * buffer[TOPIC_BUFFER_SIZE + 1] = {0};
+    char buffer[TOPIC_BUFFER_SIZE + 1] = {0};
 
     size_t result = Jobs_getUpdateJobExecutionMsg(status, NULL, 1U, buffer, TOPIC_BUFFER_SIZE);
 
@@ -983,7 +983,7 @@ void test_getUpdateJobExecutionMsg_hasZeroLengthExpectedVersion( void )
 {
     char * version = "1.0.1";
     JobCurrentStatus_t status = Queued; 
-    char * buffer[TOPIC_BUFFER_SIZE + 1] = {0};
+    char buffer[TOPIC_BUFFER_SIZE + 1] = {0};
 
     size_t result = Jobs_getUpdateJobExecutionMsg(status, version, 0U, buffer, TOPIC_BUFFER_SIZE);
 
@@ -995,7 +995,7 @@ void test_getUpdateJobExecutionMsg_hasTooSmallBufferSize( void )
     char * version = "1.0.1";
     size_t versionLength = strlen(version);
     JobCurrentStatus_t status = Queued; 
-    char * buffer[2] = {0};
+    char buffer[2] = {0};
 
     size_t result = Jobs_getUpdateJobExecutionMsg(status, version, versionLength, buffer, 1);
 
@@ -1007,7 +1007,7 @@ void test_getUpdateJobExecutionMsg_hasValidParameters( void )
     char * version = "1.0.1";
     size_t versionLength = strlen(version);
     JobCurrentStatus_t status = Queued; 
-    char * buffer[TOPIC_BUFFER_SIZE + 1] = {0};
+    char buffer[TOPIC_BUFFER_SIZE + 1] = {0};
 
     size_t result = Jobs_getUpdateJobExecutionMsg(status, version, versionLength, buffer, TOPIC_BUFFER_SIZE);
 
