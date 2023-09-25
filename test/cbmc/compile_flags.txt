@@ -1,5 +1,0 @@
--I../../source/include
--I../../source
--Wall
--Wextra
--Wno-uninitialized

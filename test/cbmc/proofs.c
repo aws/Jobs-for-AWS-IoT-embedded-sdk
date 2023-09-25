@@ -17,7 +17,7 @@
 #define CBMC_MAX_OBJECT_SIZE (SIZE_MAX>>(CBMC_OBJECT_BITS+1))
 #define CBMC_MAX_BUFSIZE ( UNWIND_COUNT )
 #define CBMC_THINGNAME_MAX_LEN (UNWIND_COUNT -1)
-#define CBMC_JOBID_MAX_LENGTH (UNWIND_COUNT -1)
+#define CBMC_JOBID_MAX_LEN (UNWIND_COUNT -1)
 
 void proof_strnEq( void ){
     char * bufferA, * bufferB;
@@ -96,7 +96,7 @@ void proof_Jobs_Describe( void )
     thingName = malloc( thingNameLength );
 
     /* The job ID length must not exceed unwindings. */
-    __CPROVER_assume( jobIdLength <= CBMC_JOBID_MAX_LENGTH );
+    __CPROVER_assume( jobIdLength <= CBMC_JOBID_MAX_LEN );
     jobId = malloc( jobIdLength );
 
     outLength = malloc( sizeof( *outLength ) );
@@ -300,7 +300,7 @@ void proof_Jobs_Update( void ){
     thingName = malloc( thingNameLength );
 
     /* The job ID length must not exceed unwindings. */
-    __CPROVER_assume( jobIdLength <= CBMC_JOBID_MAX_LENGTH );
+    __CPROVER_assume( jobIdLength <= CBMC_JOBID_MAX_LEN );
     jobId = malloc( jobIdLength );
 
     outLength = malloc( sizeof( *outLength ) );
@@ -346,6 +346,162 @@ void proof_Jobs_IsStartNextAccepted( void ){
 
 }
 
+void proof_Jobs_IsJobUpdateStatus( void ){
+    bool ret;
+    const char * topic;
+    const size_t topicLength;
+    const char* thingName;
+    const size_t thingNameLength;
+    const char * jobId;
+    const size_t jobIdLength;
+    JobUpdateStatus_t expectedStatus;
+
+    __CPROVER_assume(topicLength < CBMC_MAX_BUFSIZE);
+    topic = malloc(topicLength);
+
+    __CPROVER_assume(thingNameLength < CBMC_THINGNAME_MAX_LEN);
+    thingName = malloc(thingNameLength);
+
+    __CPROVER_assume(jobIdLength < CBMC_JOBID_MAX_LEN);
+    jobId = malloc(jobIdLength);
+
+    ret = Jobs_isJobUpdateStatus(topic,
+                                 topicLength,
+                                 jobId,
+                                 jobIdLength,
+                                 expectedStatus,
+                                 thingName,
+                                 thingNameLength);
+
+    __CPROVER_assert( (ret == 0 || ret == 1), "Return value is bool");
+}
+
+void proof_Jobs_getJobId( void ){
+    const char * message;
+    const size_t messageLength;
+    const char * jobId;
+    size_t ret;
+
+    __CPROVER_assume(messageLength <= CBMC_MAX_OBJECT_SIZE);
+    message = malloc(messageLength);
+
+    ret = Jobs_getJobId(message,
+                        messageLength,
+                        jobId);
+
+    __CPROVER_assert(ret == strlen(jobId), "Returned value matches JobID length.");
+}
+
+void proof_Jobs_getJobDocument( void ){
+    const char * message;
+    size_t messageLength;
+    const char * jobdoc;
+    size_t ret;
+
+    __CPROVER_assume(messageLength <= CBMC_MAX_OBJECT_SIZE);
+    message = malloc(messageLength);
+
+    ret = Jobs_getJobDocument(message,
+                              messageLength,
+                              jobdoc);
+    
+    __CPROVER_assert(ret == strlen(jobdoc), "Returned value matches jobDoc length.");
+}
+
+void proof_Jobs_getStartNextPendingJobExecutionTopic( void ){
+    const char * thingName;
+    size_t thingNameLength;
+    const char * buffer;
+    size_t bufferLength;
+    size_t ret;
+
+    __CPROVER_assume(thingNameLength <= CBMC_THINGNAME_MAX_LEN);
+    thingName = malloc(thingNameLength);
+
+    __CPROVER_assume(bufferLength <= CBMC_MAX_OBJECT_SIZE);
+    buffer = malloc(bufferLength);
+
+    ret = Jobs_getStartNextPendingJobExecutionTopic(thingName,
+                                                    thingNameLength,
+                                                    buffer,
+                                                    bufferLength);
+
+    __CPROVER_assert(ret == strlen(buffer), "Returned value is equal to buffer length.");
+}
+
+void proof_Jobs_getStartNextPendingJobExecutionMsg( void ){
+    const char * clientToken;
+    size_t clientTokenLength;
+    const char * buffer;
+    size_t bufferLength;
+    size_t ret;
+
+    __CPROVER_assume( clientTokenLength <= CBMC_MAX_BUFSIZE);
+    clientToken = malloc(clientTokenLength);
+
+    __CPROVER_assume(bufferLength <= CBMC_MAX_OBJECT_SIZE);
+    buffer = malloc(bufferLength);
+
+    ret = Jobs_getStartNextPendingJobExecutionMsg(clientToken,
+                                                  clientTokenLength,
+                                                  buffer,
+                                                  bufferLength);
+
+    __CPROVER_assert(ret == strlen(buffer), "Returned value is equal to buffer length.");
+}
+
+void proof_Jobs_getUpdateJobExecutionTopic( void ){
+    const char * thingName;
+    size_t thingNameLength;
+    char * jobId;
+    size_t jobIdLength;
+    char * buffer;
+    size_t bufferLength;
+    size_t ret;
+
+    __CPROVER_assume(thingNameLength <= CBMC_THINGNAME_MAX_LEN);
+    thingName = malloc(thingNameLength);
+
+    __CPROVER_assume(jobIdLength <= CBMC_JOBID_MAX_LEN);
+    jobId = malloc(jobId);
+
+    __CPROVER_assume(bufferLength <= CBMC_MAX_OBJECT_SIZE);
+    buffer = malloc(bufferLength);
+
+    ret = Jobs_getUpdateJobExecutionTopic(thingName,
+                                          thingNameLength,
+                                          jobId,
+                                          jobIdLength,
+                                          buffer,
+                                          bufferLength);
+
+    __CPROVER_assert(ret == strlen(buffer), "Returned vallue matches buffer length");
+}
+
+void proof_Jobs_getUpdateJobExecutionMsg( void ){
+    JobCurrentStatus_t status;
+    char * expectedVersion;
+    size_t expectedVersionLength;
+    char * buffer;
+    size_t bufferLength;
+    size_t ret;
+
+    __CPROVER_assume(expectedVersionLength <= CBMC_MAX_BUFSIZE);
+    expectedVersion = malloc(expectedVersionLength);
+
+    __CPROVER_assume(bufferLength <= CBMC_MAX_OBJECT_SIZE);
+    buffer = malloc(bufferLength);
+
+    ret = Jobs_getUpdateJobExecutionMsg(status,
+                                        expectedVersion,
+                                        expectedVersionLength,
+                                        buffer,
+                                        bufferLength);
+    
+
+    __CPROVER_assert(ret == strlen(buffer), "Returned value matches buffer length.");
+}
+
 int main()
 {
     proof_strnAppend();
@@ -357,4 +513,11 @@ int main()
     proof_Jobs_StartNext();
     proof_Jobs_Update();
     proof_Jobs_IsStartNextAccepted();
+    proof_Jobs_IsStartNextAccepted();
+    proof_Jobs_getJobId();
+    proof_Jobs_getJobDocument();
+    proof_Jobs_getStartNextPendingJobExecutionTopic();
+    proof_Jobs_getStartNextPendingJobExecutionMsg();
+    proof_Jobs_getUpdateJobExecutionTopic();
+    proof_Jobs_getUpdateJobExecutionMsg();
 }

@@ -6,8 +6,8 @@ proofs/**/html
 proofs/**/jobs.c
 proofs/output
 coreJSON 
-core_json.*
-
+sources/jobs.*
+output/cbmcOutput.txt
 # Emitted by CBMC Viewer
 TAGS-*
 
