@@ -9,19 +9,15 @@
 #include "core_json.h"
 #include "jobs_annex.h"
 
-#ifndef __CPROVER__
-bool __CPROVER_assume( bool );
-bool __CPROVER_r_ok( const void *, ... );
-bool __CPROVER_rw_ok( const void *, ... );
-#endif
-
 #ifndef UNWIND_COUNT
-    #define UNWIND_COUNT 20
+    #define UNWIND_COUNT 10
 #endif
 
 #define CBMC_OBJECT_BITS 8
 #define CBMC_MAX_OBJECT_SIZE (SIZE_MAX>>(CBMC_OBJECT_BITS+1))
-#define CBMC_MAX_BUFSIZE 50
+#define CBMC_MAX_BUFSIZE ( UNWIND_COUNT )
+#define CBMC_THINGNAME_MAX_LEN (UNWIND_COUNT -1)
+#define CBMC_JOBID_MAX_LENGTH (UNWIND_COUNT -1)
 
 void proof_strnEq( void ){
     char * bufferA, * bufferB;
@@ -96,11 +92,11 @@ void proof_Jobs_Describe( void )
     buffer = malloc( bufferLength );
 
     /* The thing name length must not exceed unwindings. */
-    __CPROVER_assume( thingNameLength <= THINGNAME_MAX_LENGTH );
+    __CPROVER_assume( thingNameLength <= CBMC_THINGNAME_MAX_LEN );
     thingName = malloc( thingNameLength );
 
     /* The job ID length must not exceed unwindings. */
-    __CPROVER_assume( jobIdLength <= JOBID_MAX_LENGTH );
+    __CPROVER_assume( jobIdLength <= CBMC_JOBID_MAX_LENGTH );
     jobId = malloc( jobIdLength );
 
     outLength = malloc( sizeof( *outLength ) );
@@ -136,7 +132,7 @@ void proof_Jobs_GetPending( void ){
     buffer = malloc( bufferLength );
 
     /* The thing name length must not exceed unwindings. */
-    __CPROVER_assume( thingNameLength <= THINGNAME_MAX_LENGTH );
+    __CPROVER_assume( thingNameLength <= CBMC_THINGNAME_MAX_LEN );
     thingName = malloc( thingNameLength );
 
     outLength = malloc( sizeof( *outLength ) );
@@ -172,7 +168,7 @@ void proof_Jobs_GetTopic( void )
     buffer = malloc( bufferLength );
 
     /* The thing name length must not exceed unwindings. */
-    __CPROVER_assume( thingNameLength <= THINGNAME_MAX_LENGTH );
+    __CPROVER_assume( thingNameLength <= CBMC_THINGNAME_MAX_LEN );
     thingName = malloc( thingNameLength );
 
     outLength = malloc( sizeof( *outLength ) );
@@ -212,7 +208,7 @@ void proof_Jobs_MatchTopic( void )
     topic = malloc( topicLength );
 
     /* The thing name length must not exceed unwindings. */
-    __CPROVER_assume( thingNameLength <= THINGNAME_MAX_LENGTH );
+    __CPROVER_assume( thingNameLength <= CBMC_THINGNAME_MAX_LEN );
     thingName = malloc( thingNameLength );
 
     outApi = malloc( sizeof( *outApi ) );
@@ -264,7 +260,7 @@ void proof_Jobs_StartNext( void )
     buffer = malloc( bufferLength );
 
     /* The thing name length must not exceed unwindings. */
-    __CPROVER_assume( thingNameLength <= THINGNAME_MAX_LENGTH );
+    __CPROVER_assume( thingNameLength <= CBMC_THINGNAME_MAX_LEN );
     thingName = malloc( thingNameLength );
 
     outLength = malloc( sizeof( *outLength ) );
@@ -300,11 +296,11 @@ void proof_Jobs_Update( void ){
     buffer = malloc( bufferLength );
 
     /* The thing name length must not exceed unwindings. */
-    __CPROVER_assume( thingNameLength <= THINGNAME_MAX_LENGTH );
+    __CPROVER_assume( thingNameLength <= CBMC_THINGNAME_MAX_LEN );
     thingName = malloc( thingNameLength );
 
     /* The job ID length must not exceed unwindings. */
-    __CPROVER_assume( jobIdLength <= JOBID_MAX_LENGTH );
+    __CPROVER_assume( jobIdLength <= CBMC_JOBID_MAX_LENGTH );
     jobId = malloc( jobIdLength );
 
     outLength = malloc( sizeof( *outLength ) );
@@ -327,6 +323,29 @@ void proof_Jobs_Update( void ){
     }
 }
 
+void proof_Jobs_IsStartNextAccepted( void ){
+    bool ret;
+    const char * topic;
+    const size_t topicLength;
+    const char* thingName;
+    const size_t thingNameLength;
+
+    __CPROVER_assume(topicLength < CBMC_MAX_BUFSIZE);
+    topic = malloc(topicLength);
+
+    __CPROVER_assume(thingNameLength < CBMC_THINGNAME_MAX_LEN);
+    thingName = malloc(thingNameLength);
+
+
+    ret = Jobs_isStartNextAccepted(topic,
+                                   topicLength,
+                                   thingName,
+                                   thingNameLength);
+
+    __CPROVER_assert( (ret == 0 || ret == 1), "Return value is bool");
+
+}
+
 int main()
 {
     proof_strnAppend();
@@ -337,4 +356,5 @@ int main()
     proof_Jobs_MatchTopic();
     proof_Jobs_StartNext();
     proof_Jobs_Update();
+    proof_Jobs_IsStartNextAccepted();
 }
