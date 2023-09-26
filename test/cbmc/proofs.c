@@ -14,7 +14,7 @@
 #endif
 
 #define CBMC_OBJECT_BITS 8
-#define CBMC_MAX_OBJECT_SIZE (SIZE_MAX>>(CBMC_OBJECT_BITS+1))
+#define CBMC_MAX_OBJECT_SIZE ( PTRDIFF_MAX )
 #define CBMC_MAX_BUFSIZE ( UNWIND_COUNT )
 #define CBMC_THINGNAME_MAX_LEN (UNWIND_COUNT -1)
 #define CBMC_JOBID_MAX_LEN (UNWIND_COUNT -1)
@@ -512,12 +512,12 @@ int main()
     proof_Jobs_MatchTopic();
     proof_Jobs_StartNext();
     proof_Jobs_Update();
-    // proof_Jobs_IsStartNextAccepted();
-    // proof_Jobs_IsJobUpdateStatus();
-    // proof_Jobs_getJobId();
-    // proof_Jobs_getJobDocument();
-    // proof_Jobs_getStartNextPendingJobExecutionTopic();
-    // proof_Jobs_getStartNextPendingJobExecutionMsg();
-    // proof_Jobs_getUpdateJobExecutionTopic();
-    // proof_Jobs_getUpdateJobExecutionMsg();
+    proof_Jobs_IsStartNextAccepted();
+    proof_Jobs_IsJobUpdateStatus();
+    proof_Jobs_getJobId();
+    proof_Jobs_getJobDocument();
+    proof_Jobs_getStartNextPendingJobExecutionTopic();
+    proof_Jobs_getStartNextPendingJobExecutionMsg();
+    proof_Jobs_getUpdateJobExecutionTopic();
+    proof_Jobs_getUpdateJobExecutionMsg();
 }
