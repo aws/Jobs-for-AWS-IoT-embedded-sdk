@@ -27,4 +27,4 @@ exec cbmc test/cbmc/proofs.c test/cbmc/sources/jobs.c -Isource/include -Isource 
      --pointer-primitive-check \
      --drop-unused-functions --nondet-static --unwinding-assertions \
      "$@" --unwind "$UNWIND_COUNT" -DUNWIND_COUNT="$UNWIND_COUNT" \
-     --c99 >&1 | tee test/cbmc/output/cbmcOutput.txt
+     --c99 --trace >&1 | tee test/cbmc/output/cbmcOutput.txt

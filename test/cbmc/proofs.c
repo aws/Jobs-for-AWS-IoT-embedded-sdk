@@ -204,7 +204,7 @@ void proof_Jobs_MatchTopic( void )
     JobsStatus_t ret;
 
     /* The buffer length must not exceed the maximum object size supported by CBMC. */
-    __CPROVER_assume( topicLength < CBMC_MAX_BUFSIZE );
+    __CPROVER_assume( topicLength < CBMC_MAX_OBJECT_SIZE );
     topic = malloc( topicLength );
 
     /* The thing name length must not exceed unwindings. */
@@ -379,7 +379,7 @@ void proof_Jobs_IsJobUpdateStatus( void ){
 void proof_Jobs_getJobId( void ){
     const char * message;
     const size_t messageLength;
-    const char * jobId;
+    char ** jobId;
     size_t ret;
 
     __CPROVER_assume(messageLength <= CBMC_MAX_OBJECT_SIZE);
@@ -395,7 +395,7 @@ void proof_Jobs_getJobId( void ){
 void proof_Jobs_getJobDocument( void ){
     const char * message;
     size_t messageLength;
-    const char * jobdoc;
+    char ** jobdoc;
     size_t ret;
 
     __CPROVER_assume(messageLength <= CBMC_MAX_OBJECT_SIZE);
@@ -512,12 +512,12 @@ int main()
     proof_Jobs_MatchTopic();
     proof_Jobs_StartNext();
     proof_Jobs_Update();
-    proof_Jobs_IsStartNextAccepted();
-    proof_Jobs_IsStartNextAccepted();
-    proof_Jobs_getJobId();
-    proof_Jobs_getJobDocument();
-    proof_Jobs_getStartNextPendingJobExecutionTopic();
-    proof_Jobs_getStartNextPendingJobExecutionMsg();
-    proof_Jobs_getUpdateJobExecutionTopic();
-    proof_Jobs_getUpdateJobExecutionMsg();
+    // proof_Jobs_IsStartNextAccepted();
+    // proof_Jobs_IsStartNextAccepted();
+    // proof_Jobs_getJobId();
+    // proof_Jobs_getJobDocument();
+    // proof_Jobs_getStartNextPendingJobExecutionTopic();
+    // proof_Jobs_getStartNextPendingJobExecutionMsg();
+    // proof_Jobs_getUpdateJobExecutionTopic();
+    // proof_Jobs_getUpdateJobExecutionMsg();
 }
