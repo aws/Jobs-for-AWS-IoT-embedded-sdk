@@ -513,7 +513,7 @@ int main()
     proof_Jobs_StartNext();
     proof_Jobs_Update();
     // proof_Jobs_IsStartNextAccepted();
-    // proof_Jobs_IsStartNextAccepted();
+    // proof_Jobs_IsJobUpdateStatus();
     // proof_Jobs_getJobId();
     // proof_Jobs_getJobDocument();
     // proof_Jobs_getStartNextPendingJobExecutionTopic();
