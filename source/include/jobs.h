@@ -829,24 +829,10 @@ bool Jobs_isJobUpdateStatus(const char * topic,
                                 const size_t thingNameLength );
 
 
-size_t Jobs_getStartNextPendingJobExecutionTopic( const char * thingname,
-                                             size_t thingnameLength,
-                                             char * buffer,
-                                             size_t bufferSize );
-
-
 size_t Jobs_getStartNextPendingJobExecutionMsg( const char * clientToken,
                                            size_t clientTokenLength,
                                            char * buffer,
                                            size_t bufferSize );
-
-
-size_t Jobs_getUpdateJobExecutionTopic( char * thingname,
-                                   size_t thingnameLength,
-                                   char * jobId,
-                                   size_t jobIdLength,
-                                   char * buffer,
-                                   size_t bufferSize );
 
 
 size_t Jobs_getUpdateJobExecutionMsg( JobCurrentStatus_t status,

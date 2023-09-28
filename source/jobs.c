@@ -601,7 +601,7 @@ static bool isThingnameTopicMatch(const char * topic,
               "$aws/things/",
               thingNameBuffer,
               suffixTerminated );
-        isMatch = ( uint32_t ) strnlen( expectedTopicBuffer, TOPIC_BUFFER_SIZE ) ==
+        isMatch = ( size_t ) strnlen( expectedTopicBuffer, TOPIC_BUFFER_SIZE ) ==
               topicLength;
         isMatch = isMatch && strncmp( expectedTopicBuffer, topic, topicLength ) == 0;
     }
@@ -889,28 +889,6 @@ size_t Jobs_getJobDocument(const char * message, size_t messageLength, char ** j
     return jobDocLength;
 }
 
-size_t Jobs_getStartNextPendingJobExecutionTopic( const char * thingname,
-                                                    size_t thingnameLength,
-                                                    char * buffer,
-                                                    size_t bufferSize )
-{
-    size_t topicLength = 0U; 
-
-    if (thingname != NULL && thingnameLength > 0U && ( bufferSize >= 28U + thingnameLength ))
-    {
-        topicLength = sizeof( "$aws/things/" ) - 1;
-        memcpy( buffer, "$aws/things/", sizeof( "$aws/things/" ) - 1 );
-        memcpy( buffer + topicLength, thingname, thingnameLength );
-        topicLength += thingnameLength;
-        memcpy( buffer + topicLength,
-                "/jobs/start-next",
-                sizeof( "/jobs/start-next" ) - 1 );
-        topicLength += sizeof( "/jobs/start-next" ) - 1;
-    }
-
-    return topicLength;
-}
-
 size_t Jobs_getStartNextPendingJobExecutionMsg( const char * clientToken,
                                                   size_t clientTokenLength,
                                                   char * buffer,
@@ -931,32 +909,6 @@ size_t Jobs_getStartNextPendingJobExecutionMsg( const char * clientToken,
     }
 
     return messageLength;
-}
-
-size_t Jobs_getUpdateJobExecutionTopic( char * thingname,
-                                          size_t thingnameLength,
-                                          char * jobId,
-                                          size_t jobIdLength,
-                                          char * buffer,
-                                          size_t bufferSize )
-{
-    size_t topicLength = 0;
-
-    if ( thingname != NULL && jobId != NULL && thingnameLength > 0U && jobIdLength > 0U && (( bufferSize >= 25U + thingnameLength + jobIdLength )))
-    {
-        topicLength = sizeof( "$aws/things/" ) - 1;
-        memcpy( buffer, "$aws/things/", sizeof( "$aws/things/" ) - 1 );
-        memcpy( buffer + topicLength, thingname, thingnameLength );
-        topicLength += thingnameLength;
-        memcpy( buffer + topicLength, "/jobs/", sizeof( "/jobs/" ) - 1 );
-        topicLength += sizeof( "/jobs/" ) - 1;
-        memcpy( buffer + topicLength, jobId, jobIdLength );
-        topicLength += jobIdLength;
-        memcpy( buffer + topicLength, "/update", sizeof( "/update" ) - 1 );
-        topicLength += sizeof( "/update" ) - 1;
-    }
-
-    return topicLength;
 }
 
 size_t Jobs_getUpdateJobExecutionMsg( JobCurrentStatus_t status,
