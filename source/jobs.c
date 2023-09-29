@@ -96,7 +96,7 @@ static const size_t jobStatusStringLengths[ 5U ] = {
 };
 
 static const char * jobUpdateStatusString[ 2U ] = { "accepted", "rejected" };
-static const char * jobUpdateStatusStringLengths[ 2U ] = { sizeof("accepted") - 1U, sizeof("rejected") - 1U };
+static const size_t * jobUpdateStatusStringLengths[ 2U ] = { sizeof("accepted") - 1U, sizeof("rejected") - 1U };
 
 /**
  * @brief Predicate returns true for a valid thing name or job ID character.
@@ -839,7 +839,7 @@ bool Jobs_isJobUpdateStatus( const char * topic,
     char suffixBuffer[ TOPIC_BUFFER_SIZE - MAX_THING_NAME_LENGTH - 4U] = { 0 };
     char jobIdTerminated[ JOBS_JOBID_MAX_LENGTH + 1 ] = { 0 };
     char updateStatusString[ UPDATE_JOB_STATUS_MAX_LENGTH + 1 ] = { 0 };
-
+    
     memcpy(&jobIdTerminated, jobId, jobIdLength);
     memcpy(&updateStatusString, jobUpdateStatusString[ expectedStatus ], jobUpdateStatusStringLengths[ expectedStatus ]);
 

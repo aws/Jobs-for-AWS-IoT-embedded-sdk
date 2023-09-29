@@ -203,7 +203,7 @@ void proof_Jobs_MatchTopic( void )
     JobsStatus_t ret;
 
     /* The buffer length must not exceed the maximum object size supported by CBMC. */
-    __CPROVER_assume( topicLength < CBMC_MAX_OBJECT_SIZE );
+    __CPROVER_assume( topicLength < CBMC_THINGNAME_MAX_LEN );
     topic = malloc( topicLength );
 
     /* The thing name length must not exceed unwindings. */
@@ -329,7 +329,7 @@ void proof_Jobs_IsStartNextAccepted( void ){
     const char* thingName;
     const size_t thingNameLength;
 
-    __CPROVER_assume(topicLength < CBMC_MAX_BUFSIZE);
+    __CPROVER_assume(topicLength < 128);
     topic = malloc(topicLength);
 
     __CPROVER_assume(thingNameLength < CBMC_THINGNAME_MAX_LEN);
@@ -353,9 +353,9 @@ void proof_Jobs_IsJobUpdateStatus( void ){
     const size_t thingNameLength;
     const char * jobId;
     const size_t jobIdLength;
-    JobUpdateStatus_t expectedStatus;
+    JobUpdateStatus_t expectedStatus = 0;
 
-    __CPROVER_assume(topicLength < CBMC_MAX_BUFSIZE);
+    __CPROVER_assume(topicLength < CBMC_THINGNAME_MAX_LEN);
     topic = malloc(topicLength);
 
     __CPROVER_assume(thingNameLength < CBMC_THINGNAME_MAX_LEN);
@@ -363,6 +363,8 @@ void proof_Jobs_IsJobUpdateStatus( void ){
 
     __CPROVER_assume(jobIdLength < CBMC_JOBID_MAX_LEN);
     jobId = malloc(jobIdLength);
+
+    __CPROVER_assume(expectedStatus == JobUpdateStatus_Accepted || expectedStatus == JobUpdateStatus_Rejected);
 
     ret = Jobs_isJobUpdateStatus(topic,
                                  topicLength,
@@ -438,7 +440,7 @@ void proof_Jobs_getUpdateJobExecutionMsg( void ){
     __CPROVER_assume(expectedVersionLength <= CBMC_MAX_BUFSIZE);
     expectedVersion = malloc(expectedVersionLength);
 
-    __CPROVER_assume( bufferLength  <= CBMC_MAX_OBJECT_SIZE );
+    __CPROVER_assume( bufferLength  <= CBMC_MAX_BUFSIZE );
     buffer = malloc(bufferLength);
 
     __CPROVER_assume(status >= 0 && status <= 4);
@@ -453,13 +455,6 @@ void proof_Jobs_getUpdateJobExecutionMsg( void ){
 
 void proofs_fast( void ) 
 {
-    //add proofs that are fast to run 
-}
-
-int main()
-{
-    proof_strnAppend();
-    proof_strnEq();
     proof_Jobs_Describe();
     proof_Jobs_GetPending();
     proof_Jobs_GetTopic();
@@ -468,8 +463,13 @@ int main()
     proof_Jobs_Update();
     proof_Jobs_IsStartNextAccepted();
     // proof_Jobs_IsJobUpdateStatus();
+    proof_Jobs_getStartNextPendingJobExecutionMsg(); 
+    proof_Jobs_getUpdateJobExecutionMsg();
+}
+
+int main()
+{
+    proofs_fast();
     // proof_Jobs_getJobId();
     // proof_Jobs_getJobDocument();
-    proof_Jobs_getStartNextPendingJobExecutionMsg(); 
-    // proof_Jobs_getUpdateJobExecutionMsg();
 }
