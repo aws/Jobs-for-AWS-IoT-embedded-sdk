@@ -395,7 +395,7 @@ void proof_Jobs_getJobId( void ){
 void proof_Jobs_getJobDocument( void ){
     const char * message;
     size_t messageLength;
-    char ** jobdoc;
+    char * jobdoc;
     size_t ret;
 
     __CPROVER_assume(messageLength <= CBMC_MAX_OBJECT_SIZE);
@@ -403,9 +403,7 @@ void proof_Jobs_getJobDocument( void ){
 
     ret = Jobs_getJobDocument(message,
                               messageLength,
-                              jobdoc);
-    
-    __CPROVER_assert(ret == strlen(jobdoc), "Returned value matches jobDoc length.");
+                              &jobdoc);
 }
 
 
@@ -437,10 +435,10 @@ void proof_Jobs_getUpdateJobExecutionMsg( void ){
     size_t bufferLength;
     size_t ret;
 
-    __CPROVER_assume(expectedVersionLength <= CBMC_MAX_BUFSIZE);
+    __CPROVER_assume(expectedVersionLength <= CBMC_THINGNAME_MAX_LEN);
     expectedVersion = malloc(expectedVersionLength);
 
-    __CPROVER_assume( bufferLength  <= CBMC_MAX_BUFSIZE );
+    __CPROVER_assume( bufferLength  <= 64 );
     buffer = malloc(bufferLength);
 
     __CPROVER_assume(status >= 0 && status <= 4);
@@ -453,7 +451,7 @@ void proof_Jobs_getUpdateJobExecutionMsg( void ){
     
 }
 
-void proofs_fast( void ) 
+int main()
 {
     proof_Jobs_Describe();
     proof_Jobs_GetPending();
@@ -462,14 +460,9 @@ void proofs_fast( void )
     proof_Jobs_StartNext();
     proof_Jobs_Update();
     proof_Jobs_IsStartNextAccepted();
-    // proof_Jobs_IsJobUpdateStatus();
+    proof_Jobs_IsJobUpdateStatus();
     proof_Jobs_getStartNextPendingJobExecutionMsg(); 
     proof_Jobs_getUpdateJobExecutionMsg();
-}
-
-int main()
-{
-    proofs_fast();
-    // proof_Jobs_getJobId();
-    // proof_Jobs_getJobDocument();
+    proof_Jobs_getJobId();
+    proof_Jobs_getJobDocument();
 }

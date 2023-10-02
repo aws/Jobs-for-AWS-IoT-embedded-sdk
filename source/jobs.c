@@ -95,8 +95,13 @@ static const size_t jobStatusStringLengths[ 5U ] = {
     sizeof( "REJECTED" ) - 1U
 };
 
-static const char * jobUpdateStatusString[ 2U ] = { "accepted", "rejected" };
-static const size_t * jobUpdateStatusStringLengths[ 2U ] = { sizeof("accepted") - 1U, sizeof("rejected") - 1U };
+static const char * jobUpdateStatusString[ 2U ] = { "accepted", 
+                                                    "rejected" };
+
+static const size_t jobUpdateStatusStringLengths[ 2U ] = {
+     sizeof("accepted") - 1U, 
+     sizeof("rejected") - 1U 
+};
 
 /**
  * @brief Predicate returns true for a valid thing name or job ID character.
@@ -580,7 +585,7 @@ static bool isThingnameTopicMatch(const char * topic,
     /* TODO: Inefficient - better implementation shouldn't use snprintf */
     char expectedTopicBuffer[ TOPIC_BUFFER_SIZE + 1 ] = { 0 };
     char thingNameBuffer[ MAX_THING_NAME_LENGTH + 1 ] = { 0 };
-    char suffixTerminated[ JOBS_JOBID_MAX_LENGTH + 1 ] = { 0 };
+    char suffixTerminated[ MAX_THING_NAME_LENGTH + 1 ] = { 0 };
     bool isMatch = true;
 
     if ( topic == NULL || topicLength == 0 )
@@ -861,12 +866,13 @@ size_t Jobs_getJobId(const char * message, size_t messageLength, char ** jobId)
     jsonResult = JSON_Validate( message, messageLength );
     if( jsonResult == JSONSuccess )
     {
-        jsonResult = JSON_Search( ( char * ) message,
+        jsonResult = JSON_SearchT( ( char * ) message,
                                   messageLength,
                                   "execution.jobId",
                                   sizeof( "execution.jobId" ) - 1,
                                   jobId,
-                                  &jobIdLength );
+                                  &jobIdLength,
+                                  NULL );
     }
     return jobIdLength;
 }
@@ -878,12 +884,13 @@ size_t Jobs_getJobDocument(const char * message, size_t messageLength, char ** j
     jsonResult = JSON_Validate( message, messageLength );
     if( jsonResult == JSONSuccess )
     {
-        jsonResult = JSON_Search( ( char * ) message,
+        jsonResult = JSON_SearchT( ( char * ) message,
                                   messageLength,
                                   "execution.jobDocument",
                                   sizeof( "execution.jobDocument" ) - 1,
                                   jobDoc,
-                                  &jobDocLength );
+                                  &jobDocLength,
+                                  NULL );
     }
 
     return jobDocLength;
@@ -920,7 +927,8 @@ size_t Jobs_getUpdateJobExecutionMsg( JobCurrentStatus_t status,
     size_t messageLength = 0;
 
     if ( expectedVersion != NULL && expectedVersionLength > 0U && bufferSize >=
-            34U + expectedVersionLength + jobStatusStringLengths[ status ] )
+            34U + expectedVersionLength + jobStatusStringLengths[ status ] 
+            && jobUpdateStatusString[status] != NULL)
     {
         messageLength = sizeof( "{\"status\":\"" ) - 1;
         memcpy( buffer, "{\"status\":\"", sizeof( "{\"status\":\"" ) - 1 );
