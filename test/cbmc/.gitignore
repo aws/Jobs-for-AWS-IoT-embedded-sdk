@@ -1,4 +1,3 @@
 # Emitted when running CBMC proofs
 coreJSON 
-sources/jobs.*
 output/cbmcOutput.txt
