@@ -566,7 +566,7 @@ void test_isStartNextAccepted_isStartNextMsg( void )
     char topic[] = "$aws/things/foobar/jobs/start-next/accepted";
     size_t topicLength = strlen(topic);
 
-    bool result = Jobs_isStartNextAccepted(topic, topicLength, name_, nameLength_);
+    bool result = Jobs_IsStartNextAccepted(topic, topicLength, name_, nameLength_);
 
     TEST_ASSERT_TRUE(result);
 
@@ -577,7 +577,7 @@ void test_isStartNextAccepted_isNotStartNextMsg( void )
     char topic[] = "thingname/random/topic";
     size_t topicLength = strlen(topic);
 
-    bool result = Jobs_isStartNextAccepted(topic, topicLength, name_, nameLength_);
+    bool result = Jobs_IsStartNextAccepted(topic, topicLength, name_, nameLength_);
 
     TEST_ASSERT_FALSE(result);
 }
@@ -587,7 +587,7 @@ void test_isStartNextAccepted_isStartNextMsgForAnotherThing( void )
     char topic[] = "$aws/things/differntThingName/jobs/start-next/accepted";
     size_t topicLength = strlen(topic);
 
-    bool result = Jobs_isStartNextAccepted(topic, topicLength, name_, nameLength_);
+    bool result = Jobs_IsStartNextAccepted(topic, topicLength, name_, nameLength_);
 
     TEST_ASSERT_FALSE(result);
 }
@@ -597,14 +597,14 @@ void test_isStartNextAccepted_isStartNextMsgForSameLengthThing( void )
     char topic[] = "$aws/things/different/jobs/start-next/accepted";
     size_t topicLength = strlen(topic);
 
-    bool result = Jobs_isStartNextAccepted(topic, topicLength, name_, nameLength_);
+    bool result = Jobs_IsStartNextAccepted(topic, topicLength, name_, nameLength_);
 
     TEST_ASSERT_FALSE(result);
 }
 
 void test_isStartNextAccepted_nullTopic( void )
 {
-    bool result = Jobs_isStartNextAccepted(NULL, 1U, name_, nameLength_);
+    bool result = Jobs_IsStartNextAccepted(NULL, 1U, name_, nameLength_);
 
     TEST_ASSERT_FALSE(result);
 }
@@ -613,7 +613,7 @@ void test_isStartNextAccepted_zeroTopicLength( void )
 {
     char topic[] = "$aws/things/differntThignName/jobs/start-next/accepted";
 
-    bool result = Jobs_isStartNextAccepted(topic, 0U, name_, nameLength_);
+    bool result = Jobs_IsStartNextAccepted(topic, 0U, name_, nameLength_);
 
     TEST_ASSERT_FALSE(result);
 }
@@ -623,7 +623,7 @@ void test_isStartNextAccepted_nullThingName( void )
     char topic[] = "$aws/things/different/jobs/start-next/accepted";
     size_t topicLength = strlen(topic);
 
-    bool result = Jobs_isStartNextAccepted(topic, topicLength, NULL, 1U);
+    bool result = Jobs_IsStartNextAccepted(topic, topicLength, NULL, 1U);
 
     TEST_ASSERT_FALSE(result);
 }
@@ -633,7 +633,7 @@ void test_isStartNextAccepted_zeroThingNameLength( void )
     char topic[] = "$aws/things/different/jobs/start-next/accepted";
     size_t topicLength = strlen(topic);
 
-    bool result = Jobs_isStartNextAccepted(topic, topicLength, name_, 0U);
+    bool result = Jobs_IsStartNextAccepted(topic, topicLength, name_, 0U);
 
     TEST_ASSERT_FALSE(result);
 }
@@ -645,7 +645,7 @@ void test_getJobId_returnsJobId( void )
     char * message = "{\"execution\":{\"jobId\":\"identification\",\"jobDocument\":\"document\"}}";
     char * jobId = NULL;
 
-    size_t result = Jobs_getJobId(message, strlen(message), &jobId);
+    size_t result = Jobs_GetJobId(message, strlen(message), &jobId);
 
     TEST_ASSERT_EQUAL(strlen("identification"), result);
     TEST_ASSERT_EQUAL_MEMORY("identification", jobId, result);
@@ -656,7 +656,7 @@ void test_getJobId_cannotFindJobId( void )
     char * message = "{\"execution\":{\"jobDocument\":\"document\"}}";
     char * jobId = NULL;
 
-    size_t result = Jobs_getJobId(message, strlen(message), &jobId);
+    size_t result = Jobs_GetJobId(message, strlen(message), &jobId);
 
     TEST_ASSERT_EQUAL(0U, result);
     TEST_ASSERT_NULL(jobId);
@@ -667,7 +667,7 @@ void test_getJobId_malformedJson( void )
     char * message = "clearlyNotJson";
     char * jobId = NULL;
 
-    size_t result = Jobs_getJobId(message, strlen(message), &jobId);
+    size_t result = Jobs_GetJobId(message, strlen(message), &jobId);
 
 TEST_ASSERT_EQUAL(0U, result);
     TEST_ASSERT_NULL(jobId);
@@ -677,7 +677,7 @@ void test_getJobId_returnsZeroLengthJob_givenNullMessage( void )
 {
     char * jobId = NULL;
 
-    size_t result = Jobs_getJobId(NULL, 10U, &jobId);
+    size_t result = Jobs_GetJobId(NULL, 10U, &jobId);
 
     TEST_ASSERT_EQUAL(0U, result);
     TEST_ASSERT_NULL(jobId);
@@ -689,7 +689,7 @@ void test_getJobId_returnsZeroLengthJob_givenZeroMessageLength( void )
     char * message = "{\"execution\":{\"jobId\":\"identification\",\"jobDocument\":\"document\"}}";
     char * jobId = NULL;
 
-    size_t result = Jobs_getJobId(message, 0U, &jobId);
+    size_t result = Jobs_GetJobId(message, 0U, &jobId);
 
     TEST_ASSERT_EQUAL(0U, result);
     TEST_ASSERT_NULL(jobId);
