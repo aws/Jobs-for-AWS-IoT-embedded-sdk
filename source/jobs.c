@@ -217,14 +217,6 @@ static bool isValidJobId( const char * jobId,
                       JOBID_MAX_LENGTH, false );
 }
 
-//TODO: Add description
-static bool isThingnameTopicMatch(const char * topic,
-                           const size_t topicLength,
-                           const char * topicSuffix,
-                           const size_t topicSuffixLength,
-                           const char * thingName,
-                           const size_t thingNameLength );
-
 /**
  * @brief A strncpy replacement based on lengths only.
  *
