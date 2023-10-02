@@ -784,7 +784,7 @@ bool Jobs_checkForJobs();
  * @param jobId [Out] The job ID
  * @return size_t The job ID length
  */
-size_t Jobs_getJobId(const char * message, size_t messageLength, char ** jobId);
+size_t Jobs_GetJobId(const char * message, size_t messageLength, char ** jobId);
 
 /**
  * @brief Retrieves the job document from a given message (if applicable)
@@ -794,7 +794,7 @@ size_t Jobs_getJobId(const char * message, size_t messageLength, char ** jobId);
  * @param jobDoc [Out] The job document
  * @return size_t The length of the job document
  */
-size_t Jobs_getJobDocument(const char * message, size_t messageLength, char ** jobDoc);
+size_t Jobs_GetJobDocument(const char * message, size_t messageLength, char ** jobDoc);
 
 /**
  * @brief Checks if a message comes from the start-next/accepted reserved topic
@@ -804,7 +804,7 @@ size_t Jobs_getJobDocument(const char * message, size_t messageLength, char ** j
  * @return true If the topic is the start-next/accepted topic
  * @return false If the topic is not the start-next/accepted topic
  */
-bool Jobs_isStartNextAccepted( const char * topic,
+bool Jobs_IsStartNextAccepted( const char * topic,
                                const size_t topicLength,
                                const char * thingName,
                                const size_t thingNameLength );
@@ -820,22 +820,22 @@ bool Jobs_isStartNextAccepted( const char * topic,
  * @return true If the topic is the update/<expectedStatus> topic
  * @return false If the topic is not the update/<expectedStatus> topic
  */
-bool Jobs_isJobUpdateStatus(const char * topic,
+bool Jobs_IsJobUpdateStatus(const char * topic,
                                 const size_t topicLength,
                                 const char * jobId,
                                 const size_t jobIdLength,
-                                JobUpdateStatus_t expectedStatus,
                                 const char * thingName,
-                                const size_t thingNameLength );
+                                const size_t thingNameLength,
+                                JobUpdateStatus_t expectedStatus );
 
 
-size_t Jobs_getStartNextPendingJobExecutionMsg( const char * clientToken,
+size_t Jobs_GetStartNextPendingJobExecutionMsg( const char * clientToken,
                                            size_t clientTokenLength,
                                            char * buffer,
                                            size_t bufferSize );
 
 
-size_t Jobs_getUpdateJobExecutionMsg( JobCurrentStatus_t status,
+size_t Jobs_GetUpdateJobExecutionMsg( JobCurrentStatus_t status,
                                  char * expectedVersion,
                                  size_t expectedVersionLength,
                                  char * buffer,

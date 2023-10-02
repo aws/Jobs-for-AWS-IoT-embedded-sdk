@@ -6,7 +6,7 @@ size_t strnlen(const char * s, size_t maxlen)
 
     size_t result;
 
-    result = strlen(s);
+    result = (size_t) strlen(s);
     if (result > maxlen){
         result = maxlen;
     }

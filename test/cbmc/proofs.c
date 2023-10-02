@@ -17,6 +17,7 @@
 #define CBMC_MAX_BUFSIZE ( UNWIND_COUNT )
 #define CBMC_THINGNAME_MAX_LEN (UNWIND_COUNT -1)
 #define CBMC_JOBID_MAX_LEN (UNWIND_COUNT -1)
+#define CBMC_TOPIC_MAX_LEN (UNWIND_COUNT -1)
 
 void proof_strnEq( void ){
     char * bufferA, * bufferB;
@@ -203,7 +204,7 @@ void proof_Jobs_MatchTopic( void )
     JobsStatus_t ret;
 
     /* The buffer length must not exceed the maximum object size supported by CBMC. */
-    __CPROVER_assume( topicLength < CBMC_THINGNAME_MAX_LEN );
+    __CPROVER_assume( topicLength < CBMC_TOPIC_MAX_LEN );
     topic = malloc( topicLength );
 
     /* The thing name length must not exceed unwindings. */
@@ -329,14 +330,14 @@ void proof_Jobs_IsStartNextAccepted( void ){
     const char* thingName;
     const size_t thingNameLength;
 
-    __CPROVER_assume(topicLength < 128);
+    __CPROVER_assume(topicLength < CBMC_TOPIC_MAX_LEN);
     topic = malloc(topicLength);
 
     __CPROVER_assume(thingNameLength < CBMC_THINGNAME_MAX_LEN);
     thingName = malloc(thingNameLength);
 
 
-    ret = Jobs_isStartNextAccepted(topic,
+    ret = Jobs_IsStartNextAccepted(topic,
                                    topicLength,
                                    thingName,
                                    thingNameLength);
@@ -355,7 +356,7 @@ void proof_Jobs_IsJobUpdateStatus( void ){
     const size_t jobIdLength;
     JobUpdateStatus_t expectedStatus = 0;
 
-    __CPROVER_assume(topicLength < CBMC_THINGNAME_MAX_LEN);
+    __CPROVER_assume(topicLength < CBMC_TOPIC_MAX_LEN);
     topic = malloc(topicLength);
 
     __CPROVER_assume(thingNameLength < CBMC_THINGNAME_MAX_LEN);
@@ -366,18 +367,18 @@ void proof_Jobs_IsJobUpdateStatus( void ){
 
     __CPROVER_assume(expectedStatus == JobUpdateStatus_Accepted || expectedStatus == JobUpdateStatus_Rejected);
 
-    ret = Jobs_isJobUpdateStatus(topic,
+    ret = Jobs_IsJobUpdateStatus(topic,
                                  topicLength,
                                  jobId,
                                  jobIdLength,
-                                 expectedStatus,
                                  thingName,
-                                 thingNameLength);
+                                 thingNameLength,
+                                 expectedStatus);
 
     __CPROVER_assert( (ret == 0 || ret == 1), "Return value is bool");
 }
 
-void proof_Jobs_getJobId( void ){
+void proof_Jobs_GetJobId( void ){
     const char * message;
     const size_t messageLength;
     char * jobId = NULL;
@@ -386,13 +387,13 @@ void proof_Jobs_getJobId( void ){
     __CPROVER_assume(messageLength <= CBMC_MAX_OBJECT_SIZE);
     message = malloc(messageLength);
 
-    ret = Jobs_getJobId(message,
+    ret = Jobs_GetJobId(message,
                         messageLength,
                         &jobId);
 
 }
 
-void proof_Jobs_getJobDocument( void ){
+void proof_Jobs_GetJobDocument( void ){
     const char * message;
     size_t messageLength;
     char * jobdoc;
@@ -401,13 +402,13 @@ void proof_Jobs_getJobDocument( void ){
     __CPROVER_assume(messageLength <= CBMC_MAX_OBJECT_SIZE);
     message = malloc(messageLength);
 
-    ret = Jobs_getJobDocument(message,
+    ret = Jobs_GetJobDocument(message,
                               messageLength,
                               &jobdoc);
 }
 
 
-void proof_Jobs_getStartNextPendingJobExecutionMsg( void ){
+void proof_Jobs_GetStartNextPendingJobExecutionMsg( void ){
     const char * clientToken;
     size_t clientTokenLength;
     const char * buffer;
@@ -420,14 +421,14 @@ void proof_Jobs_getStartNextPendingJobExecutionMsg( void ){
     __CPROVER_assume(bufferLength <= CBMC_MAX_OBJECT_SIZE);
     buffer = malloc(bufferLength);
 
-    ret = Jobs_getStartNextPendingJobExecutionMsg(clientToken,
+    ret = Jobs_GetStartNextPendingJobExecutionMsg(clientToken,
                                                   clientTokenLength,
                                                   buffer,
                                                   bufferLength);
 
 }
 
-void proof_Jobs_getUpdateJobExecutionMsg( void ){
+void proof_Jobs_GetUpdateJobExecutionMsg( void ){
     JobCurrentStatus_t status = 0;
     char * expectedVersion;
     size_t expectedVersionLength;
@@ -443,7 +444,7 @@ void proof_Jobs_getUpdateJobExecutionMsg( void ){
 
     __CPROVER_assume(status >= 0 && status <= 4);
 
-    ret = Jobs_getUpdateJobExecutionMsg(status,
+    ret = Jobs_GetUpdateJobExecutionMsg(status,
                                         expectedVersion,
                                         expectedVersionLength,
                                         buffer,
@@ -461,8 +462,8 @@ int main()
     proof_Jobs_Update();
     proof_Jobs_IsStartNextAccepted();
     proof_Jobs_IsJobUpdateStatus();
-    proof_Jobs_getStartNextPendingJobExecutionMsg(); 
-    proof_Jobs_getUpdateJobExecutionMsg();
-    proof_Jobs_getJobId();
-    proof_Jobs_getJobDocument();
+    proof_Jobs_GetStartNextPendingJobExecutionMsg(); 
+    proof_Jobs_GetUpdateJobExecutionMsg();
+    proof_Jobs_GetJobId();
+    proof_Jobs_GetJobDocument();
 }

@@ -10,6 +10,8 @@ JSONStatus_t JSON_SearchT(char * buf,
                          JSONTypes_t * outType )
 {
     __CPROVER_assert(buf != NULL, "Buffer is not NULL");
+    __CPROVER_assert(query != NULL, "query is not NULL");
+    __CPROVER_assert(**outValue != NULL, "outValue is not NULL");
     
     JSONStatus_t ret = 0;
 
