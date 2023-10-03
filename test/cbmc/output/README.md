@@ -1,4 +1,4 @@
-CBMC Proof Output Files 
+CBMC Proof Output Files
 =======================
 
-This directory contains files with the output from a run of cbmc. 
+This directory contains files with the output from a run of cbmc.
