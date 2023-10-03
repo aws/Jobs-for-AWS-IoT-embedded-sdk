@@ -815,6 +815,7 @@ bool Jobs_IsStartNextAccepted( const char * topic,
                                const size_t thingNameLength );
 
 /**
+ * @cond DoNotRaiseWarning
  * @brief Checks if a message comes from the update/accepted reserved topic
  *
  * @param topic The topic to check against
@@ -826,6 +827,7 @@ bool Jobs_IsStartNextAccepted( const char * topic,
  * @param expectedStatus The job update status reported by AWS IoT Jobs
  * @return true If the topic is the update/<expectedStatus> topic
  * @return false If the topic is not the update/<expectedStatus> topic
+ * @endcond 
  */
 bool Jobs_IsJobUpdateStatus( const char * topic,
                              const size_t topicLength,
@@ -835,13 +837,34 @@ bool Jobs_IsJobUpdateStatus( const char * topic,
                              const size_t thingNameLength,
                              JobUpdateStatus_t expectedStatus );
 
-
+/**
+ * @brief Fills buffer with client token and returns the messageLength
+ * 
+ * @param clientToken The device's token 
+ * @param clientTokenLength The expected length of the clientToken
+ * @param buffer The buffer to be written to
+ * @param bufferSize The size of the buffer 
+ * 
+ * @return 0 if write to buffer fails 
+ * @return The message length if the write is successful
+*/
 size_t Jobs_GetStartNextPendingJobExecutionMsg( const char * clientToken,
                                                 size_t clientTokenLength,
                                                 char * buffer,
                                                 size_t bufferSize );
 
-
+/**
+ * @brief Populates buffer with the job's current status and expected version 
+ * 
+ * @param status Current status of the job
+ * @param expectedVersion The version that is expected 
+ * @param expectedVersionLength The length of the expectedVersion 
+ * @param buffer The buffer to be written to 
+ * @param bufferSize the size of the buffer 
+ * 
+ * @return 0 if write to buffer fails
+ * @return messageLength if the write is successful 
+*/
 size_t Jobs_GetUpdateJobExecutionMsg( JobCurrentStatus_t status,
                                       char * expectedVersion,
                                       size_t expectedVersionLength,
