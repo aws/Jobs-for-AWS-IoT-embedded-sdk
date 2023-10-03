@@ -775,8 +775,6 @@ JobsStatus_t Jobs_Update( char * buffer,
 bool Jobs_sendStatusUpdate( const char * jobId,
                             const size_t jobIdLength );
 
-bool Jobs_checkForJobs();
-
 /**
  * @brief Retrieves the job ID from a given message (if applicable)
  *
