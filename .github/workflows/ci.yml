@@ -89,7 +89,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Clone coreJSON 
-        run: git clone https://github.com/FreeRTOS/coreJSON.git ../coreJSON
+        run: git clone https://github.com/FreeRTOS/coreJSON.git ../../coreJSON
       - name: Install Python3
         uses: actions/setup-python@v3
         with:
