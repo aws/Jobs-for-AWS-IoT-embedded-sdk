@@ -246,7 +246,7 @@ typedef enum JobCurrentStatus
 } JobCurrentStatus_t;
 
 /**
- * TODO: update comment
+ * @brief Status codes for job update status 
  */
 typedef enum JobUpdateStatus
 {
@@ -286,11 +286,6 @@ typedef enum
     JobsUpdateFailed,
     JobsMaxTopic
 } JobsTopic_t;
-
-typedef bool ( * IncomingJobDocHandler_t )( const char * jobId,
-                                            const size_t jobIdLength,
-                                            const char * jobDoc,
-                                            const size_t jobDocLength );
 
 /*-----------------------------------------------------------*/
 
@@ -769,11 +764,6 @@ JobsStatus_t Jobs_Update( char * buffer,
                           size_t * outLength );
 /* @[declare_jobs_update] */
 
-/* ------------------------ Jobs API Functions -------------------------- */
-/* Called by downstream users of Jobs (e.g. the OTA library) */
-
-bool Jobs_sendStatusUpdate( const char * jobId,
-                            const size_t jobIdLength );
 
 /**
  * @brief Retrieves the job ID from a given message (if applicable)
@@ -825,8 +815,8 @@ bool Jobs_IsStartNextAccepted( const char * topic,
  * @param thingName The device's thingName as registered with AWS IoT.
  * @param thingNameLength The length of the thingName.
  * @param expectedStatus The job update status reported by AWS IoT Jobs
- * @return true If the topic is the update/<expectedStatus> topic
- * @return false If the topic is not the update/<expectedStatus> topic
+ * @return true If the topic is the update/\<expectedStatus\> topic
+ * @return false If the topic is not the update/\<expectedStatus\> topic
  * @endcond 
  */
 bool Jobs_IsJobUpdateStatus( const char * topic,
