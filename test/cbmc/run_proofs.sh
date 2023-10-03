@@ -1,11 +1,9 @@
 #!/bin/sh
 
-coreJSONDir="coreJSON"
-
 UNWIND_COUNT=${UNWIND_COUNT:-10}
 
 #If coreJSON not found, clone it
-if [ ! -d "$coreJSONDir" ]; then
+if [ ! -d "coreJSON" ]; then
     git clone https://github.com/FreeRTOS/coreJSON.git --depth 1
 fi
 
