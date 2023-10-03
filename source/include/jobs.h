@@ -32,7 +32,7 @@
 #ifndef JOBS_H_
 #define JOBS_H_
 
-#include <stdbool.h> 
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
 
@@ -243,10 +243,10 @@ typedef enum JobCurrentStatus
     Failed,
     Succeeded,
     Rejected
-} JobCurrentStatus_t; 
+} JobCurrentStatus_t;
 
 /**
- * TODO: update comment  
+ * TODO: update comment
  */
 typedef enum JobUpdateStatus
 {
@@ -287,10 +287,10 @@ typedef enum
     JobsMaxTopic
 } JobsTopic_t;
 
-typedef bool ( *IncomingJobDocHandler_t )( const char * jobId,
-                                           const size_t jobIdLength,
-                                           const char * jobDoc,
-                                           const size_t jobDocLength );
+typedef bool ( * IncomingJobDocHandler_t )( const char * jobId,
+                                            const size_t jobIdLength,
+                                            const char * jobDoc,
+                                            const size_t jobDocLength );
 
 /*-----------------------------------------------------------*/
 
@@ -772,35 +772,40 @@ JobsStatus_t Jobs_Update( char * buffer,
 /* ------------------------ Jobs API Functions -------------------------- */
 /* Called by downstream users of Jobs (e.g. the OTA library) */
 
-bool Jobs_sendStatusUpdate( const char * jobId, const size_t jobIdLength );
+bool Jobs_sendStatusUpdate( const char * jobId,
+                            const size_t jobIdLength );
 
 bool Jobs_checkForJobs();
 
 /**
  * @brief Retrieves the job ID from a given message (if applicable)
- * 
+ *
  * @param message [In] A JSON formatted message which
  * @param messageLength [In] The length of the message
  * @param jobId [Out] The job ID
  * @return size_t The job ID length
  */
-size_t Jobs_GetJobId(const char * message, size_t messageLength, char ** jobId);
+size_t Jobs_GetJobId( const char * message,
+                      size_t messageLength,
+                      char ** jobId );
 
 /**
  * @brief Retrieves the job document from a given message (if applicable)
- * 
+ *
  * @param message [In] A JSON formatted message which
  * @param messageLength [In] The length of the message
  * @param jobDoc [Out] The job document
  * @return size_t The length of the job document
  */
-size_t Jobs_GetJobDocument(const char * message, size_t messageLength, char ** jobDoc);
+size_t Jobs_GetJobDocument( const char * message,
+                            size_t messageLength,
+                            char ** jobDoc );
 
 /**
  * @brief Checks if a message comes from the start-next/accepted reserved topic
- * 
+ *
  * @param topic The topic to check against
- * @param topicLength The expected topic length 
+ * @param topicLength The expected topic length
  * @return true If the topic is the start-next/accepted topic
  * @return false If the topic is not the start-next/accepted topic
  */
@@ -811,35 +816,35 @@ bool Jobs_IsStartNextAccepted( const char * topic,
 
 /**
  * @brief Checks if a message comes from the update/accepted reserved topic
- * 
+ *
  * @param topic The topic to check against
- * @param topicLength The expected topic length 
+ * @param topicLength The expected topic length
  * @param jobId Corresponding Job ID which the update was accepted for
  * @param jobIdLength The Job ID length
  * @param expectedStatus The job update status reported by AWS IoT Jobs
  * @return true If the topic is the update/<expectedStatus> topic
  * @return false If the topic is not the update/<expectedStatus> topic
  */
-bool Jobs_IsJobUpdateStatus(const char * topic,
-                                const size_t topicLength,
-                                const char * jobId,
-                                const size_t jobIdLength,
-                                const char * thingName,
-                                const size_t thingNameLength,
-                                JobUpdateStatus_t expectedStatus );
+bool Jobs_IsJobUpdateStatus( const char * topic,
+                             const size_t topicLength,
+                             const char * jobId,
+                             const size_t jobIdLength,
+                             const char * thingName,
+                             const size_t thingNameLength,
+                             JobUpdateStatus_t expectedStatus );
 
 
 size_t Jobs_GetStartNextPendingJobExecutionMsg( const char * clientToken,
-                                           size_t clientTokenLength,
-                                           char * buffer,
-                                           size_t bufferSize );
+                                                size_t clientTokenLength,
+                                                char * buffer,
+                                                size_t bufferSize );
 
 
 size_t Jobs_GetUpdateJobExecutionMsg( JobCurrentStatus_t status,
-                                 char * expectedVersion,
-                                 size_t expectedVersionLength,
-                                 char * buffer,
-                                 size_t bufferSize );
+                                      char * expectedVersion,
+                                      size_t expectedVersionLength,
+                                      char * buffer,
+                                      size_t bufferSize );
 
 /* *INDENT-OFF* */
 #ifdef __cplusplus

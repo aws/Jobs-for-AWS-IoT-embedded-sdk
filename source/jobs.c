@@ -72,22 +72,27 @@ static const size_t apiTopicLength[] =
     JOBS_API_UPDATE_LENGTH + JOBS_API_FAILURE_LENGTH,
 };
 
-#define TOPIC_BUFFER_SIZE     256U
-#define MAX_THING_NAME_LENGTH 128U
+#define TOPIC_BUFFER_SIZE               256U
+#define MAX_THING_NAME_LENGTH           128U
 /* This accounts for the message fields and client token (128 chars) */
-#define START_JOB_MSG_LENGTH  147U
+#define START_JOB_MSG_LENGTH            147U
+
 /* This accounts for the message fields and expected version size (up to '999')
  */
-#define UPDATE_JOB_MSG_LENGTH 48U
-#define UPDATE_JOB_STATUS_MAX_LENGTH 8U
+#define UPDATE_JOB_MSG_LENGTH           48U
+#define UPDATE_JOB_STATUS_MAX_LENGTH    8U
 
-static const char * const jobStatusString[ 5U ] = { "QUEUED",
-                                              "IN_PROGRESS",
-                                              "FAILED",
-                                              "SUCCEEDED",
-                                              "REJECTED" };
+static const char * const jobStatusString[ 5U ] =
+{
+    "QUEUED",
+    "IN_PROGRESS",
+    "FAILED",
+    "SUCCEEDED",
+    "REJECTED"
+};
 
-static const size_t jobStatusStringLengths[ 5U ] = {
+static const size_t jobStatusStringLengths[ 5U ] =
+{
     sizeof( "QUEUED" ) - 1U,
     sizeof( "IN_PROGRESS" ) - 1U,
     sizeof( "FAILED" ) - 1U,
@@ -95,12 +100,16 @@ static const size_t jobStatusStringLengths[ 5U ] = {
     sizeof( "REJECTED" ) - 1U
 };
 
-static const char * const jobUpdateStatusString[ 2U ] = { "accepted", 
-                                                    "rejected" };
+static const char * const jobUpdateStatusString[ 2U ] =
+{
+    "accepted",
+    "rejected"
+};
 
-static const size_t jobUpdateStatusStringLengths[ 2U ] = {
-     sizeof("accepted") - 1U, 
-     sizeof("rejected") - 1U 
+static const size_t jobUpdateStatusStringLengths[ 2U ] =
+{
+    sizeof( "accepted" ) - 1U,
+    sizeof( "rejected" ) - 1U
 };
 
 /**
@@ -113,7 +122,7 @@ static const size_t jobUpdateStatusStringLengths[ 2U ] = {
  * false otherwise
  */
 static bool isValidChar( char a,
-                          bool allowColon )
+                         bool allowColon )
 {
     bool ret;
 
@@ -159,9 +168,9 @@ static bool isValidChar( char a,
  * false otherwise
  */
 static bool isValidID( const char * id,
-                        uint16_t length,
-                        uint16_t max,
-                        bool allowColon )
+                       uint16_t length,
+                       uint16_t max,
+                       bool allowColon )
 {
     bool ret = false;
 
@@ -195,7 +204,7 @@ static bool isValidID( const char * id,
  * false otherwise
  */
 static bool isValidThingName( const char * thingName,
-                               uint16_t thingNameLength )
+                              uint16_t thingNameLength )
 {
     return isValidID( thingName, thingNameLength,
                       THINGNAME_MAX_LENGTH, true );
@@ -211,7 +220,7 @@ static bool isValidThingName( const char * thingName,
  * false otherwise
  */
 static bool isValidJobId( const char * jobId,
-                           uint16_t jobIdLength )
+                          uint16_t jobIdLength )
 {
     return isValidID( jobId, jobIdLength,
                       JOBID_MAX_LENGTH, false );
@@ -401,7 +410,7 @@ static JobsStatus_t strnnEq( const char * a,
  * false otherwise
  */
 static bool isNextJobId( const char * jobId,
-                          uint16_t jobIdLength )
+                         uint16_t jobIdLength )
 {
     bool ret = false;
 
@@ -567,12 +576,12 @@ static JobsStatus_t matchApi( char * topic,
     return ret;
 }
 
-static bool isThingnameTopicMatch(const char * topic,
-                                    const size_t topicLength,
-                                    const char * topicSuffix,
-                                    const size_t topicSuffixLength,
-                                    const char * thingName,
-                                    const size_t thingNameLength)
+static bool isThingnameTopicMatch( const char * topic,
+                                   const size_t topicLength,
+                                   const char * topicSuffix,
+                                   const size_t topicSuffixLength,
+                                   const char * thingName,
+                                   const size_t thingNameLength )
 {
     /* TODO: Inefficient - better implementation shouldn't use snprintf */
     char expectedTopicBuffer[ TOPIC_BUFFER_SIZE + 1 ] = { 0 };
@@ -580,26 +589,27 @@ static bool isThingnameTopicMatch(const char * topic,
     char suffixTerminated[ TOPIC_BUFFER_SIZE - MAX_THING_NAME_LENGTH - 13U ] = { 0 };
     bool isMatch = true;
 
-    if ( topic == NULL || topicLength == 0 )
+    if( ( topic == NULL ) || ( topicLength == 0 ) )
     {
         isMatch = false;
-    } else if ( thingName == NULL || thingNameLength == 0)
+    }
+    else if( ( thingName == NULL ) || ( thingNameLength == 0 ) )
     {
         isMatch = false;
     }
 
-    if ( isMatch )
+    if( isMatch )
     {
-        memcpy(thingNameBuffer,thingName, thingNameLength);
-        memcpy(suffixTerminated, topicSuffix, topicSuffixLength);
+        memcpy( thingNameBuffer, thingName, thingNameLength );
+        memcpy( suffixTerminated, topicSuffix, topicSuffixLength );
         snprintf( expectedTopicBuffer,
-              TOPIC_BUFFER_SIZE,
-              "%s%s%s",
-              "$aws/things/",
-              thingNameBuffer,
-              suffixTerminated );
+                  TOPIC_BUFFER_SIZE,
+                  "%s%s%s",
+                  "$aws/things/",
+                  thingNameBuffer,
+                  suffixTerminated );
         isMatch = ( size_t ) strnlen( expectedTopicBuffer, TOPIC_BUFFER_SIZE ) ==
-              topicLength;
+                  topicLength;
         isMatch = isMatch && strncmp( expectedTopicBuffer, topic, topicLength ) == 0;
     }
 
@@ -818,27 +828,27 @@ JobsStatus_t Jobs_Update( char * buffer,
 
 bool Jobs_IsStartNextAccepted( const char * topic,
                                const size_t topicLength,
-                               const char* thingName,
+                               const char * thingName,
                                const size_t thingNameLength )
 {
-    return isThingnameTopicMatch(topic, topicLength, "/jobs/start-next/accepted", strlen("/jobs/start-next/accepted"), thingName , thingNameLength );
+    return isThingnameTopicMatch( topic, topicLength, "/jobs/start-next/accepted", strlen( "/jobs/start-next/accepted" ), thingName, thingNameLength );
 }
 
 bool Jobs_IsJobUpdateStatus( const char * topic,
-                                const size_t topicLength,
-                                const char * jobId,
-                                const size_t jobIdLength,
-                                const char * thingName,
-                                const size_t thingNameLength,
-                                JobUpdateStatus_t expectedStatus )
+                             const size_t topicLength,
+                             const char * jobId,
+                             const size_t jobIdLength,
+                             const char * thingName,
+                             const size_t thingNameLength,
+                             JobUpdateStatus_t expectedStatus )
 {
     /* Max suffix size = max topic size - "$aws/<thingname>" prefix */
-    char suffixBuffer[ TOPIC_BUFFER_SIZE - MAX_THING_NAME_LENGTH - 4U] = { 0 };
+    char suffixBuffer[ TOPIC_BUFFER_SIZE - MAX_THING_NAME_LENGTH - 4U ] = { 0 };
     char jobIdTerminated[ JOBS_JOBID_MAX_LENGTH + 1 ] = { 0 };
     char updateStatusString[ UPDATE_JOB_STATUS_MAX_LENGTH + 1 ] = { 0 };
-    
-    memcpy(&jobIdTerminated, jobId, jobIdLength);
-    memcpy(&updateStatusString, jobUpdateStatusString[ expectedStatus ], jobUpdateStatusStringLengths[ expectedStatus ]);
+
+    memcpy( &jobIdTerminated, jobId, jobIdLength );
+    memcpy( &updateStatusString, jobUpdateStatusString[ expectedStatus ], jobUpdateStatusStringLengths[ expectedStatus ] );
 
     snprintf( suffixBuffer,
               TOPIC_BUFFER_SIZE - MAX_THING_NAME_LENGTH - 4U,
@@ -848,14 +858,18 @@ bool Jobs_IsJobUpdateStatus( const char * topic,
               "/update/",
               updateStatusString );
 
-    return isThingnameTopicMatch(topic, topicLength, suffixBuffer, strnlen(suffixBuffer, TOPIC_BUFFER_SIZE - MAX_THING_NAME_LENGTH - 4U), thingName , thingNameLength );
+    return isThingnameTopicMatch( topic, topicLength, suffixBuffer, strnlen( suffixBuffer, TOPIC_BUFFER_SIZE - MAX_THING_NAME_LENGTH - 4U ), thingName, thingNameLength );
 }
 
-size_t Jobs_GetJobId(const char * message, size_t messageLength, char ** jobId)
+size_t Jobs_GetJobId( const char * message,
+                      size_t messageLength,
+                      char ** jobId )
 {
     size_t jobIdLength = 0U;
     JSONStatus_t jsonResult = JSONNotFound;
+
     jsonResult = JSON_Validate( message, messageLength );
+
     if( jsonResult == JSONSuccess )
     {
         jsonResult = JSON_Search( ( char * ) message,
@@ -863,16 +877,21 @@ size_t Jobs_GetJobId(const char * message, size_t messageLength, char ** jobId)
                                   "execution.jobId",
                                   sizeof( "execution.jobId" ) - 1,
                                   jobId,
-                                  &jobIdLength);
+                                  &jobIdLength );
     }
+
     return jobIdLength;
 }
 
-size_t Jobs_GetJobDocument(const char * message, size_t messageLength, char ** jobDoc)
+size_t Jobs_GetJobDocument( const char * message,
+                            size_t messageLength,
+                            char ** jobDoc )
 {
     size_t jobDocLength = 0U;
     JSONStatus_t jsonResult = JSONNotFound;
+
     jsonResult = JSON_Validate( message, messageLength );
+
     if( jsonResult == JSONSuccess )
     {
         jsonResult = JSON_Search( ( char * ) message,
@@ -880,20 +899,20 @@ size_t Jobs_GetJobDocument(const char * message, size_t messageLength, char ** j
                                   "execution.jobDocument",
                                   sizeof( "execution.jobDocument" ) - 1,
                                   jobDoc,
-                                  &jobDocLength);
+                                  &jobDocLength );
     }
 
     return jobDocLength;
 }
 
 size_t Jobs_GetStartNextPendingJobExecutionMsg( const char * clientToken,
-                                                  size_t clientTokenLength,
-                                                  char * buffer,
-                                                  size_t bufferSize )
+                                                size_t clientTokenLength,
+                                                char * buffer,
+                                                size_t bufferSize )
 {
     size_t messageLength = 0U;
 
-    if ( clientToken != NULL  && clientTokenLength > 0U && ( bufferSize >= 18U + clientTokenLength ) )
+    if( ( clientToken != NULL ) && ( clientTokenLength > 0U ) && ( bufferSize >= 18U + clientTokenLength ) )
     {
         messageLength = sizeof( "{\"clientToken\":\"" ) - 1;
         memcpy( buffer,
@@ -909,16 +928,16 @@ size_t Jobs_GetStartNextPendingJobExecutionMsg( const char * clientToken,
 }
 
 size_t Jobs_GetUpdateJobExecutionMsg( JobCurrentStatus_t status,
-                                        char * expectedVersion,
-                                        size_t expectedVersionLength,
-                                        char * buffer,
-                                        size_t bufferSize )
+                                      char * expectedVersion,
+                                      size_t expectedVersionLength,
+                                      char * buffer,
+                                      size_t bufferSize )
 {
     size_t messageLength = 0;
 
-    if ( expectedVersion != NULL && expectedVersionLength > 0U && bufferSize >=
-            34U + expectedVersionLength + jobStatusStringLengths[ status ] 
-            && jobUpdateStatusString[status] != NULL)
+    if( ( expectedVersion != NULL ) && ( expectedVersionLength > 0U ) && ( bufferSize >=
+                                                                           34U + expectedVersionLength + jobStatusStringLengths[ status ] ) &&
+        ( jobUpdateStatusString[ status ] != NULL ) )
     {
         messageLength = sizeof( "{\"status\":\"" ) - 1;
         memcpy( buffer, "{\"status\":\"", sizeof( "{\"status\":\"" ) - 1 );
