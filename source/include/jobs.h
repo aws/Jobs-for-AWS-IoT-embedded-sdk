@@ -805,7 +805,6 @@ bool Jobs_IsStartNextAccepted( const char * topic,
                                const size_t thingNameLength );
 
 /**
- * @cond DoNotRaiseWarning
  * @brief Checks if a message comes from the update/accepted reserved topic
  *
  * @param topic The topic to check against
@@ -817,7 +816,6 @@ bool Jobs_IsStartNextAccepted( const char * topic,
  * @param expectedStatus The job update status reported by AWS IoT Jobs
  * @return true If the topic is the update/\<expectedStatus\> topic
  * @return false If the topic is not the update/\<expectedStatus\> topic
- * @endcond 
  */
 bool Jobs_IsJobUpdateStatus( const char * topic,
                              const size_t topicLength,
