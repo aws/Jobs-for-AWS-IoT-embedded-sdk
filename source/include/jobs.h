@@ -246,7 +246,7 @@ typedef enum JobCurrentStatus
 } JobCurrentStatus_t;
 
 /**
- * @brief Status codes for job update status 
+ * @brief Status codes for job update status
  */
 typedef enum JobUpdateStatus
 {
@@ -827,32 +827,32 @@ bool Jobs_IsJobUpdateStatus( const char * topic,
 
 /**
  * @brief Fills buffer with client token and returns the messageLength
- * 
- * @param clientToken The device's token 
+ *
+ * @param clientToken The device's token
  * @param clientTokenLength The expected length of the clientToken
  * @param buffer The buffer to be written to
- * @param bufferSize The size of the buffer 
- * 
- * @return 0 if write to buffer fails 
+ * @param bufferSize The size of the buffer
+ *
+ * @return 0 if write to buffer fails
  * @return The message length if the write is successful
-*/
+ */
 size_t Jobs_GetStartNextPendingJobExecutionMsg( const char * clientToken,
                                                 size_t clientTokenLength,
                                                 char * buffer,
                                                 size_t bufferSize );
 
 /**
- * @brief Populates buffer with the job's current status and expected version 
- * 
+ * @brief Populates buffer with the job's current status and expected version
+ *
  * @param status Current status of the job
- * @param expectedVersion The version that is expected 
- * @param expectedVersionLength The length of the expectedVersion 
- * @param buffer The buffer to be written to 
- * @param bufferSize the size of the buffer 
- * 
+ * @param expectedVersion The version that is expected
+ * @param expectedVersionLength The length of the expectedVersion
+ * @param buffer The buffer to be written to
+ * @param bufferSize the size of the buffer
+ *
  * @return 0 if write to buffer fails
- * @return messageLength if the write is successful 
-*/
+ * @return messageLength if the write is successful
+ */
 size_t Jobs_GetUpdateJobExecutionMsg( JobCurrentStatus_t status,
                                       char * expectedVersion,
                                       size_t expectedVersionLength,
