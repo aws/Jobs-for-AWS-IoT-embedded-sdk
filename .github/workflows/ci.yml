@@ -88,6 +88,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Print working directory 
+        run: pwd 
       - name: Clone coreJSON 
         run: git clone https://github.com/FreeRTOS/coreJSON.git ../../coreJSON
       - name: Install Python3
