@@ -8,9 +8,10 @@ size_t strnlen( const char * s,
 
     size_t result;
 
-    result = (size_t) strlen(s);
+    result = ( size_t ) strlen( s );
 
-    if (result > maxlen) {
+    if( result > maxlen )
+    {
         result = maxlen;
     }
 
