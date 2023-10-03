@@ -583,7 +583,7 @@ void test_isStartNextAccepted_isNotStartNextMsg( void )
 
 void test_isStartNextAccepted_isStartNextMsgForAnotherThing( void )
 {
-    char topic[] = "$aws/things/differntThingName/jobs/start-next/accepted";
+    char topic[] = "$aws/things/differentThingName/jobs/start-next/accepted";
     size_t topicLength = strlen( topic );
 
     bool result = Jobs_IsStartNextAccepted( topic, topicLength, name_, nameLength_ );
@@ -610,7 +610,7 @@ void test_isStartNextAccepted_nullTopic( void )
 
 void test_isStartNextAccepted_zeroTopicLength( void )
 {
-    char topic[] = "$aws/things/differntThignName/jobs/start-next/accepted";
+    char topic[] = "$aws/things/differentThingName/jobs/start-next/accepted";
 
     bool result = Jobs_IsStartNextAccepted( topic, 0U, name_, nameLength_ );
 
