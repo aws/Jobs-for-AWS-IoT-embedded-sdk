@@ -13,8 +13,8 @@ cd "$(dirname -- "$0")/../../" || exit 1
 
 exec cbmc test/cbmc/proofs.c source/jobs.c test/cbmc/coreJSON/source/core_json.c \
      test/cbmc/stubs/strnlen.c test/cbmc/stubs/JSON_Validate.c \
-     test/cbmc/stubs/JSON_SearchT.c -Itest/cbmc/coreJSON/source/include \
-     -Isource/include -Isource -Itest/cbmc/include \
+     test/cbmc/stubs/JSON_SearchT.c \
+     -Itest/cbmc/coreJSON/source/include -Isource/include -Itest/cbmc/include \
      --unwindset strnAppend.0:15 --unwindset strnEq.0:26 \
      --unwindset matchIdApi.0:84 --unwindset isValidID.0:65 \
      --unwindset strlen.0:36 \
