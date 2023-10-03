@@ -7,7 +7,7 @@ size_t strnlen( const char * s,
 
     size_t result;
 
-    __CPROVER_assume(result <= maxlen);
+    __CPROVER_assume( result <= maxlen );
 
     return result;
 }
