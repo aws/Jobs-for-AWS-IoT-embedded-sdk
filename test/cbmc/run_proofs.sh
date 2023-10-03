@@ -11,8 +11,6 @@ fi
 
 cd "$(dirname -- "$0")/../../" || exit 1
 
-pwd
-
 exec cbmc test/cbmc/proofs.c source/jobs.c test/cbmc/coreJSON/source/core_json.c \
      test/cbmc/stubs/strnlen.c test/cbmc/stubs/JSON_Validate.c \
      test/cbmc/stubs/JSON_SearchT.c \
