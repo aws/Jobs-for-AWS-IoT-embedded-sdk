@@ -804,6 +804,8 @@ size_t Jobs_GetJobDocument( const char * message,
  *
  * @param topic The topic to check against
  * @param topicLength The expected topic length
+ * @param thingName The device's thingName as registered with AWS IoT.
+ * @param thingNameLength The length of the thingName.
  * @return true If the topic is the start-next/accepted topic
  * @return false If the topic is not the start-next/accepted topic
  */
@@ -819,6 +821,8 @@ bool Jobs_IsStartNextAccepted( const char * topic,
  * @param topicLength The expected topic length
  * @param jobId Corresponding Job ID which the update was accepted for
  * @param jobIdLength The Job ID length
+ * @param thingName The device's thingName as registered with AWS IoT.
+ * @param thingNameLength The length of the thingName.
  * @param expectedStatus The job update status reported by AWS IoT Jobs
  * @return true If the topic is the update/<expectedStatus> topic
  * @return false If the topic is not the update/<expectedStatus> topic
