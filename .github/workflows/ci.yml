@@ -132,4 +132,5 @@ jobs:
       - name: Run CBMC
         uses: FreeRTOS/CI-CD-Github-Actions/run_cbmc@main
         with:
-          proofs_dir: test/cbmc/proofs
+          proofs_dir: test/cbmc
+          run_cbmc_proofs_command: ./run_proofs.sh
