@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 
 size_t strnlen( const char * s,
                 size_t maxlen )
@@ -7,7 +8,11 @@ size_t strnlen( const char * s,
 
     size_t result;
 
-    __CPROVER_assume( result <= maxlen );
+    result = (size_t) strlen(s);
+
+    if (result > maxlen) {
+        result = maxlen;
+    }
 
     return result;
 }
