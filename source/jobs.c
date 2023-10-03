@@ -577,7 +577,7 @@ static bool isThingnameTopicMatch(const char * topic,
     /* TODO: Inefficient - better implementation shouldn't use snprintf */
     char expectedTopicBuffer[ TOPIC_BUFFER_SIZE + 1 ] = { 0 };
     char thingNameBuffer[ MAX_THING_NAME_LENGTH + 1 ] = { 0 };
-    char suffixTerminated[ TOPIC_BUFFER_SIZE - MAX_THING_NAME_LENGTH - 4U ] = { 0 };
+    char suffixTerminated[ TOPIC_BUFFER_SIZE - MAX_THING_NAME_LENGTH - 13U ] = { 0 };
     bool isMatch = true;
 
     if ( topic == NULL || topicLength == 0 )
