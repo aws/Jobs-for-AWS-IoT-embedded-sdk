@@ -88,10 +88,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Print working directory 
-        run: pwd 
       - name: Clone coreJSON 
-        run: git clone https://github.com/FreeRTOS/coreJSON.git ../../coreJSON
+        run: git clone https://github.com/FreeRTOS/coreJSON.git /home/runner/work/Jobs-for-AWS-IoT-embedded-sdk/Jobs-for-AWS-IoT-embedded-sdk/coreJSON
       - name: Install Python3
         uses: actions/setup-python@v3
         with:
