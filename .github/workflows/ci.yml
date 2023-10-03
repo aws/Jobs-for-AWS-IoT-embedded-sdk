@@ -89,7 +89,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Clone coreJSON 
-        run: git clone https://github.com/FreeRTOS/coreJSON.git /home/runner/work/Jobs-for-AWS-IoT-embedded-sdk/Jobs-for-AWS-IoT-embedded-sdk/coreJSON
+        run: git clone https://github.com/FreeRTOS/coreJSON.git 
       - name: Install Python3
         uses: actions/setup-python@v3
         with:
