@@ -107,7 +107,11 @@ def print_proof_results(out_file):
     with open(out_file, encoding='utf-8') as run_json:
         run_dict = json.load(run_json)
 
-    #Iterate through the json output until we get to the proof results
+    """
+    Iterate through the json output until we get to the proof results
+    Before this is info about loop unwinding, etc, which is not relevant 
+    to the summary page
+    """
     for proof_pipeline in run_dict:
         if ('result' not in proof_pipeline):
             continue

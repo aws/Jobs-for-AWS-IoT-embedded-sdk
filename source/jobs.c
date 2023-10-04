@@ -72,16 +72,6 @@ static const size_t apiTopicLength[] =
     JOBS_API_UPDATE_LENGTH + JOBS_API_FAILURE_LENGTH,
 };
 
-#define TOPIC_BUFFER_SIZE               256U
-#define MAX_THING_NAME_LENGTH           128U
-/* This accounts for the message fields and client token (128 chars) */
-#define START_JOB_MSG_LENGTH            147U
-
-/* This accounts for the message fields and expected version size (up to '999')
- */
-#define UPDATE_JOB_MSG_LENGTH           48U
-#define UPDATE_JOB_STATUS_MAX_LENGTH    8U
-
 static const char * const jobStatusString[ 5U ] =
 {
     "QUEUED",
@@ -111,6 +101,17 @@ static const size_t jobUpdateStatusStringLengths[ 2U ] =
     sizeof( "accepted" ) - 1U,
     sizeof( "rejected" ) - 1U
 };
+
+#define TOPIC_BUFFER_SIZE               256U
+#define MAX_THING_NAME_LENGTH           128U
+/* This accounts for the message fields and client token (128 chars) */
+#define START_JOB_MSG_LENGTH            147U
+
+/* This accounts for the message fields and expected version size (up to '999')
+ */
+#define UPDATE_JOB_MSG_LENGTH           48U
+#define UPDATE_JOB_STATUS_MAX_LENGTH    8U
+
 
 /**
  * @brief Predicate returns true for a valid thing name or job ID character.
