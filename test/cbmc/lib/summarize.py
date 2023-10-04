@@ -81,17 +81,17 @@ def _get_status_and_proof_summaries(run_dict):
     -------
     A list of 2 lists.
     The first sub-list maps a status to the number of proofs with that status.
-    The second sub-list maps each proof to its status.
+    The second sub-list maps each proof to its function and status.
     """
     count_statuses = {}
     proofs = [["Function","Proof", "Status"]]
     for proof_pipeline in run_dict:
-        status_pretty_name = proof_pipeline['status'].title()
+        status_pretty_name = proof_pipeline['status']
         try:
             count_statuses[status_pretty_name] += 1
         except KeyError:
             count_statuses[status_pretty_name] = 1
-        proofs.append([proof_pipeline["sourceLocation"]["function"], proof_pipeline["property"].title(), status_pretty_name])
+        proofs.append([proof_pipeline["sourceLocation"]["function"], proof_pipeline["property"], status_pretty_name])
     statuses = [["Status", "Count"]]
     for status, count in count_statuses.items():
         statuses.append([status, str(count)])
