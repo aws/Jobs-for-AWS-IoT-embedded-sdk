@@ -111,7 +111,7 @@ def print_proof_results(out_file):
     #Iterate through the json output until we get to the proof results
     for proof_pipeline in run_dict:
         if ('result' not in proof_pipeline):
-            continue 
+            continue
         else:
             #Set the run_dict to be only the proof results.
             run_dict = proof_pipeline['result']
