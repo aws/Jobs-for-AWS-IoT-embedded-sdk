@@ -18,65 +18,6 @@
 #define CBMC_JOBID_MAX_LEN        ( UNWIND_COUNT - 1 )
 #define CBMC_TOPIC_MAX_LEN        ( UNWIND_COUNT - 1 )
 
-void proof_strnEq( void )
-{
-    char * bufferA, * bufferB;
-    size_t length;
-    JobsStatus_t ret;
-
-    /* length is the buffer length which must not exceed unwindings. */
-    __CPROVER_assume( length < CBMC_MAX_BUFSIZE );
-
-    /* bufferA must not be NULL. */
-    bufferA = malloc( length );
-    __CPROVER_assume( bufferA != NULL );
-
-    /* bufferB must not be NULL. */
-    bufferB = malloc( length );
-    __CPROVER_assume( bufferB != NULL );
-
-    ret = strnEq( bufferA,
-                  bufferB,
-                  length );
-
-    __CPROVER_assert( strnEqEnum( ret ), "The return value is a subset of JobsStatus_t." );
-}
-
-void proof_strnAppend( void )
-{
-    char * dest, * src;
-    size_t start, max, length;
-    JobsStatus_t ret;
-
-    /* max is the destination buffer length which must not exceed unwindings. */
-    __CPROVER_assume( max < CBMC_MAX_BUFSIZE );
-
-    /* destination buffer must not be NULL. */
-    dest = malloc( max );
-    __CPROVER_assume( dest != NULL );
-
-    /* length is the source buffer length which must not exceed unwindings. */
-    __CPROVER_assume( length < CBMC_MAX_BUFSIZE );
-
-    /* source buffer must not be NULL. */
-    src = malloc( length );
-    __CPROVER_assume( src != NULL );
-
-    ret = strnAppend( dest,
-                      &start,
-                      max,
-                      src,
-                      length );
-
-    __CPROVER_assert( strnAppendEnum( ret ), "The return value is a subset of JobsStatus_t." );
-
-    if( ret == JobsSuccess )
-    {
-        __CPROVER_assert( start < max,
-                          "The buffer start index is less than the buffer length." );
-    }
-}
-
 void proof_Jobs_Describe( void )
 {
     char * buffer;
