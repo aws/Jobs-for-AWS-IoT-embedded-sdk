@@ -86,7 +86,6 @@ def _get_status_and_proof_summaries(run_dict):
     count_statuses = {}
     proofs = [["Proof", "Status"]]
     for proof_pipeline in run_dict:
-        print(proof_pipeline)
         status_pretty_name = proof_pipeline['status'].title()
         try:
             count_statuses[status_pretty_name] += 1
