@@ -109,7 +109,7 @@ def print_proof_results(out_file):
 
     """
     Iterate through the json output until we get to the proof results
-    Before this is info about loop unwinding, etc, which is not relevant 
+    Before this is info about loop unwinding, etc, which is not relevant
     to the summary page
     """
     for proof_pipeline in run_dict:
