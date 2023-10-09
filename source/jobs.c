@@ -584,11 +584,11 @@ static bool isThingnameTopicMatch( const char * topic,
                                    const char * thingName,
                                    const size_t thingNameLength )
 {
-    /* TODO: Inefficient - better implementation shouldn't use snprintf */
     char expectedTopicBuffer[ TOPIC_BUFFER_SIZE + 1 ] = { 0 };
     char thingNameBuffer[ MAX_THING_NAME_LENGTH + 1 ] = { 0 };
     char suffixTerminated[ TOPIC_BUFFER_SIZE - MAX_THING_NAME_LENGTH - 13U ] = { 0 };
     bool isMatch = true;
+    size_t start = 0U;
 
     if( ( topic == NULL ) || ( topicLength == 0 ) )
     {
@@ -601,14 +601,9 @@ static bool isThingnameTopicMatch( const char * topic,
 
     if( isMatch )
     {
-        memcpy( thingNameBuffer, thingName, thingNameLength );
-        memcpy( suffixTerminated, topicSuffix, topicSuffixLength );
-        snprintf( expectedTopicBuffer,
-                  TOPIC_BUFFER_SIZE,
-                  "%s%s%s",
-                  "$aws/things/",
-                  thingNameBuffer,
-                  suffixTerminated );
+        writePreamble(expectedTopicBuffer, &start, TOPIC_BUFFER_SIZE, thingName, thingNameLength);
+        ( void ) strnAppend(expectedTopicBuffer, &start, TOPIC_BUFFER_SIZE, topicSuffix, topicSuffixLength);
+
         isMatch = ( size_t ) strnlen( expectedTopicBuffer, TOPIC_BUFFER_SIZE ) ==
                   topicLength;
         isMatch = isMatch && strncmp( expectedTopicBuffer, topic, topicLength ) == 0;
@@ -832,7 +827,7 @@ bool Jobs_IsStartNextAccepted( const char * topic,
                                const char * thingName,
                                const size_t thingNameLength )
 {
-    return isThingnameTopicMatch( topic, topicLength, "/jobs/start-next/accepted", strlen( "/jobs/start-next/accepted" ), thingName, thingNameLength );
+    return isThingnameTopicMatch( topic, topicLength, "start-next/accepted", strlen( "start-next/accepted" ), thingName, thingNameLength );
 }
 
 bool Jobs_IsJobUpdateStatus( const char * topic,
@@ -853,8 +848,7 @@ bool Jobs_IsJobUpdateStatus( const char * topic,
 
     snprintf( suffixBuffer,
               TOPIC_BUFFER_SIZE - MAX_THING_NAME_LENGTH - 4U,
-              "%s%s%s%s",
-              "/jobs/",
+              "%s%s%s",
               jobIdTerminated,
               "/update/",
               updateStatusString );
