@@ -601,8 +601,8 @@ static bool isThingnameTopicMatch( const char * topic,
 
     if( isMatch )
     {
-        writePreamble(expectedTopicBuffer, &start, TOPIC_BUFFER_SIZE, thingName, thingNameLength);
-        ( void ) strnAppend(expectedTopicBuffer, &start, TOPIC_BUFFER_SIZE, topicSuffix, topicSuffixLength);
+        writePreamble( expectedTopicBuffer, &start, TOPIC_BUFFER_SIZE, thingName, thingNameLength );
+        ( void ) strnAppend( expectedTopicBuffer, &start, TOPIC_BUFFER_SIZE, topicSuffix, topicSuffixLength );
 
         isMatch = ( size_t ) strnlen( expectedTopicBuffer, TOPIC_BUFFER_SIZE ) ==
                   topicLength;
