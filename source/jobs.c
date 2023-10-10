@@ -739,9 +739,9 @@ JobsStatus_t Jobs_StartNext( char * buffer,
 }
 
 size_t Jobs_StartNextMsg( const char * clientToken,
-                                                size_t clientTokenLength,
-                                                char * buffer,
-                                                size_t bufferSize )
+                          size_t clientTokenLength,
+                          char * buffer,
+                          size_t bufferSize )
 {
     size_t messageLength = 0U;
 
@@ -842,10 +842,10 @@ JobsStatus_t Jobs_Update( char * buffer,
 }
 
 size_t Jobs_UpdateMsg( JobCurrentStatus_t status,
-                                      char * expectedVersion,
-                                      size_t expectedVersionLength,
-                                      char * buffer,
-                                      size_t bufferSize )
+                       char * expectedVersion,
+                       size_t expectedVersionLength,
+                       char * buffer,
+                       size_t bufferSize )
 {
     size_t messageLength = 0;
 

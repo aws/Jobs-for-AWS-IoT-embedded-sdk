@@ -369,9 +369,9 @@ void proof_Jobs_StartNextMsg( void )
     buffer = malloc( bufferLength );
 
     ret = Jobs_StartNextMsg( clientToken,
-                                                   clientTokenLength,
-                                                   buffer,
-                                                   bufferLength );
+                             clientTokenLength,
+                             buffer,
+                             bufferLength );
 }
 
 void proof_Jobs_UpdateMsg( void )
@@ -392,10 +392,10 @@ void proof_Jobs_UpdateMsg( void )
     __CPROVER_assume( status >= 0 && status <= 4 );
 
     ret = Jobs_UpdateMsg( status,
-                                         expectedVersion,
-                                         expectedVersionLength,
-                                         buffer,
-                                         bufferLength );
+                          expectedVersion,
+                          expectedVersionLength,
+                          buffer,
+                          bufferLength );
 }
 
 int main()
