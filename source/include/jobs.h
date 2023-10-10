@@ -608,6 +608,22 @@ JobsStatus_t Jobs_StartNext( char * buffer,
 /* @[declare_jobs_startnext] */
 
 /**
+ * @brief Populate a message string for a StartNextPendingJobExecution request.
+ *
+ * @param clientToken The device's token
+ * @param clientTokenLength The expected length of the clientToken
+ * @param buffer The buffer to be written to
+ * @param bufferSize The size of the buffer
+ *
+ * @return 0 if write to buffer fails
+ * @return The message length if the write is successful
+ */
+size_t Jobs_StartNextMsg( const char * clientToken,
+                                                size_t clientTokenLength,
+                                                char * buffer,
+                                                size_t bufferSize );
+
+/**
  * @brief Populate a topic string for a DescribeJobExecution request.
  *
  * @param[in] buffer  The buffer to contain the topic string.
@@ -764,6 +780,23 @@ JobsStatus_t Jobs_Update( char * buffer,
                           size_t * outLength );
 /* @[declare_jobs_update] */
 
+/**
+ * @brief Populate a message string for an UpdateJobExecution request.
+ *
+ * @param status Current status of the job
+ * @param expectedVersion The version that is expected
+ * @param expectedVersionLength The length of the expectedVersion
+ * @param buffer The buffer to be written to
+ * @param bufferSize the size of the buffer
+ *
+ * @return 0 if write to buffer fails
+ * @return messageLength if the write is successful
+ */
+size_t Jobs_UpdateMsg( JobCurrentStatus_t status,
+                                      char * expectedVersion,
+                                      size_t expectedVersionLength,
+                                      char * buffer,
+                                      size_t bufferSize );
 
 /**
  * @brief Retrieves the job ID from a given message (if applicable)
@@ -825,39 +858,6 @@ bool Jobs_IsJobUpdateStatus( const char * topic,
                              const size_t thingNameLength,
                              JobUpdateStatus_t expectedStatus );
 
-/**
- * @brief Fills buffer with client token and returns the messageLength
- *
- * @param clientToken The device's token
- * @param clientTokenLength The expected length of the clientToken
- * @param buffer The buffer to be written to
- * @param bufferSize The size of the buffer
- *
- * @return 0 if write to buffer fails
- * @return The message length if the write is successful
- */
-size_t Jobs_GetStartNextPendingJobExecutionMsg( const char * clientToken,
-                                                size_t clientTokenLength,
-                                                char * buffer,
-                                                size_t bufferSize );
-
-/**
- * @brief Populates buffer with the job's current status and expected version
- *
- * @param status Current status of the job
- * @param expectedVersion The version that is expected
- * @param expectedVersionLength The length of the expectedVersion
- * @param buffer The buffer to be written to
- * @param bufferSize the size of the buffer
- *
- * @return 0 if write to buffer fails
- * @return messageLength if the write is successful
- */
-size_t Jobs_GetUpdateJobExecutionMsg( JobCurrentStatus_t status,
-                                      char * expectedVersion,
-                                      size_t expectedVersionLength,
-                                      char * buffer,
-                                      size_t bufferSize );
 
 /* *INDENT-OFF* */
 #ifdef __cplusplus

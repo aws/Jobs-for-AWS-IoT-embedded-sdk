@@ -738,6 +738,27 @@ JobsStatus_t Jobs_StartNext( char * buffer,
     return ret;
 }
 
+size_t Jobs_StartNextMsg( const char * clientToken,
+                                                size_t clientTokenLength,
+                                                char * buffer,
+                                                size_t bufferSize )
+{
+    size_t messageLength = 0U;
+
+    if( ( clientToken != NULL ) && ( clientTokenLength > 0U ) && ( bufferSize >= 18U + clientTokenLength ) )
+    {
+        messageLength = sizeof( "{\"clientToken\":\"" ) - 1;
+        memcpy( buffer,
+                "{\"clientToken\":\"",
+                sizeof( "{\"clientToken\":\"" ) - 1 );
+        memcpy( buffer + messageLength, clientToken, clientTokenLength );
+        messageLength += clientTokenLength;
+        memcpy( buffer + messageLength, "\"}", sizeof( "\"}" ) - 1 );
+        messageLength += sizeof( "\"}" ) - 1;
+    }
+
+    return messageLength;
+}
 
 /**
  * See jobs.h for docs.
@@ -820,6 +841,38 @@ JobsStatus_t Jobs_Update( char * buffer,
     return ret;
 }
 
+size_t Jobs_UpdateMsg( JobCurrentStatus_t status,
+                                      char * expectedVersion,
+                                      size_t expectedVersionLength,
+                                      char * buffer,
+                                      size_t bufferSize )
+{
+    size_t messageLength = 0;
+
+    if( ( expectedVersion != NULL ) && ( expectedVersionLength > 0U ) && ( bufferSize >=
+                                                                           34U + expectedVersionLength + jobStatusStringLengths[ status ] ) &&
+        ( jobUpdateStatusString[ status ] != NULL ) )
+    {
+        messageLength = sizeof( "{\"status\":\"" ) - 1;
+        memcpy( buffer, "{\"status\":\"", sizeof( "{\"status\":\"" ) - 1 );
+        memcpy( buffer + messageLength,
+                jobStatusString[ status ],
+                jobStatusStringLengths[ status ] );
+
+        messageLength += jobStatusStringLengths[ status ];
+        memcpy( buffer + messageLength,
+                "\",\"expectedVersion\":\"",
+                sizeof( "\",\"expectedVersion\":\"" ) - 1 );
+        messageLength += sizeof( "\",\"expectedVersion\":\"" ) - 1;
+        memcpy( buffer + messageLength, expectedVersion, expectedVersionLength );
+        messageLength += expectedVersionLength;
+        memcpy( buffer + messageLength, "\"}", sizeof( "\"}" ) - 1 );
+        messageLength += sizeof( "\"}" ) - 1;
+    }
+
+    return messageLength;
+}
+
 bool Jobs_IsStartNextAccepted( const char * topic,
                                const size_t topicLength,
                                const char * thingName,
@@ -896,58 +949,4 @@ size_t Jobs_GetJobDocument( const char * message,
     }
 
     return jobDocLength;
-}
-
-size_t Jobs_GetStartNextPendingJobExecutionMsg( const char * clientToken,
-                                                size_t clientTokenLength,
-                                                char * buffer,
-                                                size_t bufferSize )
-{
-    size_t messageLength = 0U;
-
-    if( ( clientToken != NULL ) && ( clientTokenLength > 0U ) && ( bufferSize >= 18U + clientTokenLength ) )
-    {
-        messageLength = sizeof( "{\"clientToken\":\"" ) - 1;
-        memcpy( buffer,
-                "{\"clientToken\":\"",
-                sizeof( "{\"clientToken\":\"" ) - 1 );
-        memcpy( buffer + messageLength, clientToken, clientTokenLength );
-        messageLength += clientTokenLength;
-        memcpy( buffer + messageLength, "\"}", sizeof( "\"}" ) - 1 );
-        messageLength += sizeof( "\"}" ) - 1;
-    }
-
-    return messageLength;
-}
-
-size_t Jobs_GetUpdateJobExecutionMsg( JobCurrentStatus_t status,
-                                      char * expectedVersion,
-                                      size_t expectedVersionLength,
-                                      char * buffer,
-                                      size_t bufferSize )
-{
-    size_t messageLength = 0;
-
-    if( ( expectedVersion != NULL ) && ( expectedVersionLength > 0U ) && ( bufferSize >=
-                                                                           34U + expectedVersionLength + jobStatusStringLengths[ status ] ) &&
-        ( jobUpdateStatusString[ status ] != NULL ) )
-    {
-        messageLength = sizeof( "{\"status\":\"" ) - 1;
-        memcpy( buffer, "{\"status\":\"", sizeof( "{\"status\":\"" ) - 1 );
-        memcpy( buffer + messageLength,
-                jobStatusString[ status ],
-                jobStatusStringLengths[ status ] );
-
-        messageLength += jobStatusStringLengths[ status ];
-        memcpy( buffer + messageLength,
-                "\",\"expectedVersion\":\"",
-                sizeof( "\",\"expectedVersion\":\"" ) - 1 );
-        messageLength += sizeof( "\",\"expectedVersion\":\"" ) - 1;
-        memcpy( buffer + messageLength, expectedVersion, expectedVersionLength );
-        messageLength += expectedVersionLength;
-        memcpy( buffer + messageLength, "\"}", sizeof( "\"}" ) - 1 );
-        messageLength += sizeof( "\"}" ) - 1;
-    }
-
-    return messageLength;
 }
