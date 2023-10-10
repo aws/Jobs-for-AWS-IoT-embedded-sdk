@@ -408,8 +408,8 @@ int main()
     proof_Jobs_Update();
     proof_Jobs_IsStartNextAccepted();
     proof_Jobs_IsJobUpdateStatus();
-    proof_Jobs_StartNextPendingJobExecutionMsg();
-    proof_Jobs_UpdateJobExecutionMsg();
+    proof_Jobs_StartNextMsg();
+    proof_Jobs_UpdateMsg();
     proof_Jobs_GetJobId();
     proof_Jobs_GetJobDocument();
 }
