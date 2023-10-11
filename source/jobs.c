@@ -743,21 +743,16 @@ size_t Jobs_StartNextMsg( const char * clientToken,
                           char * buffer,
                           size_t bufferSize )
 {
-    size_t messageLength = 0U;
+    size_t start = 0U;
 
     if( ( clientToken != NULL ) && ( clientTokenLength > 0U ) && ( bufferSize >= 18U + clientTokenLength ) )
     {
-        messageLength = sizeof( "{\"clientToken\":\"" ) - 1;
-        memcpy( buffer,
-                "{\"clientToken\":\"",
-                sizeof( "{\"clientToken\":\"" ) - 1 );
-        memcpy( buffer + messageLength, clientToken, clientTokenLength );
-        messageLength += clientTokenLength;
-        memcpy( buffer + messageLength, "\"}", sizeof( "\"}" ) - 1 );
-        messageLength += sizeof( "\"}" ) - 1;
+        strnAppend(buffer, &start, bufferSize, "{\"clientToken\":\"", sizeof( "{\"clientToken\":\"" ) - 1 );
+        strnAppend(buffer, &start, bufferSize, clientToken, clientTokenLength);
+        strnAppend(buffer, &start, bufferSize, "\"}", sizeof( "\"}" ) - 1 );
     }
 
-    return messageLength;
+    return start;
 }
 
 /**
@@ -847,30 +842,20 @@ size_t Jobs_UpdateMsg( JobCurrentStatus_t status,
                        char * buffer,
                        size_t bufferSize )
 {
-    size_t messageLength = 0;
+    size_t start = 0U; 
 
     if( ( expectedVersion != NULL ) && ( expectedVersionLength > 0U ) && ( bufferSize >=
                                                                            34U + expectedVersionLength + jobStatusStringLengths[ status ] ) &&
         ( jobUpdateStatusString[ status ] != NULL ) )
     {
-        messageLength = sizeof( "{\"status\":\"" ) - 1;
-        memcpy( buffer, "{\"status\":\"", sizeof( "{\"status\":\"" ) - 1 );
-        memcpy( buffer + messageLength,
-                jobStatusString[ status ],
-                jobStatusStringLengths[ status ] );
-
-        messageLength += jobStatusStringLengths[ status ];
-        memcpy( buffer + messageLength,
-                "\",\"expectedVersion\":\"",
-                sizeof( "\",\"expectedVersion\":\"" ) - 1 );
-        messageLength += sizeof( "\",\"expectedVersion\":\"" ) - 1;
-        memcpy( buffer + messageLength, expectedVersion, expectedVersionLength );
-        messageLength += expectedVersionLength;
-        memcpy( buffer + messageLength, "\"}", sizeof( "\"}" ) - 1 );
-        messageLength += sizeof( "\"}" ) - 1;
+        strnAppend(buffer, &start, bufferSize, "{\"status\":\"", sizeof( "{\"status\":\"" ) - 1 );
+        strnAppend(buffer, &start, bufferSize, jobStatusString[status], jobStatusStringLengths[status]);
+        strnAppend(buffer, &start, bufferSize, "\",\"expectedVersion\":\"", sizeof( "\",\"expectedVersion\":\"" ) - 1 );
+        strnAppend(buffer, &start, bufferSize, expectedVersion, expectedVersionLength);
+        strnAppend(buffer, &start, bufferSize, "\"}", sizeof("\"}") -1);
     }
 
-    return messageLength;
+    return start;
 }
 
 bool Jobs_IsStartNextAccepted( const char * topic,
@@ -890,21 +875,15 @@ bool Jobs_IsJobUpdateStatus( const char * topic,
                              JobUpdateStatus_t expectedStatus )
 {
     /* Max suffix size = max topic size - "$aws/<thingname>" prefix */
-    char suffixBuffer[ TOPIC_BUFFER_SIZE - MAX_THING_NAME_LENGTH - 4U ] = { 0 };
-    char jobIdTerminated[ JOBS_JOBID_MAX_LENGTH + 1 ] = { 0 };
-    char updateStatusString[ UPDATE_JOB_STATUS_MAX_LENGTH + 1 ] = { 0 };
+    size_t suffixBufferLength = (TOPIC_BUFFER_SIZE - sizeof("$aws/<thingname>") - 1U);
+    char suffixBuffer[ TOPIC_BUFFER_SIZE - sizeof("$aws/<thingname>") - 1U ] = { 0 };
+    size_t start = 0U;
 
-    memcpy( &jobIdTerminated, jobId, jobIdLength );
-    memcpy( &updateStatusString, jobUpdateStatusString[ expectedStatus ], jobUpdateStatusStringLengths[ expectedStatus ] );
+    strnAppend(suffixBuffer, &start, suffixBufferLength, jobId, jobIdLength);
+    strnAppend(suffixBuffer, &start, suffixBufferLength, "/update/", sizeof("/update/")-1);
+    strnAppend(suffixBuffer, &start, suffixBufferLength, jobUpdateStatusString[expectedStatus], jobUpdateStatusStringLengths[expectedStatus]);
 
-    snprintf( suffixBuffer,
-              TOPIC_BUFFER_SIZE - MAX_THING_NAME_LENGTH - 4U,
-              "%s%s%s",
-              jobIdTerminated,
-              "/update/",
-              updateStatusString );
-
-    return isThingnameTopicMatch( topic, topicLength, suffixBuffer, strnlen( suffixBuffer, TOPIC_BUFFER_SIZE - MAX_THING_NAME_LENGTH - 4U ), thingName, thingNameLength );
+    return isThingnameTopicMatch( topic, topicLength, suffixBuffer, strnlen( suffixBuffer, suffixBufferLength ), thingName, thingNameLength );
 }
 
 size_t Jobs_GetJobId( const char * message,

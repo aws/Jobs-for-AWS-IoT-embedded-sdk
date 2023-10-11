@@ -389,7 +389,7 @@ void proof_Jobs_UpdateMsg( void )
     __CPROVER_assume( bufferLength <= 64 );
     buffer = malloc( bufferLength );
 
-    __CPROVER_assume( status >= 0 && status <= 4 );
+    __CPROVER_assume( status >= QUEUED && status <= REJECTED );
 
     ret = Jobs_UpdateMsg( status,
                           expectedVersion,
