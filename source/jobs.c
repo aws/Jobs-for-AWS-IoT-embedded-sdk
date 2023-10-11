@@ -747,9 +747,9 @@ size_t Jobs_StartNextMsg( const char * clientToken,
 
     if( ( clientToken != NULL ) && ( clientTokenLength > 0U ) && ( bufferSize >= 18U + clientTokenLength ) )
     {
-        strnAppend(buffer, &start, bufferSize, "{\"clientToken\":\"", sizeof( "{\"clientToken\":\"" ) - 1 );
-        strnAppend(buffer, &start, bufferSize, clientToken, clientTokenLength);
-        strnAppend(buffer, &start, bufferSize, "\"}", sizeof( "\"}" ) - 1 );
+        strnAppend( buffer, &start, bufferSize, "{\"clientToken\":\"", sizeof( "{\"clientToken\":\"" ) - 1 );
+        strnAppend( buffer, &start, bufferSize, clientToken, clientTokenLength );
+        strnAppend( buffer, &start, bufferSize, "\"}", sizeof( "\"}" ) - 1 );
     }
 
     return start;
@@ -842,17 +842,17 @@ size_t Jobs_UpdateMsg( JobCurrentStatus_t status,
                        char * buffer,
                        size_t bufferSize )
 {
-    size_t start = 0U; 
+    size_t start = 0U;
 
     if( ( expectedVersion != NULL ) && ( expectedVersionLength > 0U ) && ( bufferSize >=
                                                                            34U + expectedVersionLength + jobStatusStringLengths[ status ] ) &&
         ( jobUpdateStatusString[ status ] != NULL ) )
     {
-        strnAppend(buffer, &start, bufferSize, "{\"status\":\"", sizeof( "{\"status\":\"" ) - 1 );
-        strnAppend(buffer, &start, bufferSize, jobStatusString[status], jobStatusStringLengths[status]);
-        strnAppend(buffer, &start, bufferSize, "\",\"expectedVersion\":\"", sizeof( "\",\"expectedVersion\":\"" ) - 1 );
-        strnAppend(buffer, &start, bufferSize, expectedVersion, expectedVersionLength);
-        strnAppend(buffer, &start, bufferSize, "\"}", sizeof("\"}") -1);
+        strnAppend( buffer, &start, bufferSize, "{\"status\":\"", sizeof( "{\"status\":\"" ) - 1 );
+        strnAppend( buffer, &start, bufferSize, jobStatusString[ status ], jobStatusStringLengths[ status ] );
+        strnAppend( buffer, &start, bufferSize, "\",\"expectedVersion\":\"", sizeof( "\",\"expectedVersion\":\"" ) - 1 );
+        strnAppend( buffer, &start, bufferSize, expectedVersion, expectedVersionLength );
+        strnAppend( buffer, &start, bufferSize, "\"}", sizeof( "\"}" ) - 1 );
     }
 
     return start;
@@ -875,13 +875,13 @@ bool Jobs_IsJobUpdateStatus( const char * topic,
                              JobUpdateStatus_t expectedStatus )
 {
     /* Max suffix size = max topic size - "$aws/<thingname>" prefix */
-    size_t suffixBufferLength = (TOPIC_BUFFER_SIZE - sizeof("$aws/<thingname>") - 1U);
-    char suffixBuffer[ TOPIC_BUFFER_SIZE - sizeof("$aws/<thingname>") - 1U ] = { 0 };
+    size_t suffixBufferLength = ( TOPIC_BUFFER_SIZE - sizeof( "$aws/<thingname>" ) - 1U );
+    char suffixBuffer[ TOPIC_BUFFER_SIZE - sizeof( "$aws/<thingname>" ) - 1U ] = { 0 };
     size_t start = 0U;
 
-    strnAppend(suffixBuffer, &start, suffixBufferLength, jobId, jobIdLength);
-    strnAppend(suffixBuffer, &start, suffixBufferLength, "/update/", sizeof("/update/")-1);
-    strnAppend(suffixBuffer, &start, suffixBufferLength, jobUpdateStatusString[expectedStatus], jobUpdateStatusStringLengths[expectedStatus]);
+    strnAppend( suffixBuffer, &start, suffixBufferLength, jobId, jobIdLength );
+    strnAppend( suffixBuffer, &start, suffixBufferLength, "/update/", sizeof( "/update/" ) - 1 );
+    strnAppend( suffixBuffer, &start, suffixBufferLength, jobUpdateStatusString[ expectedStatus ], jobUpdateStatusStringLengths[ expectedStatus ] );
 
     return isThingnameTopicMatch( topic, topicLength, suffixBuffer, strnlen( suffixBuffer, suffixBufferLength ), thingName, thingNameLength );
 }
