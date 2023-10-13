@@ -5,6 +5,10 @@ UNWIND_COUNT=${UNWIND_COUNT:-10}
 JobsSourceDir="../../source"
 coreJSONSourceDir="../../source/dependency/coreJSON/source"
 
+if [ ! -d "$coreJSONSourceDir" ]; then
+    git submodule update --checkout --init --recursive -- ../../source/dependency/coreJSON
+fi
+
 exec cbmc proofs.c "$JobsSourceDir/jobs.c"  stubs/strnlen.c \
      stubs/JSON_Validate.c stubs/JSON_SearchT.c \
      -I $JobsSourceDir/include -I $coreJSONSourceDir/include -I include  \
