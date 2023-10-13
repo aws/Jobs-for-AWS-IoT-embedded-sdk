@@ -2,13 +2,8 @@
 
 UNWIND_COUNT=${UNWIND_COUNT:-10}
 
-#If coreJSON not found, clone it
-if [ ! -d "coreJSON" ]; then
-    git clone https://github.com/FreeRTOS/coreJSON.git --depth 1 --branch v3.2.0
-fi
-
 JobsSourceDir="../../source"
-coreJSONSourceDir="coreJSON/source"
+coreJSONSourceDir="../../source/dependency/coreJSON/source"
 
 exec cbmc proofs.c "$JobsSourceDir/jobs.c"  stubs/strnlen.c \
      stubs/JSON_Validate.c stubs/JSON_SearchT.c \
