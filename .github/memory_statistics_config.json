@@ -2,10 +2,10 @@
     "lib_name": "AWS IoT Jobs",
     "src": [
         "source/jobs.c",
-        "source/dependency/coreJSON/source/core_json.c"
+        "coreJSON/source/core_json.c"
     ],
     "include": [
         "source/include",
-        "source/dependency/coreJSON/source/include"
+        "coreJSON/source/include"
     ]
 }

@@ -3,10 +3,11 @@
 UNWIND_COUNT=${UNWIND_COUNT:-10}
 
 JobsSourceDir="../../source"
-coreJSONSourceDir="../../source/dependency/coreJSON/source"
+coreJSONSourceDir="coreJSON/source"
 
-if [ ! -d "$coreJSONSourceDir" ]; then
-    git submodule update --checkout --init --recursive -- ../../source/dependency/coreJSON
+#If coreJSON not found, clone it
+if [ ! -d "coreJSON" ]; then
+    git clone https://github.com/FreeRTOS/coreJSON.git --depth 1 --branch v3.2.0
 fi
 
 exec cbmc proofs.c "$JobsSourceDir/jobs.c"  stubs/strnlen.c \

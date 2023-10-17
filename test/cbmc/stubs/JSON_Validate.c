@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "core_json.h"
+#include "../coreJSON/source/include/core_json.h"
 
 JSONStatus_t JSON_Validate( const char * buf,
                             size_t max )
