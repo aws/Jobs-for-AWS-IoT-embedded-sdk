@@ -88,6 +88,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Checkout Submodules
         run: git submodule update --checkout --init --recursive
       - name: Install Python3
         uses: actions/setup-python@v3
