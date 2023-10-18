@@ -43,7 +43,7 @@ release.**
 A compiler that supports **C99 or later** such as _gcc_ is required to build the
 library.
 
-Additionally, coreJSON is required for parsing. To build the library, first run: 
+Additionally, coreJSON is required for parsing. To build the library, first run:
 ```bash
 git clone https://github.com/FreeRTOS/coreJSON.git --depth 1 --branch v3.2.0
 ```
