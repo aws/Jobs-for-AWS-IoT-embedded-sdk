@@ -18,6 +18,43 @@
 #define CBMC_JOBID_MAX_LEN        ( UNWIND_COUNT - 1 )
 #define CBMC_TOPIC_MAX_LEN        ( UNWIND_COUNT - 1 )
 
+/* utils */
+int nondet_int( void );
+
+JobCurrentStatus_t nondet_JobCurrentStatus( void )
+{
+    int jobStatus[] = {Queued, InProgress, Failed, Succeeded, Rejected};
+    
+    int index = nondet_int();
+    __CPROVER_assume( ( index >= 0 ) && ( index <= (sizeof(jobStatus)/sizeof(jobStatus[0]))-1 ));
+
+    return jobStatus[index];
+}
+
+JobUpdateStatus_t nondet_JobUpdateStatus( void )
+{
+    int updateStatus[] = {JobUpdateStatus_Accepted, JobUpdateStatus_Rejected};
+
+    int index = nondet_int();
+    __CPROVER_assume( ( index >= 0 ) && ( index <= (sizeof(updateStatus)/sizeof(updateStatus[0]))-1 ));
+
+    return updateStatus[index];
+}
+
+JobsTopic_t nondet_JobsTopic_t( void )
+{
+    int jobsTopics[] = {JobsInvalidTopic, JobsJobsChanged, JobsNextJobChanged,
+                        JobsGetPendingSuccess, JobsGetPendingFailed, JobsStartNextSuccess,
+                        JobsStartNextFailed, JobsDescribeSuccess, JobsDescribeFailed,
+                        JobsUpdateSuccess, JobsUpdateFailed, JobsMaxTopic};
+    
+    int index = nondet_int();
+    __CPROVER_assume( ( index >= 0 ) && ( index <= (sizeof(jobsTopics)/sizeof(jobsTopics[0]))-1 ));
+
+    return jobsTopics[index];
+}
+/* end of utils */
+
 void proof_Jobs_Describe( void )
 {
     char * buffer;
@@ -102,7 +139,7 @@ void proof_Jobs_GetTopic( void )
     size_t bufferLength;
     const char * thingName;
     uint16_t thingNameLength;
-    JobsTopic_t api = 0;
+    JobsTopic_t api = nondet_JobsTopic_t();
     size_t * outLength;
     JobsStatus_t ret;
 
@@ -115,8 +152,6 @@ void proof_Jobs_GetTopic( void )
     thingName = malloc( thingNameLength );
 
     outLength = malloc( sizeof( *outLength ) );
-
-    __CPROVER_assume( api >= -1 && api <= 10 );
 
     ret = Jobs_GetTopic( buffer,
                          bufferLength,
@@ -299,7 +334,7 @@ void proof_Jobs_IsJobUpdateStatus( void )
     const size_t thingNameLength;
     const char * jobId;
     const size_t jobIdLength;
-    JobUpdateStatus_t expectedStatus = 0;
+    JobUpdateStatus_t expectedStatus = nondet_JobUpdateStatus();
 
     __CPROVER_assume( topicLength < CBMC_TOPIC_MAX_LEN );
     topic = malloc( topicLength );
@@ -309,8 +344,6 @@ void proof_Jobs_IsJobUpdateStatus( void )
 
     __CPROVER_assume( jobIdLength < CBMC_JOBID_MAX_LEN );
     jobId = malloc( jobIdLength );
-
-    __CPROVER_assume( expectedStatus == JobUpdateStatus_Accepted || expectedStatus == JobUpdateStatus_Rejected );
 
     ret = Jobs_IsJobUpdateStatus( topic,
                                   topicLength,
@@ -376,7 +409,7 @@ void proof_Jobs_StartNextMsg( void )
 
 void proof_Jobs_UpdateMsg( void )
 {
-    JobCurrentStatus_t status = 0;
+    JobCurrentStatus_t status = nondet_JobCurrentStatus();
     char * expectedVersion;
     size_t expectedVersionLength;
     char * buffer;
@@ -388,8 +421,6 @@ void proof_Jobs_UpdateMsg( void )
 
     __CPROVER_assume( bufferLength <= 64 );
     buffer = malloc( bufferLength );
-
-    __CPROVER_assume( status >= 0 && status <= 4 );
 
     ret = Jobs_UpdateMsg( status,
                           expectedVersion,

@@ -28,12 +28,13 @@
  */
 
 #include <assert.h>
-#include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
 
-#include "core_json.h"
+/* Internal Includes */
 #include "jobs.h"
+/* External Dependencies */
+#include "core_json.h"
 
 /** @cond DO_NOT_DOCUMENT */
 
@@ -101,17 +102,6 @@ static const size_t jobUpdateStatusStringLengths[ 2U ] =
     sizeof( "accepted" ) - 1U,
     sizeof( "rejected" ) - 1U
 };
-
-#define TOPIC_BUFFER_SIZE               256U
-#define MAX_THING_NAME_LENGTH           128U
-/* This accounts for the message fields and client token (128 chars) */
-#define START_JOB_MSG_LENGTH            147U
-
-/* This accounts for the message fields and expected version size (up to '999')
- */
-#define UPDATE_JOB_MSG_LENGTH           48U
-#define UPDATE_JOB_STATUS_MAX_LENGTH    8U
-
 
 /**
  * @brief Predicate returns true for a valid thing name or job ID character.
@@ -747,7 +737,7 @@ size_t Jobs_StartNextMsg( const char * clientToken,
 
     if( ( clientToken != NULL ) && ( clientTokenLength > 0U ) && ( bufferSize >= 18U + clientTokenLength ) )
     {
-        strnAppend( buffer, &start, bufferSize, "{\"clientToken\":\"", sizeof( "{\"clientToken\":\"" ) - 1 );
+        strnAppend( buffer, &start, bufferSize, JOBS_API_CLIENTTOKEN, JOBS_API_CLIENTTOKEN_LENGTH);
         strnAppend( buffer, &start, bufferSize, clientToken, clientTokenLength );
         strnAppend( buffer, &start, bufferSize, "\"}", sizeof( "\"}" ) - 1 );
     }
@@ -846,11 +836,11 @@ size_t Jobs_UpdateMsg( JobCurrentStatus_t status,
 
     if( ( expectedVersion != NULL ) && ( expectedVersionLength > 0U ) && ( bufferSize >=
                                                                            34U + expectedVersionLength + jobStatusStringLengths[ status ] ) &&
-        ( jobUpdateStatusString[ status ] != NULL ) )
+        ( jobStatusString[ status ] != NULL ) )
     {
-        strnAppend( buffer, &start, bufferSize, "{\"status\":\"", sizeof( "{\"status\":\"" ) - 1 );
+        strnAppend( buffer, &start, bufferSize, JOBS_API_STATUS, JOBS_API_STATUS_LENGTH );
         strnAppend( buffer, &start, bufferSize, jobStatusString[ status ], jobStatusStringLengths[ status ] );
-        strnAppend( buffer, &start, bufferSize, "\",\"expectedVersion\":\"", sizeof( "\",\"expectedVersion\":\"" ) - 1 );
+        strnAppend( buffer, &start, bufferSize, JOBS_API_EXPECTED_VERSION, JOBS_API_EXPECTED_VERSION_LENGTH );
         strnAppend( buffer, &start, bufferSize, expectedVersion, expectedVersionLength );
         strnAppend( buffer, &start, bufferSize, "\"}", sizeof( "\"}" ) - 1 );
     }

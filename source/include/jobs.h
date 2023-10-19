@@ -44,6 +44,13 @@
 
 /**
  * @ingroup jobs_constants
+ * @brief  Size of Topic Buffer
+*/
+#define TOPIC_BUFFER_SIZE        256U
+
+
+/**
+ * @ingroup jobs_constants
  * @brief Maximum length of a thing name for the AWS IoT Jobs Service.
  */
 #define JOBS_THINGNAME_MAX_LENGTH    128U      /* per AWS IoT API Reference */
@@ -122,6 +129,15 @@
 
 #define JOBS_API_JOBID_NULL               ""
 #define JOBS_API_LEVEL_SEPARATOR          "/"
+
+#define JOBS_API_CLIENTTOKEN              "{\"clientToken\":\""
+#define JOBS_API_CLIENTTOKEN_LENGTH       ( sizeof( JOBS_API_CLIENTTOKEN ) - 1U )
+
+#define JOBS_API_STATUS                   "{\"status\":\""
+#define JOBS_API_STATUS_LENGTH            ( sizeof( JOBS_API_STATUS ) - 1U )
+
+#define JOBS_API_EXPECTED_VERSION         "\",\"expectedVersion\":\""
+#define JOBS_API_EXPECTED_VERSION_LENGTH  ( sizeof( JOBS_API_EXPECTED_VERSION ) - 1U )
 
 #define JOBS_API_COMMON_LENGTH( thingNameLength ) \
     ( JOBS_API_PREFIX_LENGTH + ( thingNameLength ) + JOBS_API_BRIDGE_LENGTH )
@@ -785,7 +801,7 @@ JobsStatus_t Jobs_Update( char * buffer,
  *
  * @param status Current status of the job
  * @param expectedVersion The version that is expected
- * @param expectedVersionLength The length of the expectedVersion
+ * @param expectedVersionLength The length of the expectedVersion string
  * @param buffer The buffer to be written to
  * @param bufferSize the size of the buffer
  *
