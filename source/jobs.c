@@ -737,7 +737,7 @@ size_t Jobs_StartNextMsg( const char * clientToken,
 
     if( ( clientToken != NULL ) && ( clientTokenLength > 0U ) && ( bufferSize >= 18U + clientTokenLength ) )
     {
-        strnAppend( buffer, &start, bufferSize, JOBS_API_CLIENTTOKEN, JOBS_API_CLIENTTOKEN_LENGTH);
+        strnAppend( buffer, &start, bufferSize, JOBS_API_CLIENTTOKEN, JOBS_API_CLIENTTOKEN_LENGTH );
         strnAppend( buffer, &start, bufferSize, clientToken, clientTokenLength );
         strnAppend( buffer, &start, bufferSize, "\"}", sizeof( "\"}" ) - 1 );
     }

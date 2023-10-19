@@ -23,35 +23,41 @@ int nondet_int( void );
 
 JobCurrentStatus_t nondet_JobCurrentStatus( void )
 {
-    int jobStatus[] = {Queued, InProgress, Failed, Succeeded, Rejected};
-    
-    int index = nondet_int();
-    __CPROVER_assume( ( index >= 0 ) && ( index <= (sizeof(jobStatus)/sizeof(jobStatus[0]))-1 ));
+    int jobStatus[] = { Queued, InProgress, Failed, Succeeded, Rejected };
 
-    return jobStatus[index];
+    int index = nondet_int();
+
+    __CPROVER_assume( ( index >= 0 ) && ( index <= ( sizeof( jobStatus ) / sizeof( jobStatus[ 0 ] ) ) - 1 ) );
+
+    return jobStatus[ index ];
 }
 
 JobUpdateStatus_t nondet_JobUpdateStatus( void )
 {
-    int updateStatus[] = {JobUpdateStatus_Accepted, JobUpdateStatus_Rejected};
+    int updateStatus[] = { JobUpdateStatus_Accepted, JobUpdateStatus_Rejected };
 
     int index = nondet_int();
-    __CPROVER_assume( ( index >= 0 ) && ( index <= (sizeof(updateStatus)/sizeof(updateStatus[0]))-1 ));
 
-    return updateStatus[index];
+    __CPROVER_assume( ( index >= 0 ) && ( index <= ( sizeof( updateStatus ) / sizeof( updateStatus[ 0 ] ) ) - 1 ) );
+
+    return updateStatus[ index ];
 }
 
 JobsTopic_t nondet_JobsTopic_t( void )
 {
-    int jobsTopics[] = {JobsInvalidTopic, JobsJobsChanged, JobsNextJobChanged,
-                        JobsGetPendingSuccess, JobsGetPendingFailed, JobsStartNextSuccess,
-                        JobsStartNextFailed, JobsDescribeSuccess, JobsDescribeFailed,
-                        JobsUpdateSuccess, JobsUpdateFailed, JobsMaxTopic};
-    
-    int index = nondet_int();
-    __CPROVER_assume( ( index >= 0 ) && ( index <= (sizeof(jobsTopics)/sizeof(jobsTopics[0]))-1 ));
+    int jobsTopics[] =
+    {
+        JobsInvalidTopic,      JobsJobsChanged,      JobsNextJobChanged,
+        JobsGetPendingSuccess, JobsGetPendingFailed, JobsStartNextSuccess,
+        JobsStartNextFailed,   JobsDescribeSuccess,  JobsDescribeFailed,
+        JobsUpdateSuccess,     JobsUpdateFailed,     JobsMaxTopic
+    };
 
-    return jobsTopics[index];
+    int index = nondet_int();
+
+    __CPROVER_assume( ( index >= 0 ) && ( index <= ( sizeof( jobsTopics ) / sizeof( jobsTopics[ 0 ] ) ) - 1 ) );
+
+    return jobsTopics[ index ];
 }
 /* end of utils */
 

@@ -45,8 +45,8 @@
 /**
  * @ingroup jobs_constants
  * @brief  Size of Topic Buffer
-*/
-#define TOPIC_BUFFER_SIZE        256U
+ */
+#define TOPIC_BUFFER_SIZE    256U
 
 
 /**
@@ -94,50 +94,50 @@
  * Doxygen should ignore these macros as they are private.
  */
 
-#define JOBS_API_PREFIX                   "$aws/things/"
-#define JOBS_API_PREFIX_LENGTH            ( sizeof( JOBS_API_PREFIX ) - 1U )
+#define JOBS_API_PREFIX                     "$aws/things/"
+#define JOBS_API_PREFIX_LENGTH              ( sizeof( JOBS_API_PREFIX ) - 1U )
 
-#define JOBS_API_BRIDGE                   "/jobs/"
-#define JOBS_API_BRIDGE_LENGTH            ( sizeof( JOBS_API_BRIDGE ) - 1U )
+#define JOBS_API_BRIDGE                     "/jobs/"
+#define JOBS_API_BRIDGE_LENGTH              ( sizeof( JOBS_API_BRIDGE ) - 1U )
 
-#define JOBS_API_SUCCESS                  "/accepted"
-#define JOBS_API_SUCCESS_LENGTH           ( sizeof( JOBS_API_SUCCESS ) - 1U )
+#define JOBS_API_SUCCESS                    "/accepted"
+#define JOBS_API_SUCCESS_LENGTH             ( sizeof( JOBS_API_SUCCESS ) - 1U )
 
-#define JOBS_API_FAILURE                  "/rejected"
-#define JOBS_API_FAILURE_LENGTH           ( sizeof( JOBS_API_FAILURE ) - 1U )
+#define JOBS_API_FAILURE                    "/rejected"
+#define JOBS_API_FAILURE_LENGTH             ( sizeof( JOBS_API_FAILURE ) - 1U )
 
-#define JOBS_API_JOBSCHANGED              "notify"
-#define JOBS_API_JOBSCHANGED_LENGTH       ( sizeof( JOBS_API_JOBSCHANGED ) - 1U )
+#define JOBS_API_JOBSCHANGED                "notify"
+#define JOBS_API_JOBSCHANGED_LENGTH         ( sizeof( JOBS_API_JOBSCHANGED ) - 1U )
 
-#define JOBS_API_NEXTJOBCHANGED           "notify-next"
-#define JOBS_API_NEXTJOBCHANGED_LENGTH    ( sizeof( JOBS_API_NEXTJOBCHANGED ) - 1U )
+#define JOBS_API_NEXTJOBCHANGED             "notify-next"
+#define JOBS_API_NEXTJOBCHANGED_LENGTH      ( sizeof( JOBS_API_NEXTJOBCHANGED ) - 1U )
 
-#define JOBS_API_GETPENDING               "get"
-#define JOBS_API_GETPENDING_LENGTH        ( sizeof( JOBS_API_GETPENDING ) - 1U )
+#define JOBS_API_GETPENDING                 "get"
+#define JOBS_API_GETPENDING_LENGTH          ( sizeof( JOBS_API_GETPENDING ) - 1U )
 
-#define JOBS_API_STARTNEXT                "start-next"
-#define JOBS_API_STARTNEXT_LENGTH         ( sizeof( JOBS_API_STARTNEXT ) - 1U )
+#define JOBS_API_STARTNEXT                  "start-next"
+#define JOBS_API_STARTNEXT_LENGTH           ( sizeof( JOBS_API_STARTNEXT ) - 1U )
 
-#define JOBS_API_DESCRIBE                 "get"
-#define JOBS_API_DESCRIBE_LENGTH          ( sizeof( JOBS_API_DESCRIBE ) - 1U )
+#define JOBS_API_DESCRIBE                   "get"
+#define JOBS_API_DESCRIBE_LENGTH            ( sizeof( JOBS_API_DESCRIBE ) - 1U )
 
-#define JOBS_API_UPDATE                   "update"
-#define JOBS_API_UPDATE_LENGTH            ( sizeof( JOBS_API_UPDATE ) - 1U )
+#define JOBS_API_UPDATE                     "update"
+#define JOBS_API_UPDATE_LENGTH              ( sizeof( JOBS_API_UPDATE ) - 1U )
 
-#define JOBS_API_JOBID_NEXT               "$next"
-#define JOBS_API_JOBID_NEXT_LENGTH        ( sizeof( JOBS_API_JOBID_NEXT ) - 1U )
+#define JOBS_API_JOBID_NEXT                 "$next"
+#define JOBS_API_JOBID_NEXT_LENGTH          ( sizeof( JOBS_API_JOBID_NEXT ) - 1U )
 
-#define JOBS_API_JOBID_NULL               ""
-#define JOBS_API_LEVEL_SEPARATOR          "/"
+#define JOBS_API_JOBID_NULL                 ""
+#define JOBS_API_LEVEL_SEPARATOR            "/"
 
-#define JOBS_API_CLIENTTOKEN              "{\"clientToken\":\""
-#define JOBS_API_CLIENTTOKEN_LENGTH       ( sizeof( JOBS_API_CLIENTTOKEN ) - 1U )
+#define JOBS_API_CLIENTTOKEN                "{\"clientToken\":\""
+#define JOBS_API_CLIENTTOKEN_LENGTH         ( sizeof( JOBS_API_CLIENTTOKEN ) - 1U )
 
-#define JOBS_API_STATUS                   "{\"status\":\""
-#define JOBS_API_STATUS_LENGTH            ( sizeof( JOBS_API_STATUS ) - 1U )
+#define JOBS_API_STATUS                     "{\"status\":\""
+#define JOBS_API_STATUS_LENGTH              ( sizeof( JOBS_API_STATUS ) - 1U )
 
-#define JOBS_API_EXPECTED_VERSION         "\",\"expectedVersion\":\""
-#define JOBS_API_EXPECTED_VERSION_LENGTH  ( sizeof( JOBS_API_EXPECTED_VERSION ) - 1U )
+#define JOBS_API_EXPECTED_VERSION           "\",\"expectedVersion\":\""
+#define JOBS_API_EXPECTED_VERSION_LENGTH    ( sizeof( JOBS_API_EXPECTED_VERSION ) - 1U )
 
 #define JOBS_API_COMMON_LENGTH( thingNameLength ) \
     ( JOBS_API_PREFIX_LENGTH + ( thingNameLength ) + JOBS_API_BRIDGE_LENGTH )
