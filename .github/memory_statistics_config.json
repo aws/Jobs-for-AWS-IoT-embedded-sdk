@@ -1,9 +1,11 @@
 {
     "lib_name": "AWS IoT Jobs",
     "src": [
-        "source/jobs.c"
+        "source/jobs.c",
+        "coreJSON/source/core_json.c"
     ],
     "include": [
-        "source/include"
+        "source/include",
+        "coreJSON/source/include"
     ]
 }

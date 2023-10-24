@@ -88,8 +88,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          submodules: "recursive"
+      - name: Clone coreJSON
+        run: git clone https://github.com/FreeRTOS/coreJSON.git --depth 1 --branch v3.2.0
       - name: Install Python3
         uses: actions/setup-python@v3
         with:
@@ -132,4 +132,5 @@ jobs:
       - name: Run CBMC
         uses: FreeRTOS/CI-CD-Github-Actions/run_cbmc@main
         with:
-          proofs_dir: test/cbmc/proofs
+          proofs_dir: test/cbmc
+          run_cbmc_proofs_command: ./run_proofs.sh

@@ -28,6 +28,7 @@
  */
 
 #include <ctype.h>
+#include <string.h>
 
 #include "unity.h"
 #include "catch_assert.h"
@@ -48,6 +49,10 @@
 #define PREFIX          JOBS_API_PREFIX name_ JOBS_API_BRIDGE
 
 jmp_buf CATCH_JMPBUF;
+
+/* ============================   TEST GLOBALS   =============================*/
+
+#define TOPIC_BUFFER_SIZE    256U
 
 /* ============================   UNITY FIXTURES ============================ */
 
@@ -553,4 +558,365 @@ void test_Jobs_asserts( void )
     catch_assert( matchApi( bufA, x, NULL, &p, &j ) );
     catch_assert( matchApi( bufA, x, &api, NULL, &j ) );
     catch_assert( matchApi( bufA, x, &api, &p, NULL ) );
+}
+
+/*Tests for Jobs_isStartNextAccepted */
+void test_isStartNextAccepted_isStartNextMsg( void )
+{
+    char topic[] = "$aws/things/foobar/jobs/start-next/accepted";
+    size_t topicLength = strlen( topic );
+
+    bool result = Jobs_IsStartNextAccepted( topic, topicLength, name_, nameLength_ );
+
+    TEST_ASSERT_TRUE( result );
+}
+
+void test_isStartNextAccepted_isNotStartNextMsg( void )
+{
+    char topic[] = "thingname/random/topic";
+    size_t topicLength = strlen( topic );
+
+    bool result = Jobs_IsStartNextAccepted( topic, topicLength, name_, nameLength_ );
+
+    TEST_ASSERT_FALSE( result );
+}
+
+void test_isStartNextAccepted_isStartNextMsgForAnotherThing( void )
+{
+    char topic[] = "$aws/things/differentThingName/jobs/start-next/accepted";
+    size_t topicLength = strlen( topic );
+
+    bool result = Jobs_IsStartNextAccepted( topic, topicLength, name_, nameLength_ );
+
+    TEST_ASSERT_FALSE( result );
+}
+
+void test_isStartNextAccepted_isStartNextMsgForSameLengthThing( void )
+{
+    char topic[] = "$aws/things/different/jobs/start-next/accepted";
+    size_t topicLength = strlen( topic );
+
+    bool result = Jobs_IsStartNextAccepted( topic, topicLength, name_, nameLength_ );
+
+    TEST_ASSERT_FALSE( result );
+}
+
+void test_isStartNextAccepted_nullTopic( void )
+{
+    bool result = Jobs_IsStartNextAccepted( NULL, 1U, name_, nameLength_ );
+
+    TEST_ASSERT_FALSE( result );
+}
+
+void test_isStartNextAccepted_zeroTopicLength( void )
+{
+    char topic[] = "$aws/things/differentThingName/jobs/start-next/accepted";
+
+    bool result = Jobs_IsStartNextAccepted( topic, 0U, name_, nameLength_ );
+
+    TEST_ASSERT_FALSE( result );
+}
+
+void test_isStartNextAccepted_nullThingName( void )
+{
+    char topic[] = "$aws/things/different/jobs/start-next/accepted";
+    size_t topicLength = strlen( topic );
+
+    bool result = Jobs_IsStartNextAccepted( topic, topicLength, NULL, 1U );
+
+    TEST_ASSERT_FALSE( result );
+}
+
+void test_isStartNextAccepted_zeroThingNameLength( void )
+{
+    char topic[] = "$aws/things/different/jobs/start-next/accepted";
+    size_t topicLength = strlen( topic );
+
+    bool result = Jobs_IsStartNextAccepted( topic, topicLength, name_, 0U );
+
+    TEST_ASSERT_FALSE( result );
+}
+
+/*Tests for Jobs_getJobID() */
+
+void test_getJobId_returnsJobId( void )
+{
+    char * message = "{\"execution\":{\"jobId\":\"identification\",\"jobDocument\":\"document\"}}";
+    char * jobId = NULL;
+
+    size_t result = Jobs_GetJobId( message, strlen( message ), &jobId );
+
+    TEST_ASSERT_EQUAL( strlen( "identification" ), result );
+    TEST_ASSERT_EQUAL_MEMORY( "identification", jobId, result );
+}
+
+void test_getJobId_cannotFindJobId( void )
+{
+    char * message = "{\"execution\":{\"jobDocument\":\"document\"}}";
+    char * jobId = NULL;
+
+    size_t result = Jobs_GetJobId( message, strlen( message ), &jobId );
+
+    TEST_ASSERT_EQUAL( 0U, result );
+    TEST_ASSERT_NULL( jobId );
+}
+
+void test_getJobId_malformedJson( void )
+{
+    char * message = "clearlyNotJson";
+    char * jobId = NULL;
+
+    size_t result = Jobs_GetJobId( message, strlen( message ), &jobId );
+
+    TEST_ASSERT_EQUAL( 0U, result );
+    TEST_ASSERT_NULL( jobId );
+}
+
+void test_getJobId_returnsZeroLengthJob_givenNullMessage( void )
+{
+    char * jobId = NULL;
+
+    size_t result = Jobs_GetJobId( NULL, 10U, &jobId );
+
+    TEST_ASSERT_EQUAL( 0U, result );
+    TEST_ASSERT_NULL( jobId );
+}
+
+void test_getJobId_returnsZeroLengthJob_givenZeroMessageLength( void )
+{
+    char * message = "{\"execution\":{\"jobId\":\"identification\",\"jobDocument\":\"document\"}}";
+    char * jobId = NULL;
+
+    size_t result = Jobs_GetJobId( message, 0U, &jobId );
+
+    TEST_ASSERT_EQUAL( 0U, result );
+    TEST_ASSERT_NULL( jobId );
+}
+
+/*Tests for Jobs_getJobDocument */
+
+void test_getJobDocument_returnsDoc( void )
+{
+    char * message = "{\"execution\":{\"jobId\":\"identification\",\"jobDocument\":\"document\"}}";
+    char * jobDocument = NULL;
+
+    size_t result = Jobs_GetJobDocument( message, strlen( message ), &jobDocument );
+
+    TEST_ASSERT_EQUAL( strlen( "document" ), result );
+    TEST_ASSERT_EQUAL_MEMORY( "document", jobDocument, result );
+}
+
+void test_getJobDocument_cannotFindDoc( void )
+{
+    char * message = "{\"execution\":{\"jobId\":\"identification\"}}";
+    char * jobDocument = NULL;
+
+    size_t result = Jobs_GetJobDocument( message, strlen( message ), &jobDocument );
+
+    TEST_ASSERT_EQUAL( 0U, result );
+    TEST_ASSERT_NULL( jobDocument );
+}
+
+void test_getJobDocument_malformedJson( void )
+{
+    char * message = "clearlyNotJson";
+    char * jobDocument = NULL;
+
+    size_t result = Jobs_GetJobDocument( message, strlen( message ), &jobDocument );
+
+    TEST_ASSERT_EQUAL( 0U, result );
+    TEST_ASSERT_NULL( jobDocument );
+}
+
+void test_getJobDocument_returnsZeroLengthJob_givenNullMessage( void )
+{
+    char * jobDocument = NULL;
+
+    size_t result = Jobs_GetJobDocument( NULL, 10U, &jobDocument );
+
+    TEST_ASSERT_EQUAL( 0U, result );
+    TEST_ASSERT_NULL( jobDocument );
+}
+
+void test_getJobDocument_returnsZeroLengthJob_givenZeroMessageLength( void )
+{
+    char * message = "{\"execution\":{\"jobId\":\"identification\",\"jobDocument\":\"document\"}}";
+    char * jobDocument = NULL;
+
+    size_t result = Jobs_GetJobDocument( message, 0U, &jobDocument );
+
+    TEST_ASSERT_EQUAL( 0U, result );
+    TEST_ASSERT_NULL( jobDocument );
+}
+
+/*Tests for Jobs_isJobUpdateStatus */
+
+void test_isJobUpdateStatus_isUpdateAcceptedMsg()
+{
+    char topic[] = "$aws/things/foobar/jobs/1234/update/accepted";
+    size_t topicLength = strlen( topic );
+
+    bool result = Jobs_IsJobUpdateStatus( topic, topicLength, jobId_, jobIdLength_, name_, nameLength_, JobUpdateStatus_Accepted );
+
+    TEST_ASSERT_TRUE( result );
+}
+
+void test_isJobUpdateStatus_isUpdateRejectedMsg()
+{
+    char topic[] = "$aws/things/foobar/jobs/1234/update/rejected";
+    size_t topicLength = strlen( topic );
+
+    bool result = Jobs_IsJobUpdateStatus( topic, topicLength, jobId_, jobIdLength_, name_, nameLength_, JobUpdateStatus_Rejected );
+
+    TEST_ASSERT_TRUE( result );
+}
+
+void test_isJobUpdateStatus_isUpdateMsg_notForCurrentJob()
+{
+    /* Note: topic length remains the same length */
+    char topic[ 100 ] = "$aws/things/thingname/jobs/jobtwo/update/accepted";
+    size_t topicLength = strlen( topic );
+
+    bool result = Jobs_IsJobUpdateStatus( topic, topicLength, jobId_, jobIdLength_, name_, nameLength_, JobUpdateStatus_Accepted );
+
+    TEST_ASSERT_FALSE( result );
+
+    strcpy( topic, "$aws/things/thingname/jobs/different-length/update/accepted" );
+    topicLength = strlen( topic );
+
+    result = Jobs_IsJobUpdateStatus( topic, topicLength, jobId_, jobIdLength_, name_, nameLength_, JobUpdateStatus_Accepted );
+
+    TEST_ASSERT_FALSE( result );
+}
+
+void test_isJobUpdateStatus_isNotUpdateAcceptedMsg()
+{
+    char topic[] = "$aws/things/foobar/jobs/1234/update/rejected";
+    size_t topicLength = strlen( topic );
+
+    bool result = Jobs_IsJobUpdateStatus( topic, topicLength, jobId_, jobIdLength_, name_, nameLength_, JobUpdateStatus_Accepted );
+
+    TEST_ASSERT_FALSE( result );
+}
+
+void test_isJobUpdateStatus_hasNullTopic()
+{
+    bool result = Jobs_IsJobUpdateStatus( NULL, 1U, jobId_, jobIdLength_, name_, nameLength_, JobUpdateStatus_Accepted );
+
+    TEST_ASSERT_FALSE( result );
+}
+
+void test_isJobUpdateStatus_hasZeroTopicLength()
+{
+    bool result = Jobs_IsJobUpdateStatus( "$aws/things/thingname/jobs/start-next/accepted", 0U, jobId_, jobIdLength_, name_, nameLength_, JobUpdateStatus_Accepted );
+
+    TEST_ASSERT_FALSE( result );
+}
+
+void test_isJobUpdateStatus_hasNullThingName( void )
+{
+    char topic[] = "$aws/things/foobar/jobs/1234/update/accepted";
+    size_t topicLength = strlen( topic );
+
+    bool result = Jobs_IsJobUpdateStatus( topic, topicLength, jobId_, jobIdLength_, NULL, 1U, JobUpdateStatus_Accepted );
+
+    TEST_ASSERT_FALSE( result );
+}
+
+void test_isJobUpdateStatus_hasZeroThingNameLength( void )
+{
+    char topic[] = "$aws/things/foobar/jobs/1234/update/accepted";
+    size_t topicLength = strlen( topic );
+
+    bool result = Jobs_IsJobUpdateStatus( topic, topicLength, jobId_, jobIdLength_, name_, 0U, JobUpdateStatus_Accepted );
+
+    TEST_ASSERT_FALSE( result );
+}
+
+/*Tests for getStartNextPendingJobExecutionMsg */
+void test_getStartNextPendingJobExecutionMsg_hasNullClientToken( void )
+{
+    char buffer[ TOPIC_BUFFER_SIZE + 1 ] = { 0 };
+
+    size_t result = Jobs_StartNextMsg( NULL, 1U, buffer, TOPIC_BUFFER_SIZE );
+
+    TEST_ASSERT_EQUAL( 0U, result );
+}
+
+void test_getStartNextPendingJobExecutionMsg_hasZeroLengthClientToken( void )
+{
+    char * clientToken = "token";
+    char buffer[ TOPIC_BUFFER_SIZE + 1 ] = { 0 };
+
+    size_t result = Jobs_StartNextMsg( clientToken, 0U, buffer, TOPIC_BUFFER_SIZE );
+
+    TEST_ASSERT_EQUAL( 0U, result );
+}
+
+void test_getStartNextPendingJobExecutionMsg_hasTooSmallBuffer( void )
+{
+    char * clientToken = "token";
+    size_t clientTokenLength = strlen( clientToken );
+    char buffer[ 2 ] = { 0 };
+
+    size_t result = Jobs_StartNextMsg( clientToken, clientTokenLength, buffer, 1 );
+
+    TEST_ASSERT_EQUAL( 0U, result );
+}
+
+void test_getStartNextPendingJobExecutionMsg_hasValidParameters( void )
+{
+    char * clientToken = "token";
+    size_t clientTokenLength = strlen( clientToken );
+    char buffer[ TOPIC_BUFFER_SIZE + 1 ] = { 0 };
+
+    size_t result = Jobs_StartNextMsg( clientToken, clientTokenLength, buffer, TOPIC_BUFFER_SIZE );
+
+    TEST_ASSERT_EQUAL( 23U, result );
+}
+
+/*Tests for getUpdateJobExecutionMsg */
+void test_getUpdateJobExecutionMsg_hasNullExpectedVersion( void )
+{
+    JobCurrentStatus_t status = Queued;
+    char buffer[ TOPIC_BUFFER_SIZE + 1 ] = { 0 };
+
+    size_t result = Jobs_UpdateMsg( status, NULL, 1U, buffer, TOPIC_BUFFER_SIZE );
+
+    TEST_ASSERT_EQUAL( 0U, result );
+}
+
+void test_getUpdateJobExecutionMsg_hasZeroLengthExpectedVersion( void )
+{
+    char * version = "1.0.1";
+    JobCurrentStatus_t status = Queued;
+    char buffer[ TOPIC_BUFFER_SIZE + 1 ] = { 0 };
+
+    size_t result = Jobs_UpdateMsg( status, version, 0U, buffer, TOPIC_BUFFER_SIZE );
+
+    TEST_ASSERT_EQUAL( 0U, result );
+}
+
+void test_getUpdateJobExecutionMsg_hasTooSmallBufferSize( void )
+{
+    char * version = "1.0.1";
+    size_t versionLength = strlen( version );
+    JobCurrentStatus_t status = Queued;
+    char buffer[ 2 ] = { 0 };
+
+    size_t result = Jobs_UpdateMsg( status, version, versionLength, buffer, 1 );
+
+    TEST_ASSERT_EQUAL( 0U, result );
+}
+
+void test_getUpdateJobExecutionMsg_hasValidParameters( void )
+{
+    char * version = "1.0.1";
+    size_t versionLength = strlen( version );
+    JobCurrentStatus_t status = Queued;
+    char buffer[ TOPIC_BUFFER_SIZE + 1 ] = { 0 };
+
+    size_t result = Jobs_UpdateMsg( status, version, versionLength, buffer, TOPIC_BUFFER_SIZE );
+
+    TEST_ASSERT_EQUAL( 45U, result );
 }

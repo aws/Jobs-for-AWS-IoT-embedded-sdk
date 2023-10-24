@@ -17,7 +17,7 @@ execute_process( COMMAND sed "s/^static //"
         )
 
 # Generate a header file for internal functions
-execute_process( COMMAND sed -n "1s/.*/typedef int bool_;/p; /^static.*(/,/^{\$/{s/^static //; s/)\$/&;/; /{/d; p;}"
+execute_process( COMMAND sed -n "/^static.*(/,/^{\$/{s/^static //; s/)\$/&;/; /{/d; p;}"
                  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
                  INPUT_FILE ${JOBS_SOURCES}
                  OUTPUT_FILE ${TEMP_BASE}_annex.h
@@ -26,10 +26,12 @@ execute_process( COMMAND sed -n "1s/.*/typedef int bool_;/p; /^static.*(/,/^{\$/
 # list the files you would like to test here
 list(APPEND real_source_files
             ${TEMP_BASE}.c
+            ${JSON_SOURCES}
         )
 # list the directories the module under test includes
 list(APPEND real_include_directories
             ${JOBS_INCLUDE_PUBLIC_DIRS}
+            ${JSON_INCLUDE_PUBLIC_DIRS}
         )
 
 # =====================  Create UnitTest Code here (edit)  =====================

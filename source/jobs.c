@@ -28,15 +28,16 @@
  */
 
 #include <assert.h>
+#include <string.h>
+#include <stdbool.h>
 
+/* Internal Includes */
 #include "jobs.h"
+/* External Dependencies */
+#include "core_json.h"
 
 /** @cond DO_NOT_DOCUMENT */
 
-typedef enum
-{
-    true = 1, false = 0
-} bool_;
 
 /**
  * @brief Table of topic API strings in JobsTopic_t order.
@@ -72,6 +73,36 @@ static const size_t apiTopicLength[] =
     JOBS_API_UPDATE_LENGTH + JOBS_API_FAILURE_LENGTH,
 };
 
+static const char * const jobStatusString[ 5U ] =
+{
+    "QUEUED",
+    "IN_PROGRESS",
+    "FAILED",
+    "SUCCEEDED",
+    "REJECTED"
+};
+
+static const size_t jobStatusStringLengths[ 5U ] =
+{
+    sizeof( "QUEUED" ) - 1U,
+    sizeof( "IN_PROGRESS" ) - 1U,
+    sizeof( "FAILED" ) - 1U,
+    sizeof( "SUCCEEDED" ) - 1U,
+    sizeof( "REJECTED" ) - 1U
+};
+
+static const char * const jobUpdateStatusString[ 2U ] =
+{
+    "accepted",
+    "rejected"
+};
+
+static const size_t jobUpdateStatusStringLengths[ 2U ] =
+{
+    sizeof( "accepted" ) - 1U,
+    sizeof( "rejected" ) - 1U
+};
+
 /**
  * @brief Predicate returns true for a valid thing name or job ID character.
  *
@@ -81,10 +112,10 @@ static const size_t apiTopicLength[] =
  * @return true if the character is valid;
  * false otherwise
  */
-static bool_ isValidChar( char a,
-                          bool_ allowColon )
+static bool isValidChar( char a,
+                         bool allowColon )
 {
-    bool_ ret;
+    bool ret;
 
     if( ( a == '-' ) || ( a == '_' ) )
     {
@@ -127,12 +158,12 @@ static bool_ isValidChar( char a,
  * @return true if the identifier is valid;
  * false otherwise
  */
-static bool_ isValidID( const char * id,
-                        uint16_t length,
-                        uint16_t max,
-                        bool_ allowColon )
+static bool isValidID( const char * id,
+                       uint16_t length,
+                       uint16_t max,
+                       bool allowColon )
 {
-    bool_ ret = false;
+    bool ret = false;
 
     if( ( id != NULL ) && ( length > 0U ) &&
         ( length <= max ) )
@@ -163,8 +194,8 @@ static bool_ isValidID( const char * id,
  * @return true if the thing name is valid;
  * false otherwise
  */
-static bool_ isValidThingName( const char * thingName,
-                               uint16_t thingNameLength )
+static bool isValidThingName( const char * thingName,
+                              uint16_t thingNameLength )
 {
     return isValidID( thingName, thingNameLength,
                       THINGNAME_MAX_LENGTH, true );
@@ -179,8 +210,8 @@ static bool_ isValidThingName( const char * thingName,
  * @return true if the job ID is valid;
  * false otherwise
  */
-static bool_ isValidJobId( const char * jobId,
-                           uint16_t jobIdLength )
+static bool isValidJobId( const char * jobId,
+                          uint16_t jobIdLength )
 {
     return isValidID( jobId, jobIdLength,
                       JOBID_MAX_LENGTH, false );
@@ -369,10 +400,10 @@ static JobsStatus_t strnnEq( const char * a,
  * @return true if the job ID matches;
  * false otherwise
  */
-static bool_ isNextJobId( const char * jobId,
-                          uint16_t jobIdLength )
+static bool isNextJobId( const char * jobId,
+                         uint16_t jobIdLength )
 {
-    bool_ ret = false;
+    bool ret = false;
 
     if( ( jobId != NULL ) &&
         ( strnnEq( JOBS_API_JOBID_NEXT, JOBS_API_JOBID_NEXT_LENGTH, jobId, jobIdLength ) == JobsSuccess ) )
@@ -536,6 +567,39 @@ static JobsStatus_t matchApi( char * topic,
     return ret;
 }
 
+static bool isThingnameTopicMatch( const char * topic,
+                                   const size_t topicLength,
+                                   const char * topicSuffix,
+                                   const size_t topicSuffixLength,
+                                   const char * thingName,
+                                   const size_t thingNameLength )
+{
+    char expectedTopicBuffer[ TOPIC_BUFFER_SIZE + 1 ] = { 0 };
+    bool isMatch = true;
+    size_t start = 0U;
+
+    if( ( topic == NULL ) || ( topicLength == 0 ) )
+    {
+        isMatch = false;
+    }
+    else if( ( thingName == NULL ) || ( thingNameLength == 0 ) )
+    {
+        isMatch = false;
+    }
+
+    if( isMatch )
+    {
+        writePreamble( expectedTopicBuffer, &start, TOPIC_BUFFER_SIZE, thingName, thingNameLength );
+        ( void ) strnAppend( expectedTopicBuffer, &start, TOPIC_BUFFER_SIZE, topicSuffix, topicSuffixLength );
+
+        isMatch = ( size_t ) strnlen( expectedTopicBuffer, TOPIC_BUFFER_SIZE ) ==
+                  topicLength;
+        isMatch = isMatch && strncmp( expectedTopicBuffer, topic, topicLength ) == 0;
+    }
+
+    return isMatch;
+}
+
 /** @endcond */
 
 /**
@@ -664,6 +728,22 @@ JobsStatus_t Jobs_StartNext( char * buffer,
     return ret;
 }
 
+size_t Jobs_StartNextMsg( const char * clientToken,
+                          size_t clientTokenLength,
+                          char * buffer,
+                          size_t bufferSize )
+{
+    size_t start = 0U;
+
+    if( ( clientToken != NULL ) && ( clientTokenLength > 0U ) && ( bufferSize >= 18U + clientTokenLength ) )
+    {
+        strnAppend( buffer, &start, bufferSize, JOBS_API_CLIENTTOKEN, JOBS_API_CLIENTTOKEN_LENGTH );
+        strnAppend( buffer, &start, bufferSize, clientToken, clientTokenLength );
+        strnAppend( buffer, &start, bufferSize, "\"}", sizeof( "\"}" ) - 1 );
+    }
+
+    return start;
+}
 
 /**
  * See jobs.h for docs.
@@ -744,4 +824,98 @@ JobsStatus_t Jobs_Update( char * buffer,
     }
 
     return ret;
+}
+
+size_t Jobs_UpdateMsg( JobCurrentStatus_t status,
+                       char * expectedVersion,
+                       size_t expectedVersionLength,
+                       char * buffer,
+                       size_t bufferSize )
+{
+    size_t start = 0U;
+
+    if( ( expectedVersion != NULL ) && ( expectedVersionLength > 0U ) && ( bufferSize >=
+                                                                           34U + expectedVersionLength + jobStatusStringLengths[ status ] ) &&
+        ( jobStatusString[ status ] != NULL ) )
+    {
+        strnAppend( buffer, &start, bufferSize, JOBS_API_STATUS, JOBS_API_STATUS_LENGTH );
+        strnAppend( buffer, &start, bufferSize, jobStatusString[ status ], jobStatusStringLengths[ status ] );
+        strnAppend( buffer, &start, bufferSize, JOBS_API_EXPECTED_VERSION, JOBS_API_EXPECTED_VERSION_LENGTH );
+        strnAppend( buffer, &start, bufferSize, expectedVersion, expectedVersionLength );
+        strnAppend( buffer, &start, bufferSize, "\"}", sizeof( "\"}" ) - 1 );
+    }
+
+    return start;
+}
+
+bool Jobs_IsStartNextAccepted( const char * topic,
+                               const size_t topicLength,
+                               const char * thingName,
+                               const size_t thingNameLength )
+{
+    return isThingnameTopicMatch( topic, topicLength, "start-next/accepted", strlen( "start-next/accepted" ), thingName, thingNameLength );
+}
+
+bool Jobs_IsJobUpdateStatus( const char * topic,
+                             const size_t topicLength,
+                             const char * jobId,
+                             const size_t jobIdLength,
+                             const char * thingName,
+                             const size_t thingNameLength,
+                             JobUpdateStatus_t expectedStatus )
+{
+    /* Max suffix size = max topic size - "$aws/<thingname>" prefix */
+    size_t suffixBufferLength = ( TOPIC_BUFFER_SIZE - sizeof( "$aws/<thingname>" ) - 1U );
+    char suffixBuffer[ TOPIC_BUFFER_SIZE - sizeof( "$aws/<thingname>" ) - 1U ] = { 0 };
+    size_t start = 0U;
+
+    strnAppend( suffixBuffer, &start, suffixBufferLength, jobId, jobIdLength );
+    strnAppend( suffixBuffer, &start, suffixBufferLength, "/update/", sizeof( "/update/" ) - 1 );
+    strnAppend( suffixBuffer, &start, suffixBufferLength, jobUpdateStatusString[ expectedStatus ], jobUpdateStatusStringLengths[ expectedStatus ] );
+
+    return isThingnameTopicMatch( topic, topicLength, suffixBuffer, strnlen( suffixBuffer, suffixBufferLength ), thingName, thingNameLength );
+}
+
+size_t Jobs_GetJobId( const char * message,
+                      size_t messageLength,
+                      char ** jobId )
+{
+    size_t jobIdLength = 0U;
+    JSONStatus_t jsonResult = JSONNotFound;
+
+    jsonResult = JSON_Validate( message, messageLength );
+
+    if( jsonResult == JSONSuccess )
+    {
+        jsonResult = JSON_Search( ( char * ) message,
+                                  messageLength,
+                                  "execution.jobId",
+                                  sizeof( "execution.jobId" ) - 1,
+                                  jobId,
+                                  &jobIdLength );
+    }
+
+    return jobIdLength;
+}
+
+size_t Jobs_GetJobDocument( const char * message,
+                            size_t messageLength,
+                            char ** jobDoc )
+{
+    size_t jobDocLength = 0U;
+    JSONStatus_t jsonResult = JSONNotFound;
+
+    jsonResult = JSON_Validate( message, messageLength );
+
+    if( jsonResult == JSONSuccess )
+    {
+        jsonResult = JSON_Search( ( char * ) message,
+                                  messageLength,
+                                  "execution.jobDocument",
+                                  sizeof( "execution.jobDocument" ) - 1,
+                                  jobDoc,
+                                  &jobDocLength );
+    }
+
+    return jobDocLength;
 }

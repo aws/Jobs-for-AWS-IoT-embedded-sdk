@@ -81,19 +81,17 @@ def _get_status_and_proof_summaries(run_dict):
     -------
     A list of 2 lists.
     The first sub-list maps a status to the number of proofs with that status.
-    The second sub-list maps each proof to its status.
+    The second sub-list maps each proof to its function and status.
     """
     count_statuses = {}
-    proofs = [["Proof", "Status"]]
-    for proof_pipeline in run_dict["pipelines"]:
-        status_pretty_name = proof_pipeline["status"].title().replace("_", " ")
+    proofs = [["Function","Proof", "Status"]]
+    for proof_pipeline in run_dict:
+        status_pretty_name = proof_pipeline['status']
         try:
             count_statuses[status_pretty_name] += 1
         except KeyError:
             count_statuses[status_pretty_name] = 1
-        if proof_pipeline["name"] == "print_tool_versions":
-            continue
-        proofs.append([proof_pipeline["name"], status_pretty_name])
+        proofs.append([proof_pipeline["sourceLocation"]["function"], proof_pipeline["property"], status_pretty_name])
     statuses = [["Status", "Count"]]
     for status, count in count_statuses.items():
         statuses.append([status, str(count)])
@@ -108,6 +106,19 @@ def print_proof_results(out_file):
     output = "## Summary of CBMC proof results\n\n"
     with open(out_file, encoding='utf-8') as run_json:
         run_dict = json.load(run_json)
+
+    """
+    Iterate through the json output until we get to the proof results
+    Before this is info about loop unwinding, etc, which is not relevant
+    to the summary page
+    """
+    for proof_pipeline in run_dict:
+        if ('result' not in proof_pipeline):
+            continue
+        else:
+            #Set the run_dict to be only the proof results.
+            run_dict = proof_pipeline['result']
+
     status_table, proof_table = _get_status_and_proof_summaries(run_dict)
     for summary in (status_table, proof_table):
         output += _get_rendered_table(summary)
