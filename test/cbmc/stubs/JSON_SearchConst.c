@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include "../coreJSON/source/include/core_json.h"
 
-JSONStatus_t JSON_SearchT( char * buf,
+JSONStatus_t JSON_SearchConst( char * buf,
                            size_t max,
                            const char * query,
                            size_t queryLength,

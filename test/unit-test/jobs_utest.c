@@ -546,8 +546,8 @@ void test_Jobs_asserts( void )
     catch_assert( strnAppend( bufA, NULL, y, bufB, z ) );
     catch_assert( strnAppend( bufA, &x, y, NULL, z ) );
 
-    catch_assert( strnEq( NULL, bufB, x ) );
-    catch_assert( strnEq( bufA, NULL, x ) );
+    catch_assert( strnEquals( NULL, bufB, x ) );
+    catch_assert( strnEquals( bufA, NULL, x ) );
 
     catch_assert( matchIdApi( NULL, x, &api, &p, &j ) );
     catch_assert( matchIdApi( bufA, x, NULL, &p, &j ) );
@@ -642,7 +642,7 @@ void test_isStartNextAccepted_zeroThingNameLength( void )
 void test_getJobId_returnsJobId( void )
 {
     char * message = "{\"execution\":{\"jobId\":\"identification\",\"jobDocument\":\"document\"}}";
-    char * jobId = NULL;
+    const char * jobId = NULL;
 
     size_t result = Jobs_GetJobId( message, strlen( message ), &jobId );
 
@@ -653,7 +653,7 @@ void test_getJobId_returnsJobId( void )
 void test_getJobId_cannotFindJobId( void )
 {
     char * message = "{\"execution\":{\"jobDocument\":\"document\"}}";
-    char * jobId = NULL;
+    const char * jobId = NULL;
 
     size_t result = Jobs_GetJobId( message, strlen( message ), &jobId );
 
@@ -664,7 +664,7 @@ void test_getJobId_cannotFindJobId( void )
 void test_getJobId_malformedJson( void )
 {
     char * message = "clearlyNotJson";
-    char * jobId = NULL;
+    const char * jobId = NULL;
 
     size_t result = Jobs_GetJobId( message, strlen( message ), &jobId );
 
@@ -674,7 +674,7 @@ void test_getJobId_malformedJson( void )
 
 void test_getJobId_returnsZeroLengthJob_givenNullMessage( void )
 {
-    char * jobId = NULL;
+    const char * jobId = NULL;
 
     size_t result = Jobs_GetJobId( NULL, 10U, &jobId );
 
@@ -685,7 +685,7 @@ void test_getJobId_returnsZeroLengthJob_givenNullMessage( void )
 void test_getJobId_returnsZeroLengthJob_givenZeroMessageLength( void )
 {
     char * message = "{\"execution\":{\"jobId\":\"identification\",\"jobDocument\":\"document\"}}";
-    char * jobId = NULL;
+    const char * jobId = NULL;
 
     size_t result = Jobs_GetJobId( message, 0U, &jobId );
 
@@ -698,7 +698,7 @@ void test_getJobId_returnsZeroLengthJob_givenZeroMessageLength( void )
 void test_getJobDocument_returnsDoc( void )
 {
     char * message = "{\"execution\":{\"jobId\":\"identification\",\"jobDocument\":\"document\"}}";
-    char * jobDocument = NULL;
+    const char * jobDocument = NULL;
 
     size_t result = Jobs_GetJobDocument( message, strlen( message ), &jobDocument );
 
@@ -709,7 +709,7 @@ void test_getJobDocument_returnsDoc( void )
 void test_getJobDocument_cannotFindDoc( void )
 {
     char * message = "{\"execution\":{\"jobId\":\"identification\"}}";
-    char * jobDocument = NULL;
+    const char * jobDocument = NULL;
 
     size_t result = Jobs_GetJobDocument( message, strlen( message ), &jobDocument );
 
@@ -720,7 +720,7 @@ void test_getJobDocument_cannotFindDoc( void )
 void test_getJobDocument_malformedJson( void )
 {
     char * message = "clearlyNotJson";
-    char * jobDocument = NULL;
+    const char * jobDocument = NULL;
 
     size_t result = Jobs_GetJobDocument( message, strlen( message ), &jobDocument );
 
@@ -730,7 +730,7 @@ void test_getJobDocument_malformedJson( void )
 
 void test_getJobDocument_returnsZeroLengthJob_givenNullMessage( void )
 {
-    char * jobDocument = NULL;
+    const char * jobDocument = NULL;
 
     size_t result = Jobs_GetJobDocument( NULL, 10U, &jobDocument );
 
@@ -741,7 +741,7 @@ void test_getJobDocument_returnsZeroLengthJob_givenNullMessage( void )
 void test_getJobDocument_returnsZeroLengthJob_givenZeroMessageLength( void )
 {
     char * message = "{\"execution\":{\"jobId\":\"identification\",\"jobDocument\":\"document\"}}";
-    char * jobDocument = NULL;
+    const char * jobDocument = NULL;
 
     size_t result = Jobs_GetJobDocument( message, 0U, &jobDocument );
 
