@@ -317,8 +317,8 @@ JobsStatus_t Jobs_GetTopic( char * buffer,
  * JobsNoMatch otherwise
  */
 static JobsStatus_t strnEquals( const char * a,
-                            const char * b,
-                            size_t n )
+                                const char * b,
+                                size_t n )
 {
     size_t i;
 
@@ -555,7 +555,9 @@ static bool isThingnameTopicMatch( const char * topic,
     else if( ( thingName == NULL ) || ( thingNameLength == 0U ) )
     {
         isMatch = false;
-    } else {
+    }
+    else
+    {
         /* Empty MISRA body */
     }
 
@@ -567,7 +569,9 @@ static bool isThingnameTopicMatch( const char * topic,
         isMatch = ( size_t ) strnlen( expectedTopicBuffer, TOPIC_BUFFER_SIZE ) ==
                   topicLength;
         isMatch = isMatch && ( strncmp( expectedTopicBuffer, topic, topicLength ) == 0 );
-    } else {
+    }
+    else
+    {
         /* Empty MISRA body */
     }
 
@@ -709,7 +713,7 @@ size_t Jobs_StartNextMsg( const char * clientToken,
 {
     size_t start = 0U;
 
-    if( ( clientToken != NULL ) && ( clientTokenLength > 0U ) && ( bufferSize >= (18U + clientTokenLength) ) )
+    if( ( clientToken != NULL ) && ( clientTokenLength > 0U ) && ( bufferSize >= ( 18U + clientTokenLength ) ) )
     {
         ( void ) strnAppend( buffer, &start, bufferSize, JOBS_API_CLIENTTOKEN, JOBS_API_CLIENTTOKEN_LENGTH );
         ( void ) strnAppend( buffer, &start, bufferSize, clientToken, clientTokenLength );
@@ -892,12 +896,12 @@ size_t Jobs_GetJobId( const char * message,
     if( jsonResult == JSONSuccess )
     {
         jsonResult = JSON_SearchConst( message,
-                                  messageLength,
-                                  "execution.jobId",
-                                  sizeof( "execution.jobId" ) - 1U,
-                                  jobId,
-                                  &jobIdLength,
-                                  NULL );
+                                       messageLength,
+                                       "execution.jobId",
+                                       sizeof( "execution.jobId" ) - 1U,
+                                       jobId,
+                                       &jobIdLength,
+                                       NULL );
     }
 
     return jobIdLength;
@@ -915,12 +919,12 @@ size_t Jobs_GetJobDocument( const char * message,
     if( jsonResult == JSONSuccess )
     {
         jsonResult = JSON_SearchConst( message,
-                                  messageLength,
-                                  "execution.jobDocument",
-                                  sizeof( "execution.jobDocument" ) - 1U,
-                                  jobDoc,
-                                  &jobDocLength,
-                                  NULL );
+                                       messageLength,
+                                       "execution.jobDocument",
+                                       sizeof( "execution.jobDocument" ) - 1U,
+                                       jobDoc,
+                                       &jobDocLength,
+                                       NULL );
     }
 
     return jobDocLength;
