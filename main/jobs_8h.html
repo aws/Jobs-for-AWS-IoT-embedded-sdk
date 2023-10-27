@@ -224,15 +224,15 @@ Functions</h2></td></tr>
 <tr class="memitem:a4ab3fd29173814ab73d764d123e9f400"><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__jobs__enum__types.html#gacc72f7076cee5bd66a46453420d97921">JobsStatus_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="jobs_8h.html#a4ab3fd29173814ab73d764d123e9f400">Jobs_Update</a> (char *buffer, size_t length, const char *thingName, uint16_t thingNameLength, const char *jobId, uint16_t jobIdLength, size_t *outLength)</td></tr>
 <tr class="memdesc:a4ab3fd29173814ab73d764d123e9f400"><td class="mdescLeft">&#160;</td><td class="mdescRight">Populate a topic string for an UpdateJobExecution request.  <br /></td></tr>
 <tr class="separator:a4ab3fd29173814ab73d764d123e9f400"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a59337372d063cb82d8800a1a4a9e569c"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="jobs_8h.html#a59337372d063cb82d8800a1a4a9e569c">Jobs_UpdateMsg</a> (<a class="el" href="jobs_8h.html#a0826978d630c337e77898b500bdc212c">JobCurrentStatus_t</a> status, char *expectedVersion, size_t expectedVersionLength, char *buffer, size_t bufferSize)</td></tr>
-<tr class="memdesc:a59337372d063cb82d8800a1a4a9e569c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Populate a message string for an UpdateJobExecution request.  <br /></td></tr>
-<tr class="separator:a59337372d063cb82d8800a1a4a9e569c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a88a6491c46979df2e5ef487c52add7b6"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="jobs_8h.html#a88a6491c46979df2e5ef487c52add7b6">Jobs_GetJobId</a> (const char *message, size_t messageLength, char **jobId)</td></tr>
-<tr class="memdesc:a88a6491c46979df2e5ef487c52add7b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the job ID from a given message (if applicable)  <br /></td></tr>
-<tr class="separator:a88a6491c46979df2e5ef487c52add7b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3193599d160b7873f3a84f86c9eaf0bc"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="jobs_8h.html#a3193599d160b7873f3a84f86c9eaf0bc">Jobs_GetJobDocument</a> (const char *message, size_t messageLength, char **jobDoc)</td></tr>
-<tr class="memdesc:a3193599d160b7873f3a84f86c9eaf0bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the job document from a given message (if applicable)  <br /></td></tr>
-<tr class="separator:a3193599d160b7873f3a84f86c9eaf0bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a292af2fb589dd9975a25cb154abfe5e0"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="jobs_8h.html#a292af2fb589dd9975a25cb154abfe5e0">Jobs_UpdateMsg</a> (<a class="el" href="jobs_8h.html#a0826978d630c337e77898b500bdc212c">JobCurrentStatus_t</a> status, const char *expectedVersion, size_t expectedVersionLength, char *buffer, size_t bufferSize)</td></tr>
+<tr class="memdesc:a292af2fb589dd9975a25cb154abfe5e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Populate a message string for an UpdateJobExecution request.  <br /></td></tr>
+<tr class="separator:a292af2fb589dd9975a25cb154abfe5e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1bcd805a5a5534dd7b002285d573d340"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="jobs_8h.html#a1bcd805a5a5534dd7b002285d573d340">Jobs_GetJobId</a> (const char *message, size_t messageLength, const char **jobId)</td></tr>
+<tr class="memdesc:a1bcd805a5a5534dd7b002285d573d340"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the job ID from a given message (if applicable)  <br /></td></tr>
+<tr class="separator:a1bcd805a5a5534dd7b002285d573d340"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af967a6db18ca201f214caca004efad21"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="jobs_8h.html#af967a6db18ca201f214caca004efad21">Jobs_GetJobDocument</a> (const char *message, size_t messageLength, const char **jobDoc)</td></tr>
+<tr class="memdesc:af967a6db18ca201f214caca004efad21"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves the job document from a given message (if applicable)  <br /></td></tr>
+<tr class="separator:af967a6db18ca201f214caca004efad21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e3e175ffa87cb5348c9c552d5385c65"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="jobs_8h.html#a4e3e175ffa87cb5348c9c552d5385c65">Jobs_IsStartNextAccepted</a> (const char *topic, const size_t topicLength, const char *thingName, const size_t thingNameLength)</td></tr>
 <tr class="memdesc:a4e3e175ffa87cb5348c9c552d5385c65"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a message comes from the start-next/accepted reserved topic.  <br /></td></tr>
 <tr class="separator:a4e3e175ffa87cb5348c9c552d5385c65"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -377,7 +377,7 @@ The AWS IoT Jobs service does not require clients to subscribe to the "/accepted
 <div class="ttc" id="agroup__jobs__constants_html_gabb375381728f738d2bf931b7dbd91103"><div class="ttname"><a href="group__jobs__constants.html#gabb375381728f738d2bf931b7dbd91103">JOBS_API_MAX_LENGTH</a></div><div class="ttdeci">#define JOBS_API_MAX_LENGTH(thingNameLength)</div><div class="ttdoc">The size needed to hold the longest topic for a given thing name length.</div><div class="ttdef"><b>Definition:</b> jobs.h:234</div></div>
 <div class="ttc" id="agroup__jobs__enum__types_html_gacc72f7076cee5bd66a46453420d97921"><div class="ttname"><a href="group__jobs__enum__types.html#gacc72f7076cee5bd66a46453420d97921">JobsStatus_t</a></div><div class="ttdeci">JobsStatus_t</div><div class="ttdoc">Return codes from jobs functions.</div><div class="ttdef"><b>Definition:</b> jobs.h:244</div></div>
 <div class="ttc" id="agroup__jobs__enum__types_html_ggacc72f7076cee5bd66a46453420d97921a23d9fa1f6d5d5e51f681e3682d9235f3"><div class="ttname"><a href="group__jobs__enum__types.html#ggacc72f7076cee5bd66a46453420d97921a23d9fa1f6d5d5e51f681e3682d9235f3">JobsSuccess</a></div><div class="ttdeci">@ JobsSuccess</div><div class="ttdoc">The buffer was properly written or a match was found.</div><div class="ttdef"><b>Definition:</b> jobs.h:246</div></div>
-<div class="ttc" id="ajobs_8h_html_afe747bcbbd6eec4715b70df9f376de0a"><div class="ttname"><a href="jobs_8h.html#afe747bcbbd6eec4715b70df9f376de0a">Jobs_GetTopic</a></div><div class="ttdeci">JobsStatus_t Jobs_GetTopic(char *buffer, size_t length, const char *thingName, uint16_t thingNameLength, JobsTopic_t api, size_t *outLength)</div><div class="ttdoc">Populate a topic string for a subscription request.</div><div class="ttdef"><b>Definition:</b> jobs.c:297</div></div>
+<div class="ttc" id="ajobs_8h_html_afe747bcbbd6eec4715b70df9f376de0a"><div class="ttname"><a href="jobs_8h.html#afe747bcbbd6eec4715b70df9f376de0a">Jobs_GetTopic</a></div><div class="ttdeci">JobsStatus_t Jobs_GetTopic(char *buffer, size_t length, const char *thingName, uint16_t thingNameLength, JobsTopic_t api, size_t *outLength)</div><div class="ttdoc">Populate a topic string for a subscription request.</div><div class="ttdef"><b>Definition:</b> jobs.c:267</div></div>
 </div><!-- fragment --><p>See <a class="el" href="jobs_8h.html" title="Client library APIs for the AWS IoT Jobs service.">jobs.h</a> for docs. </p>
 
 </div>
@@ -536,7 +536,7 @@ Not all Jobs APIs have jobIDs within the topic string. NULL and 0 are output whe
 <div class="line">    }</div>
 <div class="line">}</div>
 <div class="ttc" id="agroup__jobs__enum__types_html_ga315af209e86f50615c9e76948cf268ac"><div class="ttname"><a href="group__jobs__enum__types.html#ga315af209e86f50615c9e76948cf268ac">JobsTopic_t</a></div><div class="ttdeci">JobsTopic_t</div><div class="ttdoc">Topic values for subscription requests.</div><div class="ttdef"><b>Definition:</b> jobs.h:290</div></div>
-<div class="ttc" id="ajobs_8h_html_ae3e1205f419d335dcf9b338f0db19815"><div class="ttname"><a href="jobs_8h.html#ae3e1205f419d335dcf9b338f0db19815">Jobs_MatchTopic</a></div><div class="ttdeci">JobsStatus_t Jobs_MatchTopic(char *topic, size_t length, const char *thingName, uint16_t thingNameLength, JobsTopic_t *outApi, char **outJobId, uint16_t *outJobIdLength)</div><div class="ttdoc">Output a topic value if a Jobs API topic string is present. Optionally, output a pointer to a jobID w...</div><div class="ttdef"><b>Definition:</b> jobs.c:610</div></div>
+<div class="ttc" id="ajobs_8h_html_ae3e1205f419d335dcf9b338f0db19815"><div class="ttname"><a href="jobs_8h.html#ae3e1205f419d335dcf9b338f0db19815">Jobs_MatchTopic</a></div><div class="ttdeci">JobsStatus_t Jobs_MatchTopic(char *topic, size_t length, const char *thingName, uint16_t thingNameLength, JobsTopic_t *outApi, char **outJobId, uint16_t *outJobIdLength)</div><div class="ttdoc">Output a topic value if a Jobs API topic string is present. Optionally, output a pointer to a jobID w...</div><div class="ttdef"><b>Definition:</b> jobs.c:588</div></div>
 </div><!-- fragment --><p>Output a topic value if a Jobs API topic string is present. Optionally, output a pointer to a jobID within the topic and its length.</p>
 <p>See <a class="el" href="jobs_8h.html" title="Client library APIs for the AWS IoT Jobs service.">jobs.h</a> for docs. </p>
 
@@ -628,7 +628,7 @@ The AWS IoT Jobs service does not require clients to subscribe to the "/accepted
 <div class="line">    <span class="comment">// generated in the buffer, topicBuffer, for the GetPendingJobExecutions API.</span></div>
 <div class="line">    <span class="comment">// Publish to this topic using an MQTT client of your choice.</span></div>
 <div class="line">}</div>
-<div class="ttc" id="ajobs_8h_html_a5b4fd584f0400e51b1d29189b24c91a5"><div class="ttname"><a href="jobs_8h.html#a5b4fd584f0400e51b1d29189b24c91a5">Jobs_GetPending</a></div><div class="ttdeci">JobsStatus_t Jobs_GetPending(char *buffer, size_t length, const char *thingName, uint16_t thingNameLength, size_t *outLength)</div><div class="ttdoc">Populate a topic string for a GetPendingJobExecutions request.</div><div class="ttdef"><b>Definition:</b> jobs.c:670</div></div>
+<div class="ttc" id="ajobs_8h_html_a5b4fd584f0400e51b1d29189b24c91a5"><div class="ttname"><a href="jobs_8h.html#a5b4fd584f0400e51b1d29189b24c91a5">Jobs_GetPending</a></div><div class="ttdeci">JobsStatus_t Jobs_GetPending(char *buffer, size_t length, const char *thingName, uint16_t thingNameLength, size_t *outLength)</div><div class="ttdoc">Populate a topic string for a GetPendingJobExecutions request.</div><div class="ttdef"><b>Definition:</b> jobs.c:648</div></div>
 </div><!-- fragment --><p>See <a class="el" href="jobs_8h.html" title="Client library APIs for the AWS IoT Jobs service.">jobs.h</a> for docs. </p>
 
 </div>
@@ -719,7 +719,7 @@ The AWS IoT Jobs service does not require clients to subscribe to the "/accepted
 <div class="line">    <span class="comment">// the buffer, topicBuffer, for the StartNextPendingJobExecution API.</span></div>
 <div class="line">    <span class="comment">// Publish to this topic using an MQTT client of your choice.</span></div>
 <div class="line">}</div>
-<div class="ttc" id="ajobs_8h_html_ad69cddd288dd61b3716021478725c174"><div class="ttname"><a href="jobs_8h.html#ad69cddd288dd61b3716021478725c174">Jobs_StartNext</a></div><div class="ttdeci">JobsStatus_t Jobs_StartNext(char *buffer, size_t length, const char *thingName, uint16_t thingNameLength, size_t *outLength)</div><div class="ttdoc">Populate a topic string for a StartNextPendingJobExecution request.</div><div class="ttdef"><b>Definition:</b> jobs.c:703</div></div>
+<div class="ttc" id="ajobs_8h_html_ad69cddd288dd61b3716021478725c174"><div class="ttname"><a href="jobs_8h.html#ad69cddd288dd61b3716021478725c174">Jobs_StartNext</a></div><div class="ttdeci">JobsStatus_t Jobs_StartNext(char *buffer, size_t length, const char *thingName, uint16_t thingNameLength, size_t *outLength)</div><div class="ttdoc">Populate a topic string for a StartNextPendingJobExecution request.</div><div class="ttdef"><b>Definition:</b> jobs.c:681</div></div>
 </div><!-- fragment --><p>See <a class="el" href="jobs_8h.html" title="Client library APIs for the AWS IoT Jobs service.">jobs.h</a> for docs. </p>
 
 </div>
@@ -887,7 +887,7 @@ The AWS IoT Jobs service does not require clients to subscribe to the "/accepted
 <div class="line">    <span class="comment">// the buffer, topicBuffer, for the DescribeJobExecution API.</span></div>
 <div class="line">    <span class="comment">// Publish to this topic using an MQTT client of your choice.</span></div>
 <div class="line">}</div>
-<div class="ttc" id="ajobs_8h_html_adfdc2db49fa5102fdb0e0b826e86b150"><div class="ttname"><a href="jobs_8h.html#adfdc2db49fa5102fdb0e0b826e86b150">Jobs_Describe</a></div><div class="ttdeci">JobsStatus_t Jobs_Describe(char *buffer, size_t length, const char *thingName, uint16_t thingNameLength, const char *jobId, uint16_t jobIdLength, size_t *outLength)</div><div class="ttdoc">Populate a topic string for a DescribeJobExecution request.</div><div class="ttdef"><b>Definition:</b> jobs.c:753</div></div>
+<div class="ttc" id="ajobs_8h_html_adfdc2db49fa5102fdb0e0b826e86b150"><div class="ttname"><a href="jobs_8h.html#adfdc2db49fa5102fdb0e0b826e86b150">Jobs_Describe</a></div><div class="ttdeci">JobsStatus_t Jobs_Describe(char *buffer, size_t length, const char *thingName, uint16_t thingNameLength, const char *jobId, uint16_t jobIdLength, size_t *outLength)</div><div class="ttdoc">Populate a topic string for a DescribeJobExecution request.</div><div class="ttdef"><b>Definition:</b> jobs.c:731</div></div>
 </div><!-- fragment --><p>See <a class="el" href="jobs_8h.html" title="Client library APIs for the AWS IoT Jobs service.">jobs.h</a> for docs. </p>
 
 </div>
@@ -999,13 +999,13 @@ The AWS IoT Jobs service does not require clients to subscribe to the "/accepted
 <div class="line">    <span class="comment">// generated in the buffer, topicBuffer, for the UpdateJobExecution API.</span></div>
 <div class="line">    <span class="comment">// Publish to this topic using an MQTT client of your choice.</span></div>
 <div class="line">}</div>
-<div class="ttc" id="ajobs_8h_html_a4ab3fd29173814ab73d764d123e9f400"><div class="ttname"><a href="jobs_8h.html#a4ab3fd29173814ab73d764d123e9f400">Jobs_Update</a></div><div class="ttdeci">JobsStatus_t Jobs_Update(char *buffer, size_t length, const char *thingName, uint16_t thingNameLength, const char *jobId, uint16_t jobIdLength, size_t *outLength)</div><div class="ttdoc">Populate a topic string for an UpdateJobExecution request.</div><div class="ttdef"><b>Definition:</b> jobs.c:794</div></div>
+<div class="ttc" id="ajobs_8h_html_a4ab3fd29173814ab73d764d123e9f400"><div class="ttname"><a href="jobs_8h.html#a4ab3fd29173814ab73d764d123e9f400">Jobs_Update</a></div><div class="ttdeci">JobsStatus_t Jobs_Update(char *buffer, size_t length, const char *thingName, uint16_t thingNameLength, const char *jobId, uint16_t jobIdLength, size_t *outLength)</div><div class="ttdoc">Populate a topic string for an UpdateJobExecution request.</div><div class="ttdef"><b>Definition:</b> jobs.c:772</div></div>
 </div><!-- fragment --><p>See <a class="el" href="jobs_8h.html" title="Client library APIs for the AWS IoT Jobs service.">jobs.h</a> for docs. </p>
 
 </div>
 </div>
-<a id="a59337372d063cb82d8800a1a4a9e569c" name="a59337372d063cb82d8800a1a4a9e569c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a59337372d063cb82d8800a1a4a9e569c">&#9670;&#160;</a></span>Jobs_UpdateMsg()</h2>
+<a id="a292af2fb589dd9975a25cb154abfe5e0" name="a292af2fb589dd9975a25cb154abfe5e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a292af2fb589dd9975a25cb154abfe5e0">&#9670;&#160;</a></span>Jobs_UpdateMsg()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1019,7 +1019,7 @@ The AWS IoT Jobs service does not require clients to subscribe to the "/accepted
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char *&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>expectedVersion</em>, </td>
         </tr>
         <tr>
@@ -1065,8 +1065,8 @@ messageLength if the write is successful </dd></dl>
 
 </div>
 </div>
-<a id="a88a6491c46979df2e5ef487c52add7b6" name="a88a6491c46979df2e5ef487c52add7b6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a88a6491c46979df2e5ef487c52add7b6">&#9670;&#160;</a></span>Jobs_GetJobId()</h2>
+<a id="a1bcd805a5a5534dd7b002285d573d340" name="a1bcd805a5a5534dd7b002285d573d340"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bcd805a5a5534dd7b002285d573d340">&#9670;&#160;</a></span>Jobs_GetJobId()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1086,7 +1086,7 @@ messageLength if the write is successful </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char **&#160;</td>
+          <td class="paramtype">const char **&#160;</td>
           <td class="paramname"><em>jobId</em>&#160;</td>
         </tr>
         <tr>
@@ -1110,8 +1110,8 @@ messageLength if the write is successful </dd></dl>
 
 </div>
 </div>
-<a id="a3193599d160b7873f3a84f86c9eaf0bc" name="a3193599d160b7873f3a84f86c9eaf0bc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3193599d160b7873f3a84f86c9eaf0bc">&#9670;&#160;</a></span>Jobs_GetJobDocument()</h2>
+<a id="af967a6db18ca201f214caca004efad21" name="af967a6db18ca201f214caca004efad21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af967a6db18ca201f214caca004efad21">&#9670;&#160;</a></span>Jobs_GetJobDocument()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1131,7 +1131,7 @@ messageLength if the write is successful </dd></dl>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">char **&#160;</td>
+          <td class="paramtype">const char **&#160;</td>
           <td class="paramname"><em>jobDoc</em>&#160;</td>
         </tr>
         <tr>
