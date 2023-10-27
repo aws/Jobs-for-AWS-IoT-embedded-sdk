@@ -7,6 +7,8 @@
 #include "jobs.h"
 #include "core_json.h"
 #include "jobs_annex.h"
+#include "../../source/otaJobParser/include/job_parser.h"
+#include "../../source/otaJobParser/include/ota_job_processor.h"
 
 #ifndef UNWIND_COUNT
     #define UNWIND_COUNT          10
@@ -16,8 +18,8 @@
 #define CBMC_MAX_BUFSIZE          ( UNWIND_COUNT )
 #define CBMC_THINGNAME_MAX_LEN    ( UNWIND_COUNT - 1 )
 #define CBMC_JOBID_MAX_LEN        ( UNWIND_COUNT - 1 )
+#define CBMC_JOBDOC_MAX_LEN       ( UNWIND_COUNT - 1 )
 #define CBMC_TOPIC_MAX_LEN        ( UNWIND_COUNT - 1 )
-#define CBMC_MAX_FILE_INDEX       ( UNWIND_COUNT - 1 )
 
 /* utils */
 int nondet_int( void );
@@ -441,12 +443,12 @@ void proof_populateJobDocFields( void )
     const char * jobDoc;
     const size_t jobDocLength;
     int fileIndex;
-    AfrOtaJobDocumentFields_t result = {0};
+    AfrOtaJobDocumentFields result = {0};
     bool ret;
     __CPROVER_assume(jobDocLength <= CBMC_JOBDOC_MAX_LEN);
     jobDoc = malloc(jobDocLength);
 
-    __CPROVER_assume(fileIndex >= 0 && fileIndex <= CBMC_MAX_FILE_INDEX);
+    __CPROVER_assume(fileIndex >= 0);
 
     ret = populateJobDocFields(jobDoc,
                                jobDocLength,
@@ -460,7 +462,7 @@ void proof_otaParser_parseJobDocFile( void )
     const char * jobDoc;
     const size_t jobDocLength;
     const uint8_t fileIndex;
-    AfrOtaJobDocumentFields_t fields = {0};
+    AfrOtaJobDocumentFields fields = {0};
     int8_t ret;
 
     __CPROVER_assume(jobDocLength <= CBMC_JOBDOC_MAX_LEN);
