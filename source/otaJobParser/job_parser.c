@@ -15,6 +15,23 @@
 #include "core_json.h"
 #include "job_parser.h"
 
+struct AfrOtaJobDocumentFields_t
+{
+    const char * signature;
+    size_t signatureLen;
+    const char * filepath;
+    size_t filepathLen;
+    const char * certfile;
+    size_t certfileLen;
+    const char * authScheme;
+    size_t authSchemeLen;
+    const char * imageRef;
+    size_t imageRefLen;
+    uint32_t fileId;
+    uint32_t fileSize;
+    uint32_t fileType;
+};
+
 /**
  * @brief Populates common job document fields in result
  *
@@ -27,7 +44,7 @@
 static JSONStatus_t populateCommonFields( const char * jobDoc,
                                           const size_t jobDocLength,
                                           int32_t fileIndex,
-                                          AfrOtaJobDocumentFields_t * result );
+                                          AfrOtaJobDocumentFields result );
 
 /**
  * @brief Populates MQTT job document fields in result
@@ -40,7 +57,7 @@ static JSONStatus_t populateCommonFields( const char * jobDoc,
 static JSONStatus_t populateMqttStreamingFields(
     const char * jobDoc,
     const size_t jobDocLength,
-    AfrOtaJobDocumentFields_t * result );
+    AfrOtaJobDocumentFields result );
 
 /**
  * @brief Populates HTTP job document fields in result
@@ -55,7 +72,7 @@ static JSONStatus_t populateHttpStreamingFields(
     const char * jobDoc,
     const size_t jobDocLength,
     int32_t fileIndex,
-    AfrOtaJobDocumentFields_t * result );
+    AfrOtaJobDocumentFields result );
 
 /**
  * @brief Assembles an indexed OTA file query
@@ -134,7 +151,7 @@ static bool addOverflowUint32( const uint32_t a, const uint32_t b );
 bool populateJobDocFields( const char * jobDoc,
                            const size_t jobDocLength,
                            int32_t fileIndex,
-                           AfrOtaJobDocumentFields_t * result )
+                           AfrOtaJobDocumentFields result )
 {
     bool populatedJobDocFields = false;
     JSONStatus_t jsonResult = JSONNotFound;
@@ -182,7 +199,7 @@ bool populateJobDocFields( const char * jobDoc,
 static JSONStatus_t populateCommonFields( const char * jobDoc,
                                           const size_t jobDocLength,
                                           int32_t fileIndex,
-                                          AfrOtaJobDocumentFields_t * result )
+                                          AfrOtaJobDocumentFields result )
 {
     JSONStatus_t jsonResult = JSONNotFound;
     const char * jsonValue = NULL;
@@ -275,7 +292,7 @@ static JSONStatus_t populateCommonFields( const char * jobDoc,
 static JSONStatus_t populateMqttStreamingFields(
     const char * jobDoc,
     const size_t jobDocLength,
-    AfrOtaJobDocumentFields_t * result )
+    AfrOtaJobDocumentFields result )
 {
     JSONStatus_t jsonResult = JSONNotFound;
     const char * jsonValue = NULL;
@@ -304,7 +321,7 @@ static JSONStatus_t populateHttpStreamingFields(
     const char * jobDoc,
     const size_t jobDocLength,
     int32_t fileIndex,
-    AfrOtaJobDocumentFields_t * result )
+    AfrOtaJobDocumentFields result )
 {
     JSONStatus_t jsonResult = JSONNotFound;
     const char * jsonValue = NULL;

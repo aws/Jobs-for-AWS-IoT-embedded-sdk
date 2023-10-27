@@ -13,8 +13,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-#include "ota_job_processor.h"
-
+typedef struct AfrOtaJobDocumentFields_t * AfrOtaJobDocumentFields;
 /**
  * @brief Populate the fields of 'result', returning
  * true if successful.
@@ -29,6 +28,6 @@
 bool populateJobDocFields( const char * jobDoc,
                            const size_t jobDocLength,
                            int32_t fileIndex,
-                           AfrOtaJobDocumentFields_t * result );
+                           AfrOtaJobDocumentFields result );
 
 #endif /* JOB_PARSER_H */
