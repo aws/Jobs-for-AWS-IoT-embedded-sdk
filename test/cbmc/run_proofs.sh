@@ -11,7 +11,7 @@ if [ ! -d "coreJSON" ]; then
 fi
 
 exec cbmc proofs.c "$JobsSourceDir/jobs.c"  stubs/strnlen.c \
-     stubs/JSON_Validate.c stubs/JSON_SearchT.c \
+     stubs/JSON_Validate.c stubs/JSON_SearchConst.c \
      -I $JobsSourceDir/include -I $coreJSONSourceDir/include -I include  \
      --unwindset strnAppend.0:26 --unwindset strnEq.0:26 \
      --unwindset matchIdApi.0:84 --unwindset isValidID.0:65 \

@@ -252,7 +252,7 @@ typedef enum
 /**
  * @brief Status codes for jobs
  */
-typedef enum JobCurrentStatus
+typedef enum
 {
     Queued,
     InProgress,
@@ -264,7 +264,7 @@ typedef enum JobCurrentStatus
 /**
  * @brief Status codes for job update status
  */
-typedef enum JobUpdateStatus
+typedef enum
 {
     JobUpdateStatus_Accepted,
     JobUpdateStatus_Rejected
@@ -809,7 +809,7 @@ JobsStatus_t Jobs_Update( char * buffer,
  * @return messageLength if the write is successful
  */
 size_t Jobs_UpdateMsg( JobCurrentStatus_t status,
-                       char * expectedVersion,
+                       const char * expectedVersion,
                        size_t expectedVersionLength,
                        char * buffer,
                        size_t bufferSize );
@@ -824,7 +824,7 @@ size_t Jobs_UpdateMsg( JobCurrentStatus_t status,
  */
 size_t Jobs_GetJobId( const char * message,
                       size_t messageLength,
-                      char ** jobId );
+                      const char ** jobId );
 
 /**
  * @brief Retrieves the job document from a given message (if applicable)
@@ -836,7 +836,7 @@ size_t Jobs_GetJobId( const char * message,
  */
 size_t Jobs_GetJobDocument( const char * message,
                             size_t messageLength,
-                            char ** jobDoc );
+                            const char ** jobDoc );
 
 /**
  * @brief Checks if a message comes from the start-next/accepted reserved topic
