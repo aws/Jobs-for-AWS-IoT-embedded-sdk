@@ -206,18 +206,24 @@ static JSONStatus_t populateCommonFields( const char * jobDoc,
     size_t jsonValueLength = 0U;
     char queryString[ 33 ];
     size_t queryStringLength;
-
-    buildIndexedFileQueryString( fileIndex,
-                                "filesize",
-                                8U,
-                                queryString,
-                                &queryStringLength );
-    jsonResult = searchUintValue( jobDoc,
-                                  jobDocLength,
-                                  queryString,
-                                  queryStringLength,
-                                  &( result->fileSize ) );
-
+    if (fileindex <= 9)
+    {
+        buildIndexedFileQueryString( fileIndex,
+                                    "filesize",
+                                    8U,
+                                    queryString,
+                                    &queryStringLength );
+        jsonResult = searchUintValue( jobDoc,
+                                    jobDocLength,
+                                    queryString,
+                                    queryStringLength,
+                                    &( result->fileSize ) );
+    }
+    else
+    {
+        jsonResult = JSONIllegalDocument;
+    }
+    
     if( jsonResult == JSONSuccess )
     {
         buildIndexedFileQueryString( fileIndex,
