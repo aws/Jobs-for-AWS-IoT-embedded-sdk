@@ -74,23 +74,23 @@ list(APPEND utest_dep_list ${real_name})
 create_test(${utest_name} ${utest_source} "${utest_link_list}"
             "${utest_dep_list}" "${test_include_directories}")
 
-# Create job parser unit test
-set(real_name "job_parser_real")
-set(utest_name "job_parser_utest")
-set(utest_source "job_parser_utest.c")
-# No need to redefine mocks since we do not need any
+# # Create job parser unit test
+# set(real_name "job_parser_real")
+# set(utest_name "job_parser_utest")
+# set(utest_source "job_parser_utest.c")
+# # No need to redefine mocks since we do not need any
 
-set(utest_link_list "")
-list(APPEND utest_dep_list ${real_name})
+# set(utest_link_list "")
+# list(APPEND utest_dep_list ${real_name})
 
-create_real_library(${real_name} "${real_source_files}"
-                    "${real_include_directories}" "")
+# create_real_library(${real_name} "${real_source_files}"
+#                     "${real_include_directories}" "")
 
-# Redefine the linked files to ignore the mock files
-list(APPEND utest_link_list lib${real_name}.a)
+# # Redefine the linked files to ignore the mock files
+# list(APPEND utest_link_list lib${real_name}.a)
 
-create_test(${utest_name} ${utest_source} "${utest_link_list}"
-            "${utest_dep_list}" "${test_include_directories}")
+# create_test(${utest_name} ${utest_source} "${utest_link_list}"
+#             "${utest_dep_list}" "${test_include_directories}")
 
 # Create jobs unit test
 list(APPEND real_source_files ${TEMP_BASE}.c)

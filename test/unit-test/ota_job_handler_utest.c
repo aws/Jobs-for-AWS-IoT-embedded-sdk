@@ -32,26 +32,43 @@
 #define CUSTOM_DOCUMENT        "{\"custom_job\":\"test\"}"
 #define CUSTOM_DOCUMENT_LENGTH ( sizeof( CUSTOM_DOCUMENT ) - 1U )
 
-AfrOtaJobDocumentFields_t parsedFields;
+AfrOtaJobDocumentFields parsedFields;
+
+struct AfrOtaJobDocumentFields_t
+{
+    const char * signature;
+    size_t signatureLen;
+    const char * filepath;
+    size_t filepathLen;
+    const char * certfile;
+    size_t certfileLen;
+    const char * authScheme;
+    size_t authSchemeLen;
+    const char * imageRef;
+    size_t imageRefLen;
+    uint32_t fileId;
+    uint32_t fileSize;
+    uint32_t fileType;
+};
 
 /* ===========================   UNITY FIXTURES ============================ */
 
 /* Called before each test method. */
 void setUp()
 {
-    parsedFields.signature = "expectedSignature";
-    parsedFields.signatureLen = strlen("expectedSignature");
-    parsedFields.filepath = "expectedFilepath";
-    parsedFields.filepathLen = strlen("expectedFilepath");
-    parsedFields.certfile = "expectedCertfile";
-    parsedFields.certfileLen = strlen("expectedCertfile");
-    parsedFields.authScheme = "expectedAuthScheme";
-    parsedFields.authSchemeLen = strlen("expectedAuthScheme");
-    parsedFields.imageRef = "expectedImageRef";
-    parsedFields.imageRefLen = strlen("expectedImageRef");
-    parsedFields.fileId = UINT32_MAX;
-    parsedFields.fileSize = UINT32_MAX;
-    parsedFields.fileType = UINT32_MAX;
+    parsedFields->signature = "expectedSignature";
+    parsedFields->signatureLen = strlen("expectedSignature");
+    parsedFields->filepath = "expectedFilepath";
+    parsedFields->filepathLen = strlen("expectedFilepath");
+    parsedFields->certfile = "expectedCertfile";
+    parsedFields->certfileLen = strlen("expectedCertfile");
+    parsedFields->authScheme = "expectedAuthScheme";
+    parsedFields->authSchemeLen = strlen("expectedAuthScheme");
+    parsedFields->imageRef = "expectedImageRef";
+    parsedFields->imageRefLen = strlen("expectedImageRef");
+    parsedFields->fileId = UINT32_MAX;
+    parsedFields->fileSize = UINT32_MAX;
+    parsedFields->fileType = UINT32_MAX;
 }
 
 /* Called after each test method. */
@@ -75,7 +92,7 @@ int suiteTearDown( int numFailures )
  * however since we're mocking the return we can force them to be
  * null-terminated for easier validation.
  */
-void verifyCallbackValues( AfrOtaJobDocumentFields_t * params )
+void verifyCallbackValues( AfrOtaJobDocumentFields params )
 {
     TEST_ASSERT_EQUAL_STRING( "expectedSignature", params->signature );
     TEST_ASSERT_EQUAL( strlen("expectedSignature"), params->signatureLen );
@@ -102,7 +119,7 @@ static void expectPopulateJobDocWithFileIndex( const char * document,
                                           NULL,
                                           true );
     populateJobDocFields_IgnoreArg_result();
-    populateJobDocFields_ReturnThruPtr_result( &parsedFields );
+    populateJobDocFields_ReturnThruPtr_result( parsedFields );
 }
 
 /* ===============================   TESTS   =============================== */
@@ -116,7 +133,7 @@ void test_parseJobDocFile_returnsZero_whenSingleFileJob( void )
     int8_t result = otaParser_parseJobDocFile( AFR_OTA_DOCUMENT,
                                           AFR_OTA_DOCUMENT_LENGTH,
                                           0U,
-                                          &parsedFields);
+                                          parsedFields);
 
     TEST_ASSERT_EQUAL( 0, result );
 }
@@ -133,14 +150,14 @@ void test_parseJobDocFile_returnsNextIndex_whenMultiFileIOTOtaJob( void )
     int8_t result = otaParser_parseJobDocFile( MULTI_FILE_OTA_DOCUMENT,
                                              MULTI_FILE_OTA_DOCUMENT_LENGTH,
                                              0U,
-                                             &parsedFields );
+                                             parsedFields );
 
     TEST_ASSERT_EQUAL( 1, result );
 
     result = otaParser_parseJobDocFile( MULTI_FILE_OTA_DOCUMENT,
                                             MULTI_FILE_OTA_DOCUMENT_LENGTH,
                                             1U,
-                                            &parsedFields );
+                                            parsedFields );
 
     TEST_ASSERT_EQUAL( 2, result );
 }
@@ -154,7 +171,7 @@ void test_parseJobDocFile_returnsZero_whenLastFileIndex( void )
     int8_t result = otaParser_parseJobDocFile( MULTI_FILE_OTA_DOCUMENT,
                                              MULTI_FILE_OTA_DOCUMENT_LENGTH,
                                              2U,
-                                             &parsedFields);
+                                             parsedFields);
 
     TEST_ASSERT_EQUAL( 0, result );
 }
@@ -164,7 +181,7 @@ void test_parseJobDocFile_returnsNegativeOne_whenIndexOutOfRange( void )
     int8_t result = otaParser_parseJobDocFile( AFR_OTA_DOCUMENT,
                                        AFR_OTA_DOCUMENT_LENGTH,
                                              1U,
-                                             &parsedFields);
+                                             parsedFields);
 
     TEST_ASSERT_EQUAL( -1, result );
 }
@@ -181,7 +198,7 @@ void test_parseJobDocFile_returnsNegativeOne_whenParsingFails( void )
     int8_t result = otaParser_parseJobDocFile( AFR_OTA_DOCUMENT,
                                              AFR_OTA_DOCUMENT_LENGTH,
                                              0U,
-                                             &parsedFields );
+                                             parsedFields );
 
     TEST_ASSERT_EQUAL( -1, result );
 }
@@ -198,7 +215,7 @@ void test_parseJobDocFile_returnsNegativeOne_whenMultiFileParsingFails( void )
     int8_t result = otaParser_parseJobDocFile( MULTI_FILE_OTA_DOCUMENT,
                                              MULTI_FILE_OTA_DOCUMENT_LENGTH,
                                              0,
-                                             &parsedFields );
+                                             parsedFields );
 
     TEST_ASSERT_EQUAL( -1, result );
 }
@@ -208,7 +225,7 @@ void test_parseJobDocFile_returnsNegativeOne_whenCustomJob( void )
     int8_t result = otaParser_parseJobDocFile( CUSTOM_DOCUMENT,
                                              CUSTOM_DOCUMENT_LENGTH,
                                              0U,
-                                             &parsedFields );
+                                             parsedFields );
 
     TEST_ASSERT_EQUAL( -1, result );
 }
@@ -218,7 +235,7 @@ void test_parseJobDocFile_returnsFalse_givenNullJobDocument( void )
     int8_t result = otaParser_parseJobDocFile( NULL,
                                             CUSTOM_DOCUMENT_LENGTH,
                                             0U,
-                                            &parsedFields );
+                                            parsedFields );
 
     TEST_ASSERT_EQUAL( -1, result );
 }
@@ -228,7 +245,7 @@ void test_parseJobDocFile_returnsFalse_givenZeroDocumentLength( void )
     int8_t result = otaParser_parseJobDocFile( AFR_OTA_DOCUMENT,
                                           0U,
                                           0U,
-                                          &parsedFields  );
+                                          parsedFields  );
 
     TEST_ASSERT_EQUAL( -1, result );
 }
