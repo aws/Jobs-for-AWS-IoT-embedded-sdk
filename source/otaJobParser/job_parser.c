@@ -206,7 +206,7 @@ static JSONStatus_t populateCommonFields( const char * jobDoc,
     size_t jsonValueLength = 0U;
     char queryString[ 33 ];
     size_t queryStringLength;
-    if (fileindex <= 9)
+    if (fileIndex <= 9)
     {
         buildIndexedFileQueryString( fileIndex,
                                     "filesize",
