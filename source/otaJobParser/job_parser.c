@@ -80,7 +80,7 @@ static JSONStatus_t populateHttpStreamingFields( const char * jobDoc,
  * search for
  * @param queryStringLength The length of the query
  * @param result The resulting value of the query key
- * @param resultLength The lengt of the value
+ * @param resultLength The length of the value
  */
 static void buildIndexedFileQueryString( int32_t fileIndex,
                                          const char * queryString,
@@ -110,7 +110,7 @@ static JSONStatus_t searchUintValue( const char * jobDoc,
  * @param string String representation of 32-bit unsigned integer
  * @param length Length of the integer when represented as a string
  * @param value Unsigned 32-bit integer representation of the value
- * @return true Sucessfullly converted to uint32
+ * @return true Sucessfully converted to uint32
  * @return false Unsuccessfully converted to uint32
  */
 static bool uintFromString( const char * string,

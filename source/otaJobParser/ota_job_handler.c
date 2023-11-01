@@ -65,7 +65,7 @@ static bool isFreeRTOSOtaJob( const char * jobDoc,
     size_t afrOtaDocHeaderLength = 0U;
 
     /* FreeRTOS OTA updates have a top level "afr_ota" job document key.
-    * Check for this to ensure the docuemnt is an FreeRTOS OTA update */
+    * Check for this to ensure the document is an FreeRTOS OTA update */
     isFreeRTOSOta = JSON_SearchConst( jobDoc,
                                       jobDocLength,
                                       "afr_ota",
