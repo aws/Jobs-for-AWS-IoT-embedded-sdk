@@ -23,12 +23,6 @@ list(APPEND mock_define_list "")
 
 # ================= Create the library under test here (edit) ==================
 
-# list the files you would like to test here
-list(APPEND real_source_files ${JOBS_HANDLER_SOURCES} ${JSON_SOURCES})
-# list the directories the module under test includes
-list(APPEND real_include_directories . ${JOBS_HANDLER_INCLUDES}
-     ${JSON_INCLUDE_PUBLIC_DIRS})
-
 # Base name for temporary files
 set( TEMP_BASE ${CMAKE_BINARY_DIR}/${project_name} )
 
@@ -46,6 +40,19 @@ execute_process( COMMAND sed -n "/^static.*(/,/^{\$/{s/^static //; s/)\$/&;/; /{
                  OUTPUT_FILE ${TEMP_BASE}_annex.h
         )
 
+execute_process(COMMAND cp ./source/otaJobParser/job_parser.c ./build/job_parser.c )
+
+execute_process(COMMAND cp ./source/otaJobParser/ota_job_handler.c ./build/ota_job_handler.c )
+
+set(JOBS_HANDLER_TEST_SOURCES
+        ./build/job_parser.c 
+        ./build/ota_job_handler.c)
+
+# list the files you would like to test here
+list(APPEND real_source_files ${JOBS_HANDLER_TEST_SOURCES} ${JSON_SOURCES})
+# list the directories the module under test includes
+list(APPEND real_include_directories . ${JOBS_HANDLER_INCLUDES}
+     ${JSON_INCLUDE_PUBLIC_DIRS})
 # =====================  Create UnitTest Code here (edit)  =====================
 
 # list the directories your test needs to include
