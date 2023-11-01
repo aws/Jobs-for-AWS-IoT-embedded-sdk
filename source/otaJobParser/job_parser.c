@@ -398,10 +398,10 @@ static void buildIndexedFileQueryString( int32_t fileIndex,
                                          size_t * resultLength )
 {
     /*TODO: Should there be a check on the length of the result buffer? */
-    ( void ) strncpy( result, ( const char * ) "afr_ota.files[", 14U );
+    ( void ) strncpy( result, ( const char * ) "afr_ota.files[", 15U );
     int32_t index = ( fileIndex + ( int32_t ) '0' );
     result[ 14 ] = ( char ) index;
-    ( void ) strncpy( ( result + 15 ), ( const char * ) "].", 2U );
+    ( void ) strncpy( ( result + 15 ), ( const char * ) "].", 3U );
     ( void ) memcpy( ( result + 17 ), queryString, queryStringLength );
 
     *resultLength = 17U + queryStringLength;
