@@ -2,10 +2,13 @@
     "lib_name": "AWS IoT Jobs",
     "src": [
         "source/jobs.c",
-        "coreJSON/source/core_json.c"
+        "coreJSON/source/core_json.c",
+        "source/otaJobParser/job_parser.c",
+        "source/otaJobParser/ota_job_handler.c"
     ],
     "include": [
         "source/include",
-        "coreJSON/source/include"
+        "coreJSON/source/include",
+        "source/otaJobParser/include"
     ]
 }
