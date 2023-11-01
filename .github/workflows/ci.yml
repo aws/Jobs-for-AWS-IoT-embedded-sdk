@@ -108,7 +108,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         uses: FreeRTOS/CI-CD-Github-Actions/link-verifier@main
         with:
-          allow-list: ./.github/workflows/linkAllowList.txt
+          allowlist-file: ./.github/workflows/linkAllowList.txt
 
   verify-manifest:
     runs-on: ubuntu-latest
