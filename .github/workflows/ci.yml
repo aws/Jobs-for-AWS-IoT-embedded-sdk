@@ -27,7 +27,7 @@ jobs:
       - name: Run Coverage
         run: |
           make -C build/ coverage
-          declare -a EXCLUDE=("\*test\*" "\*CMakeCCompilerId\*" "\*mocks\*" "\*source\*" "\*vendor/unity\*" "\*_deps*\")
+          declare -a EXCLUDE=("\*test\*" "\*CMakeCCompilerId\*" "\*mocks\*" "\*source\*" "\*vendor/unity\*" "\*_deps*\*")
           echo ${EXCLUDE[@]} | xargs lcov --rc lcov_branch_coverage=1 -r build/coverage.info -o build/coverage.info
           lcov --rc lcov_branch_coverage=1 --list build/coverage.info
       - name: Check Coverage
@@ -108,7 +108,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         uses: FreeRTOS/CI-CD-Github-Actions/link-verifier@main
         with:
-          allowlist-file: ./.github/workflows/linkAllowList.txt
+          allowlist-file: ./.github/linkAllowList.txt
 
   verify-manifest:
     runs-on: ubuntu-latest
