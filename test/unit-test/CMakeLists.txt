@@ -46,9 +46,9 @@ execute_process( COMMAND sed -n "/^static.*(/,/^{\$/{s/^static //; s/)\$/&;/; /{
                  OUTPUT_FILE ${TEMP_BASE}_annex.h
         )
 
-execute_process( COMMAND cp ${MODULE_ROOT_DIR}/source/otaJobParser/job_parser.c ./ )
+execute_process( COMMAND cp ${MODULE_ROOT_DIR}/source/otaJobParser/job_parser.c ./build )
 
-execute_process( COMMAND cp ${MODULE_ROOT_DIR}/source/otaJobParser/ota_job_handler.c ./ )
+execute_process( COMMAND cp ${MODULE_ROOT_DIR}/source/otaJobParser/ota_job_handler.c ./build )
 
 # =====================  Create UnitTest Code here (edit)  =====================
 
