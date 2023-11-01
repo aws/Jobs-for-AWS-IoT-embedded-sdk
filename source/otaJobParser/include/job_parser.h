@@ -14,6 +14,7 @@
 #include <stdlib.h>
 
 typedef struct AfrOtaJobDocumentFields_t * AfrOtaJobDocumentFields;
+
 /**
  * @brief Populate the fields of 'result', returning
  * true if successful.

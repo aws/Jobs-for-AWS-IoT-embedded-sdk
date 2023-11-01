@@ -443,18 +443,18 @@ void proof_populateJobDocFields( void )
     const char * jobDoc;
     const size_t jobDocLength;
     int fileIndex;
-    AfrOtaJobDocumentFields result = {0};
+    AfrOtaJobDocumentFields result = { 0 };
     bool ret;
-    __CPROVER_assume(jobDocLength <= CBMC_JOBDOC_MAX_LEN);
-    jobDoc = malloc(jobDocLength);
 
-    __CPROVER_assume(fileIndex >= 0);
+    __CPROVER_assume( jobDocLength <= CBMC_JOBDOC_MAX_LEN );
+    jobDoc = malloc( jobDocLength );
 
-    ret = populateJobDocFields(jobDoc,
-                               jobDocLength,
-                               fileIndex,
-                               &result);
+    __CPROVER_assume( fileIndex >= 0 );
 
+    ret = populateJobDocFields( jobDoc,
+                                jobDocLength,
+                                fileIndex,
+                                &result );
 }
 
 void proof_otaParser_parseJobDocFile( void )
@@ -462,17 +462,16 @@ void proof_otaParser_parseJobDocFile( void )
     const char * jobDoc;
     const size_t jobDocLength;
     const uint8_t fileIndex;
-    AfrOtaJobDocumentFields fields = {0};
+    AfrOtaJobDocumentFields fields = { 0 };
     int8_t ret;
 
-    __CPROVER_assume(jobDocLength <= CBMC_JOBDOC_MAX_LEN);
-    jobDoc = malloc(jobDocLength);
+    __CPROVER_assume( jobDocLength <= CBMC_JOBDOC_MAX_LEN );
+    jobDoc = malloc( jobDocLength );
 
-    ret = otaParser_parseJobDocFile(jobDoc,
-                                    jobDocLength,
-                                    fileIndex,
-                                    &fields);
-    
+    ret = otaParser_parseJobDocFile( jobDoc,
+                                     jobDocLength,
+                                     fileIndex,
+                                     &fields );
 }
 
 int main()

@@ -54,10 +54,9 @@ static JSONStatus_t populateCommonFields( const char * jobDoc,
  * @param result Job document structure to populate
  * @return JSONStatus_t JSON parsing status
  */
-static JSONStatus_t populateMqttStreamingFields(
-    const char * jobDoc,
-    const size_t jobDocLength,
-    AfrOtaJobDocumentFields result );
+static JSONStatus_t populateMqttStreamingFields( const char * jobDoc,
+                                                 const size_t jobDocLength,
+                                                 AfrOtaJobDocumentFields result );
 
 /**
  * @brief Populates HTTP job document fields in result
@@ -68,11 +67,10 @@ static JSONStatus_t populateMqttStreamingFields(
  * @param result Job document structure to populate
  * @return JSONStatus_t JSON parsing status
  */
-static JSONStatus_t populateHttpStreamingFields(
-    const char * jobDoc,
-    const size_t jobDocLength,
-    int32_t fileIndex,
-    AfrOtaJobDocumentFields result );
+static JSONStatus_t populateHttpStreamingFields( const char * jobDoc,
+                                                 const size_t jobDocLength,
+                                                 int32_t fileIndex,
+                                                 AfrOtaJobDocumentFields result );
 
 /**
  * @brief Assembles an indexed OTA file query
@@ -85,10 +83,10 @@ static JSONStatus_t populateHttpStreamingFields(
  * @param resultLength The lengt of the value
  */
 static void buildIndexedFileQueryString( int32_t fileIndex,
-                                        const char * queryString,
-                                        size_t queryStringLength,
-                                        char * result,
-                                        size_t * resultLength );
+                                         const char * queryString,
+                                         size_t queryStringLength,
+                                         char * result,
+                                         size_t * resultLength );
 
 /**
  * @brief Searches the JSON document for the uint32_t value
@@ -136,7 +134,8 @@ static bool charIsDigit( const char c );
  * @return true If overflow will occur
  * @return false If overflow will not occur
  */
-static bool multOverflowUnit32( const uint32_t a, const uint32_t b );
+static bool multOverflowUnit32( const uint32_t a,
+                                const uint32_t b );
 
 /**
  * @brief Check for addition overflow between two uint32 values
@@ -146,7 +145,8 @@ static bool multOverflowUnit32( const uint32_t a, const uint32_t b );
  * @return true If overflow will occur
  * @return false If overflow will not occur
  */
-static bool addOverflowUint32( const uint32_t a, const uint32_t b );
+static bool addOverflowUint32( const uint32_t a,
+                               const uint32_t b );
 
 bool populateJobDocFields( const char * jobDoc,
                            const size_t jobDocLength,
@@ -163,13 +163,13 @@ bool populateJobDocFields( const char * jobDoc,
 
     if( jsonResult == JSONSuccess )
     {
-        jsonResult = JSON_SearchConst(jobDoc,
-                                      jobDocLength,
-                                      "afr_ota.protocols[0]",
-                                      20U,
-                                      &protocol,
-                                      &protocolLength,
-                                      NULL );
+        jsonResult = JSON_SearchConst( jobDoc,
+                                       jobDocLength,
+                                       "afr_ota.protocols[0]",
+                                       20U,
+                                       &protocol,
+                                       &protocolLength,
+                                       NULL );
     }
 
     /* Determine if the supported protocol is MQTT or HTTP */
@@ -191,6 +191,7 @@ bool populateJobDocFields( const char * jobDoc,
     }
 
     populatedJobDocFields = ( jsonResult == JSONSuccess );
+
     /* Should this nullify the fields which have been populated before
      * returning? */
     return populatedJobDocFields;
@@ -206,31 +207,32 @@ static JSONStatus_t populateCommonFields( const char * jobDoc,
     size_t jsonValueLength = 0U;
     char queryString[ 33 ];
     size_t queryStringLength;
-    if (fileIndex <= 9)
+
+    if( fileIndex <= 9 )
     {
         buildIndexedFileQueryString( fileIndex,
-                                    "filesize",
-                                    8U,
-                                    queryString,
-                                    &queryStringLength );
+                                     "filesize",
+                                     8U,
+                                     queryString,
+                                     &queryStringLength );
         jsonResult = searchUintValue( jobDoc,
-                                    jobDocLength,
-                                    queryString,
-                                    queryStringLength,
-                                    &( result->fileSize ) );
+                                      jobDocLength,
+                                      queryString,
+                                      queryStringLength,
+                                      &( result->fileSize ) );
     }
     else
     {
         jsonResult = JSONIllegalDocument;
     }
-    
+
     if( jsonResult == JSONSuccess )
     {
         buildIndexedFileQueryString( fileIndex,
-                                    "fileid",
-                                    6U,
-                                    queryString,
-                                    &queryStringLength );
+                                     "fileid",
+                                     6U,
+                                     queryString,
+                                     &queryStringLength );
         jsonResult = searchUintValue( jobDoc,
                                       jobDocLength,
                                       queryString,
@@ -241,17 +243,17 @@ static JSONStatus_t populateCommonFields( const char * jobDoc,
     if( jsonResult == JSONSuccess )
     {
         buildIndexedFileQueryString( fileIndex,
-                                    "filepath",
-                                    8U,
-                                    queryString,
-                                    &queryStringLength );
-        jsonResult = JSON_SearchConst(jobDoc,
-                                      jobDocLength,
-                                      queryString,
-                                      queryStringLength,
-                                      &jsonValue,
-                                      &jsonValueLength,
-                                      NULL );
+                                     "filepath",
+                                     8U,
+                                     queryString,
+                                     &queryStringLength );
+        jsonResult = JSON_SearchConst( jobDoc,
+                                       jobDocLength,
+                                       queryString,
+                                       queryStringLength,
+                                       &jsonValue,
+                                       &jsonValueLength,
+                                       NULL );
         result->filepath = jsonValue;
         result->filepathLen = ( uint32_t ) jsonValueLength;
     }
@@ -259,17 +261,17 @@ static JSONStatus_t populateCommonFields( const char * jobDoc,
     if( jsonResult == JSONSuccess )
     {
         buildIndexedFileQueryString( fileIndex,
-                                    "certfile",
-                                    8U,
-                                    queryString,
-                                    &queryStringLength );
-        jsonResult = JSON_SearchConst(jobDoc,
-                                      jobDocLength,
-                                      queryString,
-                                      queryStringLength,
-                                      &jsonValue,
-                                      &jsonValueLength,
-                                      NULL );
+                                     "certfile",
+                                     8U,
+                                     queryString,
+                                     &queryStringLength );
+        jsonResult = JSON_SearchConst( jobDoc,
+                                       jobDocLength,
+                                       queryString,
+                                       queryStringLength,
+                                       &jsonValue,
+                                       &jsonValueLength,
+                                       NULL );
         result->certfile = jsonValue;
         result->certfileLen = ( uint32_t ) jsonValueLength;
     }
@@ -277,17 +279,17 @@ static JSONStatus_t populateCommonFields( const char * jobDoc,
     if( jsonResult == JSONSuccess )
     {
         buildIndexedFileQueryString( fileIndex,
-                                    "sig-sha256-ecdsa",
-                                    16U,
-                                    queryString,
-                                    &queryStringLength );
-        jsonResult = JSON_SearchConst(jobDoc,
-                                      jobDocLength,
-                                      queryString,
-                                      queryStringLength,
-                                      &jsonValue,
-                                      &jsonValueLength,
-                                      NULL );
+                                     "sig-sha256-ecdsa",
+                                     16U,
+                                     queryString,
+                                     &queryStringLength );
+        jsonResult = JSON_SearchConst( jobDoc,
+                                       jobDocLength,
+                                       queryString,
+                                       queryStringLength,
+                                       &jsonValue,
+                                       &jsonValueLength,
+                                       NULL );
         result->signature = jsonValue;
         result->signatureLen = ( uint32_t ) jsonValueLength;
     }
@@ -295,22 +297,21 @@ static JSONStatus_t populateCommonFields( const char * jobDoc,
     return jsonResult;
 }
 
-static JSONStatus_t populateMqttStreamingFields(
-    const char * jobDoc,
-    const size_t jobDocLength,
-    AfrOtaJobDocumentFields result )
+static JSONStatus_t populateMqttStreamingFields( const char * jobDoc,
+                                                 const size_t jobDocLength,
+                                                 AfrOtaJobDocumentFields result )
 {
     JSONStatus_t jsonResult = JSONNotFound;
     const char * jsonValue = NULL;
     size_t jsonValueLength = 0U;
 
-    jsonResult = JSON_SearchConst(jobDoc,
-                                  jobDocLength,
-                                  "afr_ota.streamname",
-                                  18U,
-                                  &jsonValue,
-                                  &jsonValueLength,
-                                  NULL );
+    jsonResult = JSON_SearchConst( jobDoc,
+                                   jobDocLength,
+                                   "afr_ota.streamname",
+                                   18U,
+                                   &jsonValue,
+                                   &jsonValueLength,
+                                   NULL );
     result->imageRef = jsonValue;
     result->imageRefLen = ( uint32_t ) jsonValueLength;
 
@@ -323,11 +324,10 @@ static JSONStatus_t populateMqttStreamingFields(
     return jsonResult;
 }
 
-static JSONStatus_t populateHttpStreamingFields(
-    const char * jobDoc,
-    const size_t jobDocLength,
-    int32_t fileIndex,
-    AfrOtaJobDocumentFields result )
+static JSONStatus_t populateHttpStreamingFields( const char * jobDoc,
+                                                 const size_t jobDocLength,
+                                                 int32_t fileIndex,
+                                                 AfrOtaJobDocumentFields result )
 {
     JSONStatus_t jsonResult = JSONNotFound;
     const char * jsonValue = NULL;
@@ -336,10 +336,10 @@ static JSONStatus_t populateHttpStreamingFields(
     size_t queryStringLength;
 
     buildIndexedFileQueryString( fileIndex,
-                                "fileType",
-                                8U,
-                                queryString,
-                                &queryStringLength );
+                                 "fileType",
+                                 8U,
+                                 queryString,
+                                 &queryStringLength );
     jsonResult = searchUintValue( jobDoc,
                                   jobDocLength,
                                   queryString,
@@ -349,10 +349,10 @@ static JSONStatus_t populateHttpStreamingFields(
     if( jsonResult == JSONSuccess )
     {
         buildIndexedFileQueryString( fileIndex,
-                                    "auth_scheme",
-                                    11U,
-                                    queryString,
-                                    &queryStringLength );
+                                     "auth_scheme",
+                                     11U,
+                                     queryString,
+                                     &queryStringLength );
         jsonResult = JSON_SearchConst( jobDoc,
                                        jobDocLength,
                                        queryString,
@@ -367,10 +367,10 @@ static JSONStatus_t populateHttpStreamingFields(
     if( jsonResult == JSONSuccess )
     {
         buildIndexedFileQueryString( fileIndex,
-                                    "update_data_url",
-                                    15U,
-                                    queryString,
-                                    &queryStringLength );
+                                     "update_data_url",
+                                     15U,
+                                     queryString,
+                                     &queryStringLength );
         jsonResult = JSON_SearchConst( jobDoc,
                                        jobDocLength,
                                        queryString,
@@ -392,12 +392,12 @@ static JSONStatus_t populateHttpStreamingFields(
 }
 
 static void buildIndexedFileQueryString( int32_t fileIndex,
-                                        const char * queryString,
-                                        size_t queryStringLength,
-                                        char * result,
-                                        size_t * resultLength )
+                                         const char * queryString,
+                                         size_t queryStringLength,
+                                         char * result,
+                                         size_t * resultLength )
 {
-    //TODO: Should there be a check on the length of the result buffer?
+    /*TODO: Should there be a check on the length of the result buffer? */
     ( void ) strncpy( result, ( const char * ) "afr_ota.files[", 14U );
     int32_t index = ( fileIndex + ( int32_t ) '0' );
     result[ 14 ] = ( char ) index;
@@ -430,7 +430,7 @@ static JSONStatus_t searchUintValue( const char * jobDoc,
     {
         numConversionSuccess = uintFromString( jsonValue,
                                                ( const uint32_t )
-                                                   jsonValueLength,
+                                               jsonValueLength,
                                                value );
     }
 
@@ -462,7 +462,7 @@ static bool uintFromString( const char * string,
                 {
                     retVal *= 10U;
 
-                    if( !addOverflowUint32( retVal, (( uint32_t ) c - ( uint32_t ) '0') ) )
+                    if( !addOverflowUint32( retVal, ( ( uint32_t ) c - ( uint32_t ) '0' ) ) )
                     {
                         retVal += ( ( uint32_t ) c - ( uint32_t ) '0' );
                     }
@@ -493,12 +493,14 @@ static bool charIsDigit( const char c )
     return ( c >= '0' ) && ( c <= '9' );
 }
 
-static bool multOverflowUnit32( const uint32_t a, const uint32_t b )
+static bool multOverflowUnit32( const uint32_t a,
+                                const uint32_t b )
 {
     return ( b > 0U ) && ( a > ( UINT32_MAX / b ) );
 }
 
-static bool addOverflowUint32( const uint32_t a, const uint32_t b )
+static bool addOverflowUint32( const uint32_t a,
+                               const uint32_t b )
 {
     return a > ( UINT32_MAX - b );
 }

@@ -18,8 +18,8 @@
 #include "job_parser.h"
 
 int8_t otaParser_parseJobDocFile( const char * jobDoc,
-                                   const size_t jobDocLength,
-                                   const uint8_t fileIndex,
-                                   AfrOtaJobDocumentFields fields );
+                                  const size_t jobDocLength,
+                                  const uint8_t fileIndex,
+                                  AfrOtaJobDocumentFields fields );
 
 #endif /*OTA_JOB_PROCESSOR_H*/

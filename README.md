@@ -104,19 +104,6 @@ doxygen docs/doxygen/config.doxyfile
 
 ## Building unit tests
 
-### Checkout Unity Submodule
-
-By default, the submodules in this repository are configured with `update=none`
-in [.gitmodules](.gitmodules) to avoid increasing clone time and disk space
-usage of other repositories that submodule this repository.
-
-To build unit tests, the submodule dependency of Unity is required. Use the
-following command to clone the submodule:
-
-```
-git submodule update --checkout --init --recursive --test/unit-test/Unity
-```
-
 ### Platform Prerequisites
 
 - For running unit tests
