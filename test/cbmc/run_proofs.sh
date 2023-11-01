@@ -18,7 +18,7 @@ exec cbmc proofs.c $JobsSourceDir/jobs.c  stubs/strnlen.c \
      -I $OTAJobParserSourceDir/include -I include  \
      --unwindset strnAppend.0:26 --unwindset strnEq.0:26 \
      --unwindset matchIdApi.0:84 --unwindset isValidID.0:65 \
-     --unwindset strlen.0:51 --unwindset __builtin___strncpy_chk.0:16 \
+     --unwindset strlen.0:51 --unwindset strncpy.0:16 \
      --bounds-check --pointer-check --memory-cleanup-check --div-by-zero-check \
      --signed-overflow-check --unsigned-overflow-check --pointer-overflow-check \
      --conversion-check --undefined-shift-check --enum-range-check \

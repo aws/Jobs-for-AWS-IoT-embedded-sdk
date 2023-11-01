@@ -118,5 +118,5 @@ add_custom_target(
   coverage
   COMMAND ${CMAKE_COMMAND} -DCMOCK_DIR=${cmock_SOURCE_DIR} -P
           ${MODULE_ROOT_DIR}/tools/cmock/coverage.cmake
-  DEPENDS cmock unity ota_job_handler_utest job_parser_utest
+  DEPENDS cmock unity jobs_utest ota_job_handler_utest job_parser_utest
   WORKING_DIRECTORY ${CMAKE_BINARY_DIR})

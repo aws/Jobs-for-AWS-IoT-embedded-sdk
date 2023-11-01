@@ -110,7 +110,7 @@ static JSONStatus_t searchUintValue( const char * jobDoc,
  * @param string String representation of 32-bit unsigned integer
  * @param length Length of the integer when represented as a string
  * @param value Unsigned 32-bit integer representation of the value
- * @return true Sucessfully converted to uint32
+ * @return true Successfully converted to uint32
  * @return false Unsuccessfully converted to uint32
  */
 static bool uintFromString( const char * string,
