@@ -45,8 +45,8 @@ execute_process(COMMAND cp ./source/otaJobParser/job_parser.c ./build/job_parser
 execute_process(COMMAND cp ./source/otaJobParser/ota_job_handler.c ./build/ota_job_handler.c )
 
 set(JOBS_HANDLER_TEST_SOURCES
-        ./build/job_parser.c 
-        ./build/ota_job_handler.c)
+        ${MODULE_ROOT_DIR}/build/job_parser.c 
+        ${MODULE_ROOT_DIR}/build/ota_job_handler.c)
 
 # list the files you would like to test here
 list(APPEND real_source_files ${JOBS_HANDLER_TEST_SOURCES} ${JSON_SOURCES})
