@@ -108,7 +108,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         uses: FreeRTOS/CI-CD-Github-Actions/link-verifier@main
         with:
-          exclude-urls: ["https://s3.region.amazonaws.com/joe-ota/"]
+          allow-list: ./.github/workflows/linkAllowList.txt
 
   verify-manifest:
     runs-on: ubuntu-latest
