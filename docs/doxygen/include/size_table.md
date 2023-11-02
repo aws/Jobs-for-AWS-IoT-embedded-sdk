@@ -13,11 +13,6 @@
         <td><center>2.5K</center></td>
     </tr>
     <tr>
-        <td>core_json.c</td>
-        <td><center>2.9K</center></td>
-        <td><center>2.4K</center></td>
-    </tr>
-    <tr>
         <td>job_parser.c</td>
         <td><center>0.9K</center></td>
         <td><center>0.9K</center></td>
@@ -26,6 +21,11 @@
         <td>ota_job_handler.c</td>
         <td><center>0.2K</center></td>
         <td><center>0.2K</center></td>
+    </tr>
+    <tr>
+        <td>core_json.c</td>
+        <td><center>2.9K</center></td>
+        <td><center>2.4K</center></td>
     </tr>
     <tr>
         <td><b>Total estimates</b></td>
