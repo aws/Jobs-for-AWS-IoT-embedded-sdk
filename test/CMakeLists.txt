@@ -37,10 +37,10 @@ include( ${MODULE_ROOT_DIR}/jobsFilePaths.cmake )
 # Target for Coverity analysis that builds the library.
 add_library( coverity_analysis
              ${JOBS_SOURCES}
-             ${JOBS_HANDLER_SOURCES} )
+             ${OTA_HANDLER_SOURCES} )
 # JOBS public include path.
 target_include_directories( coverity_analysis PUBLIC ${JOBS_INCLUDE_PUBLIC_DIRS}
-                                                     ${JOBS_HANDLER_INCLUDES} )
+                                                     ${OTA_HANDLER_INCLUDES} )
 
 # ==================================================================================================
 

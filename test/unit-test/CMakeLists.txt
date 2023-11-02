@@ -44,19 +44,19 @@ execute_process(COMMAND cp ./source/otaJobParser/job_parser.c ./build/job_parser
 
 execute_process(COMMAND cp ./source/otaJobParser/ota_job_handler.c ./build/ota_job_handler.c )
 
-set(JOBS_HANDLER_TEST_SOURCES
+set(OTA_HANDLER_TEST_SOURCES
         ${MODULE_ROOT_DIR}/build/job_parser.c
         ${MODULE_ROOT_DIR}/build/ota_job_handler.c)
 
 # list the files you would like to test here
-list(APPEND real_source_files ${JOBS_HANDLER_TEST_SOURCES} ${JSON_SOURCES})
+list(APPEND real_source_files ${OTA_HANDLER_TEST_SOURCES} ${JSON_SOURCES})
 # list the directories the module under test includes
-list(APPEND real_include_directories . ${JOBS_HANDLER_INCLUDES}
+list(APPEND real_include_directories . ${OTA_HANDLER_INCLUDES}
      ${JSON_INCLUDE_PUBLIC_DIRS})
 # =====================  Create UnitTest Code here (edit)  =====================
 
 # list the directories your test needs to include
-list(APPEND test_include_directories . ${JOBS_HANDLER_INCLUDES})
+list(APPEND test_include_directories . ${OTA_HANDLER_INCLUDES})
 
 # =============================  (end edit)  ===================================
 

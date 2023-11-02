@@ -12,10 +12,10 @@ set( JOBS_INCLUDE_PUBLIC_DIRS
      ${CMAKE_CURRENT_LIST_DIR}/source/include )
 
 # OTA Parser source files
-set( JOBS_HANDLER_SOURCES
+set( OTA_HANDLER_SOURCES
      ${CMAKE_CURRENT_LIST_DIR}/source/otaJobParser/job_parser.c
      ${CMAKE_CURRENT_LIST_DIR}/source/otaJobParser/ota_job_handler.c )
 
 # OTA Parser Public Include directories.
-set( JOBS_HANDLER_INCLUDES
+set( OTA_HANDLER_INCLUDES
      ${CMAKE_CURRENT_LIST_DIR}/source/otaJobParser/include )
