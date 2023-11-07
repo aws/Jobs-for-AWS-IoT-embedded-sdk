@@ -14,7 +14,22 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-typedef struct AfrOtaJobDocumentFields_t * AfrOtaJobDocumentFields;
+typedef struct
+{
+    const char * signature;
+    size_t signatureLen;
+    const char * filepath;
+    size_t filepathLen;
+    const char * certfile;
+    size_t certfileLen;
+    const char * authScheme;
+    size_t authSchemeLen;
+    const char * imageRef;
+    size_t imageRefLen;
+    uint32_t fileId;
+    uint32_t fileSize;
+    uint32_t fileType;
+} AfrOtaJobDocumentFields_t;
 
 /**
  * @brief Populate the fields of 'result', returning
@@ -30,6 +45,6 @@ typedef struct AfrOtaJobDocumentFields_t * AfrOtaJobDocumentFields;
 bool populateJobDocFields( const char * jobDoc,
                            const size_t jobDocLength,
                            int32_t fileIndex,
-                           AfrOtaJobDocumentFields result );
+                           AfrOtaJobDocumentFields_t * result );
 
 #endif /* JOB_PARSER_H */

@@ -33,7 +33,7 @@ static bool isJobFileIndexValid( const char * jobDoc,
 int8_t otaParser_parseJobDocFile( const char * jobDoc,
                                   const size_t jobDocLength,
                                   const uint8_t fileIndex,
-                                  AfrOtaJobDocumentFields fields )
+                                  AfrOtaJobDocumentFields_t * fields )
 {
     bool fieldsPopulated = false;
     int8_t nextFileIndex = -1;
