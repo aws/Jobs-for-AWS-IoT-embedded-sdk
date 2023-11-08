@@ -108,8 +108,7 @@ void test_populateJobDocFields_returnsTrue_givenValidMqttDocument( void )
     TEST_ASSERT_EQUAL( UINT32_MAX, documentFields.authSchemeLen );
 }
 
-void test_populateJobDocFields_returnsTrue_givenValidMultiFileMqttDocument(
-    void )
+void test_populateJobDocFields_returnsTrue_givenValidMultiFileMqttDocument( void )
 {
     const char * document = "{\"afr_ota\":{\"protocols\":[\"MQTT\"],"
                             "\"streamname\":\"AFR_OTA-streamname\",\"files\":[{"
@@ -232,8 +231,7 @@ void test_populateJobDocFields_returnsTrue_givenValidHttpDocument( void )
                        documentFields.authSchemeLen );
 }
 
-void test_populateJobDocFields_returnsTrue_givenValidMultiFileHttpDocument(
-    void )
+void test_populateJobDocFields_returnsTrue_givenValidMultiFileHttpDocument( void )
 {
     const char *
         document = "{\"afr_ota\":{\"protocols\":[\"HTTP\"],\"files\":[{"
@@ -320,8 +318,7 @@ void test_populateJobDocFields_returnsTrue_givenValidMultiFileHttpDocument(
                        documentFields.authSchemeLen );
 }
 
-void test_populateJobDocFields_returnsTrue_givenValidMultiProtocolDocument(
-    void )
+void test_populateJobDocFields_returnsTrue_givenValidMultiProtocolDocument( void )
 {
     const char * document = "{\"afr_ota\":{\"protocols\":[\"MQTT\",\"HTTP\"],"
                             "\"streamname\":\"AFR_OTA-streamname\",\"files\":[{"
