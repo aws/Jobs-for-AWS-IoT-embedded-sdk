@@ -18,26 +18,7 @@
 
 static bool result;
 static uint32_t convertedUint;
-
-struct AfrOtaJobDocumentFields_t
-{
-    const char * signature;
-    size_t signatureLen;
-    const char * filepath;
-    size_t filepathLen;
-    const char * certfile;
-    size_t certfileLen;
-    const char * authScheme;
-    size_t authSchemeLen;
-    const char * imageRef;
-    size_t imageRefLen;
-    uint32_t fileId;
-    uint32_t fileSize;
-    uint32_t fileType;
-};
-
-struct AfrOtaJobDocumentFields_t document;
-AfrOtaJobDocumentFields documentFields = &document;
+static AfrOtaJobDocumentFields_t documentFields;
 
 static void resetDocumentFields( void );
 
@@ -45,19 +26,19 @@ static void resetDocumentFields( void );
 
 static void resetDocumentFields( void )
 {
-    documentFields->signature = NULL;
-    documentFields->signatureLen = UINT32_MAX;
-    documentFields->filepath = NULL;
-    documentFields->filepathLen = UINT32_MAX;
-    documentFields->certfile = NULL;
-    documentFields->certfileLen = UINT32_MAX;
-    documentFields->authScheme = NULL;
-    documentFields->authSchemeLen = UINT32_MAX;
-    documentFields->imageRef = NULL;
-    documentFields->imageRefLen = UINT32_MAX;
-    documentFields->fileId = UINT32_MAX;
-    documentFields->fileSize = UINT32_MAX;
-    documentFields->fileType = UINT32_MAX;
+    documentFields.signature = NULL;
+    documentFields.signatureLen = UINT32_MAX;
+    documentFields.filepath = NULL;
+    documentFields.filepathLen = UINT32_MAX;
+    documentFields.certfile = NULL;
+    documentFields.certfileLen = UINT32_MAX;
+    documentFields.authScheme = NULL;
+    documentFields.authSchemeLen = UINT32_MAX;
+    documentFields.imageRef = NULL;
+    documentFields.imageRefLen = UINT32_MAX;
+    documentFields.fileId = UINT32_MAX;
+    documentFields.fileSize = UINT32_MAX;
+    documentFields.fileType = UINT32_MAX;
 }
 
 /* Called before each test method. */
@@ -99,32 +80,32 @@ void test_populateJobDocFields_returnsTrue_givenValidMqttDocument( void )
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
-                                   documentFields );
+                                   &documentFields );
 
     TEST_ASSERT_TRUE( result );
-    TEST_ASSERT_EQUAL( 123456789U, documentFields->fileSize );
-    TEST_ASSERT_EQUAL( 0U, documentFields->fileId );
+    TEST_ASSERT_EQUAL( 123456789U, documentFields.fileSize );
+    TEST_ASSERT_EQUAL( 0U, documentFields.fileId );
     TEST_ASSERT_EQUAL_STRING_LEN( "certfile.cert",
-                                  documentFields->certfile,
+                                  documentFields.certfile,
                                   strlen( "certfile.cert" ) );
-    TEST_ASSERT_EQUAL( strlen( "certfile.cert" ), documentFields->certfileLen );
+    TEST_ASSERT_EQUAL( strlen( "certfile.cert" ), documentFields.certfileLen );
     TEST_ASSERT_EQUAL_STRING_LEN( "signature_hash_239871",
-                                  documentFields->signature,
+                                  documentFields.signature,
                                   strlen( "signature_hash_239871" ) );
     TEST_ASSERT_EQUAL( strlen( "signature_hash_239871" ),
-                       documentFields->signatureLen );
+                       documentFields.signatureLen );
     TEST_ASSERT_EQUAL_STRING_LEN( "/device",
-                                  documentFields->filepath,
+                                  documentFields.filepath,
                                   strlen( "/device" ) );
-    TEST_ASSERT_EQUAL( strlen( "/device" ), documentFields->filepathLen );
+    TEST_ASSERT_EQUAL( strlen( "/device" ), documentFields.filepathLen );
     TEST_ASSERT_EQUAL_STRING_LEN( "AFR_OTA-streamname",
-                                  documentFields->imageRef,
+                                  documentFields.imageRef,
                                   strlen( "AFR_OTA-streamname" ) );
     TEST_ASSERT_EQUAL( strlen( "AFR_OTA-streamname" ),
-                       documentFields->imageRefLen );
-    TEST_ASSERT_EQUAL( UINT32_MAX, documentFields->fileType );
-    TEST_ASSERT_NULL( documentFields->authScheme );
-    TEST_ASSERT_EQUAL( UINT32_MAX, documentFields->authSchemeLen );
+                       documentFields.imageRefLen );
+    TEST_ASSERT_EQUAL( UINT32_MAX, documentFields.fileType );
+    TEST_ASSERT_NULL( documentFields.authScheme );
+    TEST_ASSERT_EQUAL( UINT32_MAX, documentFields.authSchemeLen );
 }
 
 void test_populateJobDocFields_returnsTrue_givenValidMultiFileMqttDocument( void )
@@ -143,63 +124,63 @@ void test_populateJobDocFields_returnsTrue_givenValidMultiFileMqttDocument( void
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
-                                   documentFields );
+                                   &documentFields );
 
     TEST_ASSERT_TRUE( result );
-    TEST_ASSERT_EQUAL( 123456789U, documentFields->fileSize );
-    TEST_ASSERT_EQUAL( 0U, documentFields->fileId );
+    TEST_ASSERT_EQUAL( 123456789U, documentFields.fileSize );
+    TEST_ASSERT_EQUAL( 0U, documentFields.fileId );
     TEST_ASSERT_EQUAL_STRING_LEN( "certfile.cert",
-                                  documentFields->certfile,
+                                  documentFields.certfile,
                                   strlen( "certfile.cert" ) );
-    TEST_ASSERT_EQUAL( strlen( "certfile.cert" ), documentFields->certfileLen );
+    TEST_ASSERT_EQUAL( strlen( "certfile.cert" ), documentFields.certfileLen );
     TEST_ASSERT_EQUAL_STRING_LEN( "signature_hash_239871",
-                                  documentFields->signature,
+                                  documentFields.signature,
                                   strlen( "signature_hash_239871" ) );
     TEST_ASSERT_EQUAL( strlen( "signature_hash_239871" ),
-                       documentFields->signatureLen );
+                       documentFields.signatureLen );
     TEST_ASSERT_EQUAL_STRING_LEN( "/path1",
-                                  documentFields->filepath,
+                                  documentFields.filepath,
                                   strlen( "/path1" ) );
-    TEST_ASSERT_EQUAL( strlen( "/path1" ), documentFields->filepathLen );
+    TEST_ASSERT_EQUAL( strlen( "/path1" ), documentFields.filepathLen );
     TEST_ASSERT_EQUAL_STRING_LEN( "AFR_OTA-streamname",
-                                  documentFields->imageRef,
+                                  documentFields.imageRef,
                                   strlen( "AFR_OTA-streamname" ) );
     TEST_ASSERT_EQUAL( strlen( "AFR_OTA-streamname" ),
-                       documentFields->imageRefLen );
-    TEST_ASSERT_EQUAL( UINT32_MAX, documentFields->fileType );
-    TEST_ASSERT_NULL( documentFields->authScheme );
-    TEST_ASSERT_EQUAL( UINT32_MAX, documentFields->authSchemeLen );
+                       documentFields.imageRefLen );
+    TEST_ASSERT_EQUAL( UINT32_MAX, documentFields.fileType );
+    TEST_ASSERT_NULL( documentFields.authScheme );
+    TEST_ASSERT_EQUAL( UINT32_MAX, documentFields.authSchemeLen );
 
     result = false;
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    1,
-                                   documentFields );
+                                   &documentFields );
 
     TEST_ASSERT_TRUE( result );
-    TEST_ASSERT_EQUAL( 101010, documentFields->fileSize );
-    TEST_ASSERT_EQUAL( 13U, documentFields->fileId );
+    TEST_ASSERT_EQUAL( 101010, documentFields.fileSize );
+    TEST_ASSERT_EQUAL( 13U, documentFields.fileId );
     TEST_ASSERT_EQUAL_STRING_LEN( "certfile2.cert",
-                                  documentFields->certfile,
+                                  documentFields.certfile,
                                   strlen( "certfile2.cert" ) );
-    TEST_ASSERT_EQUAL( strlen( "certfile2.cert" ), documentFields->certfileLen );
+    TEST_ASSERT_EQUAL( strlen( "certfile2.cert" ), documentFields.certfileLen );
     TEST_ASSERT_EQUAL_STRING_LEN( "signature_hash_101010",
-                                  documentFields->signature,
+                                  documentFields.signature,
                                   strlen( "signature_hash_101010" ) );
     TEST_ASSERT_EQUAL( strlen( "signature_hash_101010" ),
-                       documentFields->signatureLen );
+                       documentFields.signatureLen );
     TEST_ASSERT_EQUAL_STRING_LEN( "/path2",
-                                  documentFields->filepath,
+                                  documentFields.filepath,
                                   strlen( "/path2" ) );
-    TEST_ASSERT_EQUAL( strlen( "/path2" ), documentFields->filepathLen );
+    TEST_ASSERT_EQUAL( strlen( "/path2" ), documentFields.filepathLen );
     TEST_ASSERT_EQUAL_STRING_LEN( "AFR_OTA-streamname",
-                                  documentFields->imageRef,
+                                  documentFields.imageRef,
                                   strlen( "AFR_OTA-streamname" ) );
     TEST_ASSERT_EQUAL( strlen( "AFR_OTA-streamname" ),
-                       documentFields->imageRefLen );
-    TEST_ASSERT_EQUAL( UINT32_MAX, documentFields->fileType );
-    TEST_ASSERT_NULL( documentFields->authScheme );
-    TEST_ASSERT_EQUAL( UINT32_MAX, documentFields->authSchemeLen );
+                       documentFields.imageRefLen );
+    TEST_ASSERT_EQUAL( UINT32_MAX, documentFields.fileType );
+    TEST_ASSERT_NULL( documentFields.authScheme );
+    TEST_ASSERT_EQUAL( UINT32_MAX, documentFields.authSchemeLen );
 }
 
 void test_populateJobDocFields_returnsTrue_givenValidHttpDocument( void )
@@ -218,36 +199,36 @@ void test_populateJobDocFields_returnsTrue_givenValidHttpDocument( void )
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
-                                   documentFields );
+                                   &documentFields );
 
     TEST_ASSERT_TRUE( result );
-    TEST_ASSERT_EQUAL( 343135U, documentFields->fileSize );
-    TEST_ASSERT_EQUAL( 0U, documentFields->fileId );
-    TEST_ASSERT_EQUAL( 2U, documentFields->fileType );
+    TEST_ASSERT_EQUAL( 343135U, documentFields.fileSize );
+    TEST_ASSERT_EQUAL( 0U, documentFields.fileId );
+    TEST_ASSERT_EQUAL( 2U, documentFields.fileType );
     TEST_ASSERT_EQUAL_STRING_LEN( "/strangepath/certificate.cert",
-                                  documentFields->certfile,
+                                  documentFields.certfile,
                                   strlen( "/strangepath/certificate.cert" ) );
     TEST_ASSERT_EQUAL( strlen( "/strangepath/certificate.cert" ),
-                       documentFields->certfileLen );
+                       documentFields.certfileLen );
     TEST_ASSERT_EQUAL_STRING_LEN( "SIGNATUREHASH+ASDFLKJ123===",
-                                  documentFields->signature,
+                                  documentFields.signature,
                                   strlen( "SIGNATUREHASH+ASDFLKJ123===" ) );
     TEST_ASSERT_EQUAL( strlen( "SIGNATUREHASH+ASDFLKJ123===" ),
-                       documentFields->signatureLen );
+                       documentFields.signatureLen );
     TEST_ASSERT_EQUAL_STRING_LEN( "/device",
-                                  documentFields->filepath,
+                                  documentFields.filepath,
                                   strlen( "/device" ) );
-    TEST_ASSERT_EQUAL( strlen( "/device" ), documentFields->filepathLen );
+    TEST_ASSERT_EQUAL( strlen( "/device" ), documentFields.filepathLen );
     TEST_ASSERT_EQUAL_STRING_LEN( "presignedS3Url.s3.amazon.com",
-                                  documentFields->imageRef,
+                                  documentFields.imageRef,
                                   strlen( "presignedS3Url.s3.amazon.com" ) );
     TEST_ASSERT_EQUAL( strlen( "presignedS3Url.s3.amazon.com" ),
-                       documentFields->imageRefLen );
+                       documentFields.imageRefLen );
     TEST_ASSERT_EQUAL_STRING_LEN( "aws.s3.presigned",
-                                  documentFields->authScheme,
+                                  documentFields.authScheme,
                                   strlen( "aws.s3.presigned" ) );
     TEST_ASSERT_EQUAL( strlen( "aws.s3.presigned" ),
-                       documentFields->authSchemeLen );
+                       documentFields.authSchemeLen );
 }
 
 void test_populateJobDocFields_returnsTrue_givenValidMultiFileHttpDocument( void )
@@ -270,71 +251,71 @@ void test_populateJobDocFields_returnsTrue_givenValidMultiFileHttpDocument( void
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
-                                   documentFields );
+                                   &documentFields );
 
     TEST_ASSERT_TRUE( result );
-    TEST_ASSERT_EQUAL( 343135U, documentFields->fileSize );
-    TEST_ASSERT_EQUAL( 0U, documentFields->fileId );
-    TEST_ASSERT_EQUAL( 2U, documentFields->fileType );
+    TEST_ASSERT_EQUAL( 343135U, documentFields.fileSize );
+    TEST_ASSERT_EQUAL( 0U, documentFields.fileId );
+    TEST_ASSERT_EQUAL( 2U, documentFields.fileType );
     TEST_ASSERT_EQUAL_STRING_LEN( "/strangepath/certificate.cert",
-                                  documentFields->certfile,
+                                  documentFields.certfile,
                                   strlen( "/strangepath/certificate.cert" ) );
     TEST_ASSERT_EQUAL( strlen( "/strangepath/certificate.cert" ),
-                       documentFields->certfileLen );
+                       documentFields.certfileLen );
     TEST_ASSERT_EQUAL_STRING_LEN( "SIGNATUREHASH+ASDFLKJ123===",
-                                  documentFields->signature,
+                                  documentFields.signature,
                                   strlen( "SIGNATUREHASH+ASDFLKJ123===" ) );
     TEST_ASSERT_EQUAL( strlen( "SIGNATUREHASH+ASDFLKJ123===" ),
-                       documentFields->signatureLen );
+                       documentFields.signatureLen );
     TEST_ASSERT_EQUAL_STRING_LEN( "/device",
-                                  documentFields->filepath,
+                                  documentFields.filepath,
                                   strlen( "/device" ) );
-    TEST_ASSERT_EQUAL( strlen( "/device" ), documentFields->filepathLen );
+    TEST_ASSERT_EQUAL( strlen( "/device" ), documentFields.filepathLen );
     TEST_ASSERT_EQUAL_STRING_LEN( "presignedS3Url.s3.amazon.com",
-                                  documentFields->imageRef,
+                                  documentFields.imageRef,
                                   strlen( "presignedS3Url.s3.amazon.com" ) );
     TEST_ASSERT_EQUAL( strlen( "presignedS3Url.s3.amazon.com" ),
-                       documentFields->imageRefLen );
+                       documentFields.imageRefLen );
     TEST_ASSERT_EQUAL_STRING_LEN( "aws.s3.presigned",
-                                  documentFields->authScheme,
+                                  documentFields.authScheme,
                                   strlen( "aws.s3.presigned" ) );
     TEST_ASSERT_EQUAL( strlen( "aws.s3.presigned" ),
-                       documentFields->authSchemeLen );
+                       documentFields.authSchemeLen );
 
     result = false;
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    1,
-                                   documentFields );
+                                   &documentFields );
 
     TEST_ASSERT_TRUE( result );
-    TEST_ASSERT_EQUAL( 43210U, documentFields->fileSize );
-    TEST_ASSERT_EQUAL( 99U, documentFields->fileId );
-    TEST_ASSERT_EQUAL( 333U, documentFields->fileType );
+    TEST_ASSERT_EQUAL( 43210U, documentFields.fileSize );
+    TEST_ASSERT_EQUAL( 99U, documentFields.fileId );
+    TEST_ASSERT_EQUAL( 333U, documentFields.fileType );
     TEST_ASSERT_EQUAL_STRING_LEN( "/strangepath/file.cert",
-                                  documentFields->certfile,
+                                  documentFields.certfile,
                                   strlen( "/strangepath/file.cert" ) );
     TEST_ASSERT_EQUAL( strlen( "/strangepath/file.cert" ),
-                       documentFields->certfileLen );
+                       documentFields.certfileLen );
     TEST_ASSERT_EQUAL_STRING_LEN( "SIGNATUREHASH+ASDFLKJ123===",
-                                  documentFields->signature,
+                                  documentFields.signature,
                                   strlen( "SIGNATUREHASH+ASDFLKJ123===" ) );
     TEST_ASSERT_EQUAL( strlen( "SIGNATUREHASH+ASDFLKJ123===" ),
-                       documentFields->signatureLen );
+                       documentFields.signatureLen );
     TEST_ASSERT_EQUAL_STRING_LEN( "/path2",
-                                  documentFields->filepath,
+                                  documentFields.filepath,
                                   strlen( "/path2" ) );
-    TEST_ASSERT_EQUAL( strlen( "/path2" ), documentFields->filepathLen );
+    TEST_ASSERT_EQUAL( strlen( "/path2" ), documentFields.filepathLen );
     TEST_ASSERT_EQUAL_STRING_LEN( "presignedS3Url.s3.amazon.com",
-                                  documentFields->imageRef,
+                                  documentFields.imageRef,
                                   strlen( "presignedS3Url.s3.amazon.com" ) );
     TEST_ASSERT_EQUAL( strlen( "presignedS3Url.s3.amazon.com" ),
-                       documentFields->imageRefLen );
+                       documentFields.imageRefLen );
     TEST_ASSERT_EQUAL_STRING_LEN( "aws.s3.presigned",
-                                  documentFields->authScheme,
+                                  documentFields.authScheme,
                                   strlen( "aws.s3.presigned" ) );
     TEST_ASSERT_EQUAL( strlen( "aws.s3.presigned" ),
-                       documentFields->authSchemeLen );
+                       documentFields.authSchemeLen );
 }
 
 void test_populateJobDocFields_returnsTrue_givenValidMultiProtocolDocument( void )
@@ -352,32 +333,32 @@ void test_populateJobDocFields_returnsTrue_givenValidMultiProtocolDocument( void
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
-                                   documentFields );
+                                   &documentFields );
 
     TEST_ASSERT_TRUE( result );
-    TEST_ASSERT_EQUAL( 123456789U, documentFields->fileSize );
-    TEST_ASSERT_EQUAL( 0U, documentFields->fileId );
+    TEST_ASSERT_EQUAL( 123456789U, documentFields.fileSize );
+    TEST_ASSERT_EQUAL( 0U, documentFields.fileId );
     TEST_ASSERT_EQUAL_STRING_LEN( "certfile.cert",
-                                  documentFields->certfile,
+                                  documentFields.certfile,
                                   strlen( "certfile.cert" ) );
-    TEST_ASSERT_EQUAL( strlen( "certfile.cert" ), documentFields->certfileLen );
+    TEST_ASSERT_EQUAL( strlen( "certfile.cert" ), documentFields.certfileLen );
     TEST_ASSERT_EQUAL_STRING_LEN( "signature_hash_239871",
-                                  documentFields->signature,
+                                  documentFields.signature,
                                   strlen( "signature_hash_239871" ) );
     TEST_ASSERT_EQUAL( strlen( "signature_hash_239871" ),
-                       documentFields->signatureLen );
+                       documentFields.signatureLen );
     TEST_ASSERT_EQUAL_STRING_LEN( "/device",
-                                  documentFields->filepath,
+                                  documentFields.filepath,
                                   strlen( "/device" ) );
-    TEST_ASSERT_EQUAL( strlen( "/device" ), documentFields->filepathLen );
+    TEST_ASSERT_EQUAL( strlen( "/device" ), documentFields.filepathLen );
     TEST_ASSERT_EQUAL_STRING_LEN( "AFR_OTA-streamname",
-                                  documentFields->imageRef,
+                                  documentFields.imageRef,
                                   strlen( "AFR_OTA-streamname" ) );
     TEST_ASSERT_EQUAL( strlen( "AFR_OTA-streamname" ),
-                       documentFields->imageRefLen );
-    TEST_ASSERT_EQUAL( UINT32_MAX, documentFields->fileType );
-    TEST_ASSERT_NULL( documentFields->authScheme );
-    TEST_ASSERT_EQUAL( UINT32_MAX, documentFields->authSchemeLen );
+                       documentFields.imageRefLen );
+    TEST_ASSERT_EQUAL( UINT32_MAX, documentFields.fileType );
+    TEST_ASSERT_NULL( documentFields.authScheme );
+    TEST_ASSERT_EQUAL( UINT32_MAX, documentFields.authSchemeLen );
 }
 
 void test_populateJobDocFields_returnsFalse_whenEmptyProtocol( void )
@@ -394,7 +375,7 @@ void test_populateJobDocFields_returnsFalse_whenEmptyProtocol( void )
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
-                                   documentFields );
+                                   &documentFields );
 
     TEST_ASSERT_FALSE( result );
 }
@@ -414,7 +395,7 @@ void test_populateJobDocFields_returnsFalse_whenMissingProtocol( void )
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
-                                   documentFields );
+                                   &documentFields );
 
     TEST_ASSERT_FALSE( result );
 }
@@ -432,7 +413,7 @@ void test_populateJobDocFields_returnsFalse_whenMissingFilesize( void )
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
-                                   documentFields );
+                                   &documentFields );
 
     TEST_ASSERT_FALSE( result );
 }
@@ -452,7 +433,7 @@ void test_populateJobDocFields_returnsFalse_whenMissingFileId( void )
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
-                                   documentFields );
+                                   &documentFields );
 
     TEST_ASSERT_FALSE( result );
 }
@@ -470,7 +451,7 @@ void test_populateJobDocFields_returnsFalse_whenMissingFilePath( void )
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
-                                   documentFields );
+                                   &documentFields );
 
     TEST_ASSERT_FALSE( result );
 }
@@ -489,7 +470,7 @@ void test_populateJobDocFields_returnsFalse_whenMissingCertfile( void )
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
-                                   documentFields );
+                                   &documentFields );
 
     TEST_ASSERT_FALSE( result );
 }
@@ -506,7 +487,7 @@ void test_populateJobDocFields_returnsFalse_whenMissingSignature( void )
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
-                                   documentFields );
+                                   &documentFields );
 
     TEST_ASSERT_FALSE( result );
 }
@@ -523,7 +504,7 @@ void test_populateJobDocFields_returnsFalse_whenMqttDocEmptyStreamName( void )
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
-                                   documentFields );
+                                   &documentFields );
 
     TEST_ASSERT_FALSE( result );
 }
@@ -542,7 +523,7 @@ void test_populateJobDocFields_returnsFalse_whenMqttDocMissingStreamName( void )
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
-                                   documentFields );
+                                   &documentFields );
 
     TEST_ASSERT_FALSE( result );
 }
@@ -565,7 +546,7 @@ void test_populateJobDocFields_returnsFalse_whenHttpDocMissingFileType( void )
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
-                                   documentFields );
+                                   &documentFields );
 
     TEST_ASSERT_FALSE( result );
 }
@@ -584,7 +565,7 @@ void test_populateJobDocFields_returnsFalse_whenHttpDocEmptyUrl( void )
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
-                                   documentFields );
+                                   &documentFields );
 
     TEST_ASSERT_FALSE( result );
 }
@@ -604,7 +585,7 @@ void test_populateJobDocFields_returnsFalse_whenHttpDocMissingUrl( void )
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
-                                   documentFields );
+                                   &documentFields );
 
     TEST_ASSERT_FALSE( result );
 }
@@ -627,7 +608,7 @@ void test_populateJobDocFields_returnsFalse_whenHttpDocMissingAuthScheme( void )
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
-                                   documentFields );
+                                   &documentFields );
 
     TEST_ASSERT_FALSE( result );
 }
@@ -645,7 +626,7 @@ void test_populateJobDocFields_returnsFalse_whenFileSizeIsNegativeInteger()
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
-                                   documentFields );
+                                   &documentFields );
 
     TEST_ASSERT_FALSE( result );
 }
@@ -663,7 +644,7 @@ void test_populateJobDocFields_returnsFalse_whenFileSizeZeroLength()
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
-                                   documentFields );
+                                   &documentFields );
 
     TEST_ASSERT_FALSE( result );
 }
@@ -681,7 +662,7 @@ void test_populateJobDocFields_returnsFalse_whenFileSizeTooLarge()
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
-                                   documentFields );
+                                   &documentFields );
 
     TEST_ASSERT_FALSE( result );
 }
