@@ -14,6 +14,9 @@
 #include <stdlib.h>
 #include <stdint.h>
 
+/**
+ * @brief struct containing the fields of an AFR OTA Job Document
+*/
 typedef struct
 {
     const char * signature;
@@ -42,9 +45,11 @@ typedef struct
  * @return true Job document fields were parsed from the document
  * @return false Job document fields were not parsed from the document
  */
+/* @[declare_populatejobdocfields] */
 bool populateJobDocFields( const char * jobDoc,
                            const size_t jobDocLength,
                            int32_t fileIndex,
                            AfrOtaJobDocumentFields_t * result );
+/* @[declare_populatejobdocfields] */
 
 #endif /* JOB_PARSER_H */

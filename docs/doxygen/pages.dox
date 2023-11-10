@@ -57,14 +57,20 @@ These configuration settings are C pre-processor constants they are set using a 
 */
 
 /**
-@page jobs_functions Functions
+@page jobs_functions Jobs Functions
 @brief Primary functions of the Jobs library:<br><br>
 @subpage jobs_gettopic_function <br>
 @subpage jobs_matchtopic_function <br>
 @subpage jobs_getpending_function <br>
 @subpage jobs_startnext_function <br>
+@subpage jobs_startnextmsg_function <br>
 @subpage jobs_describe_function <br>
 @subpage jobs_update_function <br>
+@subpage jobs_updatemsg_function <br>
+@subpage jobs_getjobid_function <br>
+@subpage jobs_getjobdocument_function <br>
+@subpage jobs_isstartnextaccepted_function <br>
+@subpage jobs_isjobupdatestatus_function <br>
 
 @page jobs_gettopic_function Jobs_GetTopic
 @snippet jobs.h declare_jobs_gettopic
@@ -82,6 +88,10 @@ These configuration settings are C pre-processor constants they are set using a 
 @snippet jobs.h declare_jobs_startnext
 @copydoc Jobs_StartNext
 
+@page jobs_startnextmsg_function Jobs_StartNextMsg
+@snippet jobs.h declare_jobs_startnextmsg
+@copydoc Jobs_StartNextMsg
+
 @page jobs_describe_function Jobs_Describe
 @snippet jobs.h declare_jobs_describe
 @copydoc Jobs_Describe
@@ -89,6 +99,41 @@ These configuration settings are C pre-processor constants they are set using a 
 @page jobs_update_function Jobs_Update
 @snippet jobs.h declare_jobs_update
 @copydoc Jobs_Update
+
+@page jobs_updatemsg_function Jobs_UpdateMsg
+@snippet jobs.h declare_jobs_updatemsg
+@copydoc Jobs_UpdateMsg
+
+@page jobs_getjobid_function Jobs_GetJobId
+@snippet jobs.h declare_jobs_getjobid
+@copydoc Jobs_GetJobId
+
+@page jobs_getjobdocument_function Jobs_GetJobDocument
+@snippet jobs.h declare_jobs_getjobdocument
+@copydoc Jobs_GetJobDocument
+
+@page jobs_isstartnextaccepted_function Jobs_IsStartNextAccepted
+@snippet jobs.h declare_jobs_isstartnextaccepted
+@copydoc Jobs_IsStartNextAccepted
+
+@page jobs_isjobupdatestatus_function Jobs_IsJobUpdateStatus
+@snippet jobs.h declare_jobs_isjobupdatestatus
+@copydoc Jobs_IsJobUpdateStatus
+*/
+
+/**
+@page ota_parser_functions OTA Job Parser Functions
+@brief Primary Functions of the OTA Job Parser library:<br><br>
+@subpage populatejobdocfields_function <br>
+@subpage otaparser_parsejobdocfile_function <br>
+
+@page populatejobdocfields_function populateJobDocFields
+@snippet job_parser.h declare_populatejobdocfields
+@copydoc populateJobDocFields
+
+@page otaparser_parsejobdocfile_function otaParser_parseJobDocFile
+@snippet ota_job_processor.h declare_otaparser_parsejobdocfile
+@copydoc otaParser_parseJobDocFile
 */
 
 /**
