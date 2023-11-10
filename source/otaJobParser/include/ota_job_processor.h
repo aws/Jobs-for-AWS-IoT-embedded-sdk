@@ -44,7 +44,7 @@
  *                                           fileIndex,
  *                                           &fields);
  * } while(fileIndex > 0)
- * // File index will be -1 if an error occured, and 0 if all files were
+ * // File index will be -1 if an error occurred, and 0 if all files were
  * // processed
  * @endcode
  */
