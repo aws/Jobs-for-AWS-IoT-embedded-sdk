@@ -363,17 +363,6 @@ MARKDOWN_SUPPORT       = YES
 
 TOC_INCLUDE_HEADINGS   = 5
 
-# The MARKDOWN_ID_STYLE tag can be used to specify the algorithm used to
-# generate identifiers for the Markdown headings. Note: Every identifier is
-# unique.
-# Possible values are: DOXYGEN use a fixed 'autotoc_md' string followed by a
-# sequence number starting at 0 and GITHUB use the lower case version of title
-# with any whitespace replaced by '-' and punctuation characters removed.
-# The default value is: DOXYGEN.
-# This tag requires that the tag MARKDOWN_SUPPORT is set to YES.
-
-MARKDOWN_ID_STYLE      = DOXYGEN
-
 # When enabled doxygen tries to link words that correspond to documented
 # classes, or namespaces to their corresponding documentation. Such a link can
 # be prevented in individual cases by putting a % sign in front of the word or
@@ -497,14 +486,6 @@ LOOKUP_CACHE_SIZE      = 0
 # Minimum value: 0, maximum value: 32, default value: 1.
 
 NUM_PROC_THREADS       = 1
-
-# If the TIMESTAMP tag is set different from NO then each generated page will
-# contain the date or date and time when the page was generated. Setting this to
-# NO can help when comparing the output of multiple runs.
-# Possible values are: YES, NO, DATETIME and DATE.
-# The default value is: NO.
-
-TIMESTAMP              = NO
 
 #---------------------------------------------------------------------------
 # Build related configuration options
@@ -1389,13 +1370,6 @@ HTML_DYNAMIC_MENUS     = YES
 
 HTML_DYNAMIC_SECTIONS  = NO
 
-# If the HTML_CODE_FOLDING tag is set to YES then classes and functions can be
-# dynamically folded and expanded in the generated HTML source code.
-# The default value is: YES.
-# This tag requires that the tag GENERATE_HTML is set to YES.
-
-HTML_CODE_FOLDING      = YES
-
 # With HTML_INDEX_NUM_ENTRIES one can control the preferred number of entries
 # shown in the various tree structured indices initially; the user can expand
 # and collapse entries dynamically later on. Doxygen will expand the tree to
@@ -1525,16 +1499,6 @@ BINARY_TOC             = NO
 # This tag requires that the tag GENERATE_HTMLHELP is set to YES.
 
 TOC_EXPAND             = NO
-
-# The SITEMAP_URL tag is used to specify the full URL of the place where the
-# generated documentation will be placed on the server by the user during the
-# deployment of the documentation. The generated sitemap is called sitemap.xml
-# and placed on the directory specified by HTML_OUTPUT. In case no SITEMAP_URL
-# is specified no sitemap is generated. For information about the sitemap
-# protocol see https://www.sitemaps.org
-# This tag requires that the tag GENERATE_HTML is set to YES.
-
-SITEMAP_URL            =
 
 # If the GENERATE_QHP tag is set to YES and both QHP_NAMESPACE and
 # QHP_VIRTUAL_FOLDER are set, an additional index file will be generated that
@@ -2227,16 +2191,6 @@ DOCBOOK_OUTPUT         = docbook
 GENERATE_AUTOGEN_DEF   = NO
 
 #---------------------------------------------------------------------------
-# Configuration options related to Sqlite3 output
-#---------------------------------------------------------------------------
-
-# If the GENERATE_SQLITE3 tag is set to YES doxygen will generate a Sqlite3
-# database with symbols found by doxygen stored in tables.
-# The default value is: NO.
-
-GENERATE_SQLITE3       = NO
-
-#---------------------------------------------------------------------------
 # Configuration options related to the Perl module output
 #---------------------------------------------------------------------------
 
@@ -2746,16 +2700,6 @@ GENERATE_LEGEND        = YES
 # The default value is: YES.
 
 DOT_CLEANUP            = YES
-
-# You can define message sequence charts within doxygen comments using the \msc
-# command. If the MSCGEN_TOOL tag is left empty (the default), then doxygen will
-# use a built-in version of mscgen tool to produce the charts. Alternatively,
-# the MSCGEN_TOOL tag can also specify the name an external tool. For instance,
-# specifying prog as the value, doxygen will call the tool as prog -T
-# <outfile_format> -o <outputfile> <inputfile>. The external tool should support
-# output file formats "png", "eps", "svg", and "ismap".
-
-MSCGEN_TOOL            =
 
 # The MSCFILE_DIRS tag can be used to specify one or more directories that
 # contain msc files that are included in the documentation (see the \mscfile
