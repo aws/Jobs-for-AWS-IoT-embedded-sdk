@@ -145,3 +145,8 @@ These configuration settings are C pre-processor constants they are set using a 
 @defgroup jobs_constants Constants
 @brief Constants defined in the Jobs library
 */
+
+/**
+@defgroup jobs_structs Structs
+@brief Structs defined in the Jobs Library
+*/
