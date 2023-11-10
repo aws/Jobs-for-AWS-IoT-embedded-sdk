@@ -2236,22 +2236,6 @@ GENERATE_AUTOGEN_DEF   = NO
 
 GENERATE_SQLITE3       = NO
 
-# The SQLITE3_OUTPUT tag is used to specify where the Sqlite3 database will be
-# put. If a relative path is entered the value of OUTPUT_DIRECTORY will be put
-# in front of it.
-# The default directory is: sqlite3.
-# This tag requires that the tag GENERATE_SQLITE3 is set to YES.
-
-SQLITE3_OUTPUT         = sqlite3
-
-# The SQLITE3_OVERWRITE_DB tag is set to YES, the existing doxygen_sqlite3.db
-# database file will be recreated with each doxygen run. If set to NO, doxygen
-# will warn if an a database file is already found and not modify it.
-# The default value is: YES.
-# This tag requires that the tag GENERATE_SQLITE3 is set to YES.
-
-SQLITE3_RECREATE_DB    = YES
-
 #---------------------------------------------------------------------------
 # Configuration options related to the Perl module output
 #---------------------------------------------------------------------------

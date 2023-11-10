@@ -19,19 +19,19 @@
  */
 typedef struct
 {
-    const char * signature;
-    size_t signatureLen;
-    const char * filepath;
-    size_t filepathLen;
-    const char * certfile;
-    size_t certfileLen;
-    const char * authScheme;
-    size_t authSchemeLen;
-    const char * imageRef;
-    size_t imageRefLen;
-    uint32_t fileId;
-    uint32_t fileSize;
-    uint32_t fileType;
+    const char * signature;   /**< Code Signing Signature */
+    size_t signatureLen;      /**< Length of signature */
+    const char * filepath;    /**< File path to store OTA Update on device */
+    size_t filepathLen;       /**< Length of filepath */
+    const char * certfile;    /**< Path to Code Signing Certificate on Device */
+    size_t certfileLen;       /**< Length of certfile */
+    const char * authScheme;  /**< Authentication Scheme for HTTP URL ( null for MQTT  )*/
+    size_t authSchemeLen;     /**< Length of authScheme */
+    const char * imageRef;    /**< MQTT Stream or HTTP URL */
+    size_t imageRefLen;       /**< Length of imageRef */
+    uint32_t fileId;          /**< File ID */
+    uint32_t fileSize;        /**< Size of the OTA Update */
+    uint32_t fileType;        /**< FIle Type */
 } AfrOtaJobDocumentFields_t;
 
 /**
