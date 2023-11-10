@@ -16,7 +16,7 @@
 
 /**
  * @brief struct containing the fields of an AFR OTA Job Document
-*/
+ */
 typedef struct
 {
     const char * signature;

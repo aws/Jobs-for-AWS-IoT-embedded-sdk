@@ -24,19 +24,19 @@
  * @param jobDocLength The length of the job document
  * @param fields A pointer to an job document fields structure populated by call
  * @return int8_t The next file index in the job. Returns 0 if no additional files are available. Returns -1 if error.
- * 
+ *
  * <b>Example</b>
  * @code{c}
- * 
- * // The following example shows how to use the otaParser_parseJobDocFile API 
- * // to parse out the fields of a received Job Document and populate the fields 
- * // of the AfrOtaJobDocumentFields_t stucture. 
- * 
+ *
+ * // The following example shows how to use the otaParser_parseJobDocFile API
+ * // to parse out the fields of a received Job Document and populate the fields
+ * // of the AfrOtaJobDocumentFields_t stucture.
+ *
  * const char * jobDoc;                    // Populated by call to Jobs_GetJobDocument
- * size_t jobDocLength;                    // Return value of Jobs_GetJobDocument 
- * int8_t fileIndex = 0;                  
+ * size_t jobDocLength;                    // Return value of Jobs_GetJobDocument
+ * int8_t fileIndex = 0;
  * AfrOtaJobDocumentFields_t fields = {0}; // populated by API
- * 
+ *
  * do
  * {
  *     fileIndex = otaParser_parseJobDocFile(jobDoc,
