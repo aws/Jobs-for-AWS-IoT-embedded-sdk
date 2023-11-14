@@ -137,257 +137,272 @@ $(document).ready(function(){initNavTree('jobs_8h_source.html',''); initResizabl
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="comment">/* *INDENT-ON* */</span></div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="group__jobs__constants.html#ga3708a441b69f6d11309d17a278a52c34">   49</a></span><span class="preprocessor">#define TOPIC_BUFFER_SIZE    256U</span></div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="group__jobs__constants.html#ga3708a441b69f6d11309d17a278a52c34">   49</a></span><span class="preprocessor">#define TOPIC_BUFFER_SIZE            256U</span></div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="group__jobs__constants.html#ga2b2ec2a330942e5eb6fca9a597dcf8c4">   56</a></span><span class="preprocessor">#define JOBS_THINGNAME_MAX_LENGTH    128U      </span><span class="comment">/* per AWS IoT API Reference */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno"><a class="line" href="group__jobs__constants.html#ga1725f6f0c1997682b3100e7d23d138a1">   62</a></span><span class="preprocessor">#define JOBS_JOBID_MAX_LENGTH        64U       </span><span class="comment">/* per AWS IoT API Reference */</span><span class="preprocessor"></span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="preprocessor">#ifndef THINGNAME_MAX_LENGTH</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="jobs_8h.html#ad71fccb339adc1986401cb60fec0bc2b">   71</a></span><span class="preprocessor">    #define THINGNAME_MAX_LENGTH    JOBS_THINGNAME_MAX_LENGTH</span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="preprocessor">#ifndef JOBID_MAX_LENGTH</span></div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno"><a class="line" href="jobs_8h.html#a30bd49398cb42116098ed8b2e4afec8d">   81</a></span><span class="preprocessor">    #define JOBID_MAX_LENGTH    JOBS_JOBID_MAX_LENGTH</span></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="preprocessor">#if ( THINGNAME_MAX_LENGTH &gt; JOBS_THINGNAME_MAX_LENGTH )</span></div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="preprocessor">    #error &quot;The value of THINGNAME_MAX_LENGTH exceeds the AWS IoT Jobs Service limit.&quot;</span></div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span><span class="preprocessor">#if ( JOBID_MAX_LENGTH &gt; JOBS_JOBID_MAX_LENGTH )</span></div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="preprocessor">    #error &quot;The value of JOBID_MAX_LENGTH exceeds the AWS IoT Jobs Service limit.&quot;</span></div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="preprocessor">#define JOBS_API_PREFIX                     &quot;$aws/things/&quot;</span></div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span><span class="preprocessor">#define JOBS_API_PREFIX_LENGTH              ( sizeof( JOBS_API_PREFIX ) - 1U )</span></div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="preprocessor">#define JOBS_API_BRIDGE                     &quot;/jobs/&quot;</span></div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="preprocessor">#define JOBS_API_BRIDGE_LENGTH              ( sizeof( JOBS_API_BRIDGE ) - 1U )</span></div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="group__jobs__constants.html#gafe00b72dedfd3aac85929f54dbbc1ac3">   55</a></span><span class="preprocessor">#define START_JOB_MSG_LENGTH         147U</span></div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno"><a class="line" href="group__jobs__constants.html#ga8810ef863076252803d6c035d1f73227">   61</a></span><span class="preprocessor">#define UPDATE_JOB_MSG_LENGTH        48U</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno"><a class="line" href="group__jobs__constants.html#ga2b2ec2a330942e5eb6fca9a597dcf8c4">   67</a></span><span class="preprocessor">#define JOBS_THINGNAME_MAX_LENGTH    128U      </span><span class="comment">/* per AWS IoT API Reference */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno"><a class="line" href="group__jobs__constants.html#ga1725f6f0c1997682b3100e7d23d138a1">   73</a></span><span class="preprocessor">#define JOBS_JOBID_MAX_LENGTH        64U       </span><span class="comment">/* per AWS IoT API Reference */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span><span class="preprocessor">#ifndef THINGNAME_MAX_LENGTH</span></div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="jobs_8h.html#ad71fccb339adc1986401cb60fec0bc2b">   82</a></span><span class="preprocessor">    #define THINGNAME_MAX_LENGTH    JOBS_THINGNAME_MAX_LENGTH</span></div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="preprocessor">#ifndef JOBID_MAX_LENGTH</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno"><a class="line" href="jobs_8h.html#a30bd49398cb42116098ed8b2e4afec8d">   92</a></span><span class="preprocessor">    #define JOBID_MAX_LENGTH    JOBS_JOBID_MAX_LENGTH</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span><span class="preprocessor">#if ( THINGNAME_MAX_LENGTH &gt; JOBS_THINGNAME_MAX_LENGTH )</span></div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span><span class="preprocessor">    #error &quot;The value of THINGNAME_MAX_LENGTH exceeds the AWS IoT Jobs Service limit.&quot;</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span><span class="preprocessor">#if ( JOBID_MAX_LENGTH &gt; JOBS_JOBID_MAX_LENGTH )</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span><span class="preprocessor">    #error &quot;The value of JOBID_MAX_LENGTH exceeds the AWS IoT Jobs Service limit.&quot;</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="preprocessor">#define JOBS_API_SUCCESS                    &quot;/accepted&quot;</span></div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="preprocessor">#define JOBS_API_SUCCESS_LENGTH             ( sizeof( JOBS_API_SUCCESS ) - 1U )</span></div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span><span class="preprocessor">#define JOBS_API_FAILURE                    &quot;/rejected&quot;</span></div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="preprocessor">#define JOBS_API_FAILURE_LENGTH             ( sizeof( JOBS_API_FAILURE ) - 1U )</span></div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><span class="preprocessor">#define JOBS_API_JOBSCHANGED                &quot;notify&quot;</span></div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span><span class="preprocessor">#define JOBS_API_JOBSCHANGED_LENGTH         ( sizeof( JOBS_API_JOBSCHANGED ) - 1U )</span></div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span> </div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="preprocessor">#define JOBS_API_NEXTJOBCHANGED             &quot;notify-next&quot;</span></div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span><span class="preprocessor">#define JOBS_API_NEXTJOBCHANGED_LENGTH      ( sizeof( JOBS_API_NEXTJOBCHANGED ) - 1U )</span></div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="preprocessor">#define JOBS_API_GETPENDING                 &quot;get&quot;</span></div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span><span class="preprocessor">#define JOBS_API_GETPENDING_LENGTH          ( sizeof( JOBS_API_GETPENDING ) - 1U )</span></div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="preprocessor">#define JOBS_API_STARTNEXT                  &quot;start-next&quot;</span></div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span><span class="preprocessor">#define JOBS_API_STARTNEXT_LENGTH           ( sizeof( JOBS_API_STARTNEXT ) - 1U )</span></div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="preprocessor">#define JOBS_API_DESCRIBE                   &quot;get&quot;</span></div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="preprocessor">#define JOBS_API_DESCRIBE_LENGTH            ( sizeof( JOBS_API_DESCRIBE ) - 1U )</span></div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="preprocessor">#define JOBS_API_UPDATE                     &quot;update&quot;</span></div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="preprocessor">#define JOBS_API_UPDATE_LENGTH              ( sizeof( JOBS_API_UPDATE ) - 1U )</span></div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="preprocessor">#define JOBS_API_JOBID_NEXT                 &quot;$next&quot;</span></div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="preprocessor">#define JOBS_API_JOBID_NEXT_LENGTH          ( sizeof( JOBS_API_JOBID_NEXT ) - 1U )</span></div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="preprocessor">#define JOBS_API_JOBID_NULL                 &quot;&quot;</span></div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span><span class="preprocessor">#define JOBS_API_LEVEL_SEPARATOR            &quot;/&quot;</span></div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="preprocessor">#define JOBS_API_CLIENTTOKEN                &quot;{\&quot;clientToken\&quot;:\&quot;&quot;</span></div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="preprocessor">#define JOBS_API_CLIENTTOKEN_LENGTH         ( sizeof( JOBS_API_CLIENTTOKEN ) - 1U )</span></div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="preprocessor">#define JOBS_API_STATUS                     &quot;{\&quot;status\&quot;:\&quot;&quot;</span></div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span><span class="preprocessor">#define JOBS_API_STATUS_LENGTH              ( sizeof( JOBS_API_STATUS ) - 1U )</span></div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span><span class="preprocessor">#define JOBS_API_EXPECTED_VERSION           &quot;\&quot;,\&quot;expectedVersion\&quot;:\&quot;&quot;</span></div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span><span class="preprocessor">#define JOBS_API_EXPECTED_VERSION_LENGTH    ( sizeof( JOBS_API_EXPECTED_VERSION ) - 1U )</span></div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span> </div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span><span class="preprocessor">#define JOBS_API_COMMON_LENGTH( thingNameLength ) \</span></div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span><span class="preprocessor">    ( JOBS_API_PREFIX_LENGTH + ( thingNameLength ) + JOBS_API_BRIDGE_LENGTH )</span></div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="comment">/* AWS IoT Jobs API topics. */</span></div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span><span class="preprocessor">#define JOBS_TOPIC_COMMON( thingName, jobId, jobsApi ) \</span></div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span><span class="preprocessor">    ( JOBS_API_PREFIX                                  \</span></div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span><span class="preprocessor">      thingName                                        \</span></div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span><span class="preprocessor">      JOBS_API_BRIDGE                                  \</span></div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span><span class="preprocessor">      jobId                                            \</span></div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span><span class="preprocessor">      jobsApi )</span></div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno"><a class="line" href="group__jobs__constants.html#ga3837d5c45a0628b3d771b2d55bba416b">  172</a></span><span class="preprocessor">#define JOBS_API_SUBSCRIBE_NEXTJOBCHANGED( thingName ) \</span></div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="preprocessor">    JOBS_TOPIC_COMMON( thingName, JOBS_API_JOBID_NULL, JOBS_API_NEXTJOBCHANGED )</span></div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span> </div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno"><a class="line" href="group__jobs__constants.html#ga1fc910b7128664da161acbc886729d46">  185</a></span><span class="preprocessor">#define JOBS_API_SUBSCRIBE_JOBSCHANGED( thingName ) \</span></div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span><span class="preprocessor">    JOBS_TOPIC_COMMON( thingName, JOBS_API_JOBID_NULL, JOBS_API_JOBSCHANGED )</span></div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span> </div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno"><a class="line" href="group__jobs__constants.html#gaa3c483208b1e45fe6af4b4da1801ee13">  198</a></span><span class="preprocessor">#define JOBS_API_PUBLISH_STARTNEXT( thingName ) \</span></div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span><span class="preprocessor">    JOBS_TOPIC_COMMON( thingName, JOBS_API_JOBID_NULL, JOBS_API_STARTNEXT )</span></div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno"><a class="line" href="group__jobs__constants.html#ga9b70e9e9b21ae85d329d9a2470739ec7">  211</a></span><span class="preprocessor">#define JOBS_API_PUBLISH_GETPENDING( thingName ) \</span></div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span><span class="preprocessor">    JOBS_TOPIC_COMMON( thingName, JOBS_API_JOBID_NULL, JOBS_API_GETPENDING )</span></div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span> </div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno"><a class="line" href="group__jobs__constants.html#ga106b0c4b9a3a805c0b26834c3c0b8bfa">  226</a></span><span class="preprocessor">#define JOBS_API_PUBLISH_DESCRIBENEXTJOB( thingName ) \</span></div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span><span class="preprocessor">    JOBS_TOPIC_COMMON( thingName, JOBS_API_JOBID_NEXT JOBS_API_LEVEL_SEPARATOR, JOBS_API_DESCRIBE )</span></div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno"><a class="line" href="group__jobs__constants.html#gabb375381728f738d2bf931b7dbd91103">  234</a></span><span class="preprocessor">#define JOBS_API_MAX_LENGTH( thingNameLength )                    \</span></div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span><span class="preprocessor">    ( JOBS_API_COMMON_LENGTH( thingNameLength ) +                 \</span></div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span><span class="preprocessor">      JOBID_MAX_LENGTH + sizeof( &#39;/&#39; ) + JOBS_API_UPDATE_LENGTH + \</span></div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span><span class="preprocessor">      JOBS_API_SUCCESS_LENGTH + 1U )</span></div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span> </div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno"><a class="line" href="group__jobs__enum__types.html#gacc72f7076cee5bd66a46453420d97921">  243</a></span><span class="keyword">typedef</span> <span class="keyword">enum</span></div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>{</div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    JobsError = 0,</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno"><a class="line" href="group__jobs__enum__types.html#ggacc72f7076cee5bd66a46453420d97921a23d9fa1f6d5d5e51f681e3682d9235f3">  246</a></span>    <a class="code hl_enumvalue" href="group__jobs__enum__types.html#ggacc72f7076cee5bd66a46453420d97921a23d9fa1f6d5d5e51f681e3682d9235f3">JobsSuccess</a>,       </div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno"><a class="line" href="group__jobs__enum__types.html#ggacc72f7076cee5bd66a46453420d97921a01346b489cb3839b59cd0e81d98f2851">  247</a></span>    <a class="code hl_enumvalue" href="group__jobs__enum__types.html#ggacc72f7076cee5bd66a46453420d97921a01346b489cb3839b59cd0e81d98f2851">JobsNoMatch</a>,       </div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno"><a class="line" href="group__jobs__enum__types.html#ggacc72f7076cee5bd66a46453420d97921a9b6dea4829e16d4d5e43c99f00286e0b">  248</a></span>    <a class="code hl_enumvalue" href="group__jobs__enum__types.html#ggacc72f7076cee5bd66a46453420d97921a9b6dea4829e16d4d5e43c99f00286e0b">JobsBadParameter</a>,  </div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>    <a class="code hl_enumvalue" href="group__jobs__enum__types.html#ggacc72f7076cee5bd66a46453420d97921a12ff29ab79c3596a4a54cfa1a541cc79">JobsBufferTooSmall</a> </div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno"><a class="line" href="group__jobs__enum__types.html#ggacc72f7076cee5bd66a46453420d97921a12ff29ab79c3596a4a54cfa1a541cc79">  250</a></span>} <a class="code hl_enumeration" href="group__jobs__enum__types.html#gacc72f7076cee5bd66a46453420d97921">JobsStatus_t</a>;</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span> </div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno"><a class="line" href="jobs_8h.html#a0826978d630c337e77898b500bdc212c">  255</a></span><span class="keyword">typedef</span> <span class="keyword">enum</span></div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>{</div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>    Queued,</div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    InProgress,</div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>    Failed,</div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    Succeeded,</div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>    Rejected</div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>} <a class="code hl_enumeration" href="jobs_8h.html#a0826978d630c337e77898b500bdc212c">JobCurrentStatus_t</a>;</div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span> </div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno"><a class="line" href="jobs_8h.html#a8d73e0943ce8a2da4cd82a2edec9d0bc">  267</a></span><span class="keyword">typedef</span> <span class="keyword">enum</span></div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>{</div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    JobUpdateStatus_Accepted,</div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    JobUpdateStatus_Rejected</div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>} <a class="code hl_enumeration" href="jobs_8h.html#a8d73e0943ce8a2da4cd82a2edec9d0bc">JobUpdateStatus_t</a>;</div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span> </div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno"><a class="line" href="group__jobs__enum__types.html#ga315af209e86f50615c9e76948cf268ac">  289</a></span><span class="keyword">typedef</span> <span class="keyword">enum</span></div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>{</div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>    JobsInvalidTopic = -1,</div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>    JobsJobsChanged,</div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>    JobsNextJobChanged,</div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>    JobsGetPendingSuccess,</div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    JobsGetPendingFailed,</div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>    JobsStartNextSuccess,</div>
-<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>    JobsStartNextFailed,</div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>    <span class="comment">/* Topics below use a job ID. */</span></div>
-<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>    JobsDescribeSuccess,</div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>    JobsDescribeFailed,</div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>    JobsUpdateSuccess,</div>
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>    JobsUpdateFailed,</div>
-<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>    JobsMaxTopic</div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>} <a class="code hl_enumeration" href="group__jobs__enum__types.html#ga315af209e86f50615c9e76948cf268ac">JobsTopic_t</a>;</div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span> </div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span><span class="comment">/*-----------------------------------------------------------*/</span></div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span> </div>
-<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span><span class="comment">/* @[declare_jobs_gettopic] */</span></div>
-<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span><a class="code hl_enumeration" href="group__jobs__enum__types.html#gacc72f7076cee5bd66a46453420d97921">JobsStatus_t</a> <a class="code hl_function" href="jobs_8h.html#afe747bcbbd6eec4715b70df9f376de0a">Jobs_GetTopic</a>( <span class="keywordtype">char</span> * buffer,</div>
-<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>                            <span class="keywordtype">size_t</span> length,</div>
-<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>                            <span class="keyword">const</span> <span class="keywordtype">char</span> * thingName,</div>
-<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>                            uint16_t thingNameLength,</div>
-<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>                            <a class="code hl_enumeration" href="group__jobs__enum__types.html#ga315af209e86f50615c9e76948cf268ac">JobsTopic_t</a> api,</div>
-<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>                            <span class="keywordtype">size_t</span> * outLength );</div>
-<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span><span class="comment">/* @[declare_jobs_gettopic] */</span></div>
-<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span> </div>
-<div class="line"><a id="l00484" name="l00484"></a><span class="lineno">  484</span><span class="comment">/* @[declare_jobs_matchtopic] */</span></div>
-<div class="line"><a id="l00485" name="l00485"></a><span class="lineno">  485</span><a class="code hl_enumeration" href="group__jobs__enum__types.html#gacc72f7076cee5bd66a46453420d97921">JobsStatus_t</a> <a class="code hl_function" href="jobs_8h.html#ae3e1205f419d335dcf9b338f0db19815">Jobs_MatchTopic</a>( <span class="keywordtype">char</span> * topic,</div>
-<div class="line"><a id="l00486" name="l00486"></a><span class="lineno">  486</span>                              <span class="keywordtype">size_t</span> length,</div>
-<div class="line"><a id="l00487" name="l00487"></a><span class="lineno">  487</span>                              <span class="keyword">const</span> <span class="keywordtype">char</span> * thingName,</div>
-<div class="line"><a id="l00488" name="l00488"></a><span class="lineno">  488</span>                              uint16_t thingNameLength,</div>
-<div class="line"><a id="l00489" name="l00489"></a><span class="lineno">  489</span>                              <a class="code hl_enumeration" href="group__jobs__enum__types.html#ga315af209e86f50615c9e76948cf268ac">JobsTopic_t</a> * outApi,</div>
-<div class="line"><a id="l00490" name="l00490"></a><span class="lineno">  490</span>                              <span class="keywordtype">char</span> ** outJobId,</div>
-<div class="line"><a id="l00491" name="l00491"></a><span class="lineno">  491</span>                              uint16_t * outJobIdLength );</div>
-<div class="line"><a id="l00492" name="l00492"></a><span class="lineno">  492</span><span class="comment">/* @[declare_jobs_matchtopic] */</span></div>
-<div class="line"><a id="l00493" name="l00493"></a><span class="lineno">  493</span> </div>
-<div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span><span class="comment">/* @[declare_jobs_getpending] */</span></div>
-<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span><a class="code hl_enumeration" href="group__jobs__enum__types.html#gacc72f7076cee5bd66a46453420d97921">JobsStatus_t</a> <a class="code hl_function" href="jobs_8h.html#a5b4fd584f0400e51b1d29189b24c91a5">Jobs_GetPending</a>( <span class="keywordtype">char</span> * buffer,</div>
-<div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span>                              <span class="keywordtype">size_t</span> length,</div>
-<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span>                              <span class="keyword">const</span> <span class="keywordtype">char</span> * thingName,</div>
-<div class="line"><a id="l00556" name="l00556"></a><span class="lineno">  556</span>                              uint16_t thingNameLength,</div>
-<div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span>                              <span class="keywordtype">size_t</span> * outLength );</div>
-<div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span><span class="comment">/* @[declare_jobs_getpending] */</span></div>
-<div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span> </div>
-<div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span><span class="comment">/* @[declare_jobs_startnext] */</span></div>
-<div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span><a class="code hl_enumeration" href="group__jobs__enum__types.html#gacc72f7076cee5bd66a46453420d97921">JobsStatus_t</a> <a class="code hl_function" href="jobs_8h.html#ad69cddd288dd61b3716021478725c174">Jobs_StartNext</a>( <span class="keywordtype">char</span> * buffer,</div>
-<div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span>                             <span class="keywordtype">size_t</span> length,</div>
-<div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span>                             <span class="keyword">const</span> <span class="keywordtype">char</span> * thingName,</div>
-<div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span>                             uint16_t thingNameLength,</div>
-<div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span>                             <span class="keywordtype">size_t</span> * outLength );</div>
-<div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span><span class="comment">/* @[declare_jobs_startnext] */</span></div>
-<div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span> </div>
-<div class="line"><a id="l00637" name="l00637"></a><span class="lineno">  637</span><span class="keywordtype">size_t</span> <a class="code hl_function" href="jobs_8h.html#ad114add07898edb20cebd6e14b579de7">Jobs_StartNextMsg</a>( <span class="keyword">const</span> <span class="keywordtype">char</span> * clientToken,</div>
-<div class="line"><a id="l00638" name="l00638"></a><span class="lineno">  638</span>                          <span class="keywordtype">size_t</span> clientTokenLength,</div>
-<div class="line"><a id="l00639" name="l00639"></a><span class="lineno">  639</span>                          <span class="keywordtype">char</span> * buffer,</div>
-<div class="line"><a id="l00640" name="l00640"></a><span class="lineno">  640</span>                          <span class="keywordtype">size_t</span> bufferSize );</div>
-<div class="line"><a id="l00641" name="l00641"></a><span class="lineno">  641</span> </div>
-<div class="line"><a id="l00712" name="l00712"></a><span class="lineno">  712</span><span class="comment">/* @[declare_jobs_describe] */</span></div>
-<div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span><a class="code hl_enumeration" href="group__jobs__enum__types.html#gacc72f7076cee5bd66a46453420d97921">JobsStatus_t</a> <a class="code hl_function" href="jobs_8h.html#adfdc2db49fa5102fdb0e0b826e86b150">Jobs_Describe</a>( <span class="keywordtype">char</span> * buffer,</div>
-<div class="line"><a id="l00714" name="l00714"></a><span class="lineno">  714</span>                            <span class="keywordtype">size_t</span> length,</div>
-<div class="line"><a id="l00715" name="l00715"></a><span class="lineno">  715</span>                            <span class="keyword">const</span> <span class="keywordtype">char</span> * thingName,</div>
-<div class="line"><a id="l00716" name="l00716"></a><span class="lineno">  716</span>                            uint16_t thingNameLength,</div>
-<div class="line"><a id="l00717" name="l00717"></a><span class="lineno">  717</span>                            <span class="keyword">const</span> <span class="keywordtype">char</span> * jobId,</div>
-<div class="line"><a id="l00718" name="l00718"></a><span class="lineno">  718</span>                            uint16_t jobIdLength,</div>
-<div class="line"><a id="l00719" name="l00719"></a><span class="lineno">  719</span>                            <span class="keywordtype">size_t</span> * outLength );</div>
-<div class="line"><a id="l00720" name="l00720"></a><span class="lineno">  720</span><span class="comment">/* @[declare_jobs_describe] */</span></div>
-<div class="line"><a id="l00721" name="l00721"></a><span class="lineno">  721</span> </div>
-<div class="line"><a id="l00789" name="l00789"></a><span class="lineno">  789</span><span class="comment">/* @[declare_jobs_update] */</span></div>
-<div class="line"><a id="l00790" name="l00790"></a><span class="lineno">  790</span><a class="code hl_enumeration" href="group__jobs__enum__types.html#gacc72f7076cee5bd66a46453420d97921">JobsStatus_t</a> <a class="code hl_function" href="jobs_8h.html#a4ab3fd29173814ab73d764d123e9f400">Jobs_Update</a>( <span class="keywordtype">char</span> * buffer,</div>
-<div class="line"><a id="l00791" name="l00791"></a><span class="lineno">  791</span>                          <span class="keywordtype">size_t</span> length,</div>
-<div class="line"><a id="l00792" name="l00792"></a><span class="lineno">  792</span>                          <span class="keyword">const</span> <span class="keywordtype">char</span> * thingName,</div>
-<div class="line"><a id="l00793" name="l00793"></a><span class="lineno">  793</span>                          uint16_t thingNameLength,</div>
-<div class="line"><a id="l00794" name="l00794"></a><span class="lineno">  794</span>                          <span class="keyword">const</span> <span class="keywordtype">char</span> * jobId,</div>
-<div class="line"><a id="l00795" name="l00795"></a><span class="lineno">  795</span>                          uint16_t jobIdLength,</div>
-<div class="line"><a id="l00796" name="l00796"></a><span class="lineno">  796</span>                          <span class="keywordtype">size_t</span> * outLength );</div>
-<div class="line"><a id="l00797" name="l00797"></a><span class="lineno">  797</span><span class="comment">/* @[declare_jobs_update] */</span></div>
-<div class="line"><a id="l00798" name="l00798"></a><span class="lineno">  798</span> </div>
-<div class="line"><a id="l00811" name="l00811"></a><span class="lineno">  811</span><span class="keywordtype">size_t</span> <a class="code hl_function" href="jobs_8h.html#a292af2fb589dd9975a25cb154abfe5e0">Jobs_UpdateMsg</a>( <a class="code hl_enumeration" href="jobs_8h.html#a0826978d630c337e77898b500bdc212c">JobCurrentStatus_t</a> status,</div>
-<div class="line"><a id="l00812" name="l00812"></a><span class="lineno">  812</span>                       <span class="keyword">const</span> <span class="keywordtype">char</span> * expectedVersion,</div>
-<div class="line"><a id="l00813" name="l00813"></a><span class="lineno">  813</span>                       <span class="keywordtype">size_t</span> expectedVersionLength,</div>
-<div class="line"><a id="l00814" name="l00814"></a><span class="lineno">  814</span>                       <span class="keywordtype">char</span> * buffer,</div>
-<div class="line"><a id="l00815" name="l00815"></a><span class="lineno">  815</span>                       <span class="keywordtype">size_t</span> bufferSize );</div>
-<div class="line"><a id="l00816" name="l00816"></a><span class="lineno">  816</span> </div>
-<div class="line"><a id="l00825" name="l00825"></a><span class="lineno">  825</span><span class="keywordtype">size_t</span> <a class="code hl_function" href="jobs_8h.html#a1bcd805a5a5534dd7b002285d573d340">Jobs_GetJobId</a>( <span class="keyword">const</span> <span class="keywordtype">char</span> * message,</div>
-<div class="line"><a id="l00826" name="l00826"></a><span class="lineno">  826</span>                      <span class="keywordtype">size_t</span> messageLength,</div>
-<div class="line"><a id="l00827" name="l00827"></a><span class="lineno">  827</span>                      <span class="keyword">const</span> <span class="keywordtype">char</span> ** jobId );</div>
-<div class="line"><a id="l00828" name="l00828"></a><span class="lineno">  828</span> </div>
-<div class="line"><a id="l00837" name="l00837"></a><span class="lineno">  837</span><span class="keywordtype">size_t</span> <a class="code hl_function" href="jobs_8h.html#af967a6db18ca201f214caca004efad21">Jobs_GetJobDocument</a>( <span class="keyword">const</span> <span class="keywordtype">char</span> * message,</div>
-<div class="line"><a id="l00838" name="l00838"></a><span class="lineno">  838</span>                            <span class="keywordtype">size_t</span> messageLength,</div>
-<div class="line"><a id="l00839" name="l00839"></a><span class="lineno">  839</span>                            <span class="keyword">const</span> <span class="keywordtype">char</span> ** jobDoc );</div>
-<div class="line"><a id="l00840" name="l00840"></a><span class="lineno">  840</span> </div>
-<div class="line"><a id="l00851" name="l00851"></a><span class="lineno">  851</span><span class="keywordtype">bool</span> <a class="code hl_function" href="jobs_8h.html#a4e3e175ffa87cb5348c9c552d5385c65">Jobs_IsStartNextAccepted</a>( <span class="keyword">const</span> <span class="keywordtype">char</span> * topic,</div>
-<div class="line"><a id="l00852" name="l00852"></a><span class="lineno">  852</span>                               <span class="keyword">const</span> <span class="keywordtype">size_t</span> topicLength,</div>
-<div class="line"><a id="l00853" name="l00853"></a><span class="lineno">  853</span>                               <span class="keyword">const</span> <span class="keywordtype">char</span> * thingName,</div>
-<div class="line"><a id="l00854" name="l00854"></a><span class="lineno">  854</span>                               <span class="keyword">const</span> <span class="keywordtype">size_t</span> thingNameLength );</div>
-<div class="line"><a id="l00855" name="l00855"></a><span class="lineno">  855</span> </div>
-<div class="line"><a id="l00869" name="l00869"></a><span class="lineno">  869</span><span class="keywordtype">bool</span> <a class="code hl_function" href="jobs_8h.html#aa30d59bef9d75e7b1c737e2ffaf3de19">Jobs_IsJobUpdateStatus</a>( <span class="keyword">const</span> <span class="keywordtype">char</span> * topic,</div>
-<div class="line"><a id="l00870" name="l00870"></a><span class="lineno">  870</span>                             <span class="keyword">const</span> <span class="keywordtype">size_t</span> topicLength,</div>
-<div class="line"><a id="l00871" name="l00871"></a><span class="lineno">  871</span>                             <span class="keyword">const</span> <span class="keywordtype">char</span> * jobId,</div>
-<div class="line"><a id="l00872" name="l00872"></a><span class="lineno">  872</span>                             <span class="keyword">const</span> <span class="keywordtype">size_t</span> jobIdLength,</div>
-<div class="line"><a id="l00873" name="l00873"></a><span class="lineno">  873</span>                             <span class="keyword">const</span> <span class="keywordtype">char</span> * thingName,</div>
-<div class="line"><a id="l00874" name="l00874"></a><span class="lineno">  874</span>                             <span class="keyword">const</span> <span class="keywordtype">size_t</span> thingNameLength,</div>
-<div class="line"><a id="l00875" name="l00875"></a><span class="lineno">  875</span>                             <a class="code hl_enumeration" href="jobs_8h.html#a8d73e0943ce8a2da4cd82a2edec9d0bc">JobUpdateStatus_t</a> expectedStatus );</div>
-<div class="line"><a id="l00876" name="l00876"></a><span class="lineno">  876</span> </div>
-<div class="line"><a id="l00877" name="l00877"></a><span class="lineno">  877</span> </div>
-<div class="line"><a id="l00878" name="l00878"></a><span class="lineno">  878</span><span class="comment">/* *INDENT-OFF* */</span></div>
-<div class="line"><a id="l00879" name="l00879"></a><span class="lineno">  879</span><span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a id="l00880" name="l00880"></a><span class="lineno">  880</span>    }</div>
-<div class="line"><a id="l00881" name="l00881"></a><span class="lineno">  881</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00882" name="l00882"></a><span class="lineno">  882</span><span class="comment">/* *INDENT-ON* */</span></div>
-<div class="line"><a id="l00883" name="l00883"></a><span class="lineno">  883</span> </div>
-<div class="line"><a id="l00884" name="l00884"></a><span class="lineno">  884</span><span class="preprocessor">#endif </span><span class="comment">/* ifndef JOBS_H_ */</span><span class="preprocessor"></span></div>
-<div class="ttc" id="agroup__jobs__enum__types_html_ga315af209e86f50615c9e76948cf268ac"><div class="ttname"><a href="group__jobs__enum__types.html#ga315af209e86f50615c9e76948cf268ac">JobsTopic_t</a></div><div class="ttdeci">JobsTopic_t</div><div class="ttdoc">Topic values for subscription requests.</div><div class="ttdef"><b>Definition:</b> jobs.h:290</div></div>
-<div class="ttc" id="agroup__jobs__enum__types_html_gacc72f7076cee5bd66a46453420d97921"><div class="ttname"><a href="group__jobs__enum__types.html#gacc72f7076cee5bd66a46453420d97921">JobsStatus_t</a></div><div class="ttdeci">JobsStatus_t</div><div class="ttdoc">Return codes from jobs functions.</div><div class="ttdef"><b>Definition:</b> jobs.h:244</div></div>
-<div class="ttc" id="agroup__jobs__enum__types_html_ggacc72f7076cee5bd66a46453420d97921a01346b489cb3839b59cd0e81d98f2851"><div class="ttname"><a href="group__jobs__enum__types.html#ggacc72f7076cee5bd66a46453420d97921a01346b489cb3839b59cd0e81d98f2851">JobsNoMatch</a></div><div class="ttdeci">@ JobsNoMatch</div><div class="ttdoc">The buffer does not contain a jobs topic.</div><div class="ttdef"><b>Definition:</b> jobs.h:247</div></div>
-<div class="ttc" id="agroup__jobs__enum__types_html_ggacc72f7076cee5bd66a46453420d97921a12ff29ab79c3596a4a54cfa1a541cc79"><div class="ttname"><a href="group__jobs__enum__types.html#ggacc72f7076cee5bd66a46453420d97921a12ff29ab79c3596a4a54cfa1a541cc79">JobsBufferTooSmall</a></div><div class="ttdeci">@ JobsBufferTooSmall</div><div class="ttdoc">The buffer write was truncated.</div><div class="ttdef"><b>Definition:</b> jobs.h:249</div></div>
-<div class="ttc" id="agroup__jobs__enum__types_html_ggacc72f7076cee5bd66a46453420d97921a23d9fa1f6d5d5e51f681e3682d9235f3"><div class="ttname"><a href="group__jobs__enum__types.html#ggacc72f7076cee5bd66a46453420d97921a23d9fa1f6d5d5e51f681e3682d9235f3">JobsSuccess</a></div><div class="ttdeci">@ JobsSuccess</div><div class="ttdoc">The buffer was properly written or a match was found.</div><div class="ttdef"><b>Definition:</b> jobs.h:246</div></div>
-<div class="ttc" id="agroup__jobs__enum__types_html_ggacc72f7076cee5bd66a46453420d97921a9b6dea4829e16d4d5e43c99f00286e0b"><div class="ttname"><a href="group__jobs__enum__types.html#ggacc72f7076cee5bd66a46453420d97921a9b6dea4829e16d4d5e43c99f00286e0b">JobsBadParameter</a></div><div class="ttdeci">@ JobsBadParameter</div><div class="ttdoc">A function parameter was NULL or has an illegal value.</div><div class="ttdef"><b>Definition:</b> jobs.h:248</div></div>
-<div class="ttc" id="ajobs_8h_html_a0826978d630c337e77898b500bdc212c"><div class="ttname"><a href="jobs_8h.html#a0826978d630c337e77898b500bdc212c">JobCurrentStatus_t</a></div><div class="ttdeci">JobCurrentStatus_t</div><div class="ttdoc">Status codes for jobs.</div><div class="ttdef"><b>Definition:</b> jobs.h:256</div></div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="preprocessor">#define JOBS_API_PREFIX                     &quot;$aws/things/&quot;</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span><span class="preprocessor">#define JOBS_API_PREFIX_LENGTH              ( sizeof( JOBS_API_PREFIX ) - 1U )</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="preprocessor">#define JOBS_API_BRIDGE                     &quot;/jobs/&quot;</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="preprocessor">#define JOBS_API_BRIDGE_LENGTH              ( sizeof( JOBS_API_BRIDGE ) - 1U )</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span><span class="preprocessor">#define JOBS_API_SUCCESS                    &quot;/accepted&quot;</span></div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span><span class="preprocessor">#define JOBS_API_SUCCESS_LENGTH             ( sizeof( JOBS_API_SUCCESS ) - 1U )</span></div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span><span class="preprocessor">#define JOBS_API_FAILURE                    &quot;/rejected&quot;</span></div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span><span class="preprocessor">#define JOBS_API_FAILURE_LENGTH             ( sizeof( JOBS_API_FAILURE ) - 1U )</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span><span class="preprocessor">#define JOBS_API_JOBSCHANGED                &quot;notify&quot;</span></div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span><span class="preprocessor">#define JOBS_API_JOBSCHANGED_LENGTH         ( sizeof( JOBS_API_JOBSCHANGED ) - 1U )</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="preprocessor">#define JOBS_API_NEXTJOBCHANGED             &quot;notify-next&quot;</span></div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span><span class="preprocessor">#define JOBS_API_NEXTJOBCHANGED_LENGTH      ( sizeof( JOBS_API_NEXTJOBCHANGED ) - 1U )</span></div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span><span class="preprocessor">#define JOBS_API_GETPENDING                 &quot;get&quot;</span></div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="preprocessor">#define JOBS_API_GETPENDING_LENGTH          ( sizeof( JOBS_API_GETPENDING ) - 1U )</span></div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span><span class="preprocessor">#define JOBS_API_STARTNEXT                  &quot;start-next&quot;</span></div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="preprocessor">#define JOBS_API_STARTNEXT_LENGTH           ( sizeof( JOBS_API_STARTNEXT ) - 1U )</span></div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span><span class="preprocessor">#define JOBS_API_DESCRIBE                   &quot;get&quot;</span></div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span><span class="preprocessor">#define JOBS_API_DESCRIBE_LENGTH            ( sizeof( JOBS_API_DESCRIBE ) - 1U )</span></div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="preprocessor">#define JOBS_API_UPDATE                     &quot;update&quot;</span></div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="preprocessor">#define JOBS_API_UPDATE_LENGTH              ( sizeof( JOBS_API_UPDATE ) - 1U )</span></div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span><span class="preprocessor">#define JOBS_API_JOBID_NEXT                 &quot;$next&quot;</span></div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span><span class="preprocessor">#define JOBS_API_JOBID_NEXT_LENGTH          ( sizeof( JOBS_API_JOBID_NEXT ) - 1U )</span></div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span><span class="preprocessor">#define JOBS_API_JOBID_NULL                 &quot;&quot;</span></div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span><span class="preprocessor">#define JOBS_API_LEVEL_SEPARATOR            &quot;/&quot;</span></div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span><span class="preprocessor">#define JOBS_API_CLIENTTOKEN                &quot;{\&quot;clientToken\&quot;:\&quot;&quot;</span></div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span><span class="preprocessor">#define JOBS_API_CLIENTTOKEN_LENGTH         ( sizeof( JOBS_API_CLIENTTOKEN ) - 1U )</span></div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span> </div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span><span class="preprocessor">#define JOBS_API_STATUS                     &quot;{\&quot;status\&quot;:\&quot;&quot;</span></div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span><span class="preprocessor">#define JOBS_API_STATUS_LENGTH              ( sizeof( JOBS_API_STATUS ) - 1U )</span></div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span><span class="preprocessor">#define JOBS_API_EXPECTED_VERSION           &quot;\&quot;,\&quot;expectedVersion\&quot;:\&quot;&quot;</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span><span class="preprocessor">#define JOBS_API_EXPECTED_VERSION_LENGTH    ( sizeof( JOBS_API_EXPECTED_VERSION ) - 1U )</span></div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span><span class="preprocessor">#define JOBS_API_COMMON_LENGTH( thingNameLength ) \</span></div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span><span class="preprocessor">    ( JOBS_API_PREFIX_LENGTH + ( thingNameLength ) + JOBS_API_BRIDGE_LENGTH )</span></div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span><span class="comment">/* AWS IoT Jobs API topics. */</span></div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span><span class="preprocessor">#define JOBS_TOPIC_COMMON( thingName, jobId, jobsApi ) \</span></div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span><span class="preprocessor">    ( JOBS_API_PREFIX                                  \</span></div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span><span class="preprocessor">      thingName                                        \</span></div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="preprocessor">      JOBS_API_BRIDGE                                  \</span></div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="preprocessor">      jobId                                            \</span></div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span><span class="preprocessor">      jobsApi )</span></div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno"><a class="line" href="group__jobs__constants.html#ga3837d5c45a0628b3d771b2d55bba416b">  183</a></span><span class="preprocessor">#define JOBS_API_SUBSCRIBE_NEXTJOBCHANGED( thingName ) \</span></div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="preprocessor">    JOBS_TOPIC_COMMON( thingName, JOBS_API_JOBID_NULL, JOBS_API_NEXTJOBCHANGED )</span></div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span> </div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno"><a class="line" href="group__jobs__constants.html#ga1fc910b7128664da161acbc886729d46">  196</a></span><span class="preprocessor">#define JOBS_API_SUBSCRIBE_JOBSCHANGED( thingName ) \</span></div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span><span class="preprocessor">    JOBS_TOPIC_COMMON( thingName, JOBS_API_JOBID_NULL, JOBS_API_JOBSCHANGED )</span></div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span> </div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno"><a class="line" href="group__jobs__constants.html#gaa3c483208b1e45fe6af4b4da1801ee13">  209</a></span><span class="preprocessor">#define JOBS_API_PUBLISH_STARTNEXT( thingName ) \</span></div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span><span class="preprocessor">    JOBS_TOPIC_COMMON( thingName, JOBS_API_JOBID_NULL, JOBS_API_STARTNEXT )</span></div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span> </div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno"><a class="line" href="group__jobs__constants.html#ga9b70e9e9b21ae85d329d9a2470739ec7">  222</a></span><span class="preprocessor">#define JOBS_API_PUBLISH_GETPENDING( thingName ) \</span></div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span><span class="preprocessor">    JOBS_TOPIC_COMMON( thingName, JOBS_API_JOBID_NULL, JOBS_API_GETPENDING )</span></div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span> </div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno"><a class="line" href="group__jobs__constants.html#ga106b0c4b9a3a805c0b26834c3c0b8bfa">  237</a></span><span class="preprocessor">#define JOBS_API_PUBLISH_DESCRIBENEXTJOB( thingName ) \</span></div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span><span class="preprocessor">    JOBS_TOPIC_COMMON( thingName, JOBS_API_JOBID_NEXT JOBS_API_LEVEL_SEPARATOR, JOBS_API_DESCRIBE )</span></div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno"><a class="line" href="group__jobs__constants.html#gabb375381728f738d2bf931b7dbd91103">  245</a></span><span class="preprocessor">#define JOBS_API_MAX_LENGTH( thingNameLength )                    \</span></div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span><span class="preprocessor">    ( JOBS_API_COMMON_LENGTH( thingNameLength ) +                 \</span></div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span><span class="preprocessor">      JOBID_MAX_LENGTH + sizeof( &#39;/&#39; ) + JOBS_API_UPDATE_LENGTH + \</span></div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span><span class="preprocessor">      JOBS_API_SUCCESS_LENGTH + 1U )</span></div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span> </div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno"><a class="line" href="group__jobs__enum__types.html#gacc72f7076cee5bd66a46453420d97921">  254</a></span><span class="keyword">typedef</span> <span class="keyword">enum</span></div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>{</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>    JobsError = 0,</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno"><a class="line" href="group__jobs__enum__types.html#ggacc72f7076cee5bd66a46453420d97921a23d9fa1f6d5d5e51f681e3682d9235f3">  257</a></span>    <a class="code hl_enumvalue" href="group__jobs__enum__types.html#ggacc72f7076cee5bd66a46453420d97921a23d9fa1f6d5d5e51f681e3682d9235f3">JobsSuccess</a>,       </div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno"><a class="line" href="group__jobs__enum__types.html#ggacc72f7076cee5bd66a46453420d97921a01346b489cb3839b59cd0e81d98f2851">  258</a></span>    <a class="code hl_enumvalue" href="group__jobs__enum__types.html#ggacc72f7076cee5bd66a46453420d97921a01346b489cb3839b59cd0e81d98f2851">JobsNoMatch</a>,       </div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno"><a class="line" href="group__jobs__enum__types.html#ggacc72f7076cee5bd66a46453420d97921a9b6dea4829e16d4d5e43c99f00286e0b">  259</a></span>    <a class="code hl_enumvalue" href="group__jobs__enum__types.html#ggacc72f7076cee5bd66a46453420d97921a9b6dea4829e16d4d5e43c99f00286e0b">JobsBadParameter</a>,  </div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>    <a class="code hl_enumvalue" href="group__jobs__enum__types.html#ggacc72f7076cee5bd66a46453420d97921a12ff29ab79c3596a4a54cfa1a541cc79">JobsBufferTooSmall</a> </div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno"><a class="line" href="group__jobs__enum__types.html#ggacc72f7076cee5bd66a46453420d97921a12ff29ab79c3596a4a54cfa1a541cc79">  261</a></span>} <a class="code hl_enumeration" href="group__jobs__enum__types.html#gacc72f7076cee5bd66a46453420d97921">JobsStatus_t</a>;</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span> </div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno"><a class="line" href="jobs_8h.html#a0826978d630c337e77898b500bdc212c">  266</a></span><span class="keyword">typedef</span> <span class="keyword">enum</span></div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>{</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    Queued,</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    InProgress,</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    Failed,</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    Succeeded,</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    Rejected</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>} <a class="code hl_enumeration" href="jobs_8h.html#a0826978d630c337e77898b500bdc212c">JobCurrentStatus_t</a>;</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span> </div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno"><a class="line" href="jobs_8h.html#a8d73e0943ce8a2da4cd82a2edec9d0bc">  278</a></span><span class="keyword">typedef</span> <span class="keyword">enum</span></div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>{</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>    JobUpdateStatus_Accepted,</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>    JobUpdateStatus_Rejected</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>} <a class="code hl_enumeration" href="jobs_8h.html#a8d73e0943ce8a2da4cd82a2edec9d0bc">JobUpdateStatus_t</a>;</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span> </div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno"><a class="line" href="group__jobs__enum__types.html#ga315af209e86f50615c9e76948cf268ac">  300</a></span><span class="keyword">typedef</span> <span class="keyword">enum</span></div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>{</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>    JobsInvalidTopic = -1,</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>    JobsJobsChanged,</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>    JobsNextJobChanged,</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>    JobsGetPendingSuccess,</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>    JobsGetPendingFailed,</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>    JobsStartNextSuccess,</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>    JobsStartNextFailed,</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>    <span class="comment">/* Topics below use a job ID. */</span></div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>    JobsDescribeSuccess,</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>    JobsDescribeFailed,</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>    JobsUpdateSuccess,</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>    JobsUpdateFailed,</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>    JobsMaxTopic</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>} <a class="code hl_enumeration" href="group__jobs__enum__types.html#ga315af209e86f50615c9e76948cf268ac">JobsTopic_t</a>;</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span> </div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span><span class="comment">/*-----------------------------------------------------------*/</span></div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span> </div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span><span class="comment">/* @[declare_jobs_gettopic] */</span></div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span><a class="code hl_enumeration" href="group__jobs__enum__types.html#gacc72f7076cee5bd66a46453420d97921">JobsStatus_t</a> <a class="code hl_function" href="jobs_8h.html#afe747bcbbd6eec4715b70df9f376de0a">Jobs_GetTopic</a>( <span class="keywordtype">char</span> * buffer,</div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>                            <span class="keywordtype">size_t</span> length,</div>
+<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>                            <span class="keyword">const</span> <span class="keywordtype">char</span> * thingName,</div>
+<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>                            uint16_t thingNameLength,</div>
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>                            <a class="code hl_enumeration" href="group__jobs__enum__types.html#ga315af209e86f50615c9e76948cf268ac">JobsTopic_t</a> api,</div>
+<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>                            <span class="keywordtype">size_t</span> * outLength );</div>
+<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span><span class="comment">/* @[declare_jobs_gettopic] */</span></div>
+<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span> </div>
+<div class="line"><a id="l00495" name="l00495"></a><span class="lineno">  495</span><span class="comment">/* @[declare_jobs_matchtopic] */</span></div>
+<div class="line"><a id="l00496" name="l00496"></a><span class="lineno">  496</span><a class="code hl_enumeration" href="group__jobs__enum__types.html#gacc72f7076cee5bd66a46453420d97921">JobsStatus_t</a> <a class="code hl_function" href="jobs_8h.html#ae3e1205f419d335dcf9b338f0db19815">Jobs_MatchTopic</a>( <span class="keywordtype">char</span> * topic,</div>
+<div class="line"><a id="l00497" name="l00497"></a><span class="lineno">  497</span>                              <span class="keywordtype">size_t</span> length,</div>
+<div class="line"><a id="l00498" name="l00498"></a><span class="lineno">  498</span>                              <span class="keyword">const</span> <span class="keywordtype">char</span> * thingName,</div>
+<div class="line"><a id="l00499" name="l00499"></a><span class="lineno">  499</span>                              uint16_t thingNameLength,</div>
+<div class="line"><a id="l00500" name="l00500"></a><span class="lineno">  500</span>                              <a class="code hl_enumeration" href="group__jobs__enum__types.html#ga315af209e86f50615c9e76948cf268ac">JobsTopic_t</a> * outApi,</div>
+<div class="line"><a id="l00501" name="l00501"></a><span class="lineno">  501</span>                              <span class="keywordtype">char</span> ** outJobId,</div>
+<div class="line"><a id="l00502" name="l00502"></a><span class="lineno">  502</span>                              uint16_t * outJobIdLength );</div>
+<div class="line"><a id="l00503" name="l00503"></a><span class="lineno">  503</span><span class="comment">/* @[declare_jobs_matchtopic] */</span></div>
+<div class="line"><a id="l00504" name="l00504"></a><span class="lineno">  504</span> </div>
+<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span><span class="comment">/* @[declare_jobs_getpending] */</span></div>
+<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span><a class="code hl_enumeration" href="group__jobs__enum__types.html#gacc72f7076cee5bd66a46453420d97921">JobsStatus_t</a> <a class="code hl_function" href="jobs_8h.html#a5b4fd584f0400e51b1d29189b24c91a5">Jobs_GetPending</a>( <span class="keywordtype">char</span> * buffer,</div>
+<div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span>                              <span class="keywordtype">size_t</span> length,</div>
+<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span>                              <span class="keyword">const</span> <span class="keywordtype">char</span> * thingName,</div>
+<div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span>                              uint16_t thingNameLength,</div>
+<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span>                              <span class="keywordtype">size_t</span> * outLength );</div>
+<div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span><span class="comment">/* @[declare_jobs_getpending] */</span></div>
+<div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span> </div>
+<div class="line"><a id="l00629" name="l00629"></a><span class="lineno">  629</span><span class="comment">/* @[declare_jobs_startnext] */</span></div>
+<div class="line"><a id="l00630" name="l00630"></a><span class="lineno">  630</span><a class="code hl_enumeration" href="group__jobs__enum__types.html#gacc72f7076cee5bd66a46453420d97921">JobsStatus_t</a> <a class="code hl_function" href="jobs_8h.html#ad69cddd288dd61b3716021478725c174">Jobs_StartNext</a>( <span class="keywordtype">char</span> * buffer,</div>
+<div class="line"><a id="l00631" name="l00631"></a><span class="lineno">  631</span>                             <span class="keywordtype">size_t</span> length,</div>
+<div class="line"><a id="l00632" name="l00632"></a><span class="lineno">  632</span>                             <span class="keyword">const</span> <span class="keywordtype">char</span> * thingName,</div>
+<div class="line"><a id="l00633" name="l00633"></a><span class="lineno">  633</span>                             uint16_t thingNameLength,</div>
+<div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span>                             <span class="keywordtype">size_t</span> * outLength );</div>
+<div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span><span class="comment">/* @[declare_jobs_startnext] */</span></div>
+<div class="line"><a id="l00636" name="l00636"></a><span class="lineno">  636</span> </div>
+<div class="line"><a id="l00674" name="l00674"></a><span class="lineno">  674</span><span class="comment">/* @[declare_jobs_startnextmsg] */</span></div>
+<div class="line"><a id="l00675" name="l00675"></a><span class="lineno">  675</span><span class="keywordtype">size_t</span> <a class="code hl_function" href="jobs_8h.html#ad114add07898edb20cebd6e14b579de7">Jobs_StartNextMsg</a>( <span class="keyword">const</span> <span class="keywordtype">char</span> * clientToken,</div>
+<div class="line"><a id="l00676" name="l00676"></a><span class="lineno">  676</span>                          <span class="keywordtype">size_t</span> clientTokenLength,</div>
+<div class="line"><a id="l00677" name="l00677"></a><span class="lineno">  677</span>                          <span class="keywordtype">char</span> * buffer,</div>
+<div class="line"><a id="l00678" name="l00678"></a><span class="lineno">  678</span>                          <span class="keywordtype">size_t</span> bufferSize );</div>
+<div class="line"><a id="l00679" name="l00679"></a><span class="lineno">  679</span><span class="comment">/* @[declare_jobs_startnextmsg] */</span></div>
+<div class="line"><a id="l00680" name="l00680"></a><span class="lineno">  680</span> </div>
+<div class="line"><a id="l00751" name="l00751"></a><span class="lineno">  751</span><span class="comment">/* @[declare_jobs_describe] */</span></div>
+<div class="line"><a id="l00752" name="l00752"></a><span class="lineno">  752</span><a class="code hl_enumeration" href="group__jobs__enum__types.html#gacc72f7076cee5bd66a46453420d97921">JobsStatus_t</a> <a class="code hl_function" href="jobs_8h.html#adfdc2db49fa5102fdb0e0b826e86b150">Jobs_Describe</a>( <span class="keywordtype">char</span> * buffer,</div>
+<div class="line"><a id="l00753" name="l00753"></a><span class="lineno">  753</span>                            <span class="keywordtype">size_t</span> length,</div>
+<div class="line"><a id="l00754" name="l00754"></a><span class="lineno">  754</span>                            <span class="keyword">const</span> <span class="keywordtype">char</span> * thingName,</div>
+<div class="line"><a id="l00755" name="l00755"></a><span class="lineno">  755</span>                            uint16_t thingNameLength,</div>
+<div class="line"><a id="l00756" name="l00756"></a><span class="lineno">  756</span>                            <span class="keyword">const</span> <span class="keywordtype">char</span> * jobId,</div>
+<div class="line"><a id="l00757" name="l00757"></a><span class="lineno">  757</span>                            uint16_t jobIdLength,</div>
+<div class="line"><a id="l00758" name="l00758"></a><span class="lineno">  758</span>                            <span class="keywordtype">size_t</span> * outLength );</div>
+<div class="line"><a id="l00759" name="l00759"></a><span class="lineno">  759</span><span class="comment">/* @[declare_jobs_describe] */</span></div>
+<div class="line"><a id="l00760" name="l00760"></a><span class="lineno">  760</span> </div>
+<div class="line"><a id="l00828" name="l00828"></a><span class="lineno">  828</span><span class="comment">/* @[declare_jobs_update] */</span></div>
+<div class="line"><a id="l00829" name="l00829"></a><span class="lineno">  829</span><a class="code hl_enumeration" href="group__jobs__enum__types.html#gacc72f7076cee5bd66a46453420d97921">JobsStatus_t</a> <a class="code hl_function" href="jobs_8h.html#a4ab3fd29173814ab73d764d123e9f400">Jobs_Update</a>( <span class="keywordtype">char</span> * buffer,</div>
+<div class="line"><a id="l00830" name="l00830"></a><span class="lineno">  830</span>                          <span class="keywordtype">size_t</span> length,</div>
+<div class="line"><a id="l00831" name="l00831"></a><span class="lineno">  831</span>                          <span class="keyword">const</span> <span class="keywordtype">char</span> * thingName,</div>
+<div class="line"><a id="l00832" name="l00832"></a><span class="lineno">  832</span>                          uint16_t thingNameLength,</div>
+<div class="line"><a id="l00833" name="l00833"></a><span class="lineno">  833</span>                          <span class="keyword">const</span> <span class="keywordtype">char</span> * jobId,</div>
+<div class="line"><a id="l00834" name="l00834"></a><span class="lineno">  834</span>                          uint16_t jobIdLength,</div>
+<div class="line"><a id="l00835" name="l00835"></a><span class="lineno">  835</span>                          <span class="keywordtype">size_t</span> * outLength );</div>
+<div class="line"><a id="l00836" name="l00836"></a><span class="lineno">  836</span><span class="comment">/* @[declare_jobs_update] */</span></div>
+<div class="line"><a id="l00837" name="l00837"></a><span class="lineno">  837</span> </div>
+<div class="line"><a id="l00877" name="l00877"></a><span class="lineno">  877</span><span class="comment">/* @[declare_jobs_updatemsg] */</span></div>
+<div class="line"><a id="l00878" name="l00878"></a><span class="lineno">  878</span><span class="keywordtype">size_t</span> <a class="code hl_function" href="jobs_8h.html#a292af2fb589dd9975a25cb154abfe5e0">Jobs_UpdateMsg</a>( <a class="code hl_enumeration" href="jobs_8h.html#a0826978d630c337e77898b500bdc212c">JobCurrentStatus_t</a> status,</div>
+<div class="line"><a id="l00879" name="l00879"></a><span class="lineno">  879</span>                       <span class="keyword">const</span> <span class="keywordtype">char</span> * expectedVersion,</div>
+<div class="line"><a id="l00880" name="l00880"></a><span class="lineno">  880</span>                       <span class="keywordtype">size_t</span> expectedVersionLength,</div>
+<div class="line"><a id="l00881" name="l00881"></a><span class="lineno">  881</span>                       <span class="keywordtype">char</span> * buffer,</div>
+<div class="line"><a id="l00882" name="l00882"></a><span class="lineno">  882</span>                       <span class="keywordtype">size_t</span> bufferSize );</div>
+<div class="line"><a id="l00883" name="l00883"></a><span class="lineno">  883</span><span class="comment">/* @[declare_jobs_updatemsg] */</span></div>
+<div class="line"><a id="l00884" name="l00884"></a><span class="lineno">  884</span> </div>
+<div class="line"><a id="l00916" name="l00916"></a><span class="lineno">  916</span><span class="comment">/* @[declare_jobs_getjobid] */</span></div>
+<div class="line"><a id="l00917" name="l00917"></a><span class="lineno">  917</span><span class="keywordtype">size_t</span> <a class="code hl_function" href="jobs_8h.html#a1bcd805a5a5534dd7b002285d573d340">Jobs_GetJobId</a>( <span class="keyword">const</span> <span class="keywordtype">char</span> * message,</div>
+<div class="line"><a id="l00918" name="l00918"></a><span class="lineno">  918</span>                      <span class="keywordtype">size_t</span> messageLength,</div>
+<div class="line"><a id="l00919" name="l00919"></a><span class="lineno">  919</span>                      <span class="keyword">const</span> <span class="keywordtype">char</span> ** jobId );</div>
+<div class="line"><a id="l00920" name="l00920"></a><span class="lineno">  920</span><span class="comment">/* @[declare_jobs_getjobid] */</span></div>
+<div class="line"><a id="l00921" name="l00921"></a><span class="lineno">  921</span> </div>
+<div class="line"><a id="l00954" name="l00954"></a><span class="lineno">  954</span><span class="comment">/* @[declare_jobs_getjobdocument] */</span></div>
+<div class="line"><a id="l00955" name="l00955"></a><span class="lineno">  955</span><span class="keywordtype">size_t</span> <a class="code hl_function" href="jobs_8h.html#af967a6db18ca201f214caca004efad21">Jobs_GetJobDocument</a>( <span class="keyword">const</span> <span class="keywordtype">char</span> * message,</div>
+<div class="line"><a id="l00956" name="l00956"></a><span class="lineno">  956</span>                            <span class="keywordtype">size_t</span> messageLength,</div>
+<div class="line"><a id="l00957" name="l00957"></a><span class="lineno">  957</span>                            <span class="keyword">const</span> <span class="keywordtype">char</span> ** jobDoc );</div>
+<div class="line"><a id="l00958" name="l00958"></a><span class="lineno">  958</span><span class="comment">/* @[declare_jobs_getjobdocument] */</span></div>
+<div class="line"><a id="l00959" name="l00959"></a><span class="lineno">  959</span> </div>
+<div class="line"><a id="l00971" name="l00971"></a><span class="lineno">  971</span><span class="comment">/* @[declare_jobs_isstartnextaccepted] */</span></div>
+<div class="line"><a id="l00972" name="l00972"></a><span class="lineno">  972</span><span class="keywordtype">bool</span> <a class="code hl_function" href="jobs_8h.html#a4e3e175ffa87cb5348c9c552d5385c65">Jobs_IsStartNextAccepted</a>( <span class="keyword">const</span> <span class="keywordtype">char</span> * topic,</div>
+<div class="line"><a id="l00973" name="l00973"></a><span class="lineno">  973</span>                               <span class="keyword">const</span> <span class="keywordtype">size_t</span> topicLength,</div>
+<div class="line"><a id="l00974" name="l00974"></a><span class="lineno">  974</span>                               <span class="keyword">const</span> <span class="keywordtype">char</span> * thingName,</div>
+<div class="line"><a id="l00975" name="l00975"></a><span class="lineno">  975</span>                               <span class="keyword">const</span> <span class="keywordtype">size_t</span> thingNameLength );</div>
+<div class="line"><a id="l00976" name="l00976"></a><span class="lineno">  976</span><span class="comment">/* @[declare_jobs_isstartnextaccepted] */</span></div>
+<div class="line"><a id="l00977" name="l00977"></a><span class="lineno">  977</span> </div>
+<div class="line"><a id="l00991" name="l00991"></a><span class="lineno">  991</span><span class="comment">/* @[declare_jobs_isjobupdatestatus] */</span></div>
+<div class="line"><a id="l00992" name="l00992"></a><span class="lineno">  992</span><span class="keywordtype">bool</span> <a class="code hl_function" href="jobs_8h.html#aa30d59bef9d75e7b1c737e2ffaf3de19">Jobs_IsJobUpdateStatus</a>( <span class="keyword">const</span> <span class="keywordtype">char</span> * topic,</div>
+<div class="line"><a id="l00993" name="l00993"></a><span class="lineno">  993</span>                             <span class="keyword">const</span> <span class="keywordtype">size_t</span> topicLength,</div>
+<div class="line"><a id="l00994" name="l00994"></a><span class="lineno">  994</span>                             <span class="keyword">const</span> <span class="keywordtype">char</span> * jobId,</div>
+<div class="line"><a id="l00995" name="l00995"></a><span class="lineno">  995</span>                             <span class="keyword">const</span> <span class="keywordtype">size_t</span> jobIdLength,</div>
+<div class="line"><a id="l00996" name="l00996"></a><span class="lineno">  996</span>                             <span class="keyword">const</span> <span class="keywordtype">char</span> * thingName,</div>
+<div class="line"><a id="l00997" name="l00997"></a><span class="lineno">  997</span>                             <span class="keyword">const</span> <span class="keywordtype">size_t</span> thingNameLength,</div>
+<div class="line"><a id="l00998" name="l00998"></a><span class="lineno">  998</span>                             <a class="code hl_enumeration" href="jobs_8h.html#a8d73e0943ce8a2da4cd82a2edec9d0bc">JobUpdateStatus_t</a> expectedStatus );</div>
+<div class="line"><a id="l00999" name="l00999"></a><span class="lineno">  999</span><span class="comment">/* @[declare_jobs_isjobupdatestatus] */</span></div>
+<div class="line"><a id="l01000" name="l01000"></a><span class="lineno"> 1000</span> </div>
+<div class="line"><a id="l01001" name="l01001"></a><span class="lineno"> 1001</span> </div>
+<div class="line"><a id="l01002" name="l01002"></a><span class="lineno"> 1002</span><span class="comment">/* *INDENT-OFF* */</span></div>
+<div class="line"><a id="l01003" name="l01003"></a><span class="lineno"> 1003</span><span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a id="l01004" name="l01004"></a><span class="lineno"> 1004</span>    }</div>
+<div class="line"><a id="l01005" name="l01005"></a><span class="lineno"> 1005</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l01006" name="l01006"></a><span class="lineno"> 1006</span><span class="comment">/* *INDENT-ON* */</span></div>
+<div class="line"><a id="l01007" name="l01007"></a><span class="lineno"> 1007</span> </div>
+<div class="line"><a id="l01008" name="l01008"></a><span class="lineno"> 1008</span><span class="preprocessor">#endif </span><span class="comment">/* ifndef JOBS_H_ */</span><span class="preprocessor"></span></div>
+<div class="ttc" id="agroup__jobs__enum__types_html_ga315af209e86f50615c9e76948cf268ac"><div class="ttname"><a href="group__jobs__enum__types.html#ga315af209e86f50615c9e76948cf268ac">JobsTopic_t</a></div><div class="ttdeci">JobsTopic_t</div><div class="ttdoc">Topic values for subscription requests.</div><div class="ttdef"><b>Definition:</b> jobs.h:301</div></div>
+<div class="ttc" id="agroup__jobs__enum__types_html_gacc72f7076cee5bd66a46453420d97921"><div class="ttname"><a href="group__jobs__enum__types.html#gacc72f7076cee5bd66a46453420d97921">JobsStatus_t</a></div><div class="ttdeci">JobsStatus_t</div><div class="ttdoc">Return codes from jobs functions.</div><div class="ttdef"><b>Definition:</b> jobs.h:255</div></div>
+<div class="ttc" id="agroup__jobs__enum__types_html_ggacc72f7076cee5bd66a46453420d97921a01346b489cb3839b59cd0e81d98f2851"><div class="ttname"><a href="group__jobs__enum__types.html#ggacc72f7076cee5bd66a46453420d97921a01346b489cb3839b59cd0e81d98f2851">JobsNoMatch</a></div><div class="ttdeci">@ JobsNoMatch</div><div class="ttdoc">The buffer does not contain a jobs topic.</div><div class="ttdef"><b>Definition:</b> jobs.h:258</div></div>
+<div class="ttc" id="agroup__jobs__enum__types_html_ggacc72f7076cee5bd66a46453420d97921a12ff29ab79c3596a4a54cfa1a541cc79"><div class="ttname"><a href="group__jobs__enum__types.html#ggacc72f7076cee5bd66a46453420d97921a12ff29ab79c3596a4a54cfa1a541cc79">JobsBufferTooSmall</a></div><div class="ttdeci">@ JobsBufferTooSmall</div><div class="ttdoc">The buffer write was truncated.</div><div class="ttdef"><b>Definition:</b> jobs.h:260</div></div>
+<div class="ttc" id="agroup__jobs__enum__types_html_ggacc72f7076cee5bd66a46453420d97921a23d9fa1f6d5d5e51f681e3682d9235f3"><div class="ttname"><a href="group__jobs__enum__types.html#ggacc72f7076cee5bd66a46453420d97921a23d9fa1f6d5d5e51f681e3682d9235f3">JobsSuccess</a></div><div class="ttdeci">@ JobsSuccess</div><div class="ttdoc">The buffer was properly written or a match was found.</div><div class="ttdef"><b>Definition:</b> jobs.h:257</div></div>
+<div class="ttc" id="agroup__jobs__enum__types_html_ggacc72f7076cee5bd66a46453420d97921a9b6dea4829e16d4d5e43c99f00286e0b"><div class="ttname"><a href="group__jobs__enum__types.html#ggacc72f7076cee5bd66a46453420d97921a9b6dea4829e16d4d5e43c99f00286e0b">JobsBadParameter</a></div><div class="ttdeci">@ JobsBadParameter</div><div class="ttdoc">A function parameter was NULL or has an illegal value.</div><div class="ttdef"><b>Definition:</b> jobs.h:259</div></div>
+<div class="ttc" id="ajobs_8h_html_a0826978d630c337e77898b500bdc212c"><div class="ttname"><a href="jobs_8h.html#a0826978d630c337e77898b500bdc212c">JobCurrentStatus_t</a></div><div class="ttdeci">JobCurrentStatus_t</div><div class="ttdoc">Status codes for jobs.</div><div class="ttdef"><b>Definition:</b> jobs.h:267</div></div>
 <div class="ttc" id="ajobs_8h_html_a1bcd805a5a5534dd7b002285d573d340"><div class="ttname"><a href="jobs_8h.html#a1bcd805a5a5534dd7b002285d573d340">Jobs_GetJobId</a></div><div class="ttdeci">size_t Jobs_GetJobId(const char *message, size_t messageLength, const char **jobId)</div><div class="ttdoc">Retrieves the job ID from a given message (if applicable)</div><div class="ttdef"><b>Definition:</b> jobs.c:887</div></div>
 <div class="ttc" id="ajobs_8h_html_a292af2fb589dd9975a25cb154abfe5e0"><div class="ttname"><a href="jobs_8h.html#a292af2fb589dd9975a25cb154abfe5e0">Jobs_UpdateMsg</a></div><div class="ttdeci">size_t Jobs_UpdateMsg(JobCurrentStatus_t status, const char *expectedVersion, size_t expectedVersionLength, char *buffer, size_t bufferSize)</div><div class="ttdoc">Populate a message string for an UpdateJobExecution request.</div><div class="ttdef"><b>Definition:</b> jobs.c:807</div></div>
 <div class="ttc" id="ajobs_8h_html_a4ab3fd29173814ab73d764d123e9f400"><div class="ttname"><a href="jobs_8h.html#a4ab3fd29173814ab73d764d123e9f400">Jobs_Update</a></div><div class="ttdeci">JobsStatus_t Jobs_Update(char *buffer, size_t length, const char *thingName, uint16_t thingNameLength, const char *jobId, uint16_t jobIdLength, size_t *outLength)</div><div class="ttdoc">Populate a topic string for an UpdateJobExecution request.</div><div class="ttdef"><b>Definition:</b> jobs.c:772</div></div>
 <div class="ttc" id="ajobs_8h_html_a4e3e175ffa87cb5348c9c552d5385c65"><div class="ttname"><a href="jobs_8h.html#a4e3e175ffa87cb5348c9c552d5385c65">Jobs_IsStartNextAccepted</a></div><div class="ttdeci">bool Jobs_IsStartNextAccepted(const char *topic, const size_t topicLength, const char *thingName, const size_t thingNameLength)</div><div class="ttdoc">Checks if a message comes from the start-next/accepted reserved topic.</div><div class="ttdef"><b>Definition:</b> jobs.c:847</div></div>
 <div class="ttc" id="ajobs_8h_html_a5b4fd584f0400e51b1d29189b24c91a5"><div class="ttname"><a href="jobs_8h.html#a5b4fd584f0400e51b1d29189b24c91a5">Jobs_GetPending</a></div><div class="ttdeci">JobsStatus_t Jobs_GetPending(char *buffer, size_t length, const char *thingName, uint16_t thingNameLength, size_t *outLength)</div><div class="ttdoc">Populate a topic string for a GetPendingJobExecutions request.</div><div class="ttdef"><b>Definition:</b> jobs.c:648</div></div>
-<div class="ttc" id="ajobs_8h_html_a8d73e0943ce8a2da4cd82a2edec9d0bc"><div class="ttname"><a href="jobs_8h.html#a8d73e0943ce8a2da4cd82a2edec9d0bc">JobUpdateStatus_t</a></div><div class="ttdeci">JobUpdateStatus_t</div><div class="ttdoc">Status codes for job update status.</div><div class="ttdef"><b>Definition:</b> jobs.h:268</div></div>
+<div class="ttc" id="ajobs_8h_html_a8d73e0943ce8a2da4cd82a2edec9d0bc"><div class="ttname"><a href="jobs_8h.html#a8d73e0943ce8a2da4cd82a2edec9d0bc">JobUpdateStatus_t</a></div><div class="ttdeci">JobUpdateStatus_t</div><div class="ttdoc">Status codes for job update status.</div><div class="ttdef"><b>Definition:</b> jobs.h:279</div></div>
 <div class="ttc" id="ajobs_8h_html_aa30d59bef9d75e7b1c737e2ffaf3de19"><div class="ttname"><a href="jobs_8h.html#aa30d59bef9d75e7b1c737e2ffaf3de19">Jobs_IsJobUpdateStatus</a></div><div class="ttdeci">bool Jobs_IsJobUpdateStatus(const char *topic, const size_t topicLength, const char *jobId, const size_t jobIdLength, const char *thingName, const size_t thingNameLength, JobUpdateStatus_t expectedStatus)</div><div class="ttdoc">Checks if a message comes from the update/accepted reserved topic.</div><div class="ttdef"><b>Definition:</b> jobs.c:855</div></div>
 <div class="ttc" id="ajobs_8h_html_ad114add07898edb20cebd6e14b579de7"><div class="ttname"><a href="jobs_8h.html#ad114add07898edb20cebd6e14b579de7">Jobs_StartNextMsg</a></div><div class="ttdeci">size_t Jobs_StartNextMsg(const char *clientToken, size_t clientTokenLength, char *buffer, size_t bufferSize)</div><div class="ttdoc">Populate a message string for a StartNextPendingJobExecution request.</div><div class="ttdef"><b>Definition:</b> jobs.c:709</div></div>
 <div class="ttc" id="ajobs_8h_html_ad69cddd288dd61b3716021478725c174"><div class="ttname"><a href="jobs_8h.html#ad69cddd288dd61b3716021478725c174">Jobs_StartNext</a></div><div class="ttdeci">JobsStatus_t Jobs_StartNext(char *buffer, size_t length, const char *thingName, uint16_t thingNameLength, size_t *outLength)</div><div class="ttdoc">Populate a topic string for a StartNextPendingJobExecution request.</div><div class="ttdef"><b>Definition:</b> jobs.c:681</div></div>
