@@ -18,7 +18,7 @@
 #include "job_parser.h"
 
 /**
- * @brief Signals if the job document provided is a FreeRTOS OTA update document
+ * @brief Signals if the job document provided is an AWS IoT Core OTA update document
  *
  * @param jobDoc The job document contained in the AWS IoT Job
  * @param jobDocLength The length of the job document

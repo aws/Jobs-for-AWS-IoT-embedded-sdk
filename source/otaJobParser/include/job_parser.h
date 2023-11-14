@@ -20,19 +20,45 @@
  */
 typedef struct
 {
-    const char * signature;  /**< @brief Code Signing Signature */
-    size_t signatureLen;     /**< @brief Length of signature */
-    const char * filepath;   /**< @brief File path to store OTA Update on device */
-    size_t filepathLen;      /**< @brief Length of filepath */
-    const char * certfile;   /**< @brief Path to Code Signing Certificate on Device */
-    size_t certfileLen;      /**< @brief Length of certfile */
-    const char * authScheme; /**< @brief Authentication Scheme for HTTP URL ( null for MQTT  )*/
-    size_t authSchemeLen;    /**< @brief Length of authScheme */
-    const char * imageRef;   /**< @brief MQTT Stream or HTTP URL */
-    size_t imageRefLen;      /**< @brief Length of imageRef */
-    uint32_t fileId;         /**< @brief File ID */
-    uint32_t fileSize;       /**< @brief Size of the OTA Update */
-    uint32_t fileType;       /**< @brief FIle Type */
+    /**< @brief Code Signing Signature */
+    const char * signature;
+
+    /**< @brief Length of signature */
+    size_t signatureLen;
+
+    /**< @brief File path to store OTA Update on device */
+    const char * filepath;
+
+    /**< @brief Length of filepath */
+    size_t filepathLen;
+
+    /**< @brief Path to Code Signing Certificate on Device */
+    const char * certfile;
+
+    /**< @brief Length of certfile */
+    size_t certfileLen;
+
+    /**< @brief Authentication Scheme for HTTP URL ( null for MQTT ) */
+    const char * authScheme;
+
+    /**< @brief Length of authScheme */
+    size_t authSchemeLen;
+
+    /**< @brief MQTT Stream or HTTP URL */
+    const char * imageRef;
+
+    /**< @brief Length of imageRef */
+    size_t imageRefLen;
+
+    /**< @brief File ID */
+    uint32_t fileId;
+
+    /**< @brief Size of the OTA Update */
+    uint32_t fileSize;
+
+    /**< @brief FIle Type */
+    uint32_t fileType;
+    
 } AfrOtaJobDocumentFields_t;
 
 /**
