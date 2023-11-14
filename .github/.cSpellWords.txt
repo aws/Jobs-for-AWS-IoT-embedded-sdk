@@ -22,11 +22,13 @@ cbor
 cmock
 coverity
 ctest
+isjobupdatestatus
 jobz
 lcov
 litani
 misra
 notifyzz
+otaparser
 rejectedzz
 sinclude
 strn
