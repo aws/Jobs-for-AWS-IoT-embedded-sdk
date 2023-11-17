@@ -15,7 +15,7 @@ and is distributed under the [MIT Open Source License](LICENSE).
 
 This library has gone through code quality checks including verification that no
 function has a
-[GNU Complexity ](https://www.gnu.org/software/complexity/manual/complexity.html)
+[GNU Complexity](https://www.gnu.org/software/complexity/manual/complexity.html)
 score over 10, and checks against deviations from mandatory rules in the
 [MISRA coding standard](https://www.misra.org.uk). Deviations from the MISRA
 C:2012 guidelines are documented under [MISRA Deviations](MISRA.md). This
