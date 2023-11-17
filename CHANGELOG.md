@@ -1,5 +1,11 @@
 # Changelog for AWS IoT Jobs Library
 
+## v1.4.0 (November 2023)
+- [#90](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/90) Update doxygen to reflect addition of OTA Job Parser
+- [#88](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/88) ADD OTA Job Parser from [Labs-Project-example-for-aws-iot-core](https://github.com/FreeRTOS/Labs-Project-ota-example-for-aws-iot-core)
+- [#86](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/85) MISRA C:2012 Compliance update
+- [#85](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/85) Add API's from core_jobs.c in [Labs-Project-example-for-aws-iot-core](https://github.com/FreeRTOS/Labs-Project-ota-example-for-aws-iot-core)
+
 ## v1.3.0 (October 2022)
 
 ### Other Updates:
