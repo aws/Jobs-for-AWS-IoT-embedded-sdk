@@ -47,6 +47,14 @@
 #define CONST_STRLEN( x ) ( sizeof( ( x ) ) - 1U )
 
 /**
+ * @brief Get the length on an array.
+ */
+#ifdef ARRAY_LENGTH
+#undef ARRAY_LENGTH
+#endif
+#define ARRAY_LENGTH( x ) ( sizeof( ( x ) ) / sizeof( ( x )[ 0 ] ) )
+
+/**
  * @brief Table of topic API strings in JobsTopic_t order.
  */
 static const char * const apiTopic[] =
@@ -817,7 +825,7 @@ size_t Jobs_UpdateMsg( JobCurrentStatus_t status,
                        char * buffer,
                        size_t bufferSize )
 {
-    static const char * const jobStatusString[ 5U ] =
+    static const char * const jobStatusString[] =
     {
         "QUEUED",
         "IN_PROGRESS",
@@ -826,7 +834,7 @@ size_t Jobs_UpdateMsg( JobCurrentStatus_t status,
         "REJECTED"
     };
 
-    static const size_t jobStatusStringLengths[ 5U ] =
+    static const size_t jobStatusStringLengths[] =
     {
         CONST_STRLEN( "QUEUED" ),
         CONST_STRLEN( "IN_PROGRESS" ),
@@ -834,6 +842,8 @@ size_t Jobs_UpdateMsg( JobCurrentStatus_t status,
         CONST_STRLEN( "SUCCEEDED" ),
         CONST_STRLEN( "REJECTED" )
     };
+
+    assert( ( ( size_t ) status ) < ARRAY_LENGTH( jobStatusString ) );
 
     size_t start = 0U;
 
@@ -867,17 +877,19 @@ bool Jobs_IsJobUpdateStatus( const char * topic,
                              const size_t thingNameLength,
                              JobUpdateStatus_t expectedStatus )
 {
-    static const char * const jobUpdateStatusString[ 2U ] =
+    static const char * const jobUpdateStatusString[] =
     {
         "accepted",
         "rejected"
     };
 
-    static const size_t jobUpdateStatusStringLengths[ 2U ] =
+    static const size_t jobUpdateStatusStringLengths[] =
     {
         CONST_STRLEN( "accepted" ),
         CONST_STRLEN( "rejected" )
     };
+
+    assert( ( ( size_t ) expectedStatus ) < ARRAY_LENGTH( jobUpdateStatusString ) );
 
     /* Max suffix size = max topic size - "$aws/<thingname>" prefix */
     size_t suffixBufferLength = ( TOPIC_BUFFER_SIZE - CONST_STRLEN( "$aws/<thingname>" ) );
