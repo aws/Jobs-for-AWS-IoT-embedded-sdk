@@ -810,7 +810,7 @@ size_t Jobs_UpdateMsg( JobCurrentStatus_t status,
                        char * buffer,
                        size_t bufferSize )
 {
-    const char * const jobStatusString[ 5U ] =
+    static const char * const jobStatusString[ 5U ] =
     {
         "QUEUED",
         "IN_PROGRESS",
@@ -819,7 +819,7 @@ size_t Jobs_UpdateMsg( JobCurrentStatus_t status,
         "REJECTED"
     };
 
-    const size_t jobStatusStringLengths[ 5U ] =
+    static const size_t jobStatusStringLengths[ 5U ] =
     {
         sizeof( "QUEUED" ) - 1U,
         sizeof( "IN_PROGRESS" ) - 1U,
@@ -860,13 +860,13 @@ bool Jobs_IsJobUpdateStatus( const char * topic,
                              const size_t thingNameLength,
                              JobUpdateStatus_t expectedStatus )
 {
-    const char * const jobUpdateStatusString[ 2U ] =
+    static const char * const jobUpdateStatusString[ 2U ] =
     {
         "accepted",
         "rejected"
     };
 
-    const size_t jobUpdateStatusStringLengths[ 2U ] =
+    static const size_t jobUpdateStatusStringLengths[ 2U ] =
     {
         sizeof( "accepted" ) - 1U,
         sizeof( "rejected" ) - 1U
