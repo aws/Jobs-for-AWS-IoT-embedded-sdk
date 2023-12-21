@@ -38,6 +38,21 @@
 
 /** @cond DO_NOT_DOCUMENT */
 
+/**
+ * @brief Get the length of a string literal.
+ */
+#ifdef CONST_STRLEN
+    #undef CONST_STRLEN
+#endif
+#define CONST_STRLEN( x )    ( sizeof( ( x ) ) - 1U )
+
+/**
+ * @brief Get the length on an array.
+ */
+#ifdef ARRAY_LENGTH
+    #undef ARRAY_LENGTH
+#endif
+#define ARRAY_LENGTH( x )    ( sizeof( ( x ) ) / sizeof( ( x )[ 0 ] ) )
 
 /**
  * @brief Table of topic API strings in JobsTopic_t order.
@@ -282,7 +297,7 @@ JobsStatus_t Jobs_GetTopic( char * buffer,
         if( api >= JobsDescribeSuccess )
         {
             ( void ) strnAppend( buffer, &start, length,
-                                 "+/", ( sizeof( "+/" ) - 1U ) );
+                                 "+/", ( CONST_STRLEN( "+/" ) ) );
         }
 
         ret = strnAppend( buffer, &start, length,
@@ -717,7 +732,7 @@ size_t Jobs_StartNextMsg( const char * clientToken,
     {
         ( void ) strnAppend( buffer, &start, bufferSize, JOBS_API_CLIENTTOKEN, JOBS_API_CLIENTTOKEN_LENGTH );
         ( void ) strnAppend( buffer, &start, bufferSize, clientToken, clientTokenLength );
-        ( void ) strnAppend( buffer, &start, bufferSize, "\"}", sizeof( "\"}" ) - 1U );
+        ( void ) strnAppend( buffer, &start, bufferSize, "\"}", ( CONST_STRLEN( "\"}" ) ) );
     }
 
     return start;
@@ -748,7 +763,7 @@ JobsStatus_t Jobs_Describe( char * buffer,
         ( void ) strnAppend( buffer, &start, length,
                              jobId, jobIdLength );
         ( void ) strnAppend( buffer, &start, length,
-                             "/", ( sizeof( "/" ) - 1U ) );
+                             "/", ( CONST_STRLEN( "/" ) ) );
         ret = strnAppend( buffer, &start, length,
                           JOBS_API_DESCRIBE, JOBS_API_DESCRIBE_LENGTH );
 
@@ -788,7 +803,7 @@ JobsStatus_t Jobs_Update( char * buffer,
         ( void ) strnAppend( buffer, &start, length,
                              jobId, jobIdLength );
         ( void ) strnAppend( buffer, &start, length,
-                             "/", ( sizeof( "/" ) - 1U ) );
+                             "/", ( CONST_STRLEN( "/" ) ) );
         ret = strnAppend( buffer, &start, length,
                           JOBS_API_UPDATE, JOBS_API_UPDATE_LENGTH );
 
@@ -810,7 +825,7 @@ size_t Jobs_UpdateMsg( JobCurrentStatus_t status,
                        char * buffer,
                        size_t bufferSize )
 {
-    const char * const jobStatusString[ 5U ] =
+    static const char * const jobStatusString[] =
     {
         "QUEUED",
         "IN_PROGRESS",
@@ -819,14 +834,16 @@ size_t Jobs_UpdateMsg( JobCurrentStatus_t status,
         "REJECTED"
     };
 
-    const size_t jobStatusStringLengths[ 5U ] =
+    static const size_t jobStatusStringLengths[] =
     {
-        sizeof( "QUEUED" ) - 1U,
-        sizeof( "IN_PROGRESS" ) - 1U,
-        sizeof( "FAILED" ) - 1U,
-        sizeof( "SUCCEEDED" ) - 1U,
-        sizeof( "REJECTED" ) - 1U
+        CONST_STRLEN( "QUEUED" ),
+        CONST_STRLEN( "IN_PROGRESS" ),
+        CONST_STRLEN( "FAILED" ),
+        CONST_STRLEN( "SUCCEEDED" ),
+        CONST_STRLEN( "REJECTED" )
     };
+
+    assert( ( ( size_t ) status ) < ARRAY_LENGTH( jobStatusString ) );
 
     size_t start = 0U;
 
@@ -838,7 +855,7 @@ size_t Jobs_UpdateMsg( JobCurrentStatus_t status,
         ( void ) strnAppend( buffer, &start, bufferSize, jobStatusString[ status ], jobStatusStringLengths[ status ] );
         ( void ) strnAppend( buffer, &start, bufferSize, JOBS_API_EXPECTED_VERSION, JOBS_API_EXPECTED_VERSION_LENGTH );
         ( void ) strnAppend( buffer, &start, bufferSize, expectedVersion, expectedVersionLength );
-        ( void ) strnAppend( buffer, &start, bufferSize, "\"}", sizeof( "\"}" ) - 1U );
+        ( void ) strnAppend( buffer, &start, bufferSize, "\"}", ( CONST_STRLEN( "\"}" ) ) );
     }
 
     return start;
@@ -860,25 +877,27 @@ bool Jobs_IsJobUpdateStatus( const char * topic,
                              const size_t thingNameLength,
                              JobUpdateStatus_t expectedStatus )
 {
-    const char * const jobUpdateStatusString[ 2U ] =
+    static const char * const jobUpdateStatusString[] =
     {
         "accepted",
         "rejected"
     };
 
-    const size_t jobUpdateStatusStringLengths[ 2U ] =
+    static const size_t jobUpdateStatusStringLengths[] =
     {
-        sizeof( "accepted" ) - 1U,
-        sizeof( "rejected" ) - 1U
+        CONST_STRLEN( "accepted" ),
+        CONST_STRLEN( "rejected" )
     };
 
+    assert( ( ( size_t ) expectedStatus ) < ARRAY_LENGTH( jobUpdateStatusString ) );
+
     /* Max suffix size = max topic size - "$aws/<thingname>" prefix */
-    size_t suffixBufferLength = ( TOPIC_BUFFER_SIZE - sizeof( "$aws/<thingname>" ) - 1U );
-    char suffixBuffer[ TOPIC_BUFFER_SIZE - sizeof( "$aws/<thingname>" ) - 1U ] = { '\0' };
+    size_t suffixBufferLength = ( TOPIC_BUFFER_SIZE - CONST_STRLEN( "$aws/<thingname>" ) );
+    char suffixBuffer[ TOPIC_BUFFER_SIZE - CONST_STRLEN( "$aws/<thingname>" ) ] = { '\0' };
     size_t start = 0U;
 
     ( void ) strnAppend( suffixBuffer, &start, suffixBufferLength, jobId, jobIdLength );
-    ( void ) strnAppend( suffixBuffer, &start, suffixBufferLength, "/update/", sizeof( "/update/" ) - 1U );
+    ( void ) strnAppend( suffixBuffer, &start, suffixBufferLength, "/update/", ( CONST_STRLEN( "/update/" ) ) );
     ( void ) strnAppend( suffixBuffer, &start, suffixBufferLength, jobUpdateStatusString[ expectedStatus ], jobUpdateStatusStringLengths[ expectedStatus ] );
 
     return isThingnameTopicMatch( topic, topicLength, suffixBuffer, strnlen( suffixBuffer, suffixBufferLength ), thingName, thingNameLength );
@@ -898,7 +917,7 @@ size_t Jobs_GetJobId( const char * message,
         jsonResult = JSON_SearchConst( message,
                                        messageLength,
                                        "execution.jobId",
-                                       sizeof( "execution.jobId" ) - 1U,
+                                       CONST_STRLEN( "execution.jobId" ),
                                        jobId,
                                        &jobIdLength,
                                        NULL );
@@ -921,7 +940,7 @@ size_t Jobs_GetJobDocument( const char * message,
         jsonResult = JSON_SearchConst( message,
                                        messageLength,
                                        "execution.jobDocument",
-                                       sizeof( "execution.jobDocument" ) - 1U,
+                                       CONST_STRLEN( "execution.jobDocument" ),
                                        jobDoc,
                                        &jobDocLength,
                                        NULL );
