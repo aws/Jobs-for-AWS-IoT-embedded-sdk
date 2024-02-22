@@ -41,17 +41,11 @@
 /**
  * @brief Get the length of a string literal.
  */
-#ifdef CONST_STRLEN
-    #undef CONST_STRLEN
-#endif
 #define CONST_STRLEN( x )    ( sizeof( ( x ) ) - 1U )
 
 /**
  * @brief Get the length on an array.
  */
-#ifdef ARRAY_LENGTH
-    #undef ARRAY_LENGTH
-#endif
 #define ARRAY_LENGTH( x )    ( sizeof( ( x ) ) / sizeof( ( x )[ 0 ] ) )
 
 /**
