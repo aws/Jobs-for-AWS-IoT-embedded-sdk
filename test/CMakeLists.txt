@@ -73,9 +73,6 @@ if( COV_ANALYSIS )
 
   # Build HTTP library target without logging
   target_compile_options(coverity_analysis PUBLIC -DNDEBUG )
-
-  # Remove inclusion of assert.
-  add_compile_definitions( NDEBUG=1 )
 endif()
 
 # ==================================================================================================
