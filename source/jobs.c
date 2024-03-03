@@ -920,6 +920,29 @@ size_t Jobs_GetJobId( const char * message,
     return jobIdLength;
 }
 
+size_t Jobs_GetJobStatus( const char * message,
+                          size_t messageLength,
+                          const char ** jobStatus )
+{
+    size_t jobStatusLength = 0U;
+    JSONStatus_t jsonResult = JSONNotFound;
+
+    jsonResult = JSON_Validate( message, messageLength );
+
+    if( jsonResult == JSONSuccess )
+    {
+        jsonResult = JSON_SearchConst( message,
+                                       messageLength,
+                                       "execution.status",
+                                       CONST_STRLEN( "execution.status" ),
+                                       jobStatus,
+                                       &jobStatusLength,
+                                       NULL );
+    }
+
+    return jobStatusLength;
+}
+
 size_t Jobs_GetJobDocument( const char * message,
                             size_t messageLength,
                             const char ** jobDoc )
