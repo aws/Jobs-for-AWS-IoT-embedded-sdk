@@ -923,6 +923,10 @@ size_t Jobs_GetJobStatus( const char * message,
                           size_t messageLength,
                           const char ** jobStatus );
 
+size_t Jobs_GetJobVersionNumber( const char * message,
+                          size_t messageLength,
+                          const char ** jobVersionNumber );
+
 /**
  * @brief Retrieves the job document from a given message (if applicable)
  *

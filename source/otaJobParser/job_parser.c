@@ -225,6 +225,20 @@ static JSONStatus_t populateCommonFields( const char * jobDoc,
     }
 
     if( jsonResult == JSONSuccess )
+    {    
+        buildIndexedFileQueryString( fileIndex,
+                                     "fileType",
+                                     8U,
+                                     queryString,
+                                     &queryStringLength );
+        jsonResult = searchUintValue( jobDoc,
+                                      jobDocLength,
+                                      queryString,
+                                      queryStringLength,
+                                      &( result->fileType ) );
+    }
+
+    if( jsonResult == JSONSuccess )
     {
         buildIndexedFileQueryString( fileIndex,
                                      "filepath",

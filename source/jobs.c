@@ -943,6 +943,29 @@ size_t Jobs_GetJobStatus( const char * message,
     return jobStatusLength;
 }
 
+size_t Jobs_GetJobVersionNumber( const char * message,
+                          size_t messageLength,
+                          const char ** jobVersionNumber )
+{
+    size_t jobVersionNumberLength = 0U;
+    JSONStatus_t jsonResult = JSONNotFound;
+
+    jsonResult = JSON_Validate( message, messageLength );
+
+    if( jsonResult == JSONSuccess )
+    {
+        jsonResult = JSON_SearchConst( message,
+                                       messageLength,
+                                       "execution.versionNumber",
+                                       CONST_STRLEN( "execution.versionNumber" ),
+                                       jobVersionNumber,
+                                       &jobVersionNumberLength,
+                                       NULL );
+    }
+
+    return jobVersionNumberLength;
+}
+
 size_t Jobs_GetJobDocument( const char * message,
                             size_t messageLength,
                             const char ** jobDoc )
