@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.22.0)
 
 project(
   "AWS IoT Jobs Tests"
-  VERSION 1.4.0
+  VERSION 1.5.0
   LANGUAGES C)
 
 # Allow the project to be organized into folders.
