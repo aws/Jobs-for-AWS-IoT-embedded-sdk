@@ -1,5 +1,9 @@
 # Changelog for AWS IoT Jobs Library
 
+## v1.5.0 (May 2024)
+- [#95](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/95) Fix misra violations
+- [#93](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/93) Performance and safety improvements
+
 ## v1.4.0 (November 2023)
 - [#90](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/90) Update doxygen to reflect addition of OTA Job Parser
 - [#88](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/88) ADD OTA Job Parser for parsing out the fields of an incoming Job Document sent to a device from AWS IoT
@@ -29,7 +33,7 @@
 
 ### API Changes:
 - [#34](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/34) and [#35](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/35) Add support for generating and matching DescribeJobExecution API topics with `$next` as a jobID.
-- [#38](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/38) Add new utility macros to API for compile-time generation of AWS IoT Jobs API topics.
+- [#38](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/38) Add new utility macros to API for compile-time generation of AWS IoT Jobs API topics.`
 
 ### Other Updates:
 - [#37](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/37) Add code examples in documentation of API functions.
