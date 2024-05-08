@@ -1,5 +1,5 @@
 /*
- * AWS IoT Jobs v1.4.0
+ * AWS IoT Jobs v1.5.0
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * SPDX-License-Identifier: MIT

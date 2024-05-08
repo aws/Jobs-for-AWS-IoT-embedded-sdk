@@ -1,5 +1,9 @@
 # Changelog for AWS IoT Jobs Library
 
+## v1.5.0 (May 2024)
+- [#95](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/95) Fix misra violations
+- [#93](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/93) Performance and safety improvements
+
 ## v1.4.0 (November 2023)
 - [#90](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/90) Update doxygen to reflect addition of OTA Job Parser
 - [#88](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/88) ADD OTA Job Parser for parsing out the fields of an incoming Job Document sent to a device from AWS IoT
