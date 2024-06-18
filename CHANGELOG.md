@@ -1,5 +1,8 @@
 # Changelog for AWS IoT Jobs Library
 
+## v1.5.1 (June 2024)
+- Fix doxygen deployment on Github
+
 ## v1.5.0 (May 2024)
 - [#95](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/95) Fix misra violations
 - [#93](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/93) Performance and safety improvements
