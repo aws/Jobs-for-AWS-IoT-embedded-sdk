@@ -9,8 +9,8 @@
     </tr>
     <tr>
         <td>jobs.c</td>
-        <td><center>2.8K</center></td>
-        <td><center>2.5K</center></td>
+        <td><center>2.9K</center></td>
+        <td><center>2.7K</center></td>
     </tr>
     <tr>
         <td>job_parser.c</td>
@@ -29,7 +29,7 @@
     </tr>
     <tr>
         <td><b>Total estimates</b></td>
-        <td><b><center>6.8K</center></b></td>
-        <td><b><center>6.0K</center></b></td>
+        <td><b><center>6.9K</center></b></td>
+        <td><b><center>6.2K</center></b></td>
     </tr>
 </table>
