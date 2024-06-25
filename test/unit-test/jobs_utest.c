@@ -883,7 +883,7 @@ void test_getUpdateJobExecutionMsg_hasNullExpectedVersion( void )
 
     size_t result = Jobs_UpdateMsg( status, NULL, 1U, buffer, TOPIC_BUFFER_SIZE );
 
-    TEST_ASSERT_EQUAL( 0U, result );
+    TEST_ASSERT_EQUAL( 19U, result );
 }
 
 void test_getUpdateJobExecutionMsg_hasZeroLengthExpectedVersion( void )
@@ -894,22 +894,32 @@ void test_getUpdateJobExecutionMsg_hasZeroLengthExpectedVersion( void )
 
     size_t result = Jobs_UpdateMsg( status, version, 0U, buffer, TOPIC_BUFFER_SIZE );
 
+    TEST_ASSERT_EQUAL( 19U, result );
+}
+
+void test_getUpdateJobExecutionMsg_hasTooSmallBufferSizeForRequiredParameters( void )
+{
+    JobCurrentStatus_t status = Queued;
+    char buffer[ 2 ] = { 0 };
+
+    size_t result = Jobs_UpdateMsg( status, NULL, 0U, buffer, 1 );
+
     TEST_ASSERT_EQUAL( 0U, result );
 }
 
-void test_getUpdateJobExecutionMsg_hasTooSmallBufferSize( void )
+void test_getUpdateJobExecutionMsg_hasTooSmallBufferSizeForAllParameters( void )
 {
     char * version = "1.0.1";
     size_t versionLength = strlen( version );
     JobCurrentStatus_t status = Queued;
-    char buffer[ 2 ] = { 0 };
+    char buffer[ 25 ] = { 0 };
 
     size_t result = Jobs_UpdateMsg( status, version, versionLength, buffer, 1 );
 
     TEST_ASSERT_EQUAL( 0U, result );
 }
 
-void test_getUpdateJobExecutionMsg_hasValidParameters( void )
+void test_getUpdateJobExecutionMsg_hasAllValidParameters( void )
 {
     char * version = "1.0.1";
     size_t versionLength = strlen( version );
@@ -919,4 +929,14 @@ void test_getUpdateJobExecutionMsg_hasValidParameters( void )
     size_t result = Jobs_UpdateMsg( status, version, versionLength, buffer, TOPIC_BUFFER_SIZE );
 
     TEST_ASSERT_EQUAL( 45U, result );
+}
+
+void test_getUpdateJobExecutionMsg_hasRequiredValidParameters( void )
+{
+    JobCurrentStatus_t status = Queued;
+    char buffer[ TOPIC_BUFFER_SIZE + 1 ] = { 0 };
+
+    size_t result = Jobs_UpdateMsg( status, NULL, 0U, buffer, TOPIC_BUFFER_SIZE );
+
+    TEST_ASSERT_EQUAL( 19U, result );
 }

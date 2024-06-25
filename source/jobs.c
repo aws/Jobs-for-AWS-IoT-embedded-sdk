@@ -840,15 +840,30 @@ size_t Jobs_UpdateMsg( JobCurrentStatus_t status,
     assert( ( ( size_t ) status ) < ARRAY_LENGTH( jobStatusString ) );
 
     size_t start = 0U;
+    size_t minimumBufferSize = JOBS_API_STATUS_LENGTH + jobStatusStringLengths[ status ] + CONST_STRLEN( "\"}" );
 
-    if( ( expectedVersion != NULL ) && ( expectedVersionLength > 0U ) && ( bufferSize >=
-                                                                           ( 34U + expectedVersionLength + jobStatusStringLengths[ status ] ) ) &&
-        ( jobStatusString[ status ] != NULL ) )
+    if( ( expectedVersion != NULL ) && ( expectedVersionLength > 0U ) )
+    {
+        minimumBufferSize += JOBS_API_EXPECTED_VERSION_LENGTH + expectedVersionLength;
+    }
+
+    bool writeFailed = bufferSize < minimumBufferSize;
+
+    if( !writeFailed && ( jobStatusString[ status ] != NULL ) )
     {
         ( void ) strnAppend( buffer, &start, bufferSize, JOBS_API_STATUS, JOBS_API_STATUS_LENGTH );
         ( void ) strnAppend( buffer, &start, bufferSize, jobStatusString[ status ], jobStatusStringLengths[ status ] );
+    }
+
+    /* This is an optional field so do not fail if expected version is missing */
+    if( !writeFailed && ( expectedVersion != NULL ) && ( expectedVersionLength > 0U ) )
+    {
         ( void ) strnAppend( buffer, &start, bufferSize, JOBS_API_EXPECTED_VERSION, JOBS_API_EXPECTED_VERSION_LENGTH );
         ( void ) strnAppend( buffer, &start, bufferSize, expectedVersion, expectedVersionLength );
+    }
+
+    if( !writeFailed )
+    {
         ( void ) strnAppend( buffer, &start, bufferSize, "\"}", ( CONST_STRLEN( "\"}" ) ) );
     }
 

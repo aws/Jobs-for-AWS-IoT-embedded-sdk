@@ -839,8 +839,8 @@ JobsStatus_t Jobs_Update( char * buffer,
  * @brief Populate a message string for an UpdateJobExecution request.
  *
  * @param status Current status of the job
- * @param expectedVersion The version that is expected
- * @param expectedVersionLength The length of the expectedVersion string
+ * @param expectedVersion The version that is expected, NULL if no version is expected
+ * @param expectedVersionLength The length of the expectedVersion string, 0U if no version is expected
  * @param buffer The buffer to be written to
  * @param bufferSize the size of the buffer
  *
@@ -853,6 +853,7 @@ JobsStatus_t Jobs_Update( char * buffer,
  * // The Following Example shows usage of the Jobs_UpdateMsg API to
  * // generate a message string for the UpdateJobExecution API
  * // of the AWS IoT Jobs Service
+ *
  * const char * expectedVersion = "2";
  * size_t expectedVersionLength = ( sizeof(expectedVersion ) - 1U );
  * JobCurrentStatus_t status = Succeeded;
