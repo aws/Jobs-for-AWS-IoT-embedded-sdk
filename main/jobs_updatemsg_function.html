@@ -111,8 +111,8 @@ $(document).ready(function(){initNavTree('jobs_updatemsg_function.html',''); ini
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">status</td><td>Current status of the job </td></tr>
-    <tr><td class="paramname">expectedVersion</td><td>The version that is expected </td></tr>
-    <tr><td class="paramname">expectedVersionLength</td><td>The length of the expectedVersion string </td></tr>
+    <tr><td class="paramname">expectedVersion</td><td>The version that is expected, NULL if no version is expected </td></tr>
+    <tr><td class="paramname">expectedVersionLength</td><td>The length of the expectedVersion string, 0U if no version is expected </td></tr>
     <tr><td class="paramname">buffer</td><td>The buffer to be written to </td></tr>
     <tr><td class="paramname">bufferSize</td><td>the size of the buffer</td></tr>
   </table>
@@ -124,6 +124,7 @@ messageLength if the write is successful</dd></dl>
 <p><b>Example</b> </p><div class="fragment"><div class="line"><span class="comment">// The Following Example shows usage of the Jobs_UpdateMsg API to</span></div>
 <div class="line"><span class="comment">// generate a message string for the UpdateJobExecution API</span></div>
 <div class="line"><span class="comment">// of the AWS IoT Jobs Service</span></div>
+<div class="line"> </div>
 <div class="line"><span class="keyword">const</span> <span class="keywordtype">char</span> * expectedVersion = <span class="stringliteral">&quot;2&quot;</span>;</div>
 <div class="line"><span class="keywordtype">size_t</span> expectedVersionLength = ( <span class="keyword">sizeof</span>(expectedVersion ) - 1U );</div>
 <div class="line"><a class="code hl_enumeration" href="jobs_8h.html#a0826978d630c337e77898b500bdc212c">JobCurrentStatus_t</a> status = Succeeded;</div>

@@ -614,8 +614,8 @@ The message length if the write is successful</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">status</td><td>Current status of the job </td></tr>
-    <tr><td class="paramname">expectedVersion</td><td>The version that is expected </td></tr>
-    <tr><td class="paramname">expectedVersionLength</td><td>The length of the expectedVersion string </td></tr>
+    <tr><td class="paramname">expectedVersion</td><td>The version that is expected, NULL if no version is expected </td></tr>
+    <tr><td class="paramname">expectedVersionLength</td><td>The length of the expectedVersion string, 0U if no version is expected </td></tr>
     <tr><td class="paramname">buffer</td><td>The buffer to be written to </td></tr>
     <tr><td class="paramname">bufferSize</td><td>the size of the buffer</td></tr>
   </table>
@@ -627,6 +627,7 @@ messageLength if the write is successful</dd></dl>
 <p><b>Example</b> </p><div class="fragment"><div class="line"><span class="comment">// The Following Example shows usage of the Jobs_UpdateMsg API to</span></div>
 <div class="line"><span class="comment">// generate a message string for the UpdateJobExecution API</span></div>
 <div class="line"><span class="comment">// of the AWS IoT Jobs Service</span></div>
+<div class="line"> </div>
 <div class="line"><span class="keyword">const</span> <span class="keywordtype">char</span> * expectedVersion = <span class="stringliteral">&quot;2&quot;</span>;</div>
 <div class="line"><span class="keywordtype">size_t</span> expectedVersionLength = ( <span class="keyword">sizeof</span>(expectedVersion ) - 1U );</div>
 <div class="line"><a class="code hl_enumeration" href="jobs_8h.html#a0826978d630c337e77898b500bdc212c">JobCurrentStatus_t</a> status = Succeeded;</div>
@@ -841,7 +842,7 @@ false If the topic is not the update/&lt;expectedStatus&gt; topic </dd></dl>
 <div class="line">    <span class="comment">// Store the Job ID so that it can be used as needed by other functions.</span></div>
 <div class="line">    <span class="comment">// For example, as an input to Jobs_Update.</span></div>
 <div class="line">}</div>
-<div class="ttc" id="ajobs_8h_html_a1bcd805a5a5534dd7b002285d573d340"><div class="ttname"><a href="jobs_8h.html#a1bcd805a5a5534dd7b002285d573d340">Jobs_GetJobId</a></div><div class="ttdeci">size_t Jobs_GetJobId(const char *message, size_t messageLength, const char **jobId)</div><div class="ttdoc">Retrieves the job ID from a given message (if applicable)</div><div class="ttdef"><b>Definition:</b> jobs.c:900</div></div>
+<div class="ttc" id="ajobs_8h_html_a1bcd805a5a5534dd7b002285d573d340"><div class="ttname"><a href="jobs_8h.html#a1bcd805a5a5534dd7b002285d573d340">Jobs_GetJobId</a></div><div class="ttdeci">size_t Jobs_GetJobId(const char *message, size_t messageLength, const char **jobId)</div><div class="ttdoc">Retrieves the job ID from a given message (if applicable)</div><div class="ttdef"><b>Definition:</b> jobs.c:915</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -906,7 +907,7 @@ false If the topic is not the update/&lt;expectedStatus&gt; topic </dd></dl>
 <div class="line">    <span class="comment">// extract the fields from the job document and store them</span></div>
 <div class="line">    <span class="comment">// in a AfrOtaJobDocumentFields_t stuct.</span></div>
 <div class="line">}</div>
-<div class="ttc" id="ajobs_8h_html_af967a6db18ca201f214caca004efad21"><div class="ttname"><a href="jobs_8h.html#af967a6db18ca201f214caca004efad21">Jobs_GetJobDocument</a></div><div class="ttdeci">size_t Jobs_GetJobDocument(const char *message, size_t messageLength, const char **jobDoc)</div><div class="ttdoc">Retrieves the job document from a given message (if applicable)</div><div class="ttdef"><b>Definition:</b> jobs.c:923</div></div>
+<div class="ttc" id="ajobs_8h_html_af967a6db18ca201f214caca004efad21"><div class="ttname"><a href="jobs_8h.html#af967a6db18ca201f214caca004efad21">Jobs_GetJobDocument</a></div><div class="ttdeci">size_t Jobs_GetJobDocument(const char *message, size_t messageLength, const char **jobDoc)</div><div class="ttdoc">Retrieves the job document from a given message (if applicable)</div><div class="ttdef"><b>Definition:</b> jobs.c:938</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
