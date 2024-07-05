@@ -322,7 +322,7 @@ typedef enum
  * @brief Structure for Jobs_UpdateMsg request parameters.
  *
  * @note For optional fields setting a pointer to NULL or
- * the length to 0U will disable this field from being used
+ * the length to 0U will disable this field from being used.
  *
  *
  * @note Optional fields include:
@@ -332,15 +332,15 @@ typedef enum
  *    * statusDetailsLength
  *
  * @note The status details must be a JSON formatted key-value
- * paid.
+ * pair.
  */
 typedef struct
 {
-    JobCurrentStatus_t status;    /**< Status to update the job to */
-    const char * expectedVersion; /**< Expected version, optional */
-    size_t expectedVersionLength; /**< Expected version length, optional */
-    const char * statusDetails;   /**< JSON key-value pair, optional */
-    size_t statusDetailsLength;   /**< JSON key-value pair length, optional */
+    JobCurrentStatus_t status;    /**< Status to update the job to. */
+    const char * expectedVersion; /**< Expected version, optional. */
+    size_t expectedVersionLength; /**< Expected version length, optional. */
+    const char * statusDetails;   /**< JSON key-value pair, optional. */
+    size_t statusDetailsLength;   /**< JSON key-value pair length, optional. */
 } JobsUpdateRequest_t;
 
 /*-----------------------------------------------------------*/
@@ -867,19 +867,19 @@ JobsStatus_t Jobs_Update( char * buffer,
 /**
  * @brief Populate a message string for an UpdateJobExecution request.
  *
- * @param request A jobs update request structure
- * @param buffer The buffer to be written to
- * @param bufferSize the size of the buffer
+ * @param request A jobs update request structure.
+ * @param buffer The buffer to be written to.
+ * @param bufferSize the size of the buffer.
  *
- * @return 0 if write to buffer fails
- * @return messageLength if the write is successful
+ * @return 0 if write to buffer fails.
+ * @return messageLength if the write is successful.
  *
  * <b>Example</b>
  * @code{c}
  *
  * // The Following Example shows usage of the Jobs_UpdateMsg API to
  * // generate a message string for the UpdateJobExecution API
- * // of the AWS IoT Jobs Service
+ * // of the AWS IoT Jobs Service.
  *
  * const char * expectedVersion = "2";
  * const chat * statusDetails = "{\"key\":\"value\"}";

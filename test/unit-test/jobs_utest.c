@@ -892,6 +892,7 @@ void test_getUpdateJobExecutionMsg_hasNullExpectedVersion( void )
     size_t result = Jobs_UpdateMsg( request, buffer, TOPIC_BUFFER_SIZE );
 
     TEST_ASSERT_EQUAL( 54U, result );
+    TEST_ASSERT_EQUAL_STRING( "{\"status\":\"QUEUED\",\"statusDetails\":\"{\"key\": \"value\"}\"}", buffer );
 }
 
 void test_getUpdateJobExecutionMsg_hasZeroLengthExpectedVersion( void )
@@ -909,6 +910,7 @@ void test_getUpdateJobExecutionMsg_hasZeroLengthExpectedVersion( void )
     size_t result = Jobs_UpdateMsg( request, buffer, TOPIC_BUFFER_SIZE );
 
     TEST_ASSERT_EQUAL( 54U, result );
+    TEST_ASSERT_EQUAL_STRING( "{\"status\":\"QUEUED\",\"statusDetails\":\"{\"key\": \"value\"}\"}", buffer );
 }
 
 void test_getUpdateJobExecutionMsg_hasNullStatusDetails( void )
@@ -926,6 +928,7 @@ void test_getUpdateJobExecutionMsg_hasNullStatusDetails( void )
     size_t result = Jobs_UpdateMsg( request, buffer, TOPIC_BUFFER_SIZE );
 
     TEST_ASSERT_EQUAL( 45U, result );
+    TEST_ASSERT_EQUAL_STRING( "{\"status\":\"QUEUED\",\"expectedVersion\":\"1.0.1\"}", buffer );
 }
 
 void test_getUpdateJobExecutionMsg_hasZeroLengthStatusDetails( void )
@@ -943,6 +946,7 @@ void test_getUpdateJobExecutionMsg_hasZeroLengthStatusDetails( void )
     size_t result = Jobs_UpdateMsg( request, buffer, TOPIC_BUFFER_SIZE );
 
     TEST_ASSERT_EQUAL( 45U, result );
+    TEST_ASSERT_EQUAL_STRING( "{\"status\":\"QUEUED\",\"expectedVersion\":\"1.0.1\"}", buffer );
 }
 
 void test_getUpdateJobExecutionMsg_hasMalformedStatusDetails( void )
@@ -1012,6 +1016,7 @@ void test_getUpdateJobExecutionMsg_hasAllValidParameters( void )
     size_t result = Jobs_UpdateMsg( request, buffer, TOPIC_BUFFER_SIZE );
 
     TEST_ASSERT_EQUAL( 80U, result );
+    TEST_ASSERT_EQUAL_STRING( "{\"status\":\"QUEUED\",\"expectedVersion\":\"1.0.1\",\"statusDetails\":\"{\"key\": \"value\"}\"}", buffer );
 }
 
 void test_getUpdateJobExecutionMsg_hasRequiredValidParameters( void )
@@ -1029,4 +1034,5 @@ void test_getUpdateJobExecutionMsg_hasRequiredValidParameters( void )
     size_t result = Jobs_UpdateMsg( request, buffer, TOPIC_BUFFER_SIZE );
 
     TEST_ASSERT_EQUAL( 19U, result );
+    TEST_ASSERT_EQUAL_STRING( "{\"status\":\"QUEUED\"}", buffer );
 }

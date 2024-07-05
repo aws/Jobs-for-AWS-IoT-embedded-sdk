@@ -91,15 +91,6 @@ static const char * const jobStatusString[] =
     "REJECTED"
 };
 
-static const size_t jobStatusStringLengths[] =
-{
-    CONST_STRLEN( "QUEUED" ),
-    CONST_STRLEN( "IN_PROGRESS" ),
-    CONST_STRLEN( "FAILED" ),
-    CONST_STRLEN( "SUCCEEDED" ),
-    CONST_STRLEN( "REJECTED" )
-};
-
 /**
  * @brief Predicate returns true for a valid thing name or job ID character.
  *
@@ -836,8 +827,8 @@ JobsStatus_t Jobs_Update( char * buffer,
  * the Jobs_UpdateMsg. These optional fields, if provided, require
  * additional buffer space.
  *
- * @param request A JobsUpdateRequest_t containing the optional fields
- * @return size_t The buffer space required for the optional fields
+ * @param request A JobsUpdateRequest_t containing the optional fields.
+ * @return size_t The buffer space required for the optional fields.
  */
 static size_t getOptionalFieldsLength( JobsUpdateRequest_t request )
 {
@@ -860,21 +851,21 @@ static size_t getOptionalFieldsLength( JobsUpdateRequest_t request )
  * @brief Get the total length of the required fields in the
  * Jobs_UpdateMsg request.
  *
- * @param request A JobsUpdateRequest_t containing the optional fields
- * @return size_t The buffer space required for the optional fields
+ * @param request A JobsUpdateRequest_t containing the optional fields.
+ * @return size_t The buffer space required for the optional fields.
  */
 static size_t getRequiredFieldsLength( JobsUpdateRequest_t request )
 {
-    return JOBS_API_STATUS_LENGTH + jobStatusStringLengths[ request.status ] + CONST_STRLEN( "\"}" );
+    return JOBS_API_STATUS_LENGTH + strlen( jobStatusString[ request.status ] ) + CONST_STRLEN( "\"}" );
 }
 
 /**
  * @brief Check non-null optional fields in the Jobs_UpdateMsg request
  * for validity.
  *
- * @param request A JobsUpdateRequest_t containing the optional fields
- * @return true Optional fields appear valid
- * @return false Optional fields are invalid
+ * @param request A JobsUpdateRequest_t containing the optional fields.
+ * @return true Optional fields appear valid.
+ * @return false Optional fields are invalid.
  */
 static bool areOptionalFieldsValid( JobsUpdateRequest_t request )
 {
@@ -901,17 +892,17 @@ size_t Jobs_UpdateMsg( JobsUpdateRequest_t request,
     if( !writeFailed )
     {
         ( void ) strnAppend( buffer, &start, bufferSize, JOBS_API_STATUS, JOBS_API_STATUS_LENGTH );
-        ( void ) strnAppend( buffer, &start, bufferSize, jobStatusString[ request.status ], jobStatusStringLengths[ request.status ] );
+        ( void ) strnAppend( buffer, &start, bufferSize, jobStatusString[ request.status ], strlen( jobStatusString[ request.status ] ) );
     }
 
-    /* This is an optional field so do not fail if expected version is missing */
+    /* This is an optional field so do not fail if expected version is missing.*/
     if( !writeFailed && ( request.expectedVersion != NULL ) && ( request.expectedVersionLength > 0U ) )
     {
         ( void ) strnAppend( buffer, &start, bufferSize, JOBS_API_EXPECTED_VERSION, JOBS_API_EXPECTED_VERSION_LENGTH );
         ( void ) strnAppend( buffer, &start, bufferSize, request.expectedVersion, request.expectedVersionLength );
     }
 
-    /* This is an optional field so do not fail if expected version is missing */
+    /* This is an optional field so do not fail if status details is missing.*/
     if( !writeFailed && ( request.statusDetails != NULL ) && ( request.statusDetailsLength > 0U ) )
     {
         ( void ) strnAppend( buffer, &start, bufferSize, JOBS_API_STATUS_DETAILS, JOBS_API_STATUS_DETAILS_LENGTH );
