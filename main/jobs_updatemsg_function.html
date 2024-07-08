@@ -100,40 +100,40 @@ $(document).ready(function(){initNavTree('jobs_updatemsg_function.html',''); ini
   <div class="headertitle"><div class="title">Jobs_UpdateMsg </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><div class="fragment"><div class="line"><span class="keywordtype">size_t</span> <a class="code hl_function" href="jobs_8h.html#a292af2fb589dd9975a25cb154abfe5e0">Jobs_UpdateMsg</a>( <a class="code hl_enumeration" href="jobs_8h.html#a0826978d630c337e77898b500bdc212c">JobCurrentStatus_t</a> status,</div>
-<div class="line">                       <span class="keyword">const</span> <span class="keywordtype">char</span> * expectedVersion,</div>
-<div class="line">                       <span class="keywordtype">size_t</span> expectedVersionLength,</div>
+<div class="textblock"><div class="fragment"><div class="line"><span class="keywordtype">size_t</span> <a class="code hl_function" href="jobs_8h.html#a40aac628fbe5e78d082bc51127befce1">Jobs_UpdateMsg</a>( <a class="code hl_struct" href="struct_jobs_update_request__t.html">JobsUpdateRequest_t</a> request,</div>
 <div class="line">                       <span class="keywordtype">char</span> * buffer,</div>
 <div class="line">                       <span class="keywordtype">size_t</span> bufferSize );</div>
-<div class="ttc" id="ajobs_8h_html_a0826978d630c337e77898b500bdc212c"><div class="ttname"><a href="jobs_8h.html#a0826978d630c337e77898b500bdc212c">JobCurrentStatus_t</a></div><div class="ttdeci">JobCurrentStatus_t</div><div class="ttdoc">Status codes for jobs.</div><div class="ttdef"><b>Definition:</b> jobs.h:267</div></div>
-<div class="ttc" id="ajobs_8h_html_a292af2fb589dd9975a25cb154abfe5e0"><div class="ttname"><a href="jobs_8h.html#a292af2fb589dd9975a25cb154abfe5e0">Jobs_UpdateMsg</a></div><div class="ttdeci">size_t Jobs_UpdateMsg(JobCurrentStatus_t status, const char *expectedVersion, size_t expectedVersionLength, char *buffer, size_t bufferSize)</div><div class="ttdoc">Populate a message string for an UpdateJobExecution request.</div><div class="ttdef"><b>Definition:</b> jobs.c:816</div></div>
+<div class="ttc" id="ajobs_8h_html_a40aac628fbe5e78d082bc51127befce1"><div class="ttname"><a href="jobs_8h.html#a40aac628fbe5e78d082bc51127befce1">Jobs_UpdateMsg</a></div><div class="ttdeci">size_t Jobs_UpdateMsg(JobsUpdateRequest_t request, char *buffer, size_t bufferSize)</div><div class="ttdoc">Populate a message string for an UpdateJobExecution request.</div><div class="ttdef"><b>Definition:</b> jobs.c:882</div></div>
+<div class="ttc" id="astruct_jobs_update_request__t_html"><div class="ttname"><a href="struct_jobs_update_request__t.html">JobsUpdateRequest_t</a></div><div class="ttdoc">Structure for Jobs_UpdateMsg request parameters.</div><div class="ttdef"><b>Definition:</b> jobs.h:338</div></div>
 </div><!-- fragment --><p>Populate a message string for an UpdateJobExecution request.  </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">status</td><td>Current status of the job </td></tr>
-    <tr><td class="paramname">expectedVersion</td><td>The version that is expected, NULL if no version is expected </td></tr>
-    <tr><td class="paramname">expectedVersionLength</td><td>The length of the expectedVersion string, 0U if no version is expected </td></tr>
-    <tr><td class="paramname">buffer</td><td>The buffer to be written to </td></tr>
-    <tr><td class="paramname">bufferSize</td><td>the size of the buffer</td></tr>
+    <tr><td class="paramname">request</td><td>A jobs update request structure. </td></tr>
+    <tr><td class="paramname">buffer</td><td>The buffer to be written to. </td></tr>
+    <tr><td class="paramname">bufferSize</td><td>the size of the buffer.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 if write to buffer fails </dd>
+<dl class="section return"><dt>Returns</dt><dd>0 if write to buffer fails. </dd>
 <dd>
-messageLength if the write is successful</dd></dl>
+messageLength if the write is successful.</dd></dl>
 <p><b>Example</b> </p><div class="fragment"><div class="line"><span class="comment">// The Following Example shows usage of the Jobs_UpdateMsg API to</span></div>
 <div class="line"><span class="comment">// generate a message string for the UpdateJobExecution API</span></div>
-<div class="line"><span class="comment">// of the AWS IoT Jobs Service</span></div>
+<div class="line"><span class="comment">// of the AWS IoT Jobs Service.</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">const</span> <span class="keywordtype">char</span> * expectedVersion = <span class="stringliteral">&quot;2&quot;</span>;</div>
-<div class="line"><span class="keywordtype">size_t</span> expectedVersionLength = ( <span class="keyword">sizeof</span>(expectedVersion ) - 1U );</div>
-<div class="line"><a class="code hl_enumeration" href="jobs_8h.html#a0826978d630c337e77898b500bdc212c">JobCurrentStatus_t</a> status = Succeeded;</div>
+<div class="line"><span class="keyword">const</span> chat * statusDetails = <span class="stringliteral">&quot;{\&quot;key\&quot;:\&quot;value\&quot;}&quot;</span>;</div>
 <div class="line"><span class="keywordtype">char</span> messageBuffer[ <a class="code hl_define" href="group__jobs__constants.html#ga8810ef863076252803d6c035d1f73227">UPDATE_JOB_MSG_LENGTH</a> ]  = {0};</div>
 <div class="line"><span class="keywordtype">size_t</span> messageLength = 0U;</div>
 <div class="line"> </div>
-<div class="line">messageLength = <a class="code hl_function" href="jobs_8h.html#a292af2fb589dd9975a25cb154abfe5e0">Jobs_UpdateMsg</a>( status,</div>
-<div class="line">                                expectedVersion,</div>
-<div class="line">                                expectedVersionLength,</div>
+<div class="line"><a class="code hl_struct" href="struct_jobs_update_request__t.html">JobsUpdateRequest_t</a> request;</div>
+<div class="line">request.<a class="code hl_variable" href="struct_jobs_update_request__t.html#ad1553cb9dd5d2f5761b061d8f187e0fc">status</a> = Succeeded;</div>
+<div class="line">request.<a class="code hl_variable" href="struct_jobs_update_request__t.html#af5479cdadf400c0811e4ef5950898510">expectedVersion</a> = expectedVersion;</div>
+<div class="line">request.<a class="code hl_variable" href="struct_jobs_update_request__t.html#a3428e215fbabe85d48d83b619276ba33">expectedVersionLength</a> = ( <span class="keyword">sizeof</span>( expectedVersion ) - 1U );</div>
+<div class="line">request.<a class="code hl_variable" href="struct_jobs_update_request__t.html#ac047ebf5bd87b8ec5fe7b74c90a7ea21">statusDetails</a> = statusDetails;</div>
+<div class="line">request.<a class="code hl_variable" href="struct_jobs_update_request__t.html#a6ff4a6f43c475d27331fa582b2b9aa37">statusDetailsLength</a> = ( <span class="keyword">sizeof</span>( statusDetails ) - 1U );</div>
+<div class="line"> </div>
+<div class="line">messageLength = <a class="code hl_function" href="jobs_8h.html#a40aac628fbe5e78d082bc51127befce1">Jobs_UpdateMsg</a>( request</div>
 <div class="line">                                messageBuffer,</div>
 <div class="line">                                <a class="code hl_define" href="group__jobs__constants.html#ga8810ef863076252803d6c035d1f73227">UPDATE_JOB_MSG_LENGTH</a> );</div>
 <div class="line"> </div>
@@ -145,6 +145,11 @@ messageLength if the write is successful</dd></dl>
 <div class="line">    <span class="comment">// MQTT client of your choice.</span></div>
 <div class="line">}</div>
 <div class="ttc" id="agroup__jobs__constants_html_ga8810ef863076252803d6c035d1f73227"><div class="ttname"><a href="group__jobs__constants.html#ga8810ef863076252803d6c035d1f73227">UPDATE_JOB_MSG_LENGTH</a></div><div class="ttdeci">#define UPDATE_JOB_MSG_LENGTH</div><div class="ttdoc">Size of Jobs Update Message Buffer.</div><div class="ttdef"><b>Definition:</b> jobs.h:61</div></div>
+<div class="ttc" id="astruct_jobs_update_request__t_html_a3428e215fbabe85d48d83b619276ba33"><div class="ttname"><a href="struct_jobs_update_request__t.html#a3428e215fbabe85d48d83b619276ba33">JobsUpdateRequest_t::expectedVersionLength</a></div><div class="ttdeci">size_t expectedVersionLength</div><div class="ttdef"><b>Definition:</b> jobs.h:341</div></div>
+<div class="ttc" id="astruct_jobs_update_request__t_html_a6ff4a6f43c475d27331fa582b2b9aa37"><div class="ttname"><a href="struct_jobs_update_request__t.html#a6ff4a6f43c475d27331fa582b2b9aa37">JobsUpdateRequest_t::statusDetailsLength</a></div><div class="ttdeci">size_t statusDetailsLength</div><div class="ttdef"><b>Definition:</b> jobs.h:343</div></div>
+<div class="ttc" id="astruct_jobs_update_request__t_html_ac047ebf5bd87b8ec5fe7b74c90a7ea21"><div class="ttname"><a href="struct_jobs_update_request__t.html#ac047ebf5bd87b8ec5fe7b74c90a7ea21">JobsUpdateRequest_t::statusDetails</a></div><div class="ttdeci">const char * statusDetails</div><div class="ttdef"><b>Definition:</b> jobs.h:342</div></div>
+<div class="ttc" id="astruct_jobs_update_request__t_html_ad1553cb9dd5d2f5761b061d8f187e0fc"><div class="ttname"><a href="struct_jobs_update_request__t.html#ad1553cb9dd5d2f5761b061d8f187e0fc">JobsUpdateRequest_t::status</a></div><div class="ttdeci">JobCurrentStatus_t status</div><div class="ttdef"><b>Definition:</b> jobs.h:339</div></div>
+<div class="ttc" id="astruct_jobs_update_request__t_html_af5479cdadf400c0811e4ef5950898510"><div class="ttname"><a href="struct_jobs_update_request__t.html#af5479cdadf400c0811e4ef5950898510">JobsUpdateRequest_t::expectedVersion</a></div><div class="ttdeci">const char * expectedVersion</div><div class="ttdef"><b>Definition:</b> jobs.h:340</div></div>
 </div><!-- fragment -->   </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
