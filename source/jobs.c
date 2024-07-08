@@ -82,6 +82,15 @@ static const size_t apiTopicLength[] =
     JOBS_API_UPDATE_LENGTH + JOBS_API_FAILURE_LENGTH,
 };
 
+static const char * const jobStatusString[] =
+{
+    "QUEUED",
+    "IN_PROGRESS",
+    "FAILED",
+    "SUCCEEDED",
+    "REJECTED"
+};
+
 /**
  * @brief Predicate returns true for a valid thing name or job ID character.
  *
@@ -813,53 +822,91 @@ JobsStatus_t Jobs_Update( char * buffer,
     return ret;
 }
 
-size_t Jobs_UpdateMsg( JobCurrentStatus_t status,
-                       const char * expectedVersion,
-                       size_t expectedVersionLength,
+/**
+ * @brief Get the total length of optional fields provided for
+ * the Jobs_UpdateMsg. These optional fields, if provided, require
+ * additional buffer space.
+ *
+ * @param request A JobsUpdateRequest_t containing the optional fields.
+ * @return size_t The buffer space required for the optional fields.
+ */
+static size_t getOptionalFieldsLength( JobsUpdateRequest_t request )
+{
+    size_t minimumOptionalFieldsBufferSize = 0U;
+
+    if( ( request.expectedVersion != NULL ) && ( request.expectedVersionLength > 0U ) )
+    {
+        minimumOptionalFieldsBufferSize += JOBS_API_EXPECTED_VERSION_LENGTH + request.expectedVersionLength;
+    }
+
+    if( ( request.statusDetails != NULL ) && ( request.statusDetailsLength ) )
+    {
+        minimumOptionalFieldsBufferSize += JOBS_API_STATUS_DETAILS_LENGTH + request.statusDetailsLength;
+    }
+
+    return minimumOptionalFieldsBufferSize;
+}
+
+/**
+ * @brief Get the total length of the required fields in the
+ * Jobs_UpdateMsg request.
+ *
+ * @param request A JobsUpdateRequest_t containing the optional fields.
+ * @return size_t The buffer space required for the optional fields.
+ */
+static size_t getRequiredFieldsLength( JobsUpdateRequest_t request )
+{
+    return JOBS_API_STATUS_LENGTH + strlen( jobStatusString[ request.status ] ) + CONST_STRLEN( "\"}" );
+}
+
+/**
+ * @brief Check non-null optional fields in the Jobs_UpdateMsg request
+ * for validity.
+ *
+ * @param request A JobsUpdateRequest_t containing the optional fields.
+ * @return true Optional fields appear valid.
+ * @return false Optional fields are invalid.
+ */
+static bool areOptionalFieldsValid( JobsUpdateRequest_t request )
+{
+    bool optionalFieldsValid = true;
+
+    if( ( request.statusDetails != NULL ) && ( request.statusDetailsLength ) )
+    {
+        optionalFieldsValid &= ( JSONSuccess == JSON_Validate( request.statusDetails, request.statusDetailsLength ) );
+    }
+
+    return optionalFieldsValid;
+}
+
+size_t Jobs_UpdateMsg( JobsUpdateRequest_t request,
                        char * buffer,
                        size_t bufferSize )
 {
-    static const char * const jobStatusString[] =
-    {
-        "QUEUED",
-        "IN_PROGRESS",
-        "FAILED",
-        "SUCCEEDED",
-        "REJECTED"
-    };
-
-    static const size_t jobStatusStringLengths[] =
-    {
-        CONST_STRLEN( "QUEUED" ),
-        CONST_STRLEN( "IN_PROGRESS" ),
-        CONST_STRLEN( "FAILED" ),
-        CONST_STRLEN( "SUCCEEDED" ),
-        CONST_STRLEN( "REJECTED" )
-    };
-
-    assert( ( ( size_t ) status ) < ARRAY_LENGTH( jobStatusString ) );
+    assert( ( ( size_t ) request.status ) < ARRAY_LENGTH( jobStatusString ) );
 
     size_t start = 0U;
-    size_t minimumBufferSize = JOBS_API_STATUS_LENGTH + jobStatusStringLengths[ status ] + CONST_STRLEN( "\"}" );
+    size_t minimumBufferSize = getRequiredFieldsLength( request ) + getOptionalFieldsLength( request );
+    bool writeFailed = bufferSize < minimumBufferSize || !areOptionalFieldsValid( request );
 
-    if( ( expectedVersion != NULL ) && ( expectedVersionLength > 0U ) )
-    {
-        minimumBufferSize += JOBS_API_EXPECTED_VERSION_LENGTH + expectedVersionLength;
-    }
-
-    bool writeFailed = bufferSize < minimumBufferSize;
-
-    if( !writeFailed && ( jobStatusString[ status ] != NULL ) )
+    if( !writeFailed )
     {
         ( void ) strnAppend( buffer, &start, bufferSize, JOBS_API_STATUS, JOBS_API_STATUS_LENGTH );
-        ( void ) strnAppend( buffer, &start, bufferSize, jobStatusString[ status ], jobStatusStringLengths[ status ] );
+        ( void ) strnAppend( buffer, &start, bufferSize, jobStatusString[ request.status ], strlen( jobStatusString[ request.status ] ) );
     }
 
-    /* This is an optional field so do not fail if expected version is missing */
-    if( !writeFailed && ( expectedVersion != NULL ) && ( expectedVersionLength > 0U ) )
+    /* This is an optional field so do not fail if expected version is missing.*/
+    if( !writeFailed && ( request.expectedVersion != NULL ) && ( request.expectedVersionLength > 0U ) )
     {
         ( void ) strnAppend( buffer, &start, bufferSize, JOBS_API_EXPECTED_VERSION, JOBS_API_EXPECTED_VERSION_LENGTH );
-        ( void ) strnAppend( buffer, &start, bufferSize, expectedVersion, expectedVersionLength );
+        ( void ) strnAppend( buffer, &start, bufferSize, request.expectedVersion, request.expectedVersionLength );
+    }
+
+    /* This is an optional field so do not fail if status details is missing.*/
+    if( !writeFailed && ( request.statusDetails != NULL ) && ( request.statusDetailsLength > 0U ) )
+    {
+        ( void ) strnAppend( buffer, &start, bufferSize, JOBS_API_STATUS_DETAILS, JOBS_API_STATUS_DETAILS_LENGTH );
+        ( void ) strnAppend( buffer, &start, bufferSize, request.statusDetails, request.statusDetailsLength );
     }
 
     if( !writeFailed )

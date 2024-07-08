@@ -878,65 +878,161 @@ void test_getStartNextPendingJobExecutionMsg_hasValidParameters( void )
 /*Tests for getUpdateJobExecutionMsg */
 void test_getUpdateJobExecutionMsg_hasNullExpectedVersion( void )
 {
-    JobCurrentStatus_t status = Queued;
     char buffer[ TOPIC_BUFFER_SIZE + 1 ] = { 0 };
 
-    size_t result = Jobs_UpdateMsg( status, NULL, 1U, buffer, TOPIC_BUFFER_SIZE );
+    JobsUpdateRequest_t request =
+    {
+        Queued,
+        NULL,
+        1,
+        "{\"key\": \"value\"}",
+        strlen( "{\"key\": \"value\"}" )
+    };
 
-    TEST_ASSERT_EQUAL( 19U, result );
+    size_t result = Jobs_UpdateMsg( request, buffer, TOPIC_BUFFER_SIZE );
+
+    TEST_ASSERT_EQUAL( 54U, result );
+    TEST_ASSERT_EQUAL_STRING( "{\"status\":\"QUEUED\",\"statusDetails\":\"{\"key\": \"value\"}\"}", buffer );
 }
 
 void test_getUpdateJobExecutionMsg_hasZeroLengthExpectedVersion( void )
 {
-    char * version = "1.0.1";
-    JobCurrentStatus_t status = Queued;
     char buffer[ TOPIC_BUFFER_SIZE + 1 ] = { 0 };
+    JobsUpdateRequest_t request =
+    {
+        Queued,
+        "1.0.1",
+        0,
+        "{\"key\": \"value\"}",
+        strlen( "{\"key\": \"value\"}" )
+    };
 
-    size_t result = Jobs_UpdateMsg( status, version, 0U, buffer, TOPIC_BUFFER_SIZE );
+    size_t result = Jobs_UpdateMsg( request, buffer, TOPIC_BUFFER_SIZE );
 
-    TEST_ASSERT_EQUAL( 19U, result );
+    TEST_ASSERT_EQUAL( 54U, result );
+    TEST_ASSERT_EQUAL_STRING( "{\"status\":\"QUEUED\",\"statusDetails\":\"{\"key\": \"value\"}\"}", buffer );
+}
+
+void test_getUpdateJobExecutionMsg_hasNullStatusDetails( void )
+{
+    char buffer[ TOPIC_BUFFER_SIZE + 1 ] = { 0 };
+    JobsUpdateRequest_t request =
+    {
+        Queued,
+        "1.0.1",
+        strlen( "1.0.1" ),
+        NULL,
+        strlen( "{\"key\": \"value\"}" )
+    };
+
+    size_t result = Jobs_UpdateMsg( request, buffer, TOPIC_BUFFER_SIZE );
+
+    TEST_ASSERT_EQUAL( 45U, result );
+    TEST_ASSERT_EQUAL_STRING( "{\"status\":\"QUEUED\",\"expectedVersion\":\"1.0.1\"}", buffer );
+}
+
+void test_getUpdateJobExecutionMsg_hasZeroLengthStatusDetails( void )
+{
+    char buffer[ TOPIC_BUFFER_SIZE + 1 ] = { 0 };
+    JobsUpdateRequest_t request =
+    {
+        Queued,
+        "1.0.1",
+        strlen( "1.0.1" ),
+        "{\"key\": \"value\"}",
+        0
+    };
+
+    size_t result = Jobs_UpdateMsg( request, buffer, TOPIC_BUFFER_SIZE );
+
+    TEST_ASSERT_EQUAL( 45U, result );
+    TEST_ASSERT_EQUAL_STRING( "{\"status\":\"QUEUED\",\"expectedVersion\":\"1.0.1\"}", buffer );
+}
+
+void test_getUpdateJobExecutionMsg_hasMalformedStatusDetails( void )
+{
+    char buffer[ TOPIC_BUFFER_SIZE + 1 ] = { 0 };
+    JobsUpdateRequest_t request =
+    {
+        Queued,
+        "1.0.1",
+        strlen( "1.0.1" ),
+        "malformed-details",
+        strlen( "malformed-details" )
+    };
+
+    size_t result = Jobs_UpdateMsg( request, buffer, TOPIC_BUFFER_SIZE );
+
+    TEST_ASSERT_EQUAL( 0U, result );
 }
 
 void test_getUpdateJobExecutionMsg_hasTooSmallBufferSizeForRequiredParameters( void )
 {
-    JobCurrentStatus_t status = Queued;
     char buffer[ 2 ] = { 0 };
+    JobsUpdateRequest_t request =
+    {
+        Queued,
+        NULL,
+        0,
+        NULL,
+        0
+    };
 
-    size_t result = Jobs_UpdateMsg( status, NULL, 0U, buffer, 1 );
+    size_t result = Jobs_UpdateMsg( request, buffer, 1 );
 
     TEST_ASSERT_EQUAL( 0U, result );
 }
 
 void test_getUpdateJobExecutionMsg_hasTooSmallBufferSizeForAllParameters( void )
 {
-    char * version = "1.0.1";
-    size_t versionLength = strlen( version );
-    JobCurrentStatus_t status = Queued;
-    char buffer[ 25 ] = { 0 };
+    char buffer[ 38 ] = { 0 };
 
-    size_t result = Jobs_UpdateMsg( status, version, versionLength, buffer, 1 );
+    JobsUpdateRequest_t request =
+    {
+        Queued,
+        "1.0.1",
+        strlen( "1.0.1" ),
+        "{\"key\": \"value\"}",
+        strlen( "{\"key\": \"value\"}" )
+    };
+
+    size_t result = Jobs_UpdateMsg( request, buffer, 38 );
 
     TEST_ASSERT_EQUAL( 0U, result );
 }
 
 void test_getUpdateJobExecutionMsg_hasAllValidParameters( void )
 {
-    char * version = "1.0.1";
-    size_t versionLength = strlen( version );
-    JobCurrentStatus_t status = Queued;
     char buffer[ TOPIC_BUFFER_SIZE + 1 ] = { 0 };
+    JobsUpdateRequest_t request =
+    {
+        Queued,
+        "1.0.1",
+        strlen( "1.0.1" ),
+        "{\"key\": \"value\"}",
+        strlen( "{\"key\": \"value\"}" )
+    };
 
-    size_t result = Jobs_UpdateMsg( status, version, versionLength, buffer, TOPIC_BUFFER_SIZE );
+    size_t result = Jobs_UpdateMsg( request, buffer, TOPIC_BUFFER_SIZE );
 
-    TEST_ASSERT_EQUAL( 45U, result );
+    TEST_ASSERT_EQUAL( 80U, result );
+    TEST_ASSERT_EQUAL_STRING( "{\"status\":\"QUEUED\",\"expectedVersion\":\"1.0.1\",\"statusDetails\":\"{\"key\": \"value\"}\"}", buffer );
 }
 
 void test_getUpdateJobExecutionMsg_hasRequiredValidParameters( void )
 {
-    JobCurrentStatus_t status = Queued;
     char buffer[ TOPIC_BUFFER_SIZE + 1 ] = { 0 };
+    JobsUpdateRequest_t request =
+    {
+        Queued,
+        NULL,
+        0,
+        NULL,
+        0
+    };
 
-    size_t result = Jobs_UpdateMsg( status, NULL, 0U, buffer, TOPIC_BUFFER_SIZE );
+    size_t result = Jobs_UpdateMsg( request, buffer, TOPIC_BUFFER_SIZE );
 
     TEST_ASSERT_EQUAL( 19U, result );
+    TEST_ASSERT_EQUAL_STRING( "{\"status\":\"QUEUED\"}", buffer );
 }

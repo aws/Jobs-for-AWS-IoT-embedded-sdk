@@ -150,6 +150,9 @@
 #define JOBS_API_EXPECTED_VERSION           "\",\"expectedVersion\":\""
 #define JOBS_API_EXPECTED_VERSION_LENGTH    ( sizeof( JOBS_API_EXPECTED_VERSION ) - 1U )
 
+#define JOBS_API_STATUS_DETAILS             "\",\"statusDetails\":\""
+#define JOBS_API_STATUS_DETAILS_LENGTH      ( sizeof( JOBS_API_STATUS_DETAILS ) - 1U )
+
 #define JOBS_API_COMMON_LENGTH( thingNameLength ) \
     ( JOBS_API_PREFIX_LENGTH + ( thingNameLength ) + JOBS_API_BRIDGE_LENGTH )
 
@@ -313,6 +316,32 @@ typedef enum
     JobsUpdateFailed,
     JobsMaxTopic
 } JobsTopic_t;
+
+/**
+ * @ingroup jobs_struct_types
+ * @brief Structure for Jobs_UpdateMsg request parameters.
+ *
+ * @note For optional fields setting a pointer to NULL or
+ * the length to 0U will disable this field from being used.
+ *
+ *
+ * @note Optional fields include:
+ *    * expectedVersion
+ *    * expectedVersionLength
+ *    * statusDetails
+ *    * statusDetailsLength
+ *
+ * @note The status details must be a JSON formatted key-value
+ * pair.
+ */
+typedef struct
+{
+    JobCurrentStatus_t status;    /**< Status to update the job to. */
+    const char * expectedVersion; /**< Expected version, optional. */
+    size_t expectedVersionLength; /**< Expected version length, optional. */
+    const char * statusDetails;   /**< JSON key-value pair, optional. */
+    size_t statusDetailsLength;   /**< JSON key-value pair length, optional. */
+} JobsUpdateRequest_t;
 
 /*-----------------------------------------------------------*/
 
@@ -838,31 +867,33 @@ JobsStatus_t Jobs_Update( char * buffer,
 /**
  * @brief Populate a message string for an UpdateJobExecution request.
  *
- * @param status Current status of the job
- * @param expectedVersion The version that is expected, NULL if no version is expected
- * @param expectedVersionLength The length of the expectedVersion string, 0U if no version is expected
- * @param buffer The buffer to be written to
- * @param bufferSize the size of the buffer
+ * @param request A jobs update request structure.
+ * @param buffer The buffer to be written to.
+ * @param bufferSize the size of the buffer.
  *
- * @return 0 if write to buffer fails
- * @return messageLength if the write is successful
+ * @return 0 if write to buffer fails.
+ * @return messageLength if the write is successful.
  *
  * <b>Example</b>
  * @code{c}
  *
  * // The Following Example shows usage of the Jobs_UpdateMsg API to
  * // generate a message string for the UpdateJobExecution API
- * // of the AWS IoT Jobs Service
+ * // of the AWS IoT Jobs Service.
  *
  * const char * expectedVersion = "2";
- * size_t expectedVersionLength = ( sizeof(expectedVersion ) - 1U );
- * JobCurrentStatus_t status = Succeeded;
+ * const chat * statusDetails = "{\"key\":\"value\"}";
  * char messageBuffer[ UPDATE_JOB_MSG_LENGTH ]  = {0};
  * size_t messageLength = 0U;
  *
- * messageLength = Jobs_UpdateMsg( status,
- *                                 expectedVersion,
- *                                 expectedVersionLength,
+ * JobsUpdateRequest_t request;
+ * request.status = Succeeded;
+ * request.expectedVersion = expectedVersion;
+ * request.expectedVersionLength = ( sizeof( expectedVersion ) - 1U );
+ * request.statusDetails = statusDetails;
+ * request.statusDetailsLength = ( sizeof( statusDetails ) - 1U );
+ *
+ * messageLength = Jobs_UpdateMsg( request
  *                                 messageBuffer,
  *                                 UPDATE_JOB_MSG_LENGTH );
  *
@@ -876,9 +907,7 @@ JobsStatus_t Jobs_Update( char * buffer,
  * @endcode
  */
 /* @[declare_jobs_updatemsg] */
-size_t Jobs_UpdateMsg( JobCurrentStatus_t status,
-                       const char * expectedVersion,
-                       size_t expectedVersionLength,
+size_t Jobs_UpdateMsg( JobsUpdateRequest_t request,
                        char * buffer,
                        size_t bufferSize );
 /* @[declare_jobs_updatemsg] */
