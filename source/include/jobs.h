@@ -681,7 +681,7 @@ JobsStatus_t Jobs_StartNext( char * buffer,
  * // The Following Example shows usage of the Jobs_StartNextMsg API
  * // to generate a message string for a StartNextPendingJobExecution request.
  *
- * const char * clientToken = "test";
+ * const char clientToken[] = "test";
  * size_t clientTokenLength = ( sizeof( clientToken ) - 1U );
  * char messageBuffer[ START_JOB_MSG_LENGTH ] = {0};
  * size_t messageLength = 0U;
@@ -881,8 +881,8 @@ JobsStatus_t Jobs_Update( char * buffer,
  * // generate a message string for the UpdateJobExecution API
  * // of the AWS IoT Jobs Service.
  *
- * const char * expectedVersion = "2";
- * const chat * statusDetails = "{\"key\":\"value\"}";
+ * const char expectedVersion[] = "2";
+ * const char statusDetails[] = "{\"key\":\"value\"}";
  * char messageBuffer[ UPDATE_JOB_MSG_LENGTH ]  = {0};
  * size_t messageLength = 0U;
  *
