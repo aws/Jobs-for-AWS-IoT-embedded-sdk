@@ -121,8 +121,8 @@ messageLength if the write is successful.</dd></dl>
 <div class="line"><span class="comment">// generate a message string for the UpdateJobExecution API</span></div>
 <div class="line"><span class="comment">// of the AWS IoT Jobs Service.</span></div>
 <div class="line"> </div>
-<div class="line"><span class="keyword">const</span> <span class="keywordtype">char</span> * expectedVersion = <span class="stringliteral">&quot;2&quot;</span>;</div>
-<div class="line"><span class="keyword">const</span> chat * statusDetails = <span class="stringliteral">&quot;{\&quot;key\&quot;:\&quot;value\&quot;}&quot;</span>;</div>
+<div class="line"><span class="keyword">const</span> <span class="keywordtype">char</span> expectedVersion[] = <span class="stringliteral">&quot;2&quot;</span>;</div>
+<div class="line"><span class="keyword">const</span> <span class="keywordtype">char</span> statusDetails[] = <span class="stringliteral">&quot;{\&quot;key\&quot;:\&quot;value\&quot;}&quot;</span>;</div>
 <div class="line"><span class="keywordtype">char</span> messageBuffer[ <a class="code hl_define" href="group__jobs__constants.html#ga8810ef863076252803d6c035d1f73227">UPDATE_JOB_MSG_LENGTH</a> ]  = {0};</div>
 <div class="line"><span class="keywordtype">size_t</span> messageLength = 0U;</div>
 <div class="line"> </div>

@@ -121,7 +121,7 @@ The message length if the write is successful</dd></dl>
 <p><b>Example</b> </p><div class="fragment"><div class="line"><span class="comment">// The Following Example shows usage of the Jobs_StartNextMsg API</span></div>
 <div class="line"><span class="comment">// to generate a message string for a StartNextPendingJobExecution request.</span></div>
 <div class="line"> </div>
-<div class="line"><span class="keyword">const</span> <span class="keywordtype">char</span> * clientToken = <span class="stringliteral">&quot;test&quot;</span>;</div>
+<div class="line"><span class="keyword">const</span> <span class="keywordtype">char</span> clientToken[] = <span class="stringliteral">&quot;test&quot;</span>;</div>
 <div class="line"><span class="keywordtype">size_t</span> clientTokenLength = ( <span class="keyword">sizeof</span>( clientToken ) - 1U );</div>
 <div class="line"><span class="keywordtype">char</span> messageBuffer[ <a class="code hl_define" href="group__jobs__constants.html#gafe00b72dedfd3aac85929f54dbbc1ac3">START_JOB_MSG_LENGTH</a> ] = {0};</div>
 <div class="line"><span class="keywordtype">size_t</span> messageLength = 0U;</div>
