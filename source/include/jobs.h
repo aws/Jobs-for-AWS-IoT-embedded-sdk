@@ -150,7 +150,7 @@
 #define JOBS_API_EXPECTED_VERSION           "\",\"expectedVersion\":\""
 #define JOBS_API_EXPECTED_VERSION_LENGTH    ( sizeof( JOBS_API_EXPECTED_VERSION ) - 1U )
 
-#define JOBS_API_STATUS_DETAILS             "\",\"statusDetails\":\""
+#define JOBS_API_STATUS_DETAILS             "\",\"statusDetails\":"
 #define JOBS_API_STATUS_DETAILS_LENGTH      ( sizeof( JOBS_API_STATUS_DETAILS ) - 1U )
 
 #define JOBS_API_COMMON_LENGTH( thingNameLength ) \

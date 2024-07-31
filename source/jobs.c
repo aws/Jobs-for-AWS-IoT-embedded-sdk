@@ -893,25 +893,26 @@ size_t Jobs_UpdateMsg( JobsUpdateRequest_t request,
     {
         ( void ) strnAppend( buffer, &start, bufferSize, JOBS_API_STATUS, JOBS_API_STATUS_LENGTH );
         ( void ) strnAppend( buffer, &start, bufferSize, jobStatusString[ request.status ], strlen( jobStatusString[ request.status ] ) );
-    }
 
-    /* This is an optional field so do not fail if expected version is missing.*/
-    if( !writeFailed && ( request.expectedVersion != NULL ) && ( request.expectedVersionLength > 0U ) )
-    {
-        ( void ) strnAppend( buffer, &start, bufferSize, JOBS_API_EXPECTED_VERSION, JOBS_API_EXPECTED_VERSION_LENGTH );
-        ( void ) strnAppend( buffer, &start, bufferSize, request.expectedVersion, request.expectedVersionLength );
-    }
+        /* This is an optional field so do not fail if expected version is missing.*/
+        if( ( request.expectedVersion != NULL ) && ( request.expectedVersionLength > 0U ) )
+        {
+            ( void ) strnAppend( buffer, &start, bufferSize, JOBS_API_EXPECTED_VERSION, JOBS_API_EXPECTED_VERSION_LENGTH );
+            ( void ) strnAppend( buffer, &start, bufferSize, request.expectedVersion, request.expectedVersionLength );
+        }
 
-    /* This is an optional field so do not fail if status details is missing.*/
-    if( !writeFailed && ( request.statusDetails != NULL ) && ( request.statusDetailsLength > 0U ) )
-    {
-        ( void ) strnAppend( buffer, &start, bufferSize, JOBS_API_STATUS_DETAILS, JOBS_API_STATUS_DETAILS_LENGTH );
-        ( void ) strnAppend( buffer, &start, bufferSize, request.statusDetails, request.statusDetailsLength );
-    }
+        /* This is an optional field so do not fail if status details is missing.*/
+        if( ( request.statusDetails != NULL ) && ( request.statusDetailsLength > 0U ) )
+        {
+            ( void ) strnAppend( buffer, &start, bufferSize, JOBS_API_STATUS_DETAILS, JOBS_API_STATUS_DETAILS_LENGTH );
+            ( void ) strnAppend( buffer, &start, bufferSize, request.statusDetails, request.statusDetailsLength );
 
-    if( !writeFailed )
-    {
-        ( void ) strnAppend( buffer, &start, bufferSize, "\"}", ( CONST_STRLEN( "\"}" ) ) );
+            ( void ) strnAppend( buffer, &start, bufferSize, "}", ( CONST_STRLEN( "}" ) ) );
+        }
+        else
+        {
+            ( void ) strnAppend( buffer, &start, bufferSize, "\"}", ( CONST_STRLEN( "\"}" ) ) );
+        }
     }
 
     return start;
