@@ -109,9 +109,11 @@ doxygen docs/doxygen/config.doxyfile
 
 ### Steps to build Unit Tests
 
-1. Create build directory: `mkdir build && cd build`
+1. Create build directory: `mkdir build`
 
-1. Run _cmake_ while inside build directory: `cmake -S ../test`
+1. Run _cmake_ while inside build directory: `cmake -S test/ -B build/`
+
+1. Change to build directory: `cd build`
 
 1. Run this command to build the library and unit tests: `make all`
 
