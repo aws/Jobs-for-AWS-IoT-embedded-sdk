@@ -3,7 +3,7 @@
 **[API Documentation Pages for current and previous releases of this library can be found here](https://aws.github.io/Jobs-for-AWS-IoT-embedded-sdk/)**
 
 The AWS IoT Jobs library helps you notify connected IoT devices of a pending
-[Job](https://freertos.org/jobs/jobs-terminology.html). A Job can be used to
+[Job](https://freertos.org/Documentation/03-Libraries/04-AWS-libraries/04-AWS-IoT-Jobs/02-Jobs-terminology). A Job can be used to
 manage your fleet of devices, update firmware and security certificates on your
 devices, or perform administrative tasks such as restarting devices and
 performing diagnostics. It interacts with the
@@ -81,7 +81,7 @@ locations below:
 |                                                           Location                                                           |
 | :--------------------------------------------------------------------------------------------------------------------------: |
 |     [AWS IoT Device SDK for Embedded C](https://github.com/aws/aws-iot-device-sdk-embedded-C#releases-and-documentation)     |
-| [FreeRTOS.org](https://freertos.org/Documentation/api-ref/jobs-for-aws-iot-embedded-sdk/docs/doxygen/output/html/index.html) |
+| [FreeRTOS.org](https://aws.github.io/Jobs-for-AWS-IoT-embedded-sdk/latest/) |
 
 Note that the latest included version of the AWS IoT Jobs library may differ
 across repositories.
