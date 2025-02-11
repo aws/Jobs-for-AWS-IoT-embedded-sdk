@@ -450,6 +450,27 @@ void test_populateJobDocFields_returnsTrue_givenValidMultiProtocolDocument( void
     TEST_ASSERT_EQUAL( UINT32_MAX, documentFields.authSchemeLen );
 }
 
+void test_populateJobDocFields_returnsFalse_givenValidInvalidOptionalFields( void )
+{
+    const char * document = "{\"afr_ota\":{\"protocols\":[\"HTTP\"],\"files\":["
+                            "{\"filepath\":\"/"
+                            "device\",\"filesize\":343135,\"fileid\":0,"
+                            "\"certfile\":\"/strangepath/"
+                            "certificate.cert\",\"fileType\": \"badParameter\","
+                            "\"update_data_url\":\"presignedS3Url.s3.amazon."
+                            "com\",\"auth_scheme\":\"aws.s3.presigned\",\"sig-"
+                            "sha256-ecdsa\":\"SIGNATUREHASH+ASDFLKJ123===\"}]}"
+                            "}";
+
+    result = false;
+    result = populateJobDocFields( document,
+                                   strlen( document ),
+                                   0,
+                                   &documentFields );
+
+    TEST_ASSERT_FALSE( result );
+}
+
 void test_populateJobDocFields_returnsFalse_whenEmptyProtocol( void )
 {
     const char *
