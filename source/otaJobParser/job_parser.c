@@ -31,6 +31,20 @@ static JSONStatus_t populateCommonFields( const char * jobDoc,
                                           AfrOtaJobDocumentFields_t * result );
 
 /**
+ * @brief Populates optional, common job document fields in result
+ *
+ * @param jobDoc FreeRTOS OTA job document
+ * @param jobDocLength OTA job document length
+ * @param fileIndex The index of the file to use
+ * @param result Job document structure to populate
+ * @return JSONStatus_t JSON parsing status
+ */
+static JSONStatus_t populateOptionalCommonFields( const char * jobDoc,
+                                                  const size_t jobDocLength,
+                                                  int32_t fileIndex,
+                                                  AfrOtaJobDocumentFields_t * result );
+
+/**
  * @brief Populates MQTT job document fields in result
  *
  * @param jobDoc FreeRTOS OTA job document
@@ -278,7 +292,38 @@ static JSONStatus_t populateCommonFields( const char * jobDoc,
         result->signatureLen = ( uint32_t ) jsonValueLength;
     }
 
+    if( jsonResult == JSONSuccess )
+    {
+        jsonResult = populateOptionalCommonFields( jobDoc,
+                                                   jobDocLength,
+                                                   fileIndex,
+                                                   result );
+    }
+
     return jsonResult;
+}
+
+static JSONStatus_t populateOptionalCommonFields( const char * jobDoc,
+                                                  const size_t jobDocLength,
+                                                  int32_t fileIndex,
+                                                  AfrOtaJobDocumentFields_t * result )
+{
+    JSONStatus_t jsonResult = JSONNotFound;
+    char queryString[ 33 ];
+    size_t queryStringLength;
+
+    buildIndexedFileQueryString( fileIndex,
+                                 "fileType",
+                                 8U,
+                                 queryString,
+                                 &queryStringLength );
+    jsonResult = searchUintValue( jobDoc,
+                                  jobDocLength,
+                                  queryString,
+                                  queryStringLength,
+                                  &( result->fileType ) );
+
+    return ( jsonResult == JSONBadParameter ) ? jsonResult : JSONSuccess;
 }
 
 static JSONStatus_t populateMqttStreamingFields( const char * jobDoc,
@@ -320,33 +365,19 @@ static JSONStatus_t populateHttpStreamingFields( const char * jobDoc,
     size_t queryStringLength;
 
     buildIndexedFileQueryString( fileIndex,
-                                 "fileType",
-                                 8U,
+                                 "auth_scheme",
+                                 11U,
                                  queryString,
                                  &queryStringLength );
-    jsonResult = searchUintValue( jobDoc,
-                                  jobDocLength,
-                                  queryString,
-                                  queryStringLength,
-                                  &( result->fileType ) );
-
-    if( jsonResult == JSONSuccess )
-    {
-        buildIndexedFileQueryString( fileIndex,
-                                     "auth_scheme",
-                                     11U,
-                                     queryString,
-                                     &queryStringLength );
-        jsonResult = JSON_SearchConst( jobDoc,
-                                       jobDocLength,
-                                       queryString,
-                                       queryStringLength,
-                                       &jsonValue,
-                                       &jsonValueLength,
-                                       NULL );
-        result->authScheme = jsonValue;
-        result->authSchemeLen = ( uint32_t ) jsonValueLength;
-    }
+    jsonResult = JSON_SearchConst( jobDoc,
+                                   jobDocLength,
+                                   queryString,
+                                   queryStringLength,
+                                   &jsonValue,
+                                   &jsonValueLength,
+                                   NULL );
+    result->authScheme = jsonValue;
+    result->authSchemeLen = ( uint32_t ) jsonValueLength;
 
     if( jsonResult == JSONSuccess )
     {

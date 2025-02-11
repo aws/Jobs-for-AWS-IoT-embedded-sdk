@@ -109,6 +109,47 @@ void test_populateJobDocFields_returnsTrue_givenValidMqttDocument( void )
     TEST_ASSERT_EQUAL( UINT32_MAX, documentFields.authSchemeLen );
 }
 
+void test_populateJobDocFields_returnsTrue_givenValidMqttDocumentWithOptionalFields( void )
+{
+    const char * document = "{\"afr_ota\":{\"protocols\":[\"MQTT\"],"
+                            "\"streamname\":\"AFR_OTA-streamname\",\"files\":[{"
+                            "\"filepath\":\"/device\",\"filesize\": "
+                            "123456789,\"fileid\":0,\"fileType\":1234,\"certfile\":\"certfile."
+                            "cert\",\"sig-sha256-ecdsa\":\"signature_hash_"
+                            "239871\"}]}}";
+
+    result = false;
+    result = populateJobDocFields( document,
+                                   strlen( document ),
+                                   0,
+                                   &documentFields );
+
+    TEST_ASSERT_TRUE( result );
+    TEST_ASSERT_EQUAL( 123456789U, documentFields.fileSize );
+    TEST_ASSERT_EQUAL( 0U, documentFields.fileId );
+    TEST_ASSERT_EQUAL_STRING_LEN( "certfile.cert",
+                                  documentFields.certfile,
+                                  strlen( "certfile.cert" ) );
+    TEST_ASSERT_EQUAL( strlen( "certfile.cert" ), documentFields.certfileLen );
+    TEST_ASSERT_EQUAL_STRING_LEN( "signature_hash_239871",
+                                  documentFields.signature,
+                                  strlen( "signature_hash_239871" ) );
+    TEST_ASSERT_EQUAL( strlen( "signature_hash_239871" ),
+                       documentFields.signatureLen );
+    TEST_ASSERT_EQUAL_STRING_LEN( "/device",
+                                  documentFields.filepath,
+                                  strlen( "/device" ) );
+    TEST_ASSERT_EQUAL( strlen( "/device" ), documentFields.filepathLen );
+    TEST_ASSERT_EQUAL_STRING_LEN( "AFR_OTA-streamname",
+                                  documentFields.imageRef,
+                                  strlen( "AFR_OTA-streamname" ) );
+    TEST_ASSERT_EQUAL( strlen( "AFR_OTA-streamname" ),
+                       documentFields.imageRefLen );
+    TEST_ASSERT_EQUAL( 1234U, documentFields.fileType );
+    TEST_ASSERT_NULL( documentFields.authScheme );
+    TEST_ASSERT_EQUAL( UINT32_MAX, documentFields.authSchemeLen );
+}
+
 void test_populateJobDocFields_returnsTrue_givenValidMultiFileMqttDocument( void )
 {
     const char * document = "{\"afr_ota\":{\"protocols\":[\"MQTT\"],"
@@ -190,8 +231,7 @@ void test_populateJobDocFields_returnsTrue_givenValidHttpDocument( void )
                             "{\"filepath\":\"/"
                             "device\",\"filesize\":343135,\"fileid\":0,"
                             "\"certfile\":\"/strangepath/"
-                            "certificate.cert\",\"fileType\": "
-                            "2,\"update_data_url\":\"presignedS3Url.s3.amazon."
+                            "certificate.cert\",\"update_data_url\":\"presignedS3Url.s3.amazon."
                             "com\",\"auth_scheme\":\"aws.s3.presigned\",\"sig-"
                             "sha256-ecdsa\":\"SIGNATUREHASH+ASDFLKJ123===\"}]}"
                             "}";
@@ -205,7 +245,55 @@ void test_populateJobDocFields_returnsTrue_givenValidHttpDocument( void )
     TEST_ASSERT_TRUE( result );
     TEST_ASSERT_EQUAL( 343135U, documentFields.fileSize );
     TEST_ASSERT_EQUAL( 0U, documentFields.fileId );
-    TEST_ASSERT_EQUAL( 2U, documentFields.fileType );
+    TEST_ASSERT_EQUAL_STRING_LEN( "/strangepath/certificate.cert",
+                                  documentFields.certfile,
+                                  strlen( "/strangepath/certificate.cert" ) );
+    TEST_ASSERT_EQUAL( strlen( "/strangepath/certificate.cert" ),
+                       documentFields.certfileLen );
+    TEST_ASSERT_EQUAL_STRING_LEN( "SIGNATUREHASH+ASDFLKJ123===",
+                                  documentFields.signature,
+                                  strlen( "SIGNATUREHASH+ASDFLKJ123===" ) );
+    TEST_ASSERT_EQUAL( strlen( "SIGNATUREHASH+ASDFLKJ123===" ),
+                       documentFields.signatureLen );
+    TEST_ASSERT_EQUAL_STRING_LEN( "/device",
+                                  documentFields.filepath,
+                                  strlen( "/device" ) );
+    TEST_ASSERT_EQUAL( strlen( "/device" ), documentFields.filepathLen );
+    TEST_ASSERT_EQUAL_STRING_LEN( "presignedS3Url.s3.amazon.com",
+                                  documentFields.imageRef,
+                                  strlen( "presignedS3Url.s3.amazon.com" ) );
+    TEST_ASSERT_EQUAL( strlen( "presignedS3Url.s3.amazon.com" ),
+                       documentFields.imageRefLen );
+    TEST_ASSERT_EQUAL_STRING_LEN( "aws.s3.presigned",
+                                  documentFields.authScheme,
+                                  strlen( "aws.s3.presigned" ) );
+    TEST_ASSERT_EQUAL( strlen( "aws.s3.presigned" ),
+                       documentFields.authSchemeLen );
+    TEST_ASSERT_EQUAL( UINT32_MAX, documentFields.fileType );
+}
+
+void test_populateJobDocFields_returnsTrue_givenValidHttpDocumentWithOptionalFields( void )
+{
+    const char * document = "{\"afr_ota\":{\"protocols\":[\"HTTP\"],\"files\":["
+                            "{\"filepath\":\"/"
+                            "device\",\"filesize\":343135,\"fileid\":0,"
+                            "\"certfile\":\"/strangepath/"
+                            "certificate.cert\",\"fileType\": "
+                            "1234,\"update_data_url\":\"presignedS3Url.s3.amazon."
+                            "com\",\"auth_scheme\":\"aws.s3.presigned\",\"sig-"
+                            "sha256-ecdsa\":\"SIGNATUREHASH+ASDFLKJ123===\"}]}"
+                            "}";
+
+    result = false;
+    result = populateJobDocFields( document,
+                                   strlen( document ),
+                                   0,
+                                   &documentFields );
+
+    TEST_ASSERT_TRUE( result );
+    TEST_ASSERT_EQUAL( 343135U, documentFields.fileSize );
+    TEST_ASSERT_EQUAL( 0U, documentFields.fileId );
+    TEST_ASSERT_EQUAL( 1234U, documentFields.fileType );
     TEST_ASSERT_EQUAL_STRING_LEN( "/strangepath/certificate.cert",
                                   documentFields.certfile,
                                   strlen( "/strangepath/certificate.cert" ) );
@@ -339,6 +427,7 @@ void test_populateJobDocFields_returnsTrue_givenValidMultiProtocolDocument( void
     TEST_ASSERT_TRUE( result );
     TEST_ASSERT_EQUAL( 123456789U, documentFields.fileSize );
     TEST_ASSERT_EQUAL( 0U, documentFields.fileId );
+    TEST_ASSERT_EQUAL( 66U, documentFields.fileType );
     TEST_ASSERT_EQUAL_STRING_LEN( "certfile.cert",
                                   documentFields.certfile,
                                   strlen( "certfile.cert" ) );
@@ -357,7 +446,6 @@ void test_populateJobDocFields_returnsTrue_givenValidMultiProtocolDocument( void
                                   strlen( "AFR_OTA-streamname" ) );
     TEST_ASSERT_EQUAL( strlen( "AFR_OTA-streamname" ),
                        documentFields.imageRefLen );
-    TEST_ASSERT_EQUAL( UINT32_MAX, documentFields.fileType );
     TEST_ASSERT_NULL( documentFields.authScheme );
     TEST_ASSERT_EQUAL( UINT32_MAX, documentFields.authSchemeLen );
 }
@@ -520,29 +608,6 @@ void test_populateJobDocFields_returnsFalse_whenMqttDocMissingStreamName( void )
                             "\"MEYCIQCVWi3ki1d9fqa1vrRS3dyDE7qJv4Dl1guB9qBzvTz7"
                             "AgIhAIdTm0MeZa2aHpHZnKQERLFpI69ii3GUhycQBOVqqP3N\""
                             "}]}}";
-
-    result = populateJobDocFields( document,
-                                   strlen( document ),
-                                   0,
-                                   &documentFields );
-
-    TEST_ASSERT_FALSE( result );
-}
-
-void test_populateJobDocFields_returnsFalse_whenHttpDocMissingFileType( void )
-{
-    const char * document = "{\"afr_ota\":{\"protocols\":[\"HTTP\"],\"files\":["
-                            "{\"filepath\":\"/"
-                            "device\",\"filesize\":343135,\"fileid\":0,"
-                            "\"certfile\":\"/strangepath/"
-                            "certificate.cert\",\"update_data_url\":\"${aws:"
-                            "iot:s3-presigned-url:https://"
-                            "s3.region.amazonaws.com/joe-ota/SignedImages/"
-                            "ffdac2a7-0f70-4f47-8940-886ad260445c}\",\"auth_"
-                            "scheme\":\"aws.s3.presigned\",\"sig-sha256-"
-                            "ecdsa\":\"MEQCIGOTD5owb5s3R3+"
-                            "OlxH5UZcy52Vuz6QrJhg83F8t8tBfAiBTNiX0e8RR5JOzHfSqW"
-                            "Kq4WJC/xUwMrcdHEWgSAKfGQA==\"}]}}";
 
     result = populateJobDocFields( document,
                                    strlen( document ),
