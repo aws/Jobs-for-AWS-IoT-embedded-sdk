@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 jobs:
   unittest:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Clone This Repo
         uses: actions/checkout@v3
