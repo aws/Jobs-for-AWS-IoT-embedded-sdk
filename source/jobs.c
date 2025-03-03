@@ -839,7 +839,7 @@ static size_t getOptionalFieldsLength( JobsUpdateRequest_t request )
         minimumOptionalFieldsBufferSize += JOBS_API_EXPECTED_VERSION_LENGTH + request.expectedVersionLength;
     }
 
-    if( ( request.statusDetails != NULL ) && ( request.statusDetailsLength > 0U) )
+    if( ( request.statusDetails != NULL ) && ( request.statusDetailsLength > 0U ) )
     {
         minimumOptionalFieldsBufferSize += JOBS_API_STATUS_DETAILS_LENGTH + request.statusDetailsLength;
     }
@@ -871,7 +871,7 @@ static bool areOptionalFieldsValid( JobsUpdateRequest_t request )
 {
     bool optionalFieldsValid = true;
 
-    if( ( request.statusDetails != NULL ) && ( request.statusDetailsLength > 0U) )
+    if( ( request.statusDetails != NULL ) && ( request.statusDetailsLength > 0U ) )
     {
         optionalFieldsValid = ( JSONSuccess == JSON_Validate( request.statusDetails, request.statusDetailsLength ) );
     }
