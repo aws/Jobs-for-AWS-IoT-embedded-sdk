@@ -897,7 +897,7 @@ JobsStatus_t Jobs_Update( char * buffer,
  *                                 messageBuffer,
  *                                 UPDATE_JOB_MSG_LENGTH );
  *
- * if (messageBufferLength > 0 )
+ * if (messageLength > 0 )
  * {
  *     // The message string of length, messageLength, has been
  *     // generated in the buffer, messageBuffer, for the UpdateJobExecution API
