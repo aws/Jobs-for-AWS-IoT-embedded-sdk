@@ -1,5 +1,5 @@
 /*
- * AWS IoT Jobs v1.5.1
+ * AWS IoT Jobs v2.0.0
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * SPDX-License-Identifier: MIT
@@ -897,7 +897,7 @@ JobsStatus_t Jobs_Update( char * buffer,
  *                                 messageBuffer,
  *                                 UPDATE_JOB_MSG_LENGTH );
  *
- * if (messageBufferLength > 0 )
+ * if (messageLength > 0 )
  * {
  *     // The message string of length, messageLength, has been
  *     // generated in the buffer, messageBuffer, for the UpdateJobExecution API

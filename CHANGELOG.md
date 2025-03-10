@@ -1,5 +1,11 @@
 # Changelog for AWS IoT Jobs Library
 
+## v2.0.0
+- [#105](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/105), [#109](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/109) Change the `Jobs_UpdateMsg` API signature to include optional status parameters.
+- [#99](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/99) Update CBMC version to 5.95.1
+- [#113](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/113) Update links for coverity related information.
+- [#115](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/115) Add support for optional job document fields
+
 ## v1.5.1 (June 2024)
 - Fix doxygen deployment on Github
 
