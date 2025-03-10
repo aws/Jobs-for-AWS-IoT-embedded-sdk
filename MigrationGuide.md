@@ -6,12 +6,12 @@ With Jobs-for-AWS-IoT-embedded-sdk versions $\geq$ v2.0.0, there are some breaki
 
 The signature of the `Jobs_UpdateMsg` API has been changed from
 ```c
-size_t Jobs_UpdateMsg( JobCurrentStatus_t status, 
-                       const char * expectedVersion, 
-                       size_t expectedVersionLength, 
-                       char * buffer, 
+size_t Jobs_UpdateMsg( JobCurrentStatus_t status,
+                       const char * expectedVersion,
+                       size_t expectedVersionLength,
+                       char * buffer,
                        size_t bufferSize )
-``` 
+```
 to
 ```c
 size_t Jobs_UpdateMsg( JobsUpdateRequest_t request,
