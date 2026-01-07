@@ -149,25 +149,41 @@ static bool addOverflowUint32( const uint32_t a,
 bool populateJobDocFields( const char * jobDoc,
                            const size_t jobDocLength,
                            int32_t fileIndex,
+                           const char * protocol,
+                           const size_t protocolLength,
                            AfrOtaJobDocumentFields_t * result )
 {
     bool populatedJobDocFields = false;
     JSONStatus_t jsonResult = JSONNotFound;
-    const char * protocol = NULL;
-    size_t protocolLength = 0U;
 
     /* TODO - Add assertions for NULL job docs or 0 length documents*/
     jsonResult = populateCommonFields( jobDoc, jobDocLength, fileIndex, result );
 
     if( jsonResult == JSONSuccess )
     {
+        // Get the protocols array
+        const char * protocolsArray = NULL;
+        size_t protocolsArrayLength = 0U;
         jsonResult = JSON_SearchConst( jobDoc,
                                        jobDocLength,
-                                       "afr_ota.protocols[0]",
-                                       20U,
-                                       &protocol,
-                                       &protocolLength,
-                                       NULL );
+                                       "afr_ota.protocols",
+                                       17U,
+                                       &protocolsArray,
+                                       &protocolsArrayLength, NULL );
+
+        // Iterate through the protocols array and find the matching protocol
+        if (jsonResult == JSONSuccess && protocolsArrayLength > 0) {
+            size_t start = 0U, next = 0U;
+            JSONPair_t outPair = {0};
+            jsonResult = JSONNotFound;
+            while (JSON_Iterate( protocolsArray, protocolsArrayLength, &start, &next, &outPair ) == JSONSuccess) {
+                if (outPair.valueLength == protocolLength && strncmp(outPair.value, protocol, protocolLength) == 0) {
+                    // Found the matching protocol
+                    jsonResult = JSONSuccess;
+                    break;
+                }
+            }
+        }
     }
 
     /* Determine if the supported protocol is MQTT or HTTP */

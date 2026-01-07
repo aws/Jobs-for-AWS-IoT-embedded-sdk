@@ -34,6 +34,8 @@ static bool isJobFileIndexValid( const char * jobDoc,
 int8_t otaParser_parseJobDocFile( const char * jobDoc,
                                   const size_t jobDocLength,
                                   const uint8_t fileIndex,
+                                  const char * protocol,
+                                  const size_t protocolLength,
                                   AfrOtaJobDocumentFields_t * fields )
 {
     bool fieldsPopulated = false;
@@ -46,6 +48,8 @@ int8_t otaParser_parseJobDocFile( const char * jobDoc,
             fieldsPopulated = populateJobDocFields( jobDoc,
                                                     jobDocLength,
                                                     ( int32_t ) fileIndex,
+                                                    protocol,
+                                                    protocolLength,
                                                     fields );
         }
 

@@ -100,6 +100,8 @@ static void expectPopulateJobDocWithFileIndex( const char * document,
     populateJobDocFields_ExpectAndReturn( document,
                                           docLength,
                                           index,
+                                          "MQTT",
+                                          4,
                                           NULL,
                                           true );
     populateJobDocFields_IgnoreArg_result();
@@ -117,6 +119,8 @@ void test_parseJobDocFile_returnsZero_whenSingleFileJob( void )
     int8_t result = otaParser_parseJobDocFile( AFR_OTA_DOCUMENT,
                                                AFR_OTA_DOCUMENT_LENGTH,
                                                0U,
+                                               "MQTT",
+                                               4,
                                                &parsedFields );
 
     TEST_ASSERT_EQUAL( 0, result );
@@ -134,6 +138,8 @@ void test_parseJobDocFile_returnsNextIndex_whenMultiFileIOTOtaJob( void )
     int8_t result = otaParser_parseJobDocFile( MULTI_FILE_OTA_DOCUMENT,
                                                MULTI_FILE_OTA_DOCUMENT_LENGTH,
                                                0U,
+                                               "MQTT",
+                                               4,
                                                &parsedFields );
 
     TEST_ASSERT_EQUAL( 1, result );
@@ -141,6 +147,8 @@ void test_parseJobDocFile_returnsNextIndex_whenMultiFileIOTOtaJob( void )
     result = otaParser_parseJobDocFile( MULTI_FILE_OTA_DOCUMENT,
                                         MULTI_FILE_OTA_DOCUMENT_LENGTH,
                                         1U,
+                                        "MQTT",
+                                        4,
                                         &parsedFields );
 
     TEST_ASSERT_EQUAL( 2, result );
@@ -155,6 +163,8 @@ void test_parseJobDocFile_returnsZero_whenLastFileIndex( void )
     int8_t result = otaParser_parseJobDocFile( MULTI_FILE_OTA_DOCUMENT,
                                                MULTI_FILE_OTA_DOCUMENT_LENGTH,
                                                2U,
+                                               "MQTT",
+                                               4,
                                                &parsedFields );
 
     TEST_ASSERT_EQUAL( 0, result );
@@ -165,6 +175,8 @@ void test_parseJobDocFile_returnsNegativeOne_whenIndexOutOfRange( void )
     int8_t result = otaParser_parseJobDocFile( AFR_OTA_DOCUMENT,
                                                AFR_OTA_DOCUMENT_LENGTH,
                                                1U,
+                                               "MQTT",
+                                               4,
                                                &parsedFields );
 
     TEST_ASSERT_EQUAL( -1, result );
@@ -175,6 +187,8 @@ void test_parseJobDocFile_returnsNegativeOne_whenParsingFails( void )
     populateJobDocFields_ExpectAndReturn( AFR_OTA_DOCUMENT,
                                           AFR_OTA_DOCUMENT_LENGTH,
                                           0,
+                                          "MQTT",
+                                          4,
                                           NULL,
                                           false );
     populateJobDocFields_IgnoreArg_result();
@@ -182,6 +196,8 @@ void test_parseJobDocFile_returnsNegativeOne_whenParsingFails( void )
     int8_t result = otaParser_parseJobDocFile( AFR_OTA_DOCUMENT,
                                                AFR_OTA_DOCUMENT_LENGTH,
                                                0U,
+                                               "MQTT",
+                                               4,
                                                &parsedFields );
 
     TEST_ASSERT_EQUAL( -1, result );
@@ -192,6 +208,8 @@ void test_parseJobDocFile_returnsNegativeOne_whenMultiFileParsingFails( void )
     populateJobDocFields_ExpectAndReturn( MULTI_FILE_OTA_DOCUMENT,
                                           MULTI_FILE_OTA_DOCUMENT_LENGTH,
                                           0,
+                                          "MQTT",
+                                          4,
                                           NULL,
                                           false );
     populateJobDocFields_IgnoreArg_result();
@@ -199,6 +217,8 @@ void test_parseJobDocFile_returnsNegativeOne_whenMultiFileParsingFails( void )
     int8_t result = otaParser_parseJobDocFile( MULTI_FILE_OTA_DOCUMENT,
                                                MULTI_FILE_OTA_DOCUMENT_LENGTH,
                                                0,
+                                               "MQTT",
+                                               4,
                                                &parsedFields );
 
     TEST_ASSERT_EQUAL( -1, result );
@@ -209,6 +229,8 @@ void test_parseJobDocFile_returnsNegativeOne_whenCustomJob( void )
     int8_t result = otaParser_parseJobDocFile( CUSTOM_DOCUMENT,
                                                CUSTOM_DOCUMENT_LENGTH,
                                                0U,
+                                               "MQTT",
+                                               4,
                                                &parsedFields );
 
     TEST_ASSERT_EQUAL( -1, result );
@@ -219,6 +241,8 @@ void test_parseJobDocFile_returnsFalse_givenNullJobDocument( void )
     int8_t result = otaParser_parseJobDocFile( NULL,
                                                CUSTOM_DOCUMENT_LENGTH,
                                                0U,
+                                               "MQTT",
+                                               4,
                                                &parsedFields );
 
     TEST_ASSERT_EQUAL( -1, result );
@@ -229,6 +253,8 @@ void test_parseJobDocFile_returnsFalse_givenZeroDocumentLength( void )
     int8_t result = otaParser_parseJobDocFile( AFR_OTA_DOCUMENT,
                                                0U,
                                                0U,
+                                               "MQTT",
+                                               4,
                                                &parsedFields );
 
     TEST_ASSERT_EQUAL( -1, result );

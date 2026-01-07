@@ -81,6 +81,8 @@ void test_populateJobDocFields_returnsTrue_givenValidMqttDocument( void )
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
+                                   "MQTT",
+                                   4,
                                    &documentFields );
 
     TEST_ASSERT_TRUE( result );
@@ -122,6 +124,8 @@ void test_populateJobDocFields_returnsTrue_givenValidMqttDocumentWithOptionalFie
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
+                                   "MQTT",
+                                   4,
                                    &documentFields );
 
     TEST_ASSERT_TRUE( result );
@@ -166,6 +170,8 @@ void test_populateJobDocFields_returnsTrue_givenValidMultiFileMqttDocument( void
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
+                                   "MQTT",
+                                   4,
                                    &documentFields );
 
     TEST_ASSERT_TRUE( result );
@@ -197,6 +203,8 @@ void test_populateJobDocFields_returnsTrue_givenValidMultiFileMqttDocument( void
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    1,
+                                   "MQTT",
+                                   4,
                                    &documentFields );
 
     TEST_ASSERT_TRUE( result );
@@ -240,6 +248,8 @@ void test_populateJobDocFields_returnsTrue_givenValidHttpDocument( void )
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
+                                   "HTTP",
+                                   4,
                                    &documentFields );
 
     TEST_ASSERT_TRUE( result );
@@ -288,6 +298,8 @@ void test_populateJobDocFields_returnsTrue_givenValidHttpDocumentWithOptionalFie
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
+                                   "HTTP",
+                                   4,
                                    &documentFields );
 
     TEST_ASSERT_TRUE( result );
@@ -340,6 +352,8 @@ void test_populateJobDocFields_returnsTrue_givenValidMultiFileHttpDocument( void
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
+                                   "HTTP",
+                                   4,
                                    &documentFields );
 
     TEST_ASSERT_TRUE( result );
@@ -375,6 +389,8 @@ void test_populateJobDocFields_returnsTrue_givenValidMultiFileHttpDocument( void
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    1,
+                                   "HTTP",
+                                   4,
                                    &documentFields );
 
     TEST_ASSERT_TRUE( result );
@@ -422,6 +438,8 @@ void test_populateJobDocFields_returnsTrue_givenValidMultiProtocolDocument( void
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
+                                   "MQTT",
+                                   4,
                                    &documentFields );
 
     TEST_ASSERT_TRUE( result );
@@ -466,6 +484,8 @@ void test_populateJobDocFields_returnsFalse_givenValidInvalidOptionalFields( voi
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
+                                   "MQTT",
+                                   4,
                                    &documentFields );
 
     TEST_ASSERT_FALSE( result );
@@ -485,6 +505,8 @@ void test_populateJobDocFields_returnsFalse_whenEmptyProtocol( void )
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
+                                   "MQTT",
+                                   4,
                                    &documentFields );
 
     TEST_ASSERT_FALSE( result );
@@ -505,6 +527,8 @@ void test_populateJobDocFields_returnsFalse_whenMissingProtocol( void )
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
+                                   "MQTT",
+                                   4,
                                    &documentFields );
 
     TEST_ASSERT_FALSE( result );
@@ -523,6 +547,8 @@ void test_populateJobDocFields_returnsFalse_whenMissingFilesize( void )
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
+                                   "MQTT",
+                                   4,
                                    &documentFields );
 
     TEST_ASSERT_FALSE( result );
@@ -543,6 +569,8 @@ void test_populateJobDocFields_returnsFalse_whenMissingFileId( void )
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
+                                   "MQTT",
+                                   4,
                                    &documentFields );
 
     TEST_ASSERT_FALSE( result );
@@ -561,6 +589,8 @@ void test_populateJobDocFields_returnsFalse_whenMissingFilePath( void )
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
+                                   "MQTT",
+                                   4,
                                    &documentFields );
 
     TEST_ASSERT_FALSE( result );
@@ -580,6 +610,8 @@ void test_populateJobDocFields_returnsFalse_whenMissingCertfile( void )
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
+                                   "MQTT",
+                                   4,
                                    &documentFields );
 
     TEST_ASSERT_FALSE( result );
@@ -597,6 +629,8 @@ void test_populateJobDocFields_returnsFalse_whenMissingSignature( void )
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
+                                   "MQTT",
+                                   4,
                                    &documentFields );
 
     TEST_ASSERT_FALSE( result );
@@ -614,6 +648,8 @@ void test_populateJobDocFields_returnsFalse_whenMqttDocEmptyStreamName( void )
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
+                                   "MQTT",
+                                   4,
                                    &documentFields );
 
     TEST_ASSERT_FALSE( result );
@@ -633,6 +669,8 @@ void test_populateJobDocFields_returnsFalse_whenMqttDocMissingStreamName( void )
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
+                                   "MQTT",
+                                   4,
                                    &documentFields );
 
     TEST_ASSERT_FALSE( result );
@@ -652,6 +690,8 @@ void test_populateJobDocFields_returnsFalse_whenHttpDocEmptyUrl( void )
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
+                                   "MQTT",
+                                   4,
                                    &documentFields );
 
     TEST_ASSERT_FALSE( result );
@@ -672,6 +712,8 @@ void test_populateJobDocFields_returnsFalse_whenHttpDocMissingUrl( void )
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
+                                   "MQTT",
+                                   4,
                                    &documentFields );
 
     TEST_ASSERT_FALSE( result );
@@ -695,6 +737,8 @@ void test_populateJobDocFields_returnsFalse_whenHttpDocMissingAuthScheme( void )
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
+                                   "MQTT",
+                                   4,
                                    &documentFields );
 
     TEST_ASSERT_FALSE( result );
@@ -713,6 +757,8 @@ void test_populateJobDocFields_returnsFalse_whenFileSizeIsNegativeInteger()
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
+                                   "MQTT",
+                                   4,
                                    &documentFields );
 
     TEST_ASSERT_FALSE( result );
@@ -731,6 +777,8 @@ void test_populateJobDocFields_returnsFalse_whenFileSizeZeroLength()
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
+                                   "MQTT",
+                                   4,
                                    &documentFields );
 
     TEST_ASSERT_FALSE( result );
@@ -749,7 +797,111 @@ void test_populateJobDocFields_returnsFalse_whenFileSizeTooLarge()
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
+                                   "MQTT",
+                                   4,
                                    &documentFields );
 
     TEST_ASSERT_FALSE( result );
+}
+
+void test_populateJobDocFields_returnsFalse_whenProtocolNotInProtocolsList( void )
+{
+    const char * document = "{\"afr_ota\":{\"protocols\":[\"MQTT\"],"
+                            "\"streamname\":\"AFR_OTA-streamname\",\"files\":[{"
+                            "\"filepath\":\"/device\",\"filesize\": "
+                            "123456789,\"fileid\":0,\"certfile\":\"certfile."
+                            "cert\",\"sig-sha256-ecdsa\":\"signature_hash_"
+                            "239871\"}]}}";
+
+    result = populateJobDocFields( document,
+                                   strlen( document ),
+                                   0,
+                                   "HTTP",  // Protocol not in the list
+                                   4,
+                                   &documentFields );
+
+    TEST_ASSERT_FALSE( result );
+}
+
+void test_populateJobDocFields_returnsTrue_whenProtocolInProtocolsList( void )
+{
+    const char * document = "{\"afr_ota\":{\"protocols\":[\"MQTT\"],"
+                            "\"streamname\":\"AFR_OTA-streamname\",\"files\":[{"
+                            "\"filepath\":\"/device\",\"filesize\": "
+                            "123456789,\"fileid\":0,\"certfile\":\"certfile."
+                            "cert\",\"sig-sha256-ecdsa\":\"signature_hash_"
+                            "239871\"}]}}";
+
+    result = populateJobDocFields( document,
+                                   strlen( document ),
+                                   0,
+                                   "MQTT",  // Protocol in the list
+                                   4,
+                                   &documentFields );
+
+    TEST_ASSERT_TRUE( result );
+    TEST_ASSERT_EQUAL( 123456789U, documentFields.fileSize );
+    TEST_ASSERT_EQUAL( 0U, documentFields.fileId );
+}
+
+void test_populateJobDocFields_returnsTrue_whenUsingHttpFromMultiProtocolDocument( void )
+{
+    const char * document = "{\"afr_ota\":{\"protocols\":[\"MQTT\",\"HTTP\"],"
+                            "\"streamname\":\"AFR_OTA-streamname\",\"files\":[{"
+                            "\"filepath\":\"/device\",\"filesize\": "
+                            "123456789,\"fileid\":0,\"certfile\":\"certfile."
+                            "cert\",\"fileType\": "
+                            "66,\"update_data_url\":\"unusedurl.s3.amazon."
+                            "com\",\"auth_scheme\":\"aws.s3.presigned\",\"sig-"
+                            "sha256-ecdsa\":\"signature_hash_239871\"}]}}";
+
+    result = populateJobDocFields( document,
+                                   strlen( document ),
+                                   0,
+                                   "HTTP",  // Use HTTP protocol from multi-protocol document
+                                   4,
+                                   &documentFields );
+
+    TEST_ASSERT_TRUE( result );
+    TEST_ASSERT_EQUAL( 123456789U, documentFields.fileSize );
+    TEST_ASSERT_EQUAL( 0U, documentFields.fileId );
+    TEST_ASSERT_EQUAL( 66U, documentFields.fileType );
+    /* Verify HTTP-specific fields are populated */
+    TEST_ASSERT_EQUAL_STRING_LEN( "unusedurl.s3.amazon.com",
+                                  documentFields.imageRef,
+                                  documentFields.imageRefLen );
+    TEST_ASSERT_EQUAL_STRING_LEN( "aws.s3.presigned",
+                                  documentFields.authScheme,
+                                  documentFields.authSchemeLen );
+}
+
+void test_populateJobDocFields_returnsTrue_whenUsingMqttFromMultiProtocolDocument( void )
+{
+    const char * document = "{\"afr_ota\":{\"protocols\":[\"HTTP\",\"MQTT\"],"
+                            "\"streamname\":\"AFR_OTA-streamname\",\"files\":[{"
+                            "\"filepath\":\"/device\",\"filesize\": "
+                            "123456789,\"fileid\":0,\"certfile\":\"certfile."
+                            "cert\",\"fileType\": "
+                            "66,\"update_data_url\":\"unusedurl.s3.amazon."
+                            "com\",\"auth_scheme\":\"aws.s3.presigned\",\"sig-"
+                            "sha256-ecdsa\":\"signature_hash_239871\"}]}}";
+
+    result = populateJobDocFields( document,
+                                   strlen( document ),
+                                   0,
+                                   "MQTT",  // Use MQTT protocol from multi-protocol document
+                                   4,
+                                   &documentFields );
+
+    TEST_ASSERT_TRUE( result );
+    TEST_ASSERT_EQUAL( 123456789U, documentFields.fileSize );
+    TEST_ASSERT_EQUAL( 0U, documentFields.fileId );
+    TEST_ASSERT_EQUAL( 66U, documentFields.fileType );
+    /* Verify MQTT-specific fields are populated */
+    TEST_ASSERT_EQUAL_STRING_LEN( "AFR_OTA-streamname",
+                                  documentFields.imageRef,
+                                  documentFields.imageRefLen );
+    /* For MQTT, authScheme should be NULL and authSchemeLen should remain uninitialized */
+    TEST_ASSERT_NULL( documentFields.authScheme );
+    TEST_ASSERT_EQUAL( UINT32_MAX, documentFields.authSchemeLen );
 }

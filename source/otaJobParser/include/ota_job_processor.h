@@ -23,6 +23,8 @@
  *
  * @param jobDoc The job document contained in the AWS IoT Job
  * @param jobDocLength The length of the job document
+ * @param protocol The preferred protocol to use
+ * @param protocolLength The length of the preferred protocol
  * @param fields A pointer to an job document fields structure populated by call
  * @return int8_t The next file index in the job. Returns 0 if no additional files are available. Returns -1 if error.
  *
@@ -53,6 +55,8 @@
 int8_t otaParser_parseJobDocFile( const char * jobDoc,
                                   const size_t jobDocLength,
                                   const uint8_t fileIndex,
+                                  const char * protocol,
+                                  const size_t protocolLength,
                                   AfrOtaJobDocumentFields_t * fields );
 /* @[declare_otaparser_parsejobdocfile] */
 

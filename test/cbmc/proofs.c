@@ -471,6 +471,8 @@ void proof_otaParser_parseJobDocFile( void )
     ret = otaParser_parseJobDocFile( jobDoc,
                                      jobDocLength,
                                      fileIndex,
+                                     "MQTT",
+                                     4,
                                      &fields );
 }
 
