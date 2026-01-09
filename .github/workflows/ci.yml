@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clone This Repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
       - name: Build
         run: |
           sudo apt-get install -y lcov sed
@@ -38,7 +38,7 @@ jobs:
   complexity:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
       - name: Check complexity
         uses: FreeRTOS/CI-CD-Github-Actions/complexity@main
         with:
@@ -46,7 +46,7 @@ jobs:
   doxygen:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
       - name: Run doxygen build
         uses: FreeRTOS/CI-CD-Github-Actions/doxygen@main
         with:
@@ -55,15 +55,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Clone This Repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
       - name: Run spellings check
         uses: FreeRTOS/CI-CD-Github-Actions/spellings@main
         with:
           path: ./
   formatting:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
       - name: Check formatting
         uses: FreeRTOS/CI-CD-Github-Actions/formatting@main
         with:
@@ -71,9 +71,9 @@ jobs:
   git-secrets:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
       - name: Checkout awslabs/git-secrets
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
         with:
           repository: awslabs/git-secrets
           ref: master
@@ -87,7 +87,7 @@ jobs:
   memory_statistics:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
       - name: Clone coreJSON
         run: git clone https://github.com/FreeRTOS/coreJSON.git --depth 1 --branch v3.2.0
       - name: Install Python3
@@ -103,7 +103,7 @@ jobs:
   link-verifier:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
       - name: Check Links
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -114,7 +114,7 @@ jobs:
   verify-manifest:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v6
         with:
           sparse-checkout: .
 
