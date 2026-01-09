@@ -816,7 +816,7 @@ void test_populateJobDocFields_returnsFalse_whenProtocolNotInProtocolsList( void
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
-                                   "HTTP",  // Protocol not in the list
+                                   "HTTP", /* Protocol not in the list */
                                    4,
                                    &documentFields );
 
@@ -835,7 +835,7 @@ void test_populateJobDocFields_returnsTrue_whenProtocolInProtocolsList( void )
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
-                                   "MQTT",  // Protocol in the list
+                                   "MQTT", /* Protocol in the list */
                                    4,
                                    &documentFields );
 
@@ -858,7 +858,7 @@ void test_populateJobDocFields_returnsTrue_whenUsingHttpFromMultiProtocolDocumen
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
-                                   "HTTP",  // Use HTTP protocol from multi-protocol document
+                                   "HTTP", /* Use HTTP protocol from multi-protocol document */
                                    4,
                                    &documentFields );
 
@@ -889,7 +889,7 @@ void test_populateJobDocFields_returnsTrue_whenUsingMqttFromMultiProtocolDocumen
     result = populateJobDocFields( document,
                                    strlen( document ),
                                    0,
-                                   "MQTT",  // Use MQTT protocol from multi-protocol document
+                                   "MQTT", /* Use MQTT protocol from multi-protocol document */
                                    4,
                                    &documentFields );
 

@@ -161,7 +161,7 @@ bool populateJobDocFields( const char * jobDoc,
 
     if( jsonResult == JSONSuccess )
     {
-        // Get the protocols array
+        /* Get the protocols array */
         const char * protocolsArray = NULL;
         size_t protocolsArrayLength = 0U;
         jsonResult = JSON_SearchConst( jobDoc,
@@ -171,14 +171,18 @@ bool populateJobDocFields( const char * jobDoc,
                                        &protocolsArray,
                                        &protocolsArrayLength, NULL );
 
-        // Iterate through the protocols array and find the matching protocol
-        if (jsonResult == JSONSuccess && protocolsArrayLength > 0) {
+        /* Iterate through the protocols array and find the matching protocol */
+        if( ( jsonResult == JSONSuccess ) && ( protocolsArrayLength > 0 ) )
+        {
             size_t start = 0U, next = 0U;
-            JSONPair_t outPair = {0};
+            JSONPair_t outPair = { 0 };
             jsonResult = JSONNotFound;
-            while (JSON_Iterate( protocolsArray, protocolsArrayLength, &start, &next, &outPair ) == JSONSuccess) {
-                if (outPair.valueLength == protocolLength && strncmp(outPair.value, protocol, protocolLength) == 0) {
-                    // Found the matching protocol
+
+            while( JSON_Iterate( protocolsArray, protocolsArrayLength, &start, &next, &outPair ) == JSONSuccess )
+            {
+                if( ( outPair.valueLength == protocolLength ) && ( strncmp( outPair.value, protocol, protocolLength ) == 0 ) )
+                {
+                    /* Found the matching protocol */
                     jsonResult = JSONSuccess;
                     break;
                 }
