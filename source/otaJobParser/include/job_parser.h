@@ -68,8 +68,8 @@ typedef struct
  * @param jobDoc FreeRTOS OTA job document
  * @param jobDocLength OTA job document length
  * @param fileIndex The index of the file to use properties of
- * @param protocol The preferred protocol to use
- * @param protocolLength The length of the preferred protocol
+ * @param protocol The protocol to use
+ * @param protocolLength The length of the protocol
  * @param result Job document structure to populate
  * @return true Job document fields were parsed from the document
  * @return false Job document fields were not parsed from the document

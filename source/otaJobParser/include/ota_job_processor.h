@@ -23,8 +23,8 @@
  *
  * @param jobDoc The job document contained in the AWS IoT Job
  * @param jobDocLength The length of the job document
- * @param protocol The preferred protocol to use
- * @param protocolLength The length of the preferred protocol
+ * @param protocol The protocol to use
+ * @param protocolLength The length of the protocol
  * @param fields A pointer to an job document fields structure populated by call
  * @return int8_t The next file index in the job. Returns 0 if no additional files are available. Returns -1 if error.
  *
