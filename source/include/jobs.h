@@ -43,6 +43,16 @@
 /* *INDENT-ON* */
 
 /**
+ * @cond DOXYGEN_IGNORE
+ * The current version of this library.
+ *
+ * If JOBS_LIBRARY_VERSION ends with + it represents the version in development
+ * after the numbered release.
+ */
+#define JOBS_LIBRARY_VERSION    "v2.0.0+"
+/** @endcond */
+
+/**
  * @ingroup jobs_constants
  * @brief  Size of Topic Buffer
  */
