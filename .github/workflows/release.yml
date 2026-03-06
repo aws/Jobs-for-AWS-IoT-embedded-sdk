@@ -27,4 +27,4 @@ jobs:
           branch: ${{ github.event.inputs.branch }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           repo_build_command: rm -rf ../build && cmake -S. -B ../build && make -C ../build all
-          run_test_command: 'sudo apt-get install -y lcov && rm -rf ../build && cmake -S test -B ../build -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DBUILD_CLONE_SUBMODULES=ON -DUNITTEST=1 -DCMAKE_C_FLAGS="--coverage -Wall -Wextra -Wsign-compare -Werror -DLIBRARY_LOG_LEVEL=LOG_DEBUG" && make -C ../build && ctest --test-dir ../build/ -E system --output-on-failure'
+          run_test_command: 'sudo apt-get install -y lcov && rm -rf ../build && cmake -S test -B ../build -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DUNITTEST=1 -DCMAKE_C_FLAGS="--coverage -Wall -Wextra -Wsign-compare -Werror -DLIBRARY_LOG_LEVEL=LOG_DEBUG" && make -C ../build && ctest --test-dir ../build/ -E system --output-on-failure'
