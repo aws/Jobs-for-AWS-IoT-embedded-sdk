@@ -45,9 +45,8 @@ FetchContent_Declare(
 
 FetchContent_Declare(
   CoreJSON
-  # hash: sha256-r0lJff61NK2rPtO7Wr6RudFNQiLt1D4M30V7/p60Zi0=
   GIT_REPOSITORY https://github.com/FreeRTOS/coreJSON.git
-  GIT_TAG dc1ab9130a1fb99b801a2a1fa8e9f42239f752be)
+  GIT_TAG cffa492da18c890181d64462f8af63992a69d3b0)
 
 FetchContent_MakeAvailable(CMock CoreJSON)
 

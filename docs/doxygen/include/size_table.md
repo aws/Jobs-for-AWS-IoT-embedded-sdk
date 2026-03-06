@@ -14,7 +14,7 @@
     </tr>
     <tr>
         <td>job_parser.c</td>
-        <td><center>1.0K</center></td>
+        <td><center>1.1K</center></td>
         <td><center>1.0K</center></td>
     </tr>
     <tr>
@@ -29,7 +29,7 @@
     </tr>
     <tr>
         <td><b>Total estimates</b></td>
-        <td><b><center>7.0K</center></b></td>
+        <td><b><center>7.1K</center></b></td>
         <td><b><center>6.2K</center></b></td>
     </tr>
 </table>
