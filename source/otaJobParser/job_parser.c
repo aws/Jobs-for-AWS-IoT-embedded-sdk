@@ -159,6 +159,11 @@ bool populateJobDocFields( const char * jobDoc,
     /* TODO - Add assertions for NULL job docs or 0 length documents*/
     jsonResult = populateCommonFields( jobDoc, jobDocLength, fileIndex, result );
 
+    if( ( jsonResult == JSONSuccess ) && ( protocolLength == 0U ) )
+    {
+        jsonResult = JSONBadParameter;
+    }
+
     if( jsonResult == JSONSuccess )
     {
         /* Get the protocols array */
@@ -172,7 +177,7 @@ bool populateJobDocFields( const char * jobDoc,
                                        &protocolsArrayLength, NULL );
 
         /* Iterate through the protocols array and find the matching protocol */
-        if( ( jsonResult == JSONSuccess ) && ( protocolsArrayLength > 0 ) )
+        if( ( jsonResult == JSONSuccess ) && ( protocolsArrayLength > 0U ) )
         {
             size_t start = 0U, next = 0U;
             JSONPair_t outPair = { 0 };
