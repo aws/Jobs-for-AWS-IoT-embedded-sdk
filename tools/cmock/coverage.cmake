@@ -10,7 +10,7 @@ execute_process(
 execute_process(
   COMMAND
     lcov --directory ${CMAKE_BINARY_DIR} --base-directory ${CMAKE_BINARY_DIR}
-    --initial --capture --rc lcov_branch_coverage=1 --rc
+    --initial --capture --rc branch_coverage=1 --rc
     genhtml_branch_coverage=1
     --output-file=${CMAKE_BINARY_DIR}/base_coverage.info)
 file(GLOB files "${CMAKE_BINARY_DIR}/bin/tests/*")
@@ -35,7 +35,7 @@ execute_process(COMMAND ruby ${CMOCK_DIR}/vendor/unity/auto/parse_output.rb -xml
 # capture data after running the tests
 execute_process(
   COMMAND
-    lcov --capture --rc lcov_branch_coverage=1 --rc genhtml_branch_coverage=1
+    lcov --capture --rc branch_coverage=1 --rc genhtml_branch_coverage=1
     --base-directory ${CMAKE_BINARY_DIR} --directory ${CMAKE_BINARY_DIR}
     --output-file ${CMAKE_BINARY_DIR}/second_coverage.info)
 
@@ -45,8 +45,8 @@ execute_process(
     lcov --base-directory ${CMAKE_BINARY_DIR} --directory ${CMAKE_BINARY_DIR}
     --add-tracefile ${CMAKE_BINARY_DIR}/base_coverage.info --add-tracefile
     ${CMAKE_BINARY_DIR}/second_coverage.info --output-file
-    ${CMAKE_BINARY_DIR}/coverage.info --no-external --rc lcov_branch_coverage=1)
+    ${CMAKE_BINARY_DIR}/coverage.info --no-external --rc branch_coverage=1)
 execute_process(
   COMMAND
-    genhtml --rc lcov_branch_coverage=1 --branch-coverage --output-directory
+    genhtml --rc branch_coverage=1 --branch-coverage --output-directory
     ${CMAKE_BINARY_DIR}/coverage ${CMAKE_BINARY_DIR}/coverage.info)
