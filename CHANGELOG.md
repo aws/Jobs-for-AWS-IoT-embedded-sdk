@@ -1,5 +1,11 @@
 # Changelog for AWS IoT Jobs Library
 
+## v2.0.1
+- [#121](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/121) Update checkout action versions, Ubuntu version for formatting
+- [#120](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/120) Add protocol selection to job document parsing
+- [#117](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/117) Remove formatting bot workflow
+- [#118](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/118) Add artifact backup action
+
 ## v2.0.0
 - [#105](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/105), [#109](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/109) Change the `Jobs_UpdateMsg` API signature to include optional status parameters.
 - [#99](https://github.com/aws/Jobs-for-AWS-IoT-embedded-sdk/pull/99) Update CBMC version to 5.95.1
